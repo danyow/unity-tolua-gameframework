@@ -35,7 +35,6 @@ public class DelegateFactory
 		dict.Add(typeof(System.Action<UnityEngine.AsyncOperation>), factory.System_Action_UnityEngine_AsyncOperation);
 		dict.Add(typeof(System.Action<LuaFramework.BaseEventData>), factory.System_Action_LuaFramework_BaseEventData);
 		dict.Add(typeof(System.Action<LuaFramework.LuaBehaviour>), factory.System_Action_LuaFramework_LuaBehaviour);
-		dict.Add(typeof(System.Action<UnityEngine.GameObject>), factory.System_Action_UnityEngine_GameObject);
 		dict.Add(typeof(System.Action<UnityEngine.GameObject,object>), factory.System_Action_UnityEngine_GameObject_object);
 		dict.Add(typeof(LuaFramework.TweenEvent), factory.LuaFramework_TweenEvent);
 		dict.Add(typeof(System.Action<float>), factory.System_Action_float);
@@ -58,7 +57,6 @@ public class DelegateFactory
 		DelegateTraits<System.Action<UnityEngine.AsyncOperation>>.Init(factory.System_Action_UnityEngine_AsyncOperation);
 		DelegateTraits<System.Action<LuaFramework.BaseEventData>>.Init(factory.System_Action_LuaFramework_BaseEventData);
 		DelegateTraits<System.Action<LuaFramework.LuaBehaviour>>.Init(factory.System_Action_LuaFramework_LuaBehaviour);
-		DelegateTraits<System.Action<UnityEngine.GameObject>>.Init(factory.System_Action_UnityEngine_GameObject);
 		DelegateTraits<System.Action<UnityEngine.GameObject,object>>.Init(factory.System_Action_UnityEngine_GameObject_object);
 		DelegateTraits<LuaFramework.TweenEvent>.Init(factory.LuaFramework_TweenEvent);
 		DelegateTraits<System.Action<float>>.Init(factory.System_Action_float);
@@ -81,7 +79,6 @@ public class DelegateFactory
 		TypeTraits<System.Action<UnityEngine.AsyncOperation>>.Init(factory.Check_System_Action_UnityEngine_AsyncOperation);
 		TypeTraits<System.Action<LuaFramework.BaseEventData>>.Init(factory.Check_System_Action_LuaFramework_BaseEventData);
 		TypeTraits<System.Action<LuaFramework.LuaBehaviour>>.Init(factory.Check_System_Action_LuaFramework_LuaBehaviour);
-		TypeTraits<System.Action<UnityEngine.GameObject>>.Init(factory.Check_System_Action_UnityEngine_GameObject);
 		TypeTraits<System.Action<UnityEngine.GameObject,object>>.Init(factory.Check_System_Action_UnityEngine_GameObject_object);
 		TypeTraits<LuaFramework.TweenEvent>.Init(factory.Check_LuaFramework_TweenEvent);
 		TypeTraits<System.Action<float>>.Init(factory.Check_System_Action_float);
@@ -104,7 +101,6 @@ public class DelegateFactory
 		StackTraits<System.Action<UnityEngine.AsyncOperation>>.Push = factory.Push_System_Action_UnityEngine_AsyncOperation;
 		StackTraits<System.Action<LuaFramework.BaseEventData>>.Push = factory.Push_System_Action_LuaFramework_BaseEventData;
 		StackTraits<System.Action<LuaFramework.LuaBehaviour>>.Push = factory.Push_System_Action_LuaFramework_LuaBehaviour;
-		StackTraits<System.Action<UnityEngine.GameObject>>.Push = factory.Push_System_Action_UnityEngine_GameObject;
 		StackTraits<System.Action<UnityEngine.GameObject,object>>.Push = factory.Push_System_Action_UnityEngine_GameObject_object;
 		StackTraits<LuaFramework.TweenEvent>.Push = factory.Push_LuaFramework_TweenEvent;
 		StackTraits<System.Action<float>>.Push = factory.Push_System_Action_float;
@@ -1253,63 +1249,6 @@ public class DelegateFactory
 	}
 
 	void Push_System_Action_LuaFramework_LuaBehaviour(IntPtr L, System.Action<LuaFramework.LuaBehaviour> o)
-	{
-		ToLua.Push(L, o);
-	}
-
-	class System_Action_UnityEngine_GameObject_Event : LuaDelegate
-	{
-		public System_Action_UnityEngine_GameObject_Event(LuaFunction func) : base(func) { }
-		public System_Action_UnityEngine_GameObject_Event(LuaFunction func, LuaTable self) : base(func, self) { }
-
-		public void Call(UnityEngine.GameObject param0)
-		{
-			func.BeginPCall();
-			func.PushSealed(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-
-		public void CallWithSelf(UnityEngine.GameObject param0)
-		{
-			func.BeginPCall();
-			func.Push(self);
-			func.PushSealed(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public System.Action<UnityEngine.GameObject> System_Action_UnityEngine_GameObject(LuaFunction func, LuaTable self, bool flag)
-	{
-		if (func == null)
-		{
-			System.Action<UnityEngine.GameObject> fn = delegate(UnityEngine.GameObject param0) { };
-			return fn;
-		}
-
-		if(!flag)
-		{
-			System_Action_UnityEngine_GameObject_Event target = new System_Action_UnityEngine_GameObject_Event(func);
-			System.Action<UnityEngine.GameObject> d = target.Call;
-			target.method = d.Method;
-			return d;
-		}
-		else
-		{
-			System_Action_UnityEngine_GameObject_Event target = new System_Action_UnityEngine_GameObject_Event(func, self);
-			System.Action<UnityEngine.GameObject> d = target.CallWithSelf;
-			target.method = d.Method;
-			return d;
-		}
-	}
-
-	bool Check_System_Action_UnityEngine_GameObject(IntPtr L, int pos)
-	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<UnityEngine.GameObject>), L, pos);
-	}
-
-	void Push_System_Action_UnityEngine_GameObject(IntPtr L, System.Action<UnityEngine.GameObject> o)
 	{
 		ToLua.Push(L, o);
 	}

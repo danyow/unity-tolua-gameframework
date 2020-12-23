@@ -12,19 +12,16 @@ function class(classname, super)
         setmetatable(cls, {__index = super})
         cls.super = super
     else
-        cls = {
-            ctor = function()
-            end
-        }
+        cls = {}
     end
 
     cls.__cname = classname
     cls.__index = cls
 
-    function cls.new()
+    function cls:new(param)
         local instance = setmetatable({}, cls)
         instance.class = cls
-        instance:_createGameObject()
+        instance:ctor(param)
         return instance
     end
 

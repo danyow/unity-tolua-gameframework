@@ -7,7 +7,6 @@ EventManager = LuaFramework.EventManager
 LuaManager   = LuaFramework.LuaManager.instance
 ResManager   = LuaFramework.ResManager.instance
 SoundManager = LuaFramework.SoundManager.instance
-UIManager    = LuaFramework.UIManager.instance
 
 --第三方插件
 JSON = require "cjson"

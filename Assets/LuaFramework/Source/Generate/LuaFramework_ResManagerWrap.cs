@@ -8,7 +8,7 @@ public class LuaFramework_ResManagerWrap
 	{
 		L.BeginClass(typeof(LuaFramework.ResManager), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("ExeCommand", ExeCommand);
-		L.RegFunction("CreatePrefab", CreatePrefab);
+		L.RegFunction("SpawnPrefab", SpawnPrefab);
 		L.RegFunction("OnSpawnDestroy", OnSpawnDestroy);
 		L.RegFunction("ClearMemory", ClearMemory);
 		L.RegFunction("__eq", op_Equality);
@@ -37,7 +37,7 @@ public class LuaFramework_ResManagerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int CreatePrefab(IntPtr L)
+	static int SpawnPrefab(IntPtr L)
 	{
 		try
 		{
@@ -49,7 +49,7 @@ public class LuaFramework_ResManagerWrap
 				string arg0 = ToLua.CheckString(L, 2);
 				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
 				System.Action<LuaFramework.LuaBehaviour> arg2 = (System.Action<LuaFramework.LuaBehaviour>)ToLua.CheckDelegate<System.Action<LuaFramework.LuaBehaviour>>(L, 4);
-				obj.CreatePrefab(arg0, arg1, arg2);
+				obj.SpawnPrefab(arg0, arg1, arg2);
 				return 0;
 			}
 			else if (count == 5)
@@ -59,7 +59,7 @@ public class LuaFramework_ResManagerWrap
 				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
 				System.Action<LuaFramework.LuaBehaviour> arg2 = (System.Action<LuaFramework.LuaBehaviour>)ToLua.CheckDelegate<System.Action<LuaFramework.LuaBehaviour>>(L, 4);
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
-				obj.CreatePrefab(arg0, arg1, arg2, arg3);
+				obj.SpawnPrefab(arg0, arg1, arg2, arg3);
 				return 0;
 			}
 			else if (count == 6)
@@ -70,12 +70,12 @@ public class LuaFramework_ResManagerWrap
 				System.Action<LuaFramework.LuaBehaviour> arg2 = (System.Action<LuaFramework.LuaBehaviour>)ToLua.CheckDelegate<System.Action<LuaFramework.LuaBehaviour>>(L, 4);
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
 				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
-				obj.CreatePrefab(arg0, arg1, arg2, arg3, arg4);
+				obj.SpawnPrefab(arg0, arg1, arg2, arg3, arg4);
 				return 0;
 			}
 			else
 			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaFramework.ResManager.CreatePrefab");
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaFramework.ResManager.SpawnPrefab");
 			}
 		}
 		catch (Exception e)

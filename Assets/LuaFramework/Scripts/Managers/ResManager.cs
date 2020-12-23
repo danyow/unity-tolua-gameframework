@@ -146,7 +146,7 @@ namespace LuaFramework
         /// <summary>
         /// 创建UI(destroyAssetBundle:当所有引用完全销毁后是否同时销毁AssetBundle)
         /// </summary>
-        public void CreatePrefab(string prefabPath, Transform parent, Action<LuaBehaviour> callback, bool destroyABAfterSpawn = false, bool destroyABAfterAllSpawnDestroy = false)
+        public void SpawnPrefab(string prefabPath, Transform parent, Action<LuaBehaviour> callback, bool destroyABAfterSpawn = false, bool destroyABAfterAllSpawnDestroy = false)
         {
             if (string.IsNullOrEmpty(prefabPath))
             {

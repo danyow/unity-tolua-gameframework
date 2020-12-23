@@ -1,21 +1,25 @@
 local LuaBehaviour = class("LuaBehaviour")
+--实现类内私有函数
+local Private = {}
 
-function LuaBehaviour:ctor()
+function LuaBehaviour:ctor(parent)
+    Private.createGameObject(self, parent)
 end
 
-function LuaBehaviour:_createGameObject()
+function Private:createGameObject(parent)
     local prefabPath = self:getPrefabPath()
-    ResManager:CreatePrefab(
+    ResManager:SpawnPrefab(
         prefabPath,
+        parent,
         function(go)
-            self:_onGameObjectCreated(go)
+            Private.onGameObjectCreated(self, go)
         end,
         self:destroyABAfterSpawn(),
         self:destroyABAfterAllSpawnDestroy()
     )
 end
 
-function LuaBehaviour:_onGameObjectCreated(go)
+function Private:onGameObjectCreated(go)
     self.gameObject = go
     self.transform = go.transform
     self:onAwake()

@@ -30,7 +30,6 @@ namespace LuaFramework
             isStarted = true;
 
             CommandController.Instance.AddManager(typeof(ResManager));
-            CommandController.Instance.AddManager(typeof(UIManager));
             CommandController.Instance.AddManager(typeof(LuaManager));
             CommandController.Instance.AddManager(typeof(SoundManager));
 

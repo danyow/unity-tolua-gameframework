@@ -15,8 +15,6 @@ public class LuaFramework_LuaBehaviourWrap
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("assetBundleName", get_assetBundleName, set_assetBundleName);
 		L.RegVar("prefabPath", get_prefabPath, set_prefabPath);
-		L.RegVar("canvas", get_canvas, set_canvas);
-		L.RegVar("isFloat", get_isFloat, set_isFloat);
 		L.RegVar("destroyABAfterAllSpawnDestroy", get_destroyABAfterAllSpawnDestroy, set_destroyABAfterAllSpawnDestroy);
 		L.EndClass();
 	}
@@ -146,44 +144,6 @@ public class LuaFramework_LuaBehaviourWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_canvas(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			LuaFramework.LuaBehaviour obj = (LuaFramework.LuaBehaviour)o;
-			UnityEngine.Canvas ret = obj.canvas;
-			ToLua.PushSealed(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index canvas on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_isFloat(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			LuaFramework.LuaBehaviour obj = (LuaFramework.LuaBehaviour)o;
-			bool ret = obj.isFloat;
-			LuaDLL.lua_pushboolean(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isFloat on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_destroyABAfterAllSpawnDestroy(IntPtr L)
 	{
 		object o = null;
@@ -237,44 +197,6 @@ public class LuaFramework_LuaBehaviourWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index prefabPath on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_canvas(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			LuaFramework.LuaBehaviour obj = (LuaFramework.LuaBehaviour)o;
-			UnityEngine.Canvas arg0 = (UnityEngine.Canvas)ToLua.CheckObject(L, 2, typeof(UnityEngine.Canvas));
-			obj.canvas = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index canvas on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_isFloat(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			LuaFramework.LuaBehaviour obj = (LuaFramework.LuaBehaviour)o;
-			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
-			obj.isFloat = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isFloat on a nil value");
 		}
 	}
 
