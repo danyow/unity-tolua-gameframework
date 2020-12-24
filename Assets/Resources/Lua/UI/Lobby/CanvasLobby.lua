@@ -13,7 +13,7 @@ function CanvasLobby:onAwake()
     local btnLogout = self.transform:Find("Panel/BtnLogout")
     UIEventManager.SetButtonClick(
         btnLogout,
-        function(btn, param)
+        function()
             Destroy(self.gameObject)
             local CanvasLogin = require "UI.Login.CanvasLogin"
             CanvasLogin:new()
@@ -23,7 +23,7 @@ function CanvasLobby:onAwake()
     local btnPlayerInfo = self.transform:Find("Panel/BtnPlayerInfo")
     UIEventManager.SetButtonClick(
         btnPlayerInfo,
-        function(btn, param)
+        function()
             local CanvasPlayerInfo = require "UI.PlayerInfo.CanvasPlayerInfo"
             CanvasPlayerInfo:new()
         end
@@ -32,7 +32,7 @@ function CanvasLobby:onAwake()
     local btnBtnShop = self.transform:Find("Panel/BtnShop")
     UIEventManager.SetButtonClick(
         btnBtnShop,
-        function(btn, param)
+        function()
             local CanvasShop = require "UI.Shop.CanvasShop"
             CanvasShop:new()
         end
@@ -41,7 +41,7 @@ function CanvasLobby:onAwake()
     local btnFight = self.transform:Find("Panel/BtnFight")
     UIEventManager.SetButtonClick(
         btnFight,
-        function(btn, param)
+        function()
             local CanvasRoom = require "UI.Room.CanvasRoom"
             CanvasRoom:new()
         end

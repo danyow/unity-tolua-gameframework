@@ -146,7 +146,7 @@ namespace LuaFramework
         /// <summary>
         /// 创建UI(destroyAssetBundle:当所有引用完全销毁后是否同时销毁AssetBundle)
         /// </summary>
-        public void SpawnPrefab(string prefabPath, Transform parent, Action<LuaBehaviour> callback, bool destroyABAfterSpawn = false, bool destroyABAfterAllSpawnDestroy = false)
+        public void SpawnPrefab(string prefabPath, Transform parent, Action<GameObject> callback, bool destroyABAfterSpawn = false, bool destroyABAfterAllSpawnDestroy = false)
         {
             if (string.IsNullOrEmpty(prefabPath))
             {
@@ -171,7 +171,7 @@ namespace LuaFramework
                     luaBehaviour.assetBundleName = assetBundleName;
                     luaBehaviour.prefabPath = prefabPath;
                     luaBehaviour.destroyABAfterAllSpawnDestroy = destroyABAfterAllSpawnDestroy;
-                    if (callback != null) callback(luaBehaviour);
+                    if (callback != null) callback(luaBehaviour.gameObject);
                 }, destroyABAfterSpawn));
             }
             else
@@ -183,7 +183,7 @@ namespace LuaFramework
                 luaBehaviour.assetBundleName = "";
                 luaBehaviour.prefabPath = prefabPath;
                 luaBehaviour.destroyABAfterAllSpawnDestroy = destroyABAfterAllSpawnDestroy;
-                if (callback != null) callback(luaBehaviour);
+                if (callback != null) callback(luaBehaviour.gameObject);
             }
         }
 

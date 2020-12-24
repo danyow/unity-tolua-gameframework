@@ -9,7 +9,7 @@ function CanvasFight:onAwake()
     local btnBack = self.transform:Find("Panel/BtnBack")
     UIEventManager.SetButtonClick(
         btnBack,
-        function(btn, param)
+        function()
             Destroy(self.gameObject)
             local CanvasLobby = require "UI.Lobby.CanvasLobby"
             CanvasLobby:new()

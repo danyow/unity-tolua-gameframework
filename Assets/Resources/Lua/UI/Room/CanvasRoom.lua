@@ -10,7 +10,7 @@ function CanvasRoom:onAwake()
     local btnBack = self.transform:Find("Panel/BtnBack")
     UIEventManager.SetButtonClick(
         btnBack,
-        function(btn, param)
+        function()
             Destroy(self.gameObject)
         end
     )
@@ -19,9 +19,8 @@ function CanvasRoom:onAwake()
         local btnRoom = self.transform:Find("Panel/BtnRoom" .. i)
         UIEventManager.SetButtonClick(
             btnRoom,
-            function(btn, param)
+            function(param)
                 print("进入房间："..param)
-                UIManager:ClearAllUI()
                 local CanvasFight = require "UI.Fight.CanvasFight"
                 CanvasFight:new()
             end,

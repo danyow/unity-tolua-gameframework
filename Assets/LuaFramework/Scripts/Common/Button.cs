@@ -13,7 +13,7 @@ namespace LuaFramework
         public object param = 0;
         public TriggerMethod triggerMethod = TriggerMethod.Up;
         public float canTriggerInterval = 0f;
-        public Action<GameObject, object> onClick, onTouchDown, onTouchClick, onTouchUp;
+        public Action<object> onClick, onTouchDown, onTouchClick, onTouchUp;
         public RectTransform rectTransform { get { return transform as RectTransform; } }
         float doubleTimer;
         float canTouchTimer;
@@ -54,7 +54,7 @@ namespace LuaFramework
                 {
                     if (canTouchTimer <= 0f)
                     {
-                        if (onClick != null) onClick.Invoke(gameObject, param);
+                        if (onClick != null) onClick.Invoke(param);
                         canTouchTimer = canTriggerInterval;
                         if (buttonChange && canTouchTimer > 0)
                         {
@@ -72,7 +72,7 @@ namespace LuaFramework
                     {
                         if (canTouchTimer <= 0f)
                         {
-                            if (onClick != null) onClick.Invoke(gameObject, param);
+                            if (onClick != null) onClick.Invoke(param);
                             doubleTimer = 0f;
                             canTouchTimer = canTriggerInterval;
                             if (buttonChange && canTouchTimer > 0)
@@ -84,7 +84,7 @@ namespace LuaFramework
                 }
                 if (onTouchDown != null)
                 {
-                    onTouchDown.Invoke(gameObject, param);
+                    onTouchDown.Invoke(param);
                 }
                 currPointerId = eventData.pointerId;
             }
@@ -101,7 +101,7 @@ namespace LuaFramework
             {
                 if (onTouchUp != null)
                 {
-                    onTouchUp.Invoke(gameObject, param);
+                    onTouchUp.Invoke(param);
                 }
                 currPointerId = -1;
             }
@@ -115,7 +115,7 @@ namespace LuaFramework
                 {
                     if (canTouchTimer <= 0f)
                     {
-                        if (onClick != null) onClick.Invoke(gameObject, param);
+                        if (onClick != null) onClick.Invoke(param);
                         canTouchTimer = canTriggerInterval;
                         if (buttonChange && canTouchTimer > 0)
                         {
@@ -125,7 +125,7 @@ namespace LuaFramework
                 }
                 if (onTouchClick != null)
                 {
-                    onTouchClick.Invoke(gameObject, param);
+                    onTouchClick.Invoke(param);
                 }
             }
         }

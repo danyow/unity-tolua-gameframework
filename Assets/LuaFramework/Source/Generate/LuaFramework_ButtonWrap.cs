@@ -158,7 +158,7 @@ public class LuaFramework_ButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			LuaFramework.Button obj = (LuaFramework.Button)o;
-			System.Action<UnityEngine.GameObject,object> ret = obj.onClick;
+			System.Action<object> ret = obj.onClick;
 			ToLua.Push(L, ret);
 			return 1;
 		}
@@ -177,7 +177,7 @@ public class LuaFramework_ButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			LuaFramework.Button obj = (LuaFramework.Button)o;
-			System.Action<UnityEngine.GameObject,object> ret = obj.onTouchDown;
+			System.Action<object> ret = obj.onTouchDown;
 			ToLua.Push(L, ret);
 			return 1;
 		}
@@ -196,7 +196,7 @@ public class LuaFramework_ButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			LuaFramework.Button obj = (LuaFramework.Button)o;
-			System.Action<UnityEngine.GameObject,object> ret = obj.onTouchClick;
+			System.Action<object> ret = obj.onTouchClick;
 			ToLua.Push(L, ret);
 			return 1;
 		}
@@ -215,7 +215,7 @@ public class LuaFramework_ButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			LuaFramework.Button obj = (LuaFramework.Button)o;
-			System.Action<UnityEngine.GameObject,object> ret = obj.onTouchUp;
+			System.Action<object> ret = obj.onTouchUp;
 			ToLua.Push(L, ret);
 			return 1;
 		}
@@ -310,7 +310,7 @@ public class LuaFramework_ButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			LuaFramework.Button obj = (LuaFramework.Button)o;
-			System.Action<UnityEngine.GameObject,object> arg0 = (System.Action<UnityEngine.GameObject,object>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,object>>(L, 2);
+			System.Action<object> arg0 = (System.Action<object>)ToLua.CheckDelegate<System.Action<object>>(L, 2);
 			obj.onClick = arg0;
 			return 0;
 		}
@@ -329,7 +329,7 @@ public class LuaFramework_ButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			LuaFramework.Button obj = (LuaFramework.Button)o;
-			System.Action<UnityEngine.GameObject,object> arg0 = (System.Action<UnityEngine.GameObject,object>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,object>>(L, 2);
+			System.Action<object> arg0 = (System.Action<object>)ToLua.CheckDelegate<System.Action<object>>(L, 2);
 			obj.onTouchDown = arg0;
 			return 0;
 		}
@@ -348,7 +348,7 @@ public class LuaFramework_ButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			LuaFramework.Button obj = (LuaFramework.Button)o;
-			System.Action<UnityEngine.GameObject,object> arg0 = (System.Action<UnityEngine.GameObject,object>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,object>>(L, 2);
+			System.Action<object> arg0 = (System.Action<object>)ToLua.CheckDelegate<System.Action<object>>(L, 2);
 			obj.onTouchClick = arg0;
 			return 0;
 		}
@@ -367,7 +367,7 @@ public class LuaFramework_ButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			LuaFramework.Button obj = (LuaFramework.Button)o;
-			System.Action<UnityEngine.GameObject,object> arg0 = (System.Action<UnityEngine.GameObject,object>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,object>>(L, 2);
+			System.Action<object> arg0 = (System.Action<object>)ToLua.CheckDelegate<System.Action<object>>(L, 2);
 			obj.onTouchUp = arg0;
 			return 0;
 		}

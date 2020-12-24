@@ -11,7 +11,7 @@ function CanvasLogin:onAwake()
     local btnStart = self.transform:Find("Panel/BtnStart")
     UIEventManager.SetButtonClick(
         btnStart,
-        function(btn, param)
+        function()
             Destroy(self.gameObject)
             local CanvasLobby = require "UI.Lobby.CanvasLobby"
             CanvasLobby:new()
