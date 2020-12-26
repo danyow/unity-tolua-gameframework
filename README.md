@@ -32,8 +32,9 @@
             end
         end
     )
-	销毁所有已加载的AssetBundle
-	ResManager:UnloadAllAssetBundles(false)
+
+    销毁所有已加载的AssetBundle
+    ResManager:UnloadAllAssetBundles(false)
 
 
 
