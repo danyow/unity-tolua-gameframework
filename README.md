@@ -19,6 +19,22 @@
 
 1.  将LuaFramework拖入工程里，参考LuaFramework以外的目录Demo使用即可。
 
+2.  预加载本地AssetBundle
+    local paths = {
+        "Assets/Resources/Prefabs/LobbyUI"
+    }
+    ResManager:PreloadLocalAssetBundles(
+        paths,
+        function(progress)
+            self.slider.value = progress
+            if progress == 1 then
+                --进入登录
+            end
+        end
+    )
+	销毁所有已加载的AssetBundle
+	ResManager:UnloadAllAssetBundles(false)
+
 
 
 #### 使用说明

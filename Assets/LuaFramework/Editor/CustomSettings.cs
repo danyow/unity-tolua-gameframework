@@ -6,6 +6,7 @@ using UnityEditor;
 
 using BindType = ToLuaMenu.BindType;
 using LuaFramework;
+using UnityEngine.UI;
 
 public static class CustomSettings
 {
@@ -151,14 +152,25 @@ public static class CustomSettings
         _GT(typeof(Resources)),
         _GT(typeof(LuaProfiler)),
 
+        //GUGI
+        _GT(typeof(Canvas)),
+        _GT(typeof(RectTransform)),
+        _GT(typeof(UnityEngine.UI.Text)),
+        _GT(typeof(UnityEngine.UI.Image)),
+        _GT(typeof(UnityEngine.UI.RawImage)),
+        _GT(typeof(UnityEngine.UI.Button)),
+        _GT(typeof(UnityEngine.UI.Slider)),
+        _GT(typeof(UnityEngine.UI.InputField)),
+        _GT(typeof(UnityEngine.UI.ScrollRect)),
+
         //Custom
         _GT(typeof(EventManager)),
         _GT(typeof(LuaManager)),
         _GT(typeof(ResManager)),
         _GT(typeof(SoundManager)),
         _GT(typeof(LuaBehaviour)),
-        _GT(typeof(Button)),
-        _GT(typeof(Button.TriggerMethod)),
+        _GT(typeof(BButton)),
+        _GT(typeof(BButton.TriggerMethod)),
         _GT(typeof(ButtonChange)),
         _GT(typeof(Tween)),
         _GT(typeof(Tween.EaseType)),

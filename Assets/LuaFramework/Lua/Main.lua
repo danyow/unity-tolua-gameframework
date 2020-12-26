@@ -7,8 +7,10 @@ require "tween"
 
 
 function Main()
-    local CanvasLogin = require "UI.Login.CanvasLogin"
-    CanvasLogin:new()
+    Destroy(GameObject.Find("CanvasLoadAB"))
+
+    local CanvasPreload = require "Common.CanvasPreload"
+    CanvasPreload:new()
 end
 
 --场景切换通知

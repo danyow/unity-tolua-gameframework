@@ -25,6 +25,8 @@ namespace LuaFramework
         public Dictionary<string, string> localFiles = new Dictionary<string, string>();
         Dictionary<string, string> successFiles = new Dictionary<string, string>();
         Dictionary<string, AssetBundleInfo> loadedAssetBundles = new Dictionary<string, AssetBundleInfo>();
+        List<string> preloadAssetBundleNames = new List<string>();
+        int totalPreloadAssetBundles;
 
         void Awake()
         {
@@ -32,12 +34,12 @@ namespace LuaFramework
         }
         public bool ExeCommand(CommandEnum command)
         {
-            if (command == CommandEnum.StartLoadAssetBundle)
+            if (command == CommandEnum.UpdateRemoteAssetBundle)
             {
                 if (Config.UseAssetBundle)
                 {
                     Debug.Log("开始下载资源");
-                    StartCoroutine(CheckAndLoadAB());
+                    StartCoroutine(CheckAndDownloadAssetBundle());
                 }
                 else
                 {
@@ -48,12 +50,12 @@ namespace LuaFramework
             return false;
         }
 
-        #region 加载AssetBundle
+        #region 加载远程AssetBundle
 
         /// <summary>
         /// 启动更新下载，这里只是个思路演示，此处可启动线程下载更新
         /// </summary>
-        IEnumerator CheckAndLoadAB()
+        IEnumerator CheckAndDownloadAssetBundle()
         {
             EventManager.Emit(EventEnum.ABLoadingBegin);
             EventManager.Emit(EventEnum.ABLoadingProgress, 0);
@@ -137,6 +139,56 @@ namespace LuaFramework
 
             EventManager.Emit(EventEnum.ResInited);
             CommandController.Instance.ExeCommand(CommandEnum.StartLuaMain);
+        }
+
+        #endregion
+
+        #region 预加载本地AssetBundle
+
+        /// <summary>
+        /// Lua调用,预加载AssetBundle列表，传入目录路径
+        /// </summary>
+        public void PreloadLocalAssetBundles(string[] assetBundlePaths, Action<float> onProgress)
+        {
+            List<string> allPaths = new List<string>();
+            for (int i = 0; i < assetBundlePaths.Length; i++)
+            {
+                string path = assetBundlePaths[i];
+                string[] subPaths = Directory.GetFiles(path, "*.prefab", SearchOption.AllDirectories);
+                allPaths.AddRange(subPaths);
+            }
+            preloadAssetBundleNames.Clear();
+            for (int i = 0; i < allPaths.Count; i++)
+            {
+                string path = allPaths[i].Replace("\\", "/");
+                if (path.Contains("Resources/"))
+                {
+                    path = path.Substring(path.IndexOf("Prefabs/"));
+                }
+                string assetBundleName = "res/" + path.ToLower();
+                if (path.Contains("/"))
+                {
+                    assetBundleName = path.Substring(0, path.LastIndexOf("/"));
+                    assetBundleName = "res/" + assetBundleName.Replace("/", "_").ToLower();
+                }
+                preloadAssetBundleNames.Add(assetBundleName);
+            }
+            totalPreloadAssetBundles = preloadAssetBundleNames.Count;
+            StartCoroutine(PreloadAssetBundle(onProgress));
+        }
+
+        /// <summary>
+        /// Lua调用,将预加载好的AssetBundle全部卸载，是否包括它的所有Spawn,由参数传入
+        /// </summary>
+        public void UnloadAllAssetBundles(bool unloadAllLoadedObjects)
+        {
+            foreach (var item in loadedAssetBundles.Values)
+            {
+                AssetBundle assetBundle = item.assetBundle;
+                assetBundle.Unload(unloadAllLoadedObjects);
+            }
+            loadedAssetBundles.Clear();
+            ClearMemory();
         }
 
         #endregion
@@ -265,6 +317,31 @@ namespace LuaFramework
                     assetBundleInfo.assetBundle.Unload(false);
                     loadedAssetBundles.Remove(assetBundleName);
                 }
+            }
+        }
+
+        IEnumerator PreloadAssetBundle(Action<float> onProgress)
+        {
+            while (preloadAssetBundleNames.Count > 0)
+            {
+                string assetBundleName = preloadAssetBundleNames[0];
+                preloadAssetBundleNames.RemoveAt(0);
+                AssetBundleInfo assetBundleInfo = null;
+                loadedAssetBundles.TryGetValue(assetBundleName, out assetBundleInfo);
+                if (assetBundleInfo == null)
+                {
+                    string localUrl = LuaConst.localABPath + "/" + assetBundleName + LuaConst.ExtName;
+                    UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(localUrl);
+                    yield return request.SendWebRequest();
+                    if (request.error != null)
+                    {
+                        Debug.LogError(" [ " + localUrl + " ] " + request.error);
+                    }
+                    AssetBundle assetBundle = (request.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
+                    assetBundleInfo = new AssetBundleInfo(assetBundle);
+                    loadedAssetBundles.Add(assetBundleName, assetBundleInfo);
+                }
+                if (onProgress != null) onProgress((totalPreloadAssetBundles - preloadAssetBundleNames.Count) / (float)totalPreloadAssetBundles);
             }
         }
 

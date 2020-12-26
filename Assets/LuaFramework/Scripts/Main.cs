@@ -33,7 +33,7 @@ namespace LuaFramework
             CommandController.Instance.AddManager(typeof(LuaManager));
             CommandController.Instance.AddManager(typeof(SoundManager));
 
-            CommandController.Instance.ExeCommand(CommandEnum.StartLoadAssetBundle);
+            CommandController.Instance.ExeCommand(CommandEnum.UpdateRemoteAssetBundle);
         }
 
     }

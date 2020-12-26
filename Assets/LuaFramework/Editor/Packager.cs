@@ -48,11 +48,20 @@ public class Packager
     public static void BuildAssetResource(BuildTarget target, int mode)
     {
         string outputPath = Config.OutputABPath;
-        if (Directory.Exists(outputPath))
+        string delPath = outputPath;
+        if (mode == 1)
         {
-            Directory.Delete(outputPath, true);
+            delPath += "/lua";
         }
-        Directory.CreateDirectory(outputPath);
+        else if (mode == 2)
+        {
+            delPath += "/res";
+        }
+        if (Directory.Exists(delPath))
+        {
+            Directory.Delete(delPath, true);
+        }
+        Directory.CreateDirectory(delPath);
         AssetDatabase.Refresh();
 
         maps.Clear();

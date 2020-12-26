@@ -2,9 +2,9 @@ UIEventManager = {}
 UIEventManager.this = UIEventManager
 
 local function _setButtonEvent(btn, event, param, triggerMethod)
-    local button = btn:GetComponent(typeof(Button))
+    local button = btn:GetComponent(typeof(BButton))
     if not button then
-        button = btn.gameObject:AddComponent(typeof(Button))
+        button = btn.gameObject:AddComponent(typeof(BButton))
     end
     button.triggerMethod = triggerMethod
     if param then

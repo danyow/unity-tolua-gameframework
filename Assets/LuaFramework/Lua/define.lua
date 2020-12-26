@@ -1,6 +1,7 @@
 --Unity对象
 GameObject = UnityEngine.GameObject
 Input = UnityEngine.Input
+Slider = UnityEngine.UI.Slider
 
 --C#对象
 EventManager = LuaFramework.EventManager
@@ -12,7 +13,7 @@ SoundManager = LuaFramework.SoundManager.instance
 JSON = require "cjson"
 
 --Lua工具
-Button              = LuaFramework.Button
-ButtonTriggerMethod = Button.TriggerMethod
+BButton              = LuaFramework.BButton
+ButtonTriggerMethod = BButton.TriggerMethod
 ButtonChange        = LuaFramework.ButtonChange
 UIEventManager      = require "UIEventManager"

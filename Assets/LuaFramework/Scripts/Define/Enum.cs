@@ -6,9 +6,9 @@
     public enum CommandEnum
     {
         /// <summary>
-        /// 开始增量更新AssetBundle
+        /// 开始增量更新远程AssetBundle
         /// </summary>
-        StartLoadAssetBundle,
+        UpdateRemoteAssetBundle,
 
         /// <summary>
         /// 开始执行Main.lua
@@ -24,7 +24,6 @@
         /// 背景音乐关闭
         /// </summary>
         BGM_Disable
-
 
     }
 

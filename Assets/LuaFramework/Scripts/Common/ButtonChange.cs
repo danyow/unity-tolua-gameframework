@@ -17,7 +17,7 @@ namespace LuaFramework
         Sprite spriteDefault;
         Texture textureDefault;
         Vector3 defaultScale;
-        Button button;
+        BButton button;
 
         void Awake()
         {
@@ -39,7 +39,7 @@ namespace LuaFramework
                 textureDefault = targetRawImg.texture;
                 colorDefault = targetRawImg.color;
             }
-            button = GetComponent<Button>();
+            button = GetComponent<BButton>();
         }
 
         public void OnPointerDown(PointerEventData eventData)

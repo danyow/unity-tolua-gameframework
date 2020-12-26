@@ -10,7 +10,7 @@ namespace LuaFramework
         /// <summary>
         /// 是否使用AssetBundle,否则使用本地Resources目录内资源
         /// </summary>
-        public const bool UseAssetBundle = false;
+        public const bool UseAssetBundle = true;
 
         /// <summary>
         /// 导出AB包的路径，导出后资源将从该目录拷贝到远程服务器目录

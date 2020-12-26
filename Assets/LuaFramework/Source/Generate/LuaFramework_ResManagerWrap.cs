@@ -8,6 +8,8 @@ public class LuaFramework_ResManagerWrap
 	{
 		L.BeginClass(typeof(LuaFramework.ResManager), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("ExeCommand", ExeCommand);
+		L.RegFunction("PreloadLocalAssetBundles", PreloadLocalAssetBundles);
+		L.RegFunction("UnloadAllAssetBundles", UnloadAllAssetBundles);
 		L.RegFunction("SpawnPrefab", SpawnPrefab);
 		L.RegFunction("OnSpawnDestroy", OnSpawnDestroy);
 		L.RegFunction("ClearMemory", ClearMemory);
@@ -29,6 +31,41 @@ public class LuaFramework_ResManagerWrap
 			bool o = obj.ExeCommand(arg0);
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int PreloadLocalAssetBundles(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			LuaFramework.ResManager obj = (LuaFramework.ResManager)ToLua.CheckObject<LuaFramework.ResManager>(L, 1);
+			string[] arg0 = ToLua.CheckStringArray(L, 2);
+			System.Action<float> arg1 = (System.Action<float>)ToLua.CheckDelegate<System.Action<float>>(L, 3);
+			obj.PreloadLocalAssetBundles(arg0, arg1);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int UnloadAllAssetBundles(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			LuaFramework.ResManager obj = (LuaFramework.ResManager)ToLua.CheckObject<LuaFramework.ResManager>(L, 1);
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.UnloadAllAssetBundles(arg0);
+			return 0;
 		}
 		catch (Exception e)
 		{
