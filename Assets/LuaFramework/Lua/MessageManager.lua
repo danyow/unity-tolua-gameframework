@@ -33,7 +33,6 @@ end
 UpdateBeat:AddListener(UpdateBeat:CreateListener(mainThreadUpdate))
 
 function MessageManager.addMsgListener(self, id, listener)
-    -- 先看看事件是否存在
     local index = 1
     if msgListeners[id] == nil then
         msgListeners[id] = {}
