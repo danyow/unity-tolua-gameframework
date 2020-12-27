@@ -1,15 +1,44 @@
-﻿using LuaFramework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace LuaFramework
 {
-    public class CommandController
+    public class CommandController : MonoBehaviour
     {
         private static CommandController _instance;
-        public static CommandController Instance { get { return _instance ?? (_instance = new CommandController()); } }
+        public static CommandController Instance
+        {
+            get
+            {
+                if (!_instance)
+                {
+                    _instance = Main.Instance.GetComponent<CommandController>();
+                    if (!_instance)
+                    {
+                        _instance = Main.Instance.gameObject.AddComponent<CommandController>();
+                    }
+                }
+                return _instance;
+            }
+        }
         private Dictionary<Type, ICommand> managers = new Dictionary<Type, ICommand>();
+        Queue<CommandEnum> commandsQueue = new Queue<CommandEnum>();
+
+        private void Update()
+        {
+            while (commandsQueue.Count > 0)
+            {
+                CommandEnum command = commandsQueue.Dequeue();
+                foreach (var item in managers.Values)
+                {
+                    if (item.ExeCommand(command))
+                    {
+                        break;
+                    }
+                }
+            }
+        }
 
         public void AddManager(Type managerType)
         {
@@ -23,13 +52,7 @@ namespace LuaFramework
         public void ExeCommand(CommandEnum command)
         {
             Debug.Log("执行命令:" + command);
-            foreach (var item in managers.Values)
-            {
-                if (item.ExeCommand(command))
-                {
-                    break;
-                }
-            }
+            commandsQueue.Enqueue(command);
         }
 
     }

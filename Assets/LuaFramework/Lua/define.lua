@@ -13,7 +13,9 @@ SoundManager = LuaFramework.SoundManager.instance
 JSON = require "cjson"
 
 --Lua工具
-BButton              = LuaFramework.BButton
+BButton             = LuaFramework.BButton
 ButtonTriggerMethod = BButton.TriggerMethod
 ButtonChange        = LuaFramework.ButtonChange
+MessageManager      = require "MessageManager"
+EventManager        = require "EventManager"
 UIEventManager      = require "UIEventManager"

@@ -150,6 +150,11 @@ namespace LuaFramework
         /// </summary>
         public void PreloadLocalAssetBundles(string[] assetBundlePaths, Action<float> onProgress)
         {
+            if (!Config.UseAssetBundle)
+            {
+                if (onProgress != null) onProgress(1);
+                return;
+            }
             List<string> allPaths = new List<string>();
             for (int i = 0; i < assetBundlePaths.Length; i++)
             {

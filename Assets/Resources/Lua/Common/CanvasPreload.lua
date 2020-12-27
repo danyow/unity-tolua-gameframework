@@ -8,7 +8,12 @@ end
 
 function CanvasPreload:onAwake()
     self.slider = self.transform:Find("Panel/Slider"):GetComponent("Slider")
-    self.slider.value = 0
+    self.slider.value = 10
+    MessageManager.addMsgListener(self, "aaa", self.onCallback)
+end
+
+function CanvasPreload:onCallback(param)
+    print("================================= onCallback: " .. param)
 end
 
 function CanvasPreload:onStart()
@@ -26,6 +31,8 @@ function CanvasPreload:onStart()
             end
         end
     )
+
+    MessageManager.dispatch("aaa", "张康年")
 end
 
 return CanvasPreload

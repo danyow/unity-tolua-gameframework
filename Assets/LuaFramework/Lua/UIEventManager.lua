@@ -1,5 +1,4 @@
 UIEventManager = {}
-UIEventManager.this = UIEventManager
 
 local function _setButtonEvent(btn, event, param, triggerMethod)
     local button = btn:GetComponent(typeof(BButton))
