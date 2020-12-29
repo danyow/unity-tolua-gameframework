@@ -7,6 +7,7 @@ Slider = UnityEngine.UI.Slider
 EventManager = LuaFramework.EventManager
 LuaManager   = LuaFramework.LuaManager.instance
 ResManager   = LuaFramework.ResManager.instance
+UIManager    = LuaFramework.UIManager.instance
 SoundManager = LuaFramework.SoundManager.instance
 
 --第三方插件

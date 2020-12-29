@@ -167,6 +167,7 @@ public static class CustomSettings
         _GT(typeof(EventManager)),
         _GT(typeof(LuaManager)),
         _GT(typeof(ResManager)),
+        _GT(typeof(UIManager)),
         _GT(typeof(SoundManager)),
         _GT(typeof(LuaBehaviour)),
         _GT(typeof(BButton)),

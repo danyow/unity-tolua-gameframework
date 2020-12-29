@@ -16,4 +16,8 @@ function CanvasPlayerInfo:onAwake()
     )
 end
 
+function CanvasPlayerInfo:isFloat()
+    return true
+end
+
 return CanvasPlayerInfo

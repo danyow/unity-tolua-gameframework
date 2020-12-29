@@ -102,6 +102,7 @@ public static class LuaBinder
 		LuaFramework_EventManagerWrap.Register(L);
 		LuaFramework_LuaManagerWrap.Register(L);
 		LuaFramework_ResManagerWrap.Register(L);
+		LuaFramework_UIManagerWrap.Register(L);
 		LuaFramework_SoundManagerWrap.Register(L);
 		LuaFramework_LuaBehaviourWrap.Register(L);
 		LuaFramework_BButtonWrap.Register(L);

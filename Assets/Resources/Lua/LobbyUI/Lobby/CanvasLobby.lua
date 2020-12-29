@@ -14,7 +14,6 @@ function CanvasLobby:onAwake()
     UIEventManager.SetButtonClick(
         btnLogout,
         function()
-            Destroy(self.gameObject)
             local CanvasLogin = require "LobbyUI.Login.CanvasLogin"
             CanvasLogin:new()
         end

@@ -10,7 +10,6 @@ function CanvasLogin:onAwake()
     UIEventManager.SetButtonClick(
         btnStart,
         function()
-            Destroy(self.gameObject)
             local CanvasLobby = require "LobbyUI.Lobby.CanvasLobby"
             CanvasLobby:new()
         end

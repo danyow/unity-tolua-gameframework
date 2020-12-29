@@ -7,6 +7,8 @@ namespace LuaFramework
     {
         public string assetBundleName;
         public string prefabPath;
+        public bool keepActive;
+        public bool isFloat;
         public bool destroyABAfterAllSpawnDestroy;
         Action onEnable, onStart, onDisable, onDestroy;
 
@@ -53,6 +55,7 @@ namespace LuaFramework
         protected virtual void OnDestroy()
         {
             if (onDestroy != null) onDestroy.Invoke();
+            UIManager.instance.OnUIDestroy(this);
             if (!string.IsNullOrEmpty(assetBundleName))
             {
                 ResManager.instance.OnSpawnDestroy(assetBundleName, destroyABAfterAllSpawnDestroy);

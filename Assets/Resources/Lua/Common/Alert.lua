@@ -6,6 +6,10 @@ function Alert:getPrefabPath()
     return "Prefabs/Common/Alert"
 end
 
+function Alert:isFloat()
+    return true
+end
+
 function Alert:onAwake()
     self.updateHandler = UpdateBeat:CreateListener(self.update, self)
     self.dialog = self.transform:Find("Dialog")
