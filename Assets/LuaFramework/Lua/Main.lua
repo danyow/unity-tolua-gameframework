@@ -5,9 +5,12 @@ require "global"
 require "utils"
 require "tween"
 
+ControlCenter = require "Common.ControlCenter.ControlCenter"
 
 function Main()
     Destroy(GameObject.Find("CanvasLoadAB"))
+
+    ControlCenter.init()
 
     local CanvasPreload = require "Common.CanvasPreload"
     CanvasPreload:new()

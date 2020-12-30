@@ -1,4 +1,4 @@
-local BaseUI = require "Base.BaseUI"
+local BaseUI = require "Core.BaseUI"
 
 local CanvasRoom = class("CanvasRoom", BaseUI)
 

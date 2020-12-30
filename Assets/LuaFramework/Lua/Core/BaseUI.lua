@@ -1,4 +1,4 @@
-local LuaBehaviour = require "Base.LuaBehaviour"
+local LuaBehaviour = require "Core.LuaBehaviour"
 
 local BaseUI = class("BaseUI", LuaBehaviour)
 

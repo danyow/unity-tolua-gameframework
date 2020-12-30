@@ -1,11 +1,11 @@
-local BaseUI = require "Base.BaseUI"
-local CanvasLogin = class("CanvasLogin", BaseUI)
+local BaseUI = require "Core.BaseUI"
+local LoginUI = class("LoginUI", BaseUI)
 
-function CanvasLogin:getPrefabPath()
-    return "Prefabs/LobbyUI/Login/CanvasLogin"
+function LoginUI:getPrefabPath()
+    return "Prefabs/LobbyUI/Login/LoginUI"
 end
 
-function CanvasLogin:onAwake()
+function LoginUI:onAwake()
     local btnStart = self.transform:Find("Panel/BtnStart")
     UIEventManager.SetButtonClick(
         btnStart,
@@ -16,4 +16,4 @@ function CanvasLogin:onAwake()
     )
 end
 
-return CanvasLogin
+return LoginUI

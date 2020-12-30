@@ -1,4 +1,4 @@
-local LuaBehaviour = require "Base.LuaBehaviour"
+local LuaBehaviour = require "Core.LuaBehaviour"
 local Ball = class("Ball", LuaBehaviour)
 
 function Ball:getPrefabPath()

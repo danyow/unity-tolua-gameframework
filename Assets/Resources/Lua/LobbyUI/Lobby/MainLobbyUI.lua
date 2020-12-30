@@ -1,13 +1,13 @@
-local BaseUI = require "Base.BaseUI"
+local BaseUI = require "Core.BaseUI"
 local Alert = require "Common.Alert"
 
-local CanvasLobby = class("CanvasLobby", BaseUI)
+local MainLobbyUI = class("MainLobbyUI", BaseUI)
 
-function CanvasLobby:getPrefabPath()
-    return "Prefabs/LobbyUI/Lobby/CanvasLobby"
+function MainLobbyUI:getPrefabPath()
+    return "Prefabs/LobbyUI/Lobby/MainLobbyUI"
 end
 
-function CanvasLobby:onAwake()
+function MainLobbyUI:onAwake()
     self.updateHandler = UpdateBeat:CreateListener(self.update, self)
 
     local btnLogout = self.transform:Find("Panel/BtnLogout")
@@ -47,18 +47,18 @@ function CanvasLobby:onAwake()
     )
 end
 
-function CanvasLobby:onEnable()
+function MainLobbyUI:onEnable()
     UpdateBeat:AddListener(self.updateHandler)
 end
 
-function CanvasLobby:onDisable()
+function MainLobbyUI:onDisable()
     UpdateBeat:RemoveListener(self.updateHandler)
 end
 
-function CanvasLobby:update()
+function MainLobbyUI:update()
     if Input.GetMouseButtonUp(1) then
         Alert:new()
     end
 end
 
-return CanvasLobby
+return MainLobbyUI
