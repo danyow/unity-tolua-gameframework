@@ -33,3 +33,11 @@ function Destroy(obj)
         GameObject.Destroy(obj)
     end
 end
+
+function Log(msg)
+    Debugger.Log(msg)
+end
+
+function LogError(msg)
+    Debugger.LogError(msg)
+end

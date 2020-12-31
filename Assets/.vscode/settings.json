@@ -3,6 +3,7 @@
         "json",
         "UnityEngine",
         "LuaFramework",
-        "class"
+        "class",
+        "Debugger"
     ]
 }

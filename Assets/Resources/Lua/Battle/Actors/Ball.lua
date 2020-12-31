@@ -1,7 +1,7 @@
 local LuaBehaviour = require "Core.LuaBehaviour"
 local Ball = class("Ball", LuaBehaviour)
 
-function Ball:getPrefabPath()
+function Ball:prefabPath()
     return "Prefabs/Battle/Actors/Ball"
 end
 

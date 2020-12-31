@@ -39,7 +39,7 @@ function EventManager.removeEvent(id, listener)
     table.remove(m_listeners[id], existIndex)
 end
 
---事件触发（推荐只能用于用户触发，若是系统逻辑触发，请使用消息管理器 MessageManager）
+--事件触发（推荐只能用于用户触发，若是系统逻辑触发，请使用消息管理器 CommandManager）
 function EventManager.emit(id, ...)
     if m_listeners[id] == nil then
         return

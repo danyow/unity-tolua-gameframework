@@ -1,12 +1,12 @@
 local BaseUI = require "Core.BaseUI"
 
-local CanvasRoom = class("CanvasRoom", BaseUI)
+local RoomSelect = class("RoomSelect", BaseUI)
 
-function CanvasRoom:getPrefabPath()
-    return "Prefabs/LobbyUI/Room/CanvasRoom"
+function RoomSelect:prefabPath()
+    return "Prefabs/LobbyUI/RoomSelect/RoomSelect"
 end
 
-function CanvasRoom:onAwake()
+function RoomSelect:onAwake()
     local btnBack = self.transform:Find("Panel/BtnBack")
     UIEventManager.SetButtonClick(
         btnBack,
@@ -20,13 +20,12 @@ function CanvasRoom:onAwake()
         UIEventManager.SetButtonClick(
             btnRoom,
             function(param)
-                print("进入房间："..param)
-                local CanvasFight = require "Battle.UI.CanvasFight"
-                CanvasFight:new()
+                print("进入战场："..param)
+                CommandManager.execute(CommandID.OpenUI, UIID.Battle)
             end,
             i
         )
     end
 end
 
-return CanvasRoom
+return RoomSelect

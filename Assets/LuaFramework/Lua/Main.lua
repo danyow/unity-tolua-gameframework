@@ -5,15 +5,16 @@ require "global"
 require "utils"
 require "tween"
 
-ControlCenter = require "Common.ControlCenter.ControlCenter"
+require "Common.Define"
+UIRegister = require "Common.UIRegister"
 
 function Main()
     Destroy(GameObject.Find("CanvasLoadAB"))
 
-    ControlCenter.init()
+    UIRegister.init()
+    UIRegister.register()
 
-    local CanvasPreload = require "Common.CanvasPreload"
-    CanvasPreload:new()
+    CommandManager.execute(CommandID.OpenUI, UIID.ResPreload)
 end
 
 --场景切换通知

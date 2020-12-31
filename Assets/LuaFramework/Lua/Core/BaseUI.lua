@@ -13,7 +13,7 @@ function LuaBehaviour:isFloat()
 end
 
 function LuaBehaviour:createGameObject(parent)
-    local prefabPath = self:getPrefabPath()
+    local prefabPath = self:prefabPath()
     UIManager:SpawnUI(
         prefabPath,
         parent,

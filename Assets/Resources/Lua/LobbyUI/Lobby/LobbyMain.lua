@@ -1,21 +1,20 @@
 local BaseUI = require "Core.BaseUI"
 local Alert = require "Common.Alert"
 
-local MainLobbyUI = class("MainLobbyUI", BaseUI)
+local LobbyMain = class("LobbyMain", BaseUI)
 
-function MainLobbyUI:getPrefabPath()
-    return "Prefabs/LobbyUI/Lobby/MainLobbyUI"
+function LobbyMain:prefabPath()
+    return "Prefabs/LobbyUI/Lobby/LobbyMain"
 end
 
-function MainLobbyUI:onAwake()
+function LobbyMain:onAwake()
     self.updateHandler = UpdateBeat:CreateListener(self.update, self)
 
     local btnLogout = self.transform:Find("Panel/BtnLogout")
     UIEventManager.SetButtonClick(
         btnLogout,
         function()
-            local CanvasLogin = require "LobbyUI.Login.CanvasLogin"
-            CanvasLogin:new()
+            CommandManager.execute(CommandID.OpenUI, UIID.Login)
         end
     )
 
@@ -23,8 +22,7 @@ function MainLobbyUI:onAwake()
     UIEventManager.SetButtonClick(
         btnPlayerInfo,
         function()
-            local CanvasPlayerInfo = require "LobbyUI.PlayerInfo.CanvasPlayerInfo"
-            CanvasPlayerInfo:new()
+            CommandManager.execute(CommandID.OpenUI, UIID.PlayerInfo)
         end
     )
 
@@ -32,8 +30,7 @@ function MainLobbyUI:onAwake()
     UIEventManager.SetButtonClick(
         btnBtnShop,
         function()
-            local CanvasShop = require "LobbyUI.Shop.CanvasShop"
-            CanvasShop:new()
+            CommandManager.execute(CommandID.OpenUI, UIID.Shop)
         end
     )
 
@@ -41,24 +38,23 @@ function MainLobbyUI:onAwake()
     UIEventManager.SetButtonClick(
         btnFight,
         function()
-            local CanvasRoom = require "LobbyUI.Room.CanvasRoom"
-            CanvasRoom:new()
+            CommandManager.execute(CommandID.OpenUI, UIID.RoomSelect)
         end
     )
 end
 
-function MainLobbyUI:onEnable()
+function LobbyMain:onEnable()
     UpdateBeat:AddListener(self.updateHandler)
 end
 
-function MainLobbyUI:onDisable()
+function LobbyMain:onDisable()
     UpdateBeat:RemoveListener(self.updateHandler)
 end
 
-function MainLobbyUI:update()
+function LobbyMain:update()
     if Input.GetMouseButtonUp(1) then
-        Alert:new()
+        CommandManager.execute(CommandID.OpenUI, UIID.Alert)
     end
 end
 
-return MainLobbyUI
+return LobbyMain

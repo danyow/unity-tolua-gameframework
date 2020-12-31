@@ -2,7 +2,7 @@ local BaseUI = require "Core.BaseUI"
 
 local Alert = class("Alert", BaseUI)
 
-function Alert:getPrefabPath()
+function Alert:prefabPath()
     return "Prefabs/Common/Alert"
 end
 

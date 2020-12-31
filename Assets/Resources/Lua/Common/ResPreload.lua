@@ -1,22 +1,21 @@
 local BaseUI = require "Core.BaseUI"
 
-local CanvasPreload = class("CanvasPreload", BaseUI)
+local ResPreloadView = class("ResPreloadView", BaseUI)
 
-function CanvasPreload:getPrefabPath()
-    return "Prefabs/Common/CanvasPreload"
+function ResPreloadView:prefabPath()
+    return "Prefabs/Common/ResPreload"
 end
 
-function CanvasPreload:onAwake()
+function ResPreloadView:onAwake()
     self.slider = self.transform:Find("Panel/Slider"):GetComponent("Slider")
     self.slider.value = 10
-    MessageManager.addMsgListener(self, "aaa", self.onCallback)
 end
 
-function CanvasPreload:onCallback(param)
+function ResPreloadView:onCallback(param)
     print("================================= onCallback: " .. param)
 end
 
-function CanvasPreload:onStart()
+function ResPreloadView:onStart()
     local paths = {
         "Assets/Resources/Prefabs/LobbyUI"
     }
@@ -26,13 +25,10 @@ function CanvasPreload:onStart()
             self.slider.value = progress
             if progress == 1 then
                 Destroy(self.gameObject)
-                local CanvasLogin = require "LobbyUI.Login.CanvasLogin"
-                CanvasLogin:new()
+                CommandManager.execute(CommandID.OpenUI, UIID.Login)
             end
         end
     )
-
-    MessageManager.dispatch("aaa", "张康年")
 end
 
-return CanvasPreload
+return ResPreloadView

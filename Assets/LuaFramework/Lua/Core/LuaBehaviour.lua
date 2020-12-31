@@ -5,7 +5,7 @@ function LuaBehaviour:ctor(parent)
 end
 
 function LuaBehaviour:createGameObject(parent)
-    local prefabPath = self:getPrefabPath()
+    local prefabPath = self:prefabPath()
     ResManager:SpawnPrefab(
         prefabPath,
         parent,
@@ -46,7 +46,7 @@ function LuaBehaviour:onGameObjectCreated(go)
 end
 
 --由子类重写来定义
-function LuaBehaviour:getPrefabPath()
+function LuaBehaviour:prefabPath()
     return ""
 end
 

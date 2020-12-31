@@ -1,19 +1,19 @@
 local BaseUI = require "Core.BaseUI"
+local Fight = class("Fight", BaseUI)
 
-local CanvasShop = class("CanvasShop", BaseUI)
-
-function CanvasShop:getPrefabPath()
-    return "Prefabs/LobbyUI/Shop/CanvasShop"
+function Fight:prefabPath()
+    return "Prefabs/Battle/UI/Fight"
 end
 
-function CanvasShop:onAwake()
+function Fight:onAwake()
     local btnBack = self.transform:Find("Panel/BtnBack")
     UIEventManager.SetButtonClick(
         btnBack,
         function()
             Destroy(self.gameObject)
+            CommandManager.execute(CommandID.OpenUI, UIID.LobbyMain)
         end
     )
 end
 
-return CanvasShop
+return Fight

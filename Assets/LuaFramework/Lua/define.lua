@@ -17,6 +17,6 @@ JSON = require "cjson"
 BButton             = LuaFramework.BButton
 ButtonTriggerMethod = BButton.TriggerMethod
 ButtonChange        = LuaFramework.ButtonChange
-MessageManager      = require "MessageManager"
+CommandManager      = require "CommandManager"
 EventManager        = require "EventManager"
 UIEventManager      = require "UIEventManager"
