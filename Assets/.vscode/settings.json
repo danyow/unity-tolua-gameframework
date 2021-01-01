@@ -2,8 +2,10 @@
     "Lua.diagnostics.globals": [
         "json",
         "UnityEngine",
-        "LuaFramework",
+        "ToLuaUIFramework",
         "class",
-        "Debugger"
+        "Debugger",
+        "DG",
+        "ToLuaUIFramework"
     ]
 }
