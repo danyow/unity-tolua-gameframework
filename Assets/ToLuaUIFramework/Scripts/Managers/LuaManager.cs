@@ -78,7 +78,7 @@ namespace ToLuaUIFramework
         /// </summary>
         void InitLuaPath()
         {
-            FindAndAddPaths(Config.LuaResourcesPath);
+            FindAndAddPaths(Config.GameResourcesPath + "/Lua");
         }
 
         void FindAndAddPaths(string path)

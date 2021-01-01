@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{0FD24E84-52AA-7C47-03EF-F9716C34F69B}</ProjectGuid>
+    <ProjectGuid>{A769332A-1B27-077C-9BB4-46E483ABFAB1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>DOTween.Modules</AssemblyName>
@@ -264,16 +264,16 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
-      <HintPath>E:/Gitee/unity-lua-framework/Assets/ToLuaUIFramework/DOTween/DOTween.dll</HintPath>
+      <HintPath>E:/Gitee/unity-tolua-uiframework/Assets/ToLuaUIFramework/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="DOTweenEditor">
-      <HintPath>E:/Gitee/unity-lua-framework/Assets/ToLuaUIFramework/DOTween/Editor/DOTweenEditor.dll</HintPath>
+      <HintPath>E:/Gitee/unity-tolua-uiframework/Assets/ToLuaUIFramework/DOTween/Editor/DOTweenEditor.dll</HintPath>
     </Reference>
     <Reference Include="CString">
-      <HintPath>E:/Gitee/unity-lua-framework/Assets/ToLuaUIFramework/Plugins/CString.dll</HintPath>
+      <HintPath>E:/Gitee/unity-tolua-uiframework/Assets/ToLuaUIFramework/Plugins/CString.dll</HintPath>
     </Reference>
     <Reference Include="Debugger">
-      <HintPath>E:/Gitee/unity-lua-framework/Assets/ToLuaUIFramework/Plugins/Debugger.dll</HintPath>
+      <HintPath>E:/Gitee/unity-tolua-uiframework/Assets/ToLuaUIFramework/Plugins/Debugger.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -621,10 +621,10 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>E:/Gitee/unity-lua-framework/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>E:/Gitee/unity-tolua-uiframework/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>E:/Gitee/unity-lua-framework/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>E:/Gitee/unity-tolua-uiframework/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
