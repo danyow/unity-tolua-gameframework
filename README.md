@@ -4,7 +4,7 @@
 
 - 基于toLua扩展的Unity热跟新实用框架，完全继承MonoBehaviour生命周期，开箱即用。
 
-- 组件内控制AssetBundle回收，内存管理你说了算。
+- 组件内定制AssetBundle回收方案，内存管理你说了算。
 
 - 使用UI栈加消息机制管理UI，高度解耦，层级关系自动管理，简单高效。
 
