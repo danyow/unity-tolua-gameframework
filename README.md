@@ -2,13 +2,15 @@
 
 #### 介绍
 
-- 基于toLua扩展的Unity热跟新实用框架，完全继承MonoBehaviour生命周期，开箱即用。
+- 基于toLua扩展的Unity热跟新实用框架，继承MonoBehaviour常用的生命周期，方便管理组件逻辑。
 
 - 组件内定制AssetBundle回收方案，内存管理你说了算。
 
 - 使用UI栈自动管理层级，消息机制唤起UI，高度解耦，代码简单高效。
 
 - 集成DOTween并扩展transform.DOAlpha方法，方便整个界面多节点一次性透明动画。
+
+- 内置常规RPG游戏UI实例，开箱即用。
 
 - 更多功能不断完善中......
 
