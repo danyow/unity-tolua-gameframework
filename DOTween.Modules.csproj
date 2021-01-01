@@ -26,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,7 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -266,11 +266,11 @@
     <Reference Include="DOTween">
       <HintPath>E:/Gitee/unity-lua-framework/Assets/ToLuaUIFramework/DOTween/DOTween.dll</HintPath>
     </Reference>
-    <Reference Include="CString">
-      <HintPath>E:/Gitee/unity-lua-framework/Assets/ToLuaUIFramework/Plugins/CString.dll</HintPath>
-    </Reference>
     <Reference Include="DOTweenEditor">
       <HintPath>E:/Gitee/unity-lua-framework/Assets/ToLuaUIFramework/DOTween/Editor/DOTweenEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="CString">
+      <HintPath>E:/Gitee/unity-lua-framework/Assets/ToLuaUIFramework/Plugins/CString.dll</HintPath>
     </Reference>
     <Reference Include="Debugger">
       <HintPath>E:/Gitee/unity-lua-framework/Assets/ToLuaUIFramework/Plugins/Debugger.dll</HintPath>
