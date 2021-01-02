@@ -105,7 +105,7 @@ FirstActor.lua继承LuaBehaviour:
 6.  注册UI,以实现通过发送命令展示UI，高度解耦：  
     按照Demo定义UIID,然后添加到UIRegisterList.lua内的列表里即可  
 
-7.  通过命令启动UI  
+7.  通过命令启动第一个UI  
     打开ToLuaUIFramework/Lua/Main.lua脚本，替换第19行开启UI命令里的UIID成你的UIID即可  
 ```
     CommandManager.execute(CommandID.OpenUI, UIID.您定义的UIID)  
