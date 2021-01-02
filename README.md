@@ -102,16 +102,43 @@ FirstActor.lua继承LuaBehaviour:
    return FirstUI  
 ```
 
-6.  注册UI,以实现通过发送命令展示UI，高度解耦：  
+6.  Update方法的实现。出于性能考虑，Update方法需要手动注册和注销： 
+```
+   local BaseUI = require "Core.BaseUI"  
+   local FirstUI = class("FirstUI", BaseUI)  
+  
+   function FirstUI:onAwake()  
+      --定义回调
+      self.updateHandler = UpdateBeat:CreateListener(self.update, self)
+   end  
+
+   function FirstUI:onEnable()  
+       --开始Update
+       UpdateBeat:AddListener(self.updateHandler)
+   end  
+
+   function FirstUI:onDisable()  
+       --停止Update
+       UpdateBeat:RemoveListener(self.updateHandler)
+   end  
+
+   function FirstUI:update()  
+       --这里每帧执行一次
+   end  
+  
+   return FirstUI  
+```
+
+7.  注册UI,以实现通过发送命令展示UI，高度解耦：  
     按照Demo定义UIID,然后添加到UIRegisterList.lua内的列表里即可  
 
-7.  通过命令启动第一个UI  
+8.  通过命令启动第一个UI  
     打开ToLuaUIFramework/Lua/Main.lua脚本，替换第19行开启UI命令里的UIID成你的UIID即可  
 ```
     CommandManager.execute(CommandID.OpenUI, UIID.您定义的UIID)  
 ```
 
-8.  不通过发送消息开启UI的方法（即创建预设体的方法）：
+9.  不通过发送消息开启UI的方法（即创建预设体的方法）：
 ```
     local classPath = require "LobbyUI.Lobby.LobbyMain"
     local lobbyUI = classPath:new(parent) 
