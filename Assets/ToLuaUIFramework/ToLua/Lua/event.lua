@@ -120,6 +120,7 @@ function _event:AddListener(handle)
 end
 
 function _event:RemoveListener(handle)	
+	print(handle)
 	assert(handle)	
 
 	if self.lock then		

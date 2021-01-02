@@ -6,6 +6,7 @@ function Ball:prefabPath()
 end
 
 function Ball:onAwake()
+    print("00000000000")
     
 end
 

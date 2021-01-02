@@ -1,5 +1,4 @@
 local BaseUI = require "Core.BaseUI"
-
 local RoomSelect = class("RoomSelect", BaseUI)
 
 function RoomSelect:prefabPath()

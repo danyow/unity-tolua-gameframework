@@ -23,7 +23,7 @@ namespace ToLuaUIFramework
         public static ResManager instance;
 
         public Dictionary<string, string> localFiles = new Dictionary<string, string>();
-        Dictionary<string, string> successFiles = new Dictionary<string, string>();
+        Dictionary<string, string> loadSuccessFiles = new Dictionary<string, string>();
         Dictionary<string, AssetBundleInfo> loadedAssetBundles = new Dictionary<string, AssetBundleInfo>();
         List<string> preloadAssetBundleNames = new List<string>();
         int totalPreloadAssetBundles;
@@ -43,7 +43,7 @@ namespace ToLuaUIFramework
                 }
                 else
                 {
-                    CommandController.Instance.ExeCommand(CommandEnum.StartLuaMain);
+                    CommandController.Instance.Execute(CommandEnum.StartLuaMain);
                 }
                 return true;
             }
@@ -68,7 +68,7 @@ namespace ToLuaUIFramework
                 localFiles = ParseKeyValue(File.ReadAllText(localFilesPath));
             }
             //下载远程MD5文件
-            string filesUrl = Config.RemoteABUrl + "/" + LuaConst.MD5FileName;
+            string filesUrl = Config.RemoteUrl + "/" + LuaConst.MD5FileName;
             UnityWebRequest request = UnityWebRequest.Get(filesUrl);
             yield return request.SendWebRequest();
             if (request.error != null)
@@ -113,7 +113,7 @@ namespace ToLuaUIFramework
             int loadedCount = 0;
             foreach (var item in reloadFiles)
             {
-                string url = Config.RemoteABUrl + "/" + item.Key;
+                string url = Config.RemoteUrl + "/" + item.Key;
                 Debug.Log("下载资源：" + url);
                 UnityWebRequest resRequest = UnityWebRequest.Get(url);
                 yield return resRequest.SendWebRequest();
@@ -126,7 +126,7 @@ namespace ToLuaUIFramework
                 string saveDir = savePath.Substring(0, savePath.LastIndexOf("/"));
                 if (!Directory.Exists(saveDir)) Directory.CreateDirectory(saveDir);
                 File.WriteAllBytes(savePath, resRequest.downloadHandler.data);
-                successFiles.Add(item.Key, item.Value);
+                loadSuccessFiles.Add(item.Key, item.Value);
                 loadedCount++;
                 float progress = loadedCount / (float)maxCount;
                 Debug.Log("下载进度：" + progress);
@@ -138,7 +138,7 @@ namespace ToLuaUIFramework
             yield return new WaitForEndOfFrame();
 
             MessageManager.Dispatch(MsgEnum.ResInited);
-            CommandController.Instance.ExeCommand(CommandEnum.StartLuaMain);
+            CommandController.Instance.Execute(CommandEnum.StartLuaMain);
         }
 
         #endregion
@@ -155,28 +155,34 @@ namespace ToLuaUIFramework
                 if (onProgress != null) onProgress(1);
                 return;
             }
-            List<string> allPaths = new List<string>();
+            preloadAssetBundleNames.Clear();
             for (int i = 0; i < assetBundlePaths.Length; i++)
             {
-                string path = assetBundlePaths[i];
-                string[] subPaths = Directory.GetFiles(path, "*.prefab", SearchOption.AllDirectories);
-                allPaths.AddRange(subPaths);
-            }
-            preloadAssetBundleNames.Clear();
-            for (int i = 0; i < allPaths.Count; i++)
-            {
-                string path = allPaths[i].Replace("\\", "/");
-                if (path.Contains("Resources/"))
+                string path = assetBundlePaths[i].Replace("\\", "/");
+                if (path.Contains("Resources/Prefabs"))
                 {
-                    path = path.Substring(path.IndexOf("Prefabs/"));
+                    path = path.Substring(path.IndexOf("/Prefabs") + 1);
                 }
-                string assetBundleName = "res/" + path.ToLower();
+                string namePrefix = null;
                 if (path.Contains("/"))
                 {
-                    assetBundleName = path.Substring(0, path.LastIndexOf("/"));
-                    assetBundleName = "res/" + assetBundleName.Replace("/", "_").ToLower();
+                    namePrefix = "res/" + path.Replace("/", "_").ToLower();
                 }
-                preloadAssetBundleNames.Add(assetBundleName);
+                else
+                {
+                    namePrefix = "res/" + path.ToLower();
+                }
+                foreach (var item in localFiles.Keys)
+                {
+                    if (item.EndsWith(LuaConst.ExtName) && item.StartsWith(namePrefix))
+                    {
+                        string name = item.Substring(0, item.Length - LuaConst.ExtName.Length);
+                        if (!preloadAssetBundleNames.Contains(name))
+                        {
+                            preloadAssetBundleNames.Add(name);
+                        }
+                    }
+                }
             }
             totalPreloadAssetBundles = preloadAssetBundleNames.Count;
             StartCoroutine(PreloadAssetBundle(onProgress));
@@ -203,7 +209,7 @@ namespace ToLuaUIFramework
         /// <summary>
         /// 创建UI(destroyAssetBundle:当所有引用完全销毁后是否同时销毁AssetBundle)
         /// </summary>
-        public void SpawnPrefab(string prefabPath, Transform parent, Action<GameObject> callback, bool destroyABAfterSpawn = false, bool destroyABAfterAllSpawnDestroy = false)
+        public void SpawnPrefab(string prefabPath, Transform parent, Action<GameObject, bool> callback, bool destroyABAfterSpawn = false, bool destroyABAfterAllSpawnDestroy = false)
         {
             if (string.IsNullOrEmpty(prefabPath))
             {
@@ -228,7 +234,7 @@ namespace ToLuaUIFramework
                     luaBehaviour.assetBundleName = assetBundleName;
                     luaBehaviour.prefabPath = prefabPath;
                     luaBehaviour.destroyABAfterAllSpawnDestroy = destroyABAfterAllSpawnDestroy;
-                    if (callback != null) callback(luaBehaviour.gameObject);
+                    if (callback != null) callback(luaBehaviour.gameObject, false);
                 }, destroyABAfterSpawn));
             }
             else
@@ -240,7 +246,7 @@ namespace ToLuaUIFramework
                 luaBehaviour.assetBundleName = "";
                 luaBehaviour.prefabPath = prefabPath;
                 luaBehaviour.destroyABAfterAllSpawnDestroy = destroyABAfterAllSpawnDestroy;
-                if (callback != null) callback(luaBehaviour.gameObject);
+                if (callback != null) callback(luaBehaviour.gameObject, false);
             }
         }
 
@@ -374,7 +380,7 @@ namespace ToLuaUIFramework
         void UpdateLocalFiles()
         {
             //仅更新下载成功的文件
-            foreach (var item in successFiles)
+            foreach (var item in loadSuccessFiles)
             {
                 localFiles[item.Key] = item.Value;
             }

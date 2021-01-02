@@ -1,5 +1,4 @@
 local BaseUI = require "Core.BaseUI"
-
 local Shop = class("Shop", BaseUI)
 
 function Shop:prefabPath()

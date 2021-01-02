@@ -47,7 +47,7 @@ public class Packager
     /// </summary>
     public static void BuildAssetResource(BuildTarget target, int mode)
     {
-        string outputPath = Config.OutputABPath;
+        string outputPath = Config.OutputPath;
         string delPath = outputPath;
         if (mode == 1)
         {

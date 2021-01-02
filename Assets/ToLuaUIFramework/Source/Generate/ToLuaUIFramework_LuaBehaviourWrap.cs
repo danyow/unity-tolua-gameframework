@@ -7,10 +7,8 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ToLuaUIFramework.LuaBehaviour), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("SetEnableAction", SetEnableAction);
-		L.RegFunction("SetStartAction", SetStartAction);
-		L.RegFunction("SetDisableAction", SetDisableAction);
-		L.RegFunction("SetDestroyAction", SetDestroyAction);
+		L.RegFunction("SetLuaClazz", SetLuaClazz);
+		L.RegFunction("SetUIID", SetUIID);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("assetBundleName", get_assetBundleName, set_assetBundleName);
@@ -18,18 +16,21 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 		L.RegVar("keepActive", get_keepActive, set_keepActive);
 		L.RegVar("isFloat", get_isFloat, set_isFloat);
 		L.RegVar("destroyABAfterAllSpawnDestroy", get_destroyABAfterAllSpawnDestroy, set_destroyABAfterAllSpawnDestroy);
+		L.RegVar("canvas", get_canvas, set_canvas);
+		L.RegVar("sortingOrder", get_sortingOrder, set_sortingOrder);
+		L.RegVar("cameraDepth", get_cameraDepth, set_cameraDepth);
 		L.EndClass();
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int SetEnableAction(IntPtr L)
+	static int SetLuaClazz(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)ToLua.CheckObject<ToLuaUIFramework.LuaBehaviour>(L, 1);
-			System.Action arg0 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 2);
-			obj.SetEnableAction(arg0);
+			LuaTable arg0 = ToLua.CheckLuaTable(L, 2);
+			obj.SetLuaClazz(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -39,48 +40,14 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int SetStartAction(IntPtr L)
+	static int SetUIID(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)ToLua.CheckObject<ToLuaUIFramework.LuaBehaviour>(L, 1);
-			System.Action arg0 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 2);
-			obj.SetStartAction(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int SetDisableAction(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)ToLua.CheckObject<ToLuaUIFramework.LuaBehaviour>(L, 1);
-			System.Action arg0 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 2);
-			obj.SetDisableAction(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int SetDestroyAction(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)ToLua.CheckObject<ToLuaUIFramework.LuaBehaviour>(L, 1);
-			System.Action arg0 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 2);
-			obj.SetDestroyAction(arg0);
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.SetUIID(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -203,6 +170,63 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_canvas(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)o;
+			UnityEngine.Canvas ret = obj.canvas;
+			ToLua.PushSealed(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index canvas on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_sortingOrder(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)o;
+			int ret = obj.sortingOrder;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index sortingOrder on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_cameraDepth(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)o;
+			float ret = obj.cameraDepth;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cameraDepth on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_assetBundleName(IntPtr L)
 	{
 		object o = null;
@@ -294,6 +318,63 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index destroyABAfterAllSpawnDestroy on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_canvas(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)o;
+			UnityEngine.Canvas arg0 = (UnityEngine.Canvas)ToLua.CheckObject(L, 2, typeof(UnityEngine.Canvas));
+			obj.canvas = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index canvas on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_sortingOrder(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.sortingOrder = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index sortingOrder on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_cameraDepth(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)o;
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.cameraDepth = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cameraDepth on a nil value");
 		}
 	}
 }

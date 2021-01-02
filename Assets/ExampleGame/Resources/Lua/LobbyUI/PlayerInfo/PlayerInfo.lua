@@ -1,9 +1,12 @@
 local BaseUI = require "Core.BaseUI"
-
 local PlayerInfo = class("PlayerInfo", BaseUI)
 
 function PlayerInfo:prefabPath()
     return "Prefabs/LobbyUI/PlayerInfo/PlayerInfo"
+end
+
+function PlayerInfo:isFloat()
+    return true
 end
 
 function PlayerInfo:onAwake()
@@ -24,10 +27,6 @@ function PlayerInfo:onEnable()
     --小对话框动画
     self.dialog.anchoredPosition = Vector2(0, -200)
     self.dialog:DOLocalMove(Vector3.one, 0.3):SetEase(Ease.OutBack)
-end
-
-function PlayerInfo:isFloat()
-    return true
 end
 
 return PlayerInfo

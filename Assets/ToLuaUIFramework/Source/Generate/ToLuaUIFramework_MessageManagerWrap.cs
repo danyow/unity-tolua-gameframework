@@ -2,7 +2,7 @@
 using System;
 using LuaInterface;
 
-public class ToLuaUIFramework_EventManagerWrap
+public class ToLuaUIFramework_MessageManagerWrap
 {
 	public static void Register(LuaState L)
 	{
@@ -11,14 +11,14 @@ public class ToLuaUIFramework_EventManagerWrap
 		L.RegFunction("Remove", Remove);
 		L.RegFunction("Clear", Clear);
 		L.RegFunction("ClearAll", ClearAll);
-		L.RegFunction("Emit", Emit);
-		L.RegFunction("New", _CreateToLuaUIFramework_EventManager);
+		L.RegFunction("Dispatch", Dispatch);
+		L.RegFunction("New", _CreateToLuaUIFramework_MessageManager);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.EndClass();
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int _CreateToLuaUIFramework_EventManager(IntPtr L)
+	static int _CreateToLuaUIFramework_MessageManager(IntPtr L)
 	{
 		try
 		{
@@ -32,7 +32,7 @@ public class ToLuaUIFramework_EventManagerWrap
 			}
 			else
 			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to ctor method: ToLuaUIFramework.EventManager.New");
+				return LuaDLL.luaL_throw(L, "invalid arguments to ctor method: ToLuaUIFramework.MessageManager.New");
 			}
 		}
 		catch (Exception e)
@@ -107,7 +107,7 @@ public class ToLuaUIFramework_EventManagerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Emit(IntPtr L)
+	static int Dispatch(IntPtr L)
 	{
 		try
 		{
@@ -129,7 +129,7 @@ public class ToLuaUIFramework_EventManagerWrap
 			}
 			else
 			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: ToLuaUIFramework.EventManager.Emit");
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: ToLuaUIFramework.MessageManager.Dispatch");
 			}
 		}
 		catch (Exception e)

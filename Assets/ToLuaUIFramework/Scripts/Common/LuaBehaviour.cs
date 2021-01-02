@@ -1,4 +1,4 @@
-﻿using System;
+﻿using LuaInterface;
 using UnityEngine;
 
 namespace ToLuaUIFramework
@@ -10,35 +10,27 @@ namespace ToLuaUIFramework
         public bool keepActive;
         public bool isFloat;
         public bool destroyABAfterAllSpawnDestroy;
-        Action onEnable, onStart, onDisable, onDestroy;
+        int uiID = -1;
+        LuaTable luaClass;
 
         public Canvas canvas;
         public int sortingOrder;
         public float cameraDepth;
 
         /// <summary>
-        /// 去掉尾部(Clone)
+        /// Lua调用
         /// </summary>
-        string _name;
-
-        public void SetEnableAction(Action onEnable)
+        public void SetLuaClazz(LuaTable luaClass)
         {
-            this.onEnable = onEnable;
+            this.luaClass = luaClass;
         }
 
-        public void SetStartAction(Action onStart)
+        /// <summary>
+        /// Lua调用
+        /// </summary>
+        public void SetUIID(int uiID)
         {
-            this.onStart = onStart;
-        }
-
-        public void SetDisableAction(Action onDisable)
-        {
-            this.onDisable = onDisable;
-        }
-
-        public void SetDestroyAction(Action onDestroy)
-        {
-            this.onDestroy = onDestroy;
+            this.uiID = uiID;
         }
 
         protected virtual void Awake()
@@ -59,17 +51,17 @@ namespace ToLuaUIFramework
 
         protected virtual void OnEnable()
         {
-            if (onEnable != null) onEnable.Invoke();
+            if (luaClass != null) luaClass.GetLuaFunction("onEnable").Call(luaClass);
         }
 
         protected virtual void Start()
         {
-            if (onStart != null) onStart.Invoke();
+            luaClass.GetLuaFunction("onStart").Call(luaClass);
         }
 
         protected virtual void OnDisable()
         {
-            if (onDisable != null) onDisable.Invoke();
+            if (luaClass != null) luaClass.GetLuaFunction("onDisable").Call(luaClass);
             if (canvas)
             {
                 if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
@@ -85,13 +77,27 @@ namespace ToLuaUIFramework
 
         protected virtual void OnDestroy()
         {
-            if (onDestroy != null) onDestroy.Invoke();
-            UIManager.instance.OnUIDestroy(this);
-            if (!string.IsNullOrEmpty(assetBundleName))
+            if (luaClass != null) luaClass.GetLuaFunction("onDestroy").Call(luaClass);
+            if (LuaManager.instance)
             {
-                ResManager.instance.OnSpawnDestroy(assetBundleName, destroyABAfterAllSpawnDestroy);
+                if (uiID >= 0)
+                {
+                    LuaManager.instance.GetFunction("onUIDestroy").Call(uiID);
+                }
+                LuaManager.instance.GetFunction("clear_class").Call(luaClass);
             }
-            ResManager.instance.ClearMemory();
+            if (UIManager.instance)
+            {
+                UIManager.instance.OnUIDestroy(this);
+            }
+            if (ResManager.instance)
+            {
+                if (!string.IsNullOrEmpty(assetBundleName))
+                {
+                    ResManager.instance.OnSpawnDestroy(assetBundleName, destroyABAfterAllSpawnDestroy);
+                }
+                ResManager.instance.ClearMemory();
+            }
         }
     }
 }

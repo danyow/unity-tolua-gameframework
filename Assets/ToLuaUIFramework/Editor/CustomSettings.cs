@@ -82,6 +82,8 @@ public static class CustomSettings
         _GT(typeof(AudioSource)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         //_GT(typeof(LineRenderer)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         //_GT(typeof(TrailRenderer)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),   
+        _GT(typeof(DG.Tweening.Plugins.Options.ColorOptions)),
+        _GT(typeof(DG.Tweening.Core.TweenerCore<UnityEngine.Color,UnityEngine.Color,DG.Tweening.Plugins.Options.ColorOptions>)),
         _GT(typeof(Ease)),
 #else
                                          
@@ -177,7 +179,7 @@ public static class CustomSettings
         _GT(typeof(BButtonTrigger)),
         _GT(typeof(BTween)),
         _GT(typeof(BTween.BEaseType)),
-      
+
     };
 
     public static List<Type> dynamicList = new List<Type>()

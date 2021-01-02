@@ -18,26 +18,26 @@ function class(classname, super)
     cls.__cname = classname
     cls.__index = cls
 
-    function cls:new(param)
+    function cls:new(...)
         local instance = setmetatable({}, cls)
         instance.class = cls
-        instance:ctor(param)
+        instance:ctor(...)
         return instance
     end
 
     return cls
 end
 
+function clear_class(class)
+    for i, v in pairs(class) do
+        if type(v) ~= "function" then
+            class[i] = nil
+        end
+    end
+end
+
 function Destroy(obj)
     if obj then
         GameObject.Destroy(obj)
     end
-end
-
-function Log(msg)
-    Debugger.Log(msg)
-end
-
-function LogError(msg)
-    Debugger.LogError(msg)
 end

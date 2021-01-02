@@ -200,7 +200,7 @@ namespace LuaInterface
                         }
                     }
 
-                    Debugger.Log(sb.ToString());            //203行与_line一致
+                    //Debugger.Log(sb.ToString());            //203行与_line一致
                 }
                 return 0;
             }
@@ -523,6 +523,7 @@ namespace LuaInterface
             if (_instanceID == -1)
             {
                 string dir = LuaConst.toluaRoot + "/Core/ToLua.cs";
+                dir = dir.Substring(dir.IndexOf("Assets/"));
                 UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath(dir, typeof(MonoScript));
                 if (obj) _instanceID = obj.GetInstanceID();
             }

@@ -1,23 +1,22 @@
 local BaseUI = require "Core.BaseUI"
+local ResPreload = class("ResPreload", BaseUI)
 
-local ResPreloadView = class("ResPreloadView", BaseUI)
-
-function ResPreloadView:prefabPath()
+function ResPreload:prefabPath()
     return "Prefabs/Common/ResPreload"
 end
 
-function ResPreloadView:onAwake()
+function ResPreload:onAwake()
     self.slider = self.transform:Find("Panel/Slider"):GetComponent("Slider")
     self.slider.value = 10
 end
 
-function ResPreloadView:onCallback(param)
+function ResPreload:onCallback(param)
     print("================================= onCallback: " .. param)
 end
 
-function ResPreloadView:onStart()
+function ResPreload:onStart()
     local paths = {
-        "Assets/Resources/Prefabs/LobbyUI"
+        "Prefabs/LobbyUI"
     }
     ResManager:PreloadLocalAssetBundles(
         paths,
@@ -31,4 +30,4 @@ function ResPreloadView:onStart()
     )
 end
 
-return ResPreloadView
+return ResPreload

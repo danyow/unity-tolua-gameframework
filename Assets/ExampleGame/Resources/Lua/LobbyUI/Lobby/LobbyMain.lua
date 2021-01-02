@@ -1,6 +1,4 @@
 local BaseUI = require "Core.BaseUI"
-local Alert = require "Common.Alert"
-
 local LobbyMain = class("LobbyMain", BaseUI)
 
 function LobbyMain:prefabPath()
@@ -9,6 +7,7 @@ end
 
 function LobbyMain:onAwake()
     self.updateHandler = UpdateBeat:CreateListener(self.update, self)
+    self.aaa = 150
 
     local btnLogout = self.transform:Find("Panel/BtnLogout")
     btnLogout:OnClick(

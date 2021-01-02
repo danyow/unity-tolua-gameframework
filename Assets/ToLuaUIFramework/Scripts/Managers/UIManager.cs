@@ -22,7 +22,7 @@ namespace ToLuaUIFramework
         /// <summary>
         /// 创建UI
         /// </summary>
-        public void SpawnUI(string prefabPath, Transform parent, Action<GameObject> callback, bool keepActive = false, bool isFloat = false, bool destroyABAfterSpawn = false, bool destroyABAfterAllSpawnDestroy = false)
+        public void SpawnUI(string prefabPath, Transform parent, Action<GameObject, bool> callback, bool keepActive = false, bool isFloat = false, bool destroyABAfterSpawn = false, bool destroyABAfterAllSpawnDestroy = false)
         {
             if (string.IsNullOrEmpty(prefabPath))
             {
@@ -44,12 +44,12 @@ namespace ToLuaUIFramework
                     luaBehaviour.keepActive = keepActive;
                     luaBehaviour.isFloat = isFloat;
                     luaBehaviour.destroyABAfterAllSpawnDestroy = destroyABAfterAllSpawnDestroy;
-                    if (callback != null) callback(luaBehaviour.gameObject);
+                    if (callback != null) callback(luaBehaviour.gameObject, true);
                     return;
                 }
             }
             //开始创建
-            ResManager.instance.SpawnPrefab(prefabPath, parent, (GameObject go) =>
+            ResManager.instance.SpawnPrefab(prefabPath, parent, (GameObject go, bool isSingletonActiveCallback) =>
             {
                 LuaBehaviour luaBehaviour = go.GetComponent<LuaBehaviour>();
                 luaBehaviour.keepActive = keepActive;
@@ -57,7 +57,7 @@ namespace ToLuaUIFramework
                 //处理入栈
                 uiStack.Add(luaBehaviour);
                 RefreshStack();
-                if (callback != null) callback(go);
+                if (callback != null) callback(go, isSingletonActiveCallback);
             }, destroyABAfterSpawn, destroyABAfterAllSpawnDestroy);
         }
 

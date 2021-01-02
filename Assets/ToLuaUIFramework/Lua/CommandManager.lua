@@ -21,12 +21,32 @@ local function mainThreadUpdate()
     while queue[1] do
         queue, queue2 = queue2, queue
         for i = 1, #queue2 do
-            local dispatchMsg = queue2[i]
-            for key, value in pairs(msgListeners[dispatchMsg.id]) do
+            local command = queue2[i]
+            for key, value in pairs(msgListeners[command.id]) do
                 if value.self then
-                    value.listener(value.self, dispatchMsg.param)
+                    if command.param1 and command.param2 and command.param3 and command.param4 then
+                        value.listener(value.self, command.param1, command.param2, command.param3, command.param4)
+                    elseif command.param1 and command.param2 and command.param3 then
+                        value.listener(value.self, command.param1, command.param2, command.param3)
+                    elseif command.param1 and command.param2 then
+                        value.listener(value.self, command.param1, command.param2)
+                    elseif command.param1 then
+                        value.listener(value.self, command.param1)
+                    else
+                        value.listener(value.self)
+                    end
                 else
-                    value.listener(dispatchMsg.param)
+                    if command.param1 and command.param2 and command.param3 and command.param4 then
+                        value.listener(command.param1, command.param2, command.param3, command.param4)
+                    elseif command.param1 and command.param2 and command.param3 then
+                        value.listener(command.param1, command.param2, command.param3)
+                    elseif command.param1 and command.param2 then
+                        value.listener(command.param1, command.param2)
+                    elseif command.param1 then
+                        value.listener(command.param1)
+                    else
+                        value.listener()
+                    end
                 end
             end
             queue2[i] = nil
@@ -66,11 +86,24 @@ function CommandManager.remove(id, listener)
 end
 
 --执行命令(一般用于系统逻辑命令传递，若是用户触发事件，请使用事件管理器 EventManager)
-function CommandManager.execute(id, param)
+function CommandManager.execute(id, param1, param2, param3, param4)
     if msgListeners[id] == nil then
         return
     end
-    table.insert(queue, {id = id, param = param})
+    local command = {id = id}
+    if param1 then
+        command["param1"] = param1
+    end
+    if param2 then
+        command["param2"] = param2
+    end
+    if param3 then
+        command["param3"] = param3
+    end
+    if param4 then
+        command["param4"] = param4
+    end
+    table.insert(queue, command)
 end
 
 return CommandManager

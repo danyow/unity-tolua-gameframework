@@ -1,7 +1,7 @@
 local LuaBehaviour = class("LuaBehaviour")
 
-function LuaBehaviour:ctor(parent)
-    self:createGameObject(parent)
+function LuaBehaviour:ctor(...)
+    self:createGameObject(...)
 end
 
 function LuaBehaviour:createGameObject(parent)
@@ -9,40 +9,23 @@ function LuaBehaviour:createGameObject(parent)
     ResManager:SpawnPrefab(
         prefabPath,
         parent,
-        function(go)
-            self:onGameObjectCreated(go)
+        function(go, isSingletonActiveCallback)
+            self:onGameObjectCreated(go, isSingletonActiveCallback)
         end,
         self:destroyABAfterSpawn(),
         self:destroyABAfterAllSpawnDestroy()
     )
 end
 
-function LuaBehaviour:onGameObjectCreated(go)
+function LuaBehaviour:onGameObjectCreated(go, isSingletonActiveCallback)
     self.gameObject = go
     self.transform = go.transform
-    self:onAwake()
-    self:onEnable()
+    if not isSingletonActiveCallback then
+        self:onAwake()
+        self:onEnable()
+    end
     local csharpLuaBehaviour = go:GetComponent("LuaBehaviour")
-    csharpLuaBehaviour:SetEnableAction(
-        function()
-            self:onEnable()
-        end
-    )
-    csharpLuaBehaviour:SetStartAction(
-        function()
-            self:onStart()
-        end
-    )
-    csharpLuaBehaviour:SetDisableAction(
-        function()
-            self:onDisable()
-        end
-    )
-    csharpLuaBehaviour:SetDestroyAction(
-        function()
-            self:onDestroy()
-        end
-    )
+    csharpLuaBehaviour:SetLuaClazz(self)
 end
 
 --由子类重写来定义

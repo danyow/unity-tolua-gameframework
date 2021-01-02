@@ -9,7 +9,7 @@ public class ToLuaUIFramework_LuaManagerWrap
 		L.BeginClass(typeof(ToLuaUIFramework.LuaManager), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("ExeCommand", ExeCommand);
 		L.RegFunction("DoFile", DoFile);
-		L.RegFunction("CallFunction", CallFunction);
+		L.RegFunction("GetFunction", GetFunction);
 		L.RegFunction("LuaGC", LuaGC);
 		L.RegFunction("Close", Close);
 		L.RegFunction("__eq", op_Equality);
@@ -54,15 +54,14 @@ public class ToLuaUIFramework_LuaManagerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int CallFunction(IntPtr L)
+	static int GetFunction(IntPtr L)
 	{
 		try
 		{
-			int count = LuaDLL.lua_gettop(L);
+			ToLua.CheckArgsCount(L, 2);
 			ToLuaUIFramework.LuaManager obj = (ToLuaUIFramework.LuaManager)ToLua.CheckObject<ToLuaUIFramework.LuaManager>(L, 1);
 			string arg0 = ToLua.CheckString(L, 2);
-			object[] arg1 = ToLua.ToParamsObject(L, 3, count - 2);
-			object[] o = obj.CallFunction(arg0, arg1);
+			LuaInterface.LuaFunction o = obj.GetFunction(arg0);
 			ToLua.Push(L, o);
 			return 1;
 		}

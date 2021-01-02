@@ -24,7 +24,7 @@ namespace ToLuaUIFramework
         }
         bool isStarted;
 
-        public void StartToLuaUIFramework()
+        public void StartFramework()
         {
             if (isStarted) return;
             isStarted = true;
@@ -34,7 +34,7 @@ namespace ToLuaUIFramework
             CommandController.Instance.AddManager(typeof(LuaManager));
             CommandController.Instance.AddManager(typeof(SoundManager));
 
-            CommandController.Instance.ExeCommand(CommandEnum.UpdateRemoteAssetBundle);
+            CommandController.Instance.Execute(CommandEnum.UpdateRemoteAssetBundle);
         }
 
     }

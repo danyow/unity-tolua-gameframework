@@ -49,7 +49,7 @@ namespace ToLuaUIFramework
             }
         }
 
-        public void ExeCommand(CommandEnum command)
+        public void Execute(CommandEnum command)
         {
             Debug.Log("执行命令:" + command);
             commandsQueue.Enqueue(command);

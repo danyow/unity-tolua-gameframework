@@ -11,11 +11,13 @@ function Alert:isFloat()
 end
 
 function Alert:onAwake()
+    self.super:onAwake()
     self.updateHandler = UpdateBeat:CreateListener(self.update, self)
     self.dialog = self.transform:Find("Dialog")
 end
 
 function Alert:onEnable()
+    self.super:onEnable()
     UpdateBeat:AddListener(self.updateHandler)
 
     --黑色蒙版动画
@@ -27,6 +29,7 @@ function Alert:onEnable()
 end
 
 function Alert:onDisable()
+    self.super:onDisable()
     UpdateBeat:RemoveListener(self.updateHandler)
 end
 

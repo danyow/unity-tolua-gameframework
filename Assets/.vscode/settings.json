@@ -6,6 +6,9 @@
         "class",
         "Debugger",
         "DG",
-        "ToLuaUIFramework"
+        "ToLuaUIFramework",
+        "clear_class",
+        "onUIDestroy",
+        "onLuaBehaviourDestroy"
     ]
 }

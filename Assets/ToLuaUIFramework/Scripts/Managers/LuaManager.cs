@@ -141,14 +141,9 @@ namespace ToLuaUIFramework
         /// <summary>
         /// Update is called once per frame
         /// </summary>
-        public object[] CallFunction(string funcName, params object[] args)
+        public LuaFunction GetFunction(string funcName)
         {
-            LuaFunction func = lua.GetFunction(funcName);
-            if (func != null)
-            {
-                return func.LazyCall(args);
-            }
-            return null;
+            return lua.GetFunction(funcName);
         }
 
         public void LuaGC()

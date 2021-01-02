@@ -49,7 +49,7 @@ public class ToLuaUIFramework_UIManagerWrap
 				ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)ToLua.CheckObject<ToLuaUIFramework.UIManager>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject> arg2 = (System.Action<UnityEngine.GameObject>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject>>(L, 4);
+				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
 				obj.SpawnUI(arg0, arg1, arg2);
 				return 0;
 			}
@@ -58,7 +58,7 @@ public class ToLuaUIFramework_UIManagerWrap
 				ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)ToLua.CheckObject<ToLuaUIFramework.UIManager>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject> arg2 = (System.Action<UnityEngine.GameObject>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject>>(L, 4);
+				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
 				obj.SpawnUI(arg0, arg1, arg2, arg3);
 				return 0;
@@ -68,7 +68,7 @@ public class ToLuaUIFramework_UIManagerWrap
 				ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)ToLua.CheckObject<ToLuaUIFramework.UIManager>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject> arg2 = (System.Action<UnityEngine.GameObject>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject>>(L, 4);
+				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
 				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
 				obj.SpawnUI(arg0, arg1, arg2, arg3, arg4);
@@ -79,7 +79,7 @@ public class ToLuaUIFramework_UIManagerWrap
 				ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)ToLua.CheckObject<ToLuaUIFramework.UIManager>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject> arg2 = (System.Action<UnityEngine.GameObject>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject>>(L, 4);
+				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
 				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
 				bool arg5 = LuaDLL.luaL_checkboolean(L, 7);
@@ -91,7 +91,7 @@ public class ToLuaUIFramework_UIManagerWrap
 				ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)ToLua.CheckObject<ToLuaUIFramework.UIManager>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject> arg2 = (System.Action<UnityEngine.GameObject>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject>>(L, 4);
+				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
 				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
 				bool arg5 = LuaDLL.luaL_checkboolean(L, 7);
