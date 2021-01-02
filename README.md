@@ -30,13 +30,13 @@
 
 3.  Prefabs内放好预设体。建议Lua目录内创建结构一样的子目录结构，并在Lua目录内创建对应的UI控制Lua脚本。如果是UI，继承BaseUI，否则继承LuaBahaviour。方式如下:  
   
-    FirstUI.lua继承BaseUI:  
+FirstUI.lua继承BaseUI:  
 ```
     local BaseUI = require "Core.BaseUI"  
     local FirstUI = class("FirstUI", BaseUI)  
     return FirstUI  
 ```
-    FirstActor.lua继承LuaBehaviour:  
+FirstActor.lua继承LuaBehaviour:  
 ```
     local LuaBehaviour = require "Core.LuaBehaviour"  
     local FirstActor = class("FirstActor", LuaBehaviour)  
@@ -109,6 +109,14 @@
     打开ToLuaUIFramework/Lua/Main.lua脚本，替换第19行开启UI命令里的UIID成你的UIID即可  
 ```
     CommandManager.execute(CommandID.OpenUI, UIID.您定义的UIID)  
+```
+
+8.  不通过发送消息开启UI的方法（即创建预设体的方法）：
+```
+    local classPath = require "LobbyUI.Lobby.LobbyMain"
+    local lobbyUI = classPath:new(parent) 
+    --parent没有可不传
+    local lobbyUI = classPath:new()
 ```
 
 快速开始至此告一段落。。。
