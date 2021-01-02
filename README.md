@@ -43,7 +43,7 @@
     return FirstActor  
 ```
   
-4. 必须重写的方法prefabPath()(指定所绑定的预设体的路径)：  
+4.  必须重写的方法prefabPath()(指定所绑定的预设体的路径)：  
 ```
    local BaseUI = require "Core.BaseUI"  
    local FirstUI = class("FirstUI", BaseUI)  
@@ -73,6 +73,13 @@
       self.btnClose:OnPointerDown(function()  
           Log("按下了关闭按钮")
       end) 
+
+      --打开新UI
+      self.btnOpenSecondUI = self.transform:Find("BtnOpenSecondUI")  
+      self.btnOpenSecondUI:OnClick(function()  
+          CommandManager.execute(CommandID.OpenUI, UIID.您定义的UIID)  
+      end) 
+
    end  
 
    function FirstUI:onEnable()  
@@ -94,12 +101,24 @@
   
    return FirstUI  
 ```
+
+6.  注册UI,以实现通过发送命令展示UI，高度解耦：  
+    按照Demo定义UIID,然后添加到UIRegisterList.lua内的列表里即可  
+
+7.  通过命令启动UI  
+    打开ToLuaUIFramework/Lua/Main.lua脚本，替换第19行开启UI命令里的UIID成你的UIID即可  
+```
+    CommandManager.execute(CommandID.OpenUI, UIID.您定义的UIID)  
+```
+    快速开始至此告一段落。。。
     
-#### 安装教程
+#### 关于UI栈的功能
 
-1.  将LuaFramework拖入工程里，参考LuaFramework以外的目录Demo使用即可。
 
-2.  预加载本地AssetBundle
+#### AssetBundle的操作
+
+2.  预加载本地AssetBundle  
+```
     local paths = {
         "Assets/Resources/Prefabs/LobbyUI"
     }
@@ -112,12 +131,10 @@
             end
         end
     )
-
-    销毁所有已加载的AssetBundle
+```
+    销毁所有已加载的AssetBundle  
+```
     ResManager:UnloadAllAssetBundles(false)
+```
 
-
-
-#### 使用说明
-
-1.  待更新。。。
+#### 持续更新中。。。
