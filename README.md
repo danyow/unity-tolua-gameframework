@@ -168,7 +168,7 @@ FirstActor.lua继承LuaBehaviour:
         end
     )
 ```
-    销毁所有已加载的AssetBundle  
+销毁所有已加载的AssetBundle  
 ```
     ResManager:UnloadAllAssetBundles(false)
 ```
