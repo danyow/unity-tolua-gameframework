@@ -8,7 +8,7 @@ require "dotween"
 require "btween"
 
 require "Common.Define"
-UIRegister = require "Common.UIRegister"
+UIRegister = require "Core.UIRegister"
 
 function Main()
     Destroy(GameObject.Find("CanvasLoadAB"))
