@@ -29,10 +29,31 @@
 2.  Resources内创建Lua目录和Prefabs目录，强烈建议两个文件夹名称不要修改。其他UI和模型可放在Resources目录外。以保证开发目录干净整洁
 
 3.  Prefabs内放好预设体。建议Lua目录内创建结构一样的子目录结构，并Lua目录内创建预设体对应的UI控制Lua脚本。如果是UI，Lua类继承BaseUI，否则继承LuaBahaviour。继承方式如下:  
-
-local BaseUI = require "Core.BaseUI"  
-local FirstUI = class("FirstUI", BaseUI)  
-return FirstUI  
+  
+    FirstUI.lua继承BaseUI:  
+```
+    local BaseUI = require "Core.BaseUI"  
+    local FirstUI = class("FirstUI", BaseUI)  
+    return FirstUI  
+```
+    FirstActor.lua继承LuaBehaviour:  
+```
+    local LuaBehaviour = require "Core.LuaBehaviour"  
+    local FirstActor = class("FirstActor", LuaBehaviour)  
+    return FirstActor  
+```
+  
+4. 必须重写的方法prefabPath()(指定所绑定的预设体的路径)：  
+```
+   local BaseUI = require "Core.BaseUI"  
+   local FirstUI = class("FirstUI", BaseUI)  
+  
+   function FirstUI:prefabPath()  
+      return "Prefabs/UI/FirstUIPrefab"  
+   end  
+  
+   return FirstUI  
+```
     
 #### 安装教程
 
