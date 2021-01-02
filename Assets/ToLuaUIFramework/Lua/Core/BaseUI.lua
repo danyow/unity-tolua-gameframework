@@ -12,18 +12,13 @@ function BaseUI:isFloat()
     return false
 end
 
-function BaseUI:createGameObject(uiID)
-    self.uiID = uiID
+function BaseUI:createGameObject(parent)
     local prefabPath = self:prefabPath()
     UIManager:SpawnUI(
         prefabPath,
-        nil,
+        parent,
         function(go, isSingletonActiveCallback)
-            if not isSingletonActiveCallback then
-                local csharpLuaBehaviour = go:GetComponent("LuaBehaviour")
-                csharpLuaBehaviour:SetUIID(self.uiID)
-            end
-            self:onGameObjectCreated(go, isSingletonActiveCallback)
+            self:onGameObjectSpawn(go, isSingletonActiveCallback)
         end,
         self:keepActive(),
         self:isFloat(),

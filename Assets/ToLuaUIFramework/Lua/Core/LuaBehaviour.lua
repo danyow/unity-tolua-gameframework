@@ -10,14 +10,14 @@ function LuaBehaviour:createGameObject(parent)
         prefabPath,
         parent,
         function(go, isSingletonActiveCallback)
-            self:onGameObjectCreated(go, isSingletonActiveCallback)
+            self:onGameObjectSpawn(go, isSingletonActiveCallback)
         end,
         self:destroyABAfterSpawn(),
         self:destroyABAfterAllSpawnDestroy()
     )
 end
 
-function LuaBehaviour:onGameObjectCreated(go, isSingletonActiveCallback)
+function LuaBehaviour:onGameObjectSpawn(go, isSingletonActiveCallback)
     self.gameObject = go
     self.transform = go.transform
     if not isSingletonActiveCallback then

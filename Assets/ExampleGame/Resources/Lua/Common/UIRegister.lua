@@ -2,25 +2,16 @@ UIRegister = {}
 
 local uiRequires = {}
 local uis = {}
+local hadRegister = false
 
-function onUIDestroy(_uiID)
-    uis[_uiID] = nil
-end
-
-local function registerUI(uiID, uiRequire)
-    uiRequires[uiID] = uiRequire
-end
-
---所有需要发送命令打开的UI都须在此注册
 function UIRegister.init()
-    registerUI(UIID.ResPreload, require "ResPreload.ResPreload")
-    registerUI(UIID.Login, require "LobbyUI.Login.Login")
-    registerUI(UIID.LobbyMain, require "LobbyUI.Lobby.LobbyMain")
-    registerUI(UIID.PlayerInfo, require "LobbyUI.PlayerInfo.PlayerInfo")
-    registerUI(UIID.Shop, require "LobbyUI.Shop.Shop")
-    registerUI(UIID.RoomSelect, require "LobbyUI.RoomSelect.RoomSelect")
-    registerUI(UIID.Alert, require "Common.Alert")
-    registerUI(UIID.Battle, require "Battle.UI.Fight")
+    if not hadRegister then
+        local uilist = require "UIRegisterList"
+        for key, value in pairs(uilist) do
+            uiRequires[key] = value
+        end
+        hadRegister = true
+    end
 end
 
 function UIRegister.register()
@@ -30,13 +21,18 @@ function UIRegister.register()
             local _uiID = tonumber(uiID)
             local ui = uis[_uiID]
             if not ui then
-                ui = uiRequires[_uiID]:new(_uiID)
+                ui = uiRequires[_uiID]:new()
+                ui.transform:GetComponent("LuaBehaviour"):SetUIID(_uiID)
                 uis[_uiID] = ui
             else
-                ui:createGameObject(_uiID)
+                ui:createGameObject()
             end
         end
     )
+end
+
+function onUIDestroy(_uiID)
+    uis[_uiID] = nil
 end
 
 return UIRegister
