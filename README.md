@@ -110,7 +110,8 @@
 ```
     CommandManager.execute(CommandID.OpenUI, UIID.您定义的UIID)  
 ```
-    快速开始至此告一段落。。。
+
+快速开始至此告一段落。。。
     
 #### 关于UI栈的功能
 
