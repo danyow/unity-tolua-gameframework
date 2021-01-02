@@ -54,6 +54,46 @@
   
    return FirstUI  
 ```
+
+5.  实现经典熟悉的回调，以及按钮绑定方法、DOTween使用  
+```
+   local BaseUI = require "Core.BaseUI"  
+   local FirstUI = class("FirstUI", BaseUI)  
+  
+   function FirstUI:prefabPath()  
+      return "Prefabs/UI/FirstUIPrefab"  
+   end  
+  
+   function FirstUI:onAwake()  
+      --按钮的绑定
+      self.btnClose = self.transform:Find("BtnClose")  
+      self.btnClose:OnClick(function()  
+          Log("点击了关闭按钮")
+      end)  
+      self.btnClose:OnPointerDown(function()  
+          Log("按下了关闭按钮")
+      end) 
+   end  
+
+   function FirstUI:onEnable()  
+   end  
+
+   function FirstUI:onStart()  
+      --DOTween使用（本框架扩展了DOTween的整界面同时透明动画的方法，支持重载以忽略某些参数，详见DOTweenExtend.cs）     
+      --self.transform:DOAlpha(初始透明度，目标透明度，动画时长，缓动方式，是否包含所有子节点)  
+      self.transform:DOAlpha(0, 1, 1.5, Ease.OutExpo, true):OnComplete(function()
+          Log("透明淡入完成")  
+      end)  
+   end  
+
+   function FirstUI:onDisable()  
+   end  
+
+   function FirstUI:onDestroy()  
+   end  
+  
+   return FirstUI  
+```
     
 #### 安装教程
 
