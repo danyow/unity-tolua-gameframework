@@ -68,15 +68,15 @@ FirstActor.lua继承LuaBehaviour:
       --按钮的绑定
       self.btnClose = self.transform:Find("BtnClose")  
       self.btnClose:OnClick(function()  
-          Log("点击了关闭按钮")
+          Destroy(self.gameObect)
       end)  
       self.btnClose:OnPointerDown(function()  
           Log("按下了关闭按钮")
       end) 
 
-      --打开新UI
+      --按钮事件支持传递一个参数，放在首位
       self.btnOpenSecondUI = self.transform:Find("BtnOpenSecondUI")  
-      self.btnOpenSecondUI:OnClick(function()  
+      self.btnOpenSecondUI:OnClick(传递的参数, function(传递的参数)  
           CommandManager.execute(CommandID.OpenUI, UIID.您定义的UIID)  
       end) 
 
@@ -148,8 +148,24 @@ FirstActor.lua继承LuaBehaviour:
 
 快速开始至此告一段落。。。
     
-#### 关于UI栈的功能
+#### 关于UI栈的功能  
 
+1.  - 继承BaseUI后，UI自动受UI栈管理。即每生成一个UI界面都回自动压入UI栈，Destroy后自动出栈，默认情况下除栈顶之外的其他UI自动隐藏,只需发送命名打开新UI即可，前一个UI无需多加代码关闭，栈顶的UI关闭后，新的栈顶UI会自动显示，无需多写代码激活
+    - 继承BaseUI后，通过发送命令打开的UI时，UI将被认为一个单例使用。即除非主动Destroy,否则系统先从栈内查找，如果找到则直接移到栈顶显示，不再创建新UI
+
+2.  特殊情况：
+    - 情况1：某些UI需要常驻被覆盖也不隐藏的，只需重写以下方法并返回true即可
+```
+    function FirstUI:keepActive()  
+       return true
+    end  
+```
+    - 情况2：当新打开的UI属于悬浮弹窗，则前一个UI要保持显示不能隐藏的，只需在悬浮窗UI里重写以下方法并返回true即可
+```
+    function FirstUI:isFloat()  
+       return true
+    end  
+```
 
 #### AssetBundle的操作
 
