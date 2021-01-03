@@ -1,4 +1,4 @@
-# Unity-ToLua-UIFramework
+# Unity-ToLua-UIFramework （示例工程适合Unity 2019.1.9f1,其他版本可能出现语法兼容型报错，请自行根据版本变换语法）
 
 #### 介绍
 
@@ -169,7 +169,17 @@ FirstActor.lua继承LuaBehaviour:
 
 #### AssetBundle的操作
 
-1. 预加载本地AssetBundle  
+1. 导出AssetBundle
+
+- 第1步：导出前配置好Config.cs里的4个目录：OutputPath，RemoteUrl，ExportLuaPaths，ExportResPath  
+
+- 第2步：菜单执行ToLuaUIFramework->Build XXX AssetBundle  
+
+- 第3步：Config.cs里将UseAssetBundle设置为true, 将开发Resources目录改名以免资源被打入母包中，开始出包
+
+2. 预加载（此步骤可做可不做）
+
+如需预加载本地AssetBundle资源，可仿照Game目录下的的ResPreload.lua执行预加载，预加载的目录可自行配进paths数组里  
 ```
     local paths = {
         "Prefabs/LobbyUI"
@@ -184,9 +194,22 @@ FirstActor.lua继承LuaBehaviour:
         end
     )
 ```
-2. 销毁所有已加载的AssetBundle  
+
+3. 如果Lua类重写该方法，在创建预设体之后将会立即清除内存里的AssetBundle资源  
+```
+    function LuaBehaviour:destroyABAfterSpawn()
+        return true
+    end
+```
+
+4. 如果Lua类重写该方法，在所有被创建出来的预设体被删除之后将会立即清除内存里的AssetBundle资源  
+```
+    function LuaBehaviour:destroyABAfterAllSpawnDestroy()
+        return true
+    end
+```
+
+5. 销毁所有已加载的AssetBundle，当传入参数为true时，将连同预设体克隆出来的的资源一起清除，如果对象还在场景中，体现为资源丢失的紫色效果  
 ```
     ResManager:UnloadAllAssetBundles(false)
 ```
-
-#### 持续更新中。。。
