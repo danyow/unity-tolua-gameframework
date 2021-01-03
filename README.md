@@ -169,22 +169,22 @@ FirstActor.lua继承LuaBehaviour:
 
 #### AssetBundle的操作
 
-2.  预加载本地AssetBundle  
+1. 预加载本地AssetBundle  
 ```
     local paths = {
-        "Assets/Resources/Prefabs/LobbyUI"
+        "Prefabs/LobbyUI"
     }
     ResManager:PreloadLocalAssetBundles(
         paths,
         function(progress)
             self.slider.value = progress
             if progress == 1 then
-                --进入登录
+                --预加载完成
             end
         end
     )
 ```
-销毁所有已加载的AssetBundle  
+2. 销毁所有已加载的AssetBundle  
 ```
     ResManager:UnloadAllAssetBundles(false)
 ```
