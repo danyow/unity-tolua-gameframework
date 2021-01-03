@@ -154,13 +154,13 @@ FirstActor.lua继承LuaBehaviour:
     - 继承BaseUI后，通过发送命令打开新UI时，UI将被当成一个单例使用。即除非主动Destroy,否则系统先从栈内查找，如果找到则直接移到栈顶显示，不再创建新UI
 
 2.  特殊情况：
-    - 情况1：某些UI需要常驻被覆盖也不隐藏的，只需重写以下方法并返回true即可
+- 情况1：某些UI需要常驻被覆盖也不隐藏的，只需重写以下方法并返回true即可
 ```
     function FirstUI:keepActive()  
        return true
     end  
 ```
-    - 情况2：当新打开的UI属于悬浮弹窗，则前一个UI要保持显示不能隐藏的，只需在悬浮窗UI里重写以下方法并返回true即可
+- 情况2：当新打开的UI属于悬浮弹窗，则前一个UI要保持显示不能隐藏的，只需在悬浮窗UI里重写以下方法并返回true即可
 ```
     function FirstUI:isFloat()  
        return true
