@@ -107,8 +107,10 @@ namespace ToLuaUIFramework
             RefreshStack();
         }
 
-        #region 内部方法
-        void RefreshStack()
+        /// <summary>
+        /// 也可以由Lua调用刷新，用于Lua动态给Canvas指定Camera后重新刷新调用
+        /// </summary>
+        public void RefreshStack()
         {
             currVisibleUIList.Clear();
             for (int i = 0; i < uiStack.Count; i++)
@@ -155,6 +157,8 @@ namespace ToLuaUIFramework
                 }
             }
         }
+
+        #region 内部方法
 
         /// <summary>
         /// 当前层上面的层全是浮动层

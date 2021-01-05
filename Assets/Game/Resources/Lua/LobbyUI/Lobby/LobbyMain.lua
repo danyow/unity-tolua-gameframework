@@ -36,6 +36,13 @@ function LobbyMain:onAwake()
             CommandManager.execute(CommandID.OpenUI, UIID.RoomSelect)
         end
     )
+
+    local btnAlert = self.transform:Find("Panel/BtnAlert")
+    btnAlert:OnClick(
+        function()
+            CommandManager.execute(CommandID.OpenUI, UIID.Alert)
+        end
+    )
 end
 
 function LobbyMain:onEnable()
