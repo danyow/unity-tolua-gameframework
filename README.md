@@ -167,6 +167,10 @@ FirstActor.lua继承LuaBehaviour:
        return true
     end  
 ```
+3. 刷新UI栈：当创建UI后又动态在onAwake里指定Canvas的Camera，或者因为动态添加特效需要调整层级的，必须用以下方法刷新一次UI栈，以便框架重新排列sortingOrder的关系。  
+```
+    UIManager:RefreshStack() 
+```
 
 #### AssetBundle的操作
 
