@@ -136,24 +136,13 @@ namespace ToLuaUIFramework
                     currVisibleUIList.Add(behaviour);
                 }
             }
-            //临时改变层级
             for (int i = 0; i < currVisibleUIList.Count; i++)
             {
-                if (i > 0)
+                LuaBehaviour luaBehaviour = currVisibleUIList[i];
+                for (int j = 0; j < luaBehaviour.sortObjects.Count; j++)
                 {
-                    LuaBehaviour currBehaviour = currVisibleUIList[i];
-                    LuaBehaviour underBehaviour = currVisibleUIList[i - 1];
-                    if (currBehaviour.canvas && underBehaviour.canvas && currBehaviour.canvas.renderMode == underBehaviour.canvas.renderMode)
-                    {
-                        if (currBehaviour.canvas.renderMode == RenderMode.ScreenSpaceOverlay)
-                        {
-                            currBehaviour.canvas.sortingOrder = underBehaviour.canvas.sortingOrder + 1;
-                        }
-                        else if (currBehaviour.canvas.renderMode == RenderMode.ScreenSpaceCamera)
-                        {
-                            currBehaviour.canvas.worldCamera.depth = underBehaviour.canvas.worldCamera.depth + 1f;
-                        }
-                    }
+                    LuaBehaviour.SortObject sortObject = luaBehaviour.sortObjects[j];
+                    sortObject.SetOrder(i * 100 + j, i);
                 }
             }
         }

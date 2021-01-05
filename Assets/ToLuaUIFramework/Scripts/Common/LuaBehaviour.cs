@@ -1,10 +1,50 @@
 ﻿using LuaInterface;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ToLuaUIFramework
 {
     public class LuaBehaviour : MonoBehaviour
     {
+        public class SortObject
+        {
+            public Canvas canvas;
+            public Renderer particle;
+            public int originSort;
+            public float originDepth;
+            public SortObject(Canvas canvas, Renderer particleRenderer)
+            {
+                this.canvas = canvas;
+                this.particle = particleRenderer;
+                if (this.canvas)
+                {
+                    originSort = this.canvas.sortingOrder;
+                    if(this.canvas.renderMode == RenderMode.ScreenSpaceCamera && this.canvas.worldCamera)
+                    {
+                        this.originDepth = this.canvas.worldCamera.depth;
+                    }
+                }
+                else if (this.particle)
+                {
+                    originSort = this.particle.sortingOrder;
+                }
+            }
+            public void SetOrder(int order, float cameraDepth)
+            {
+                if (this.canvas)
+                {
+                    this.canvas.sortingOrder = order;
+                    if (this.canvas.renderMode == RenderMode.ScreenSpaceCamera && this.canvas.worldCamera)
+                    {
+                        this.canvas.worldCamera.depth = cameraDepth;
+                    }
+                }
+                else if (this.particle)
+                {
+                    this.particle.sortingOrder = order;
+                }
+            }
+        }
         public string assetBundleName;
         public string prefabPath;
         public bool keepActive;
@@ -13,9 +53,7 @@ namespace ToLuaUIFramework
         int uiID = -1;
         LuaTable luaClass;
 
-        public Canvas canvas;
-        public int sortingOrder;
-        public float cameraDepth;
+        public List<SortObject> sortObjects = new List<SortObject>();
 
         /// <summary>
         /// Lua调用
@@ -35,17 +73,27 @@ namespace ToLuaUIFramework
 
         protected virtual void Awake()
         {
-            canvas = GetComponentInChildren<Canvas>();
+            FindSortObjects(transform);
+        }
+
+        void FindSortObjects(Transform trans)
+        {
+            Canvas canvas = trans.GetComponent<Canvas>();
             if (canvas)
             {
-                if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+                sortObjects.Add(new SortObject(canvas, null));
+            }
+            else
+            {
+                ParticleSystem particle = trans.GetComponent<ParticleSystem>();
+                if (particle)
                 {
-                    sortingOrder = canvas.sortingOrder;
+                    sortObjects.Add(new SortObject(null, particle.GetComponent<Renderer>()));
                 }
-                else if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
-                {
-                    cameraDepth = canvas.worldCamera.depth;
-                }
+            }
+            for (int i = 0; i < trans.childCount; i++)
+            {
+                FindSortObjects(trans.GetChild(i));
             }
         }
 
@@ -62,16 +110,11 @@ namespace ToLuaUIFramework
         protected virtual void OnDisable()
         {
             if (luaClass != null) luaClass.GetLuaFunction("onDisable").Call(luaClass);
-            if (canvas)
+            //还原sorting
+            for (int i = 0; i < sortObjects.Count; i++)
             {
-                if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
-                {
-                    canvas.sortingOrder = sortingOrder;
-                }
-                else if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
-                {
-                    canvas.worldCamera.depth = cameraDepth;
-                }
+                SortObject sortObject = sortObjects[i];
+                sortObject.SetOrder(sortObject.originSort, sortObject.originDepth);
             }
         }
 
