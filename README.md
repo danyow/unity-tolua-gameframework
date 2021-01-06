@@ -57,8 +57,8 @@ FirstActor.lua继承LuaBehaviour:
    return FirstUI  
 ```
 
-5. 选择性重写的方法：指定创建的父级。不重写或重写返回nil或""，则物体创建在跟场景，指定父级名称后框架用 GameObject.Find("").transform 查找当做父级。
-   第二种方式见第10点，也可以指定父级。用该方式指定优先级更高。当该方法返回nil或""时，new()方法传入才有效。    
+5. 选择性重写的方法：指定创建的父级。不重写或重写返回nil或""，则物体创建在跟场景，指定父级名称后，框架用 GameObject.Find("").transform 查找节点当做父级。
+   第二种指定父级的方式见第10点。用本方法指定优先级更高。当返回nil或""时，第10点的方法才有效。    
 ```
 function FirstUI:parentName()
     return ""
