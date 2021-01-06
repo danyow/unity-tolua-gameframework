@@ -12,14 +12,16 @@ namespace ToLuaUIFramework
             public Renderer particle;
             public int originSort;
             public float originDepth;
-            public SortObject(Canvas canvas, Renderer particleRenderer)
+            LuaBehaviour luaBehaviour;
+            public SortObject(LuaBehaviour luaBehaviour, Canvas canvas, Renderer particleRenderer)
             {
+                this.luaBehaviour = luaBehaviour;
                 this.canvas = canvas;
                 this.particle = particleRenderer;
                 if (this.canvas)
                 {
                     originSort = this.canvas.sortingOrder;
-                    if(this.canvas.renderMode == RenderMode.ScreenSpaceCamera && this.canvas.worldCamera)
+                    if (this.canvas.renderMode == RenderMode.ScreenSpaceCamera && this.canvas.worldCamera)
                     {
                         this.originDepth = this.canvas.worldCamera.depth;
                     }
@@ -37,6 +39,7 @@ namespace ToLuaUIFramework
                     if (this.canvas.renderMode == RenderMode.ScreenSpaceCamera && this.canvas.worldCamera)
                     {
                         this.canvas.worldCamera.depth = cameraDepth;
+                        this.luaBehaviour.transform.position = new Vector3(cameraDepth * 50, 0, 0);
                     }
                 }
                 else if (this.particle)
@@ -81,14 +84,14 @@ namespace ToLuaUIFramework
             Canvas canvas = trans.GetComponent<Canvas>();
             if (canvas)
             {
-                sortObjects.Add(new SortObject(canvas, null));
+                sortObjects.Add(new SortObject(this, canvas, null));
             }
             else
             {
                 ParticleSystem particle = trans.GetComponent<ParticleSystem>();
                 if (particle)
                 {
-                    sortObjects.Add(new SortObject(null, particle.GetComponent<Renderer>()));
+                    sortObjects.Add(new SortObject(this, null, particle.GetComponent<Renderer>()));
                 }
             }
             for (int i = 0; i < trans.childCount; i++)
