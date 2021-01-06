@@ -35,6 +35,10 @@ namespace ToLuaUIFramework
                 LuaBehaviour luaBehaviour = uiStack[i];
                 if (luaBehaviour.prefabPath.Equals(prefabPath))
                 {
+                    if (luaBehaviour.transform.parent != parent)
+                    {
+                        luaBehaviour.transform.SetParent(parent, false);
+                    }
                     if (i < uiStack.Count - 1)
                     {
                         uiStack.RemoveAt(i);
@@ -139,11 +143,11 @@ namespace ToLuaUIFramework
             for (int i = 0; i < currVisibleUIList.Count; i++)
             {
                 LuaBehaviour luaBehaviour = currVisibleUIList[i];
-                for (int j = 0; j < luaBehaviour.sortObjects.Count; j++)
+                if (i > 0 && currVisibleUIList[i - 1].IsSetedOrder)
                 {
-                    LuaBehaviour.SortObject sortObject = luaBehaviour.sortObjects[j];
-                    sortObject.SetOrder(i * 100 + j, i);
+                    luaBehaviour.AddCanvas();
                 }
+                luaBehaviour.SetOrders(i);
             }
         }
 

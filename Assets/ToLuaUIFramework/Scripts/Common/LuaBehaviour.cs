@@ -1,4 +1,5 @@
 ﻿using LuaInterface;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace ToLuaUIFramework
                 if (this.canvas)
                 {
                     originSort = this.canvas.sortingOrder;
-                    if (this.canvas.renderMode == RenderMode.ScreenSpaceCamera && this.canvas.worldCamera)
+                    if (!this.canvas.overrideSorting && this.canvas.renderMode == RenderMode.ScreenSpaceCamera && this.canvas.worldCamera)
                     {
                         this.originDepth = this.canvas.worldCamera.depth;
                     }
@@ -31,20 +32,47 @@ namespace ToLuaUIFramework
                     originSort = this.particle.sortingOrder;
                 }
             }
-            public void SetOrder(int order, float cameraDepth)
+            public void SetOrder(int order)
             {
                 if (this.canvas)
                 {
                     this.canvas.sortingOrder = order;
-                    if (this.canvas.renderMode == RenderMode.ScreenSpaceCamera && this.canvas.worldCamera)
+                    if (!this.canvas.overrideSorting && this.canvas.renderMode == RenderMode.ScreenSpaceCamera && this.canvas.worldCamera)
                     {
-                        this.canvas.worldCamera.depth = cameraDepth;
-                        this.luaBehaviour.transform.position = new Vector3(cameraDepth * 50, 0, 0);
+                        //查找全场，比全场最大的摄影机depth值再大1即可
+                        float currMaxDepth = float.MinValue;
+                        Canvas[] canvases = GameObject.FindObjectsOfType<Canvas>();
+                        for (int i = 0; i < canvases.Length; i++)
+                        {
+                            Canvas _canvas = canvases[i];
+                            if (_canvas != this.canvas && !_canvas.overrideSorting && _canvas.renderMode == RenderMode.ScreenSpaceCamera && _canvas.worldCamera)
+                            {
+                                if (_canvas.worldCamera.depth > currMaxDepth) currMaxDepth = _canvas.worldCamera.depth;
+                            }
+                        }
+                        this.canvas.worldCamera.depth = currMaxDepth + 1;
+                        this.luaBehaviour.transform.position = new Vector3(currMaxDepth + 1 * 50, 0, 0);
                     }
                 }
                 else if (this.particle)
                 {
                     this.particle.sortingOrder = order;
+                }
+            }
+
+            public void ResumeOrder()
+            {
+                if (this.canvas)
+                {
+                    this.canvas.sortingOrder = originSort;
+                    if (!this.canvas.overrideSorting && this.canvas.renderMode == RenderMode.ScreenSpaceCamera && this.canvas.worldCamera)
+                    {
+                        this.canvas.worldCamera.depth = originDepth;
+                    }
+                }
+                else if (this.particle)
+                {
+                    this.particle.sortingOrder = originSort;
                 }
             }
         }
@@ -57,6 +85,30 @@ namespace ToLuaUIFramework
         LuaTable luaClass;
 
         public List<SortObject> sortObjects = new List<SortObject>();
+        public bool IsSetedOrder { get; private set; }
+        public void SetOrders(int order)
+        {
+            for (int i = 0; i < sortObjects.Count; i++)
+            {
+                LuaBehaviour.SortObject sortObject = sortObjects[i];
+                sortObject.SetOrder(order * 100 + i);
+            }
+            IsSetedOrder = sortObjects.Count > 0;
+        }
+
+        public void AddCanvas()
+        {
+            Canvas canvas = GetComponent<Canvas>();
+            if (!canvas)
+            {
+                canvas = gameObject.AddComponent<Canvas>();
+                canvas.overrideSorting = true;
+                //加到首位
+                List<SortObject> _sortObjects = new List<SortObject>() { new SortObject(this, canvas, null) };
+                _sortObjects.AddRange(sortObjects);
+                sortObjects = _sortObjects;
+            }
+        }
 
         /// <summary>
         /// Lua调用
@@ -107,7 +159,7 @@ namespace ToLuaUIFramework
 
         protected virtual void Start()
         {
-            luaClass.GetLuaFunction("onStart").Call(luaClass);
+            if (luaClass != null) luaClass.GetLuaFunction("onStart").Call(luaClass);
         }
 
         protected virtual void OnDisable()
@@ -116,9 +168,9 @@ namespace ToLuaUIFramework
             //还原sorting
             for (int i = 0; i < sortObjects.Count; i++)
             {
-                SortObject sortObject = sortObjects[i];
-                sortObject.SetOrder(sortObject.originSort, sortObject.originDepth);
+                sortObjects[i].ResumeOrder();
             }
+            IsSetedOrder = false;
         }
 
         protected virtual void OnDestroy()
@@ -145,5 +197,6 @@ namespace ToLuaUIFramework
                 ResManager.instance.ClearMemory();
             }
         }
+
     }
 }
