@@ -10,7 +10,7 @@ namespace ToLuaUIFramework
         /// <summary>
         /// 是否使用AssetBundle,开发时使用本地Resources目录，写完代码直接启动测试
         /// </summary>
-        public const bool UseAssetBundle = true;
+        public const bool UseAssetBundle = false;
 
         /// <summary>
         /// 开发专用目录，放在Resources里方便写完代码直接启动测试，正式发布时因为使用外部加载的AB，所以该目录需要临时排除不打入包内
