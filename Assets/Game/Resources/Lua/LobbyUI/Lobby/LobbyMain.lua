@@ -9,6 +9,8 @@ function LobbyMain:onAwake()
     self.updateHandler = UpdateBeat:CreateListener(self.update, self)
     self.aaa = 150
 
+    logWarning(self.transform, "transform")
+
     local btnLogout = self.transform:Find("BtnLogout")
     btnLogout:OnClick(
         function()

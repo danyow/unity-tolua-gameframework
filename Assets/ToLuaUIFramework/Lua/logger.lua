@@ -1,70 +1,72 @@
-local function printTable(t, method, prefix)
-    local printContent = ""
-    local print_t_cache = {}
-    local function sub_tablePrint(t, indent)
-        if (print_t_cache[tostring(t)]) then
-            printContent = printContent .. (indent .. "*" .. tostring(t))
-        else
-            print_t_cache[tostring(t)] = true
-            if (type(t) == "table") then
-                for pos, val in pairs(t) do
-                    if (type(val) == "table") then
-                        printContent = printContent .. (indent .. "[" .. pos .. "] => " .. tostring(t) .. " {")
-                        sub_tablePrint(val, indent .. string.rep(" ", string.len(pos) + 8))
-                        printContent = printContent .. (indent .. string.rep(" ", string.len(pos) + 6) .. "}")
-                    elseif (type(val) == "string") then
-                        printContent = printContent .. (indent .. "[" .. pos .. '] => "' .. val .. '"')
-                    else
-                        printContent = printContent .. (indent .. "[" .. pos .. "] => " .. tostring(val))
-                    end
-                end
-            else
-                printContent = printContent .. (indent .. tostring(t))
+local function pairsEx(tbl)
+    local meta = getmetatable(tbl)
+    if meta and meta.__pairs then
+        return meta.__pairs(tbl)
+    end
+    return pairs(tbl)
+end
+
+function tableToJson(t)
+    if t == nil then
+        return "nil"
+    end
+    if type(t) == "number" then
+        return tostring(t)
+    elseif type(t) == "string" then
+        return '"' .. tostring(t) .. '"'
+    elseif type(t) == "userdata" then
+        return tostring(t)
+    else
+        local str = "{"
+        for key, value in pairsEx(t) do
+            if str ~= "{" then
+                str = str .. ","
             end
+            str = str .. '"' .. key .. '"' .. ":" .. tableToJson(value)
         end
-    end
-    if (type(t) == "table") then
-        printContent = printContent .. (tostring(t) .. " {")
-        sub_tablePrint(t, "  ")
-        printContent = printContent .. ("}")
-    else
-        sub_tablePrint(t, "  ")
-    end
-    if prefix then
-        printContent = "WQB-> " .. prefix .. " " .. printContent .. "\n" .. debug.traceback()
-    else
-        printContent = "WQB-> " .. printContent .. "\n" .. debug.traceback()
-    end
-
-    if method == 1 then
-        Debugger.Log(printContent)
-    elseif method == 2 then
-        Debugger.LogWarning(printContent)
-    else
-        Debugger.LogError(printContent)
+        return str .. "}"
     end
 end
 
-function Log(param1, param2)
-    if param2 then
-        printTable(param2, 1, param1)
+local function _log(value, method, tag)
+    local func = Debugger.Log
+    if method == 2 then
+        func = Debugger.LogWarning
+    end
+    if method == 3 then
+        func = Debugger.LogError
+    end
+    local str = tableToJson(value)
+    if tag then
+        func("WQB=> [" .. tag .. "]=> " .. str .. "\n" .. debug.traceback())
     else
-        printTable(param1, 1, nil)
+        func("WQB=> " .. str .. "\n" .. debug.traceback())
     end
 end
 
-function LogWarning(param1, param2)
-    if param2 then
-        printTable(param2, 2, param1)
-    else
-        printTable(param1, 2, nil)
-    end
+function log(value, tag)
+    _log(value, 1, tag)
 end
 
-function LogError(param1, param2)
-    if param2 then
-        printTable(param2, 3, param1)
+function logWarning(value, tag)
+    _log(value, 2, tag)
+end
+
+function logError(value, tag)
+    _log(value, 3, tag)
+end
+
+function logTimestamp(timestamp, addPrefix)
+    log(timestampToDate(timestamp, addPrefix))
+end
+
+function timestampToDate(timestamp, addPrefix)
+    if not addPrefix then
+        addPrefix = false
+    end
+    if addPrefix then
+        return os.date("! %y年%m月%d日%H时%M分%S秒", timestamp)
     else
-        printTable(param1, 3, nil)
+        return os.date("%y年%m月%d日%H时%M分%S秒", timestamp)
     end
 end
