@@ -6,29 +6,35 @@ local function pairsEx(tbl)
     return pairs(tbl)
 end
 
-function tableToJson(t)
-    if t == nil then
+local function isMetatable(data)
+    local meta = getmetatable(data)
+    if meta and meta.__pairs then
+        return true
+    end
+    return false
+end
+
+function dataToJson(data)
+    if data == nil then
         return "nil"
     end
-    if type(t) == "number" then
-        return tostring(t)
-    elseif type(t) == "string" then
-        return '"' .. tostring(t) .. '"'
-    elseif type(t) == "userdata" then
-        return tostring(t)
-    else
+    if type(data) == "table" or isMetatable(data) then
         local str = "{"
-        for key, value in pairsEx(t) do
+        for key, value in pairsEx(data) do
             if str ~= "{" then
                 str = str .. ","
             end
-            str = str .. '"' .. key .. '"' .. ":" .. tableToJson(value)
+            str = str .. '"' .. key .. '"' .. ":" .. dataToJson(value)
         end
         return str .. "}"
+    elseif type(data) == "string" then
+        return '"' .. tostring(data) .. '"'
+    else
+        return tostring(data)
     end
 end
 
-local function _log(value, method, tag)
+local function _log(data, method, tag)
     local func = Debugger.Log
     if method == 2 then
         func = Debugger.LogWarning
@@ -36,7 +42,7 @@ local function _log(value, method, tag)
     if method == 3 then
         func = Debugger.LogError
     end
-    local str = tableToJson(value)
+    local str = dataToJson(data)
     if tag then
         func("WQB=> [" .. tag .. "]=> " .. str .. "\n" .. debug.traceback())
     else
@@ -44,16 +50,16 @@ local function _log(value, method, tag)
     end
 end
 
-function log(value, tag)
-    _log(value, 1, tag)
+function log(data, tag)
+    _log(data, 1, tag)
 end
 
-function logWarning(value, tag)
-    _log(value, 2, tag)
+function logWarning(data, tag)
+    _log(data, 2, tag)
 end
 
-function logError(value, tag)
-    _log(value, 3, tag)
+function logError(data, tag)
+    _log(data, 3, tag)
 end
 
 function logTimestamp(timestamp, addPrefix)
