@@ -42,7 +42,7 @@ function dataToJson(data, depth)
     end
     if isLuaClass(data) then
         if data.__cname then
-            return "class:(" .. data.__cname .. ")"
+            return "class(" .. data.__cname .. ")"
         end
         return tostring(data)
     end
