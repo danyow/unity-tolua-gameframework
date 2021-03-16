@@ -46,7 +46,9 @@ function dataToJson(data, depth)
         end
         return tostring(data)
     end
-    if type(data) == "table" or isMetatable(data) then
+    if type(data) == "userdata" then
+        return tostring(data)
+    elseif type(data) == "table" or isMetatable(data) then
         local str = "{"
         for key, value in pairsEx(data) do
             if str ~= "{" then
