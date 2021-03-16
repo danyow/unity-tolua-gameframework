@@ -1,15 +1,23 @@
 local function pairsEx(tbl)
     local meta = getmetatable(tbl)
-    if meta and meta.__pairs then
-        return meta.__pairs(tbl)
+    if meta then
+        for key, value in pairs(meta) do
+            if key == "__pairs" then
+                return meta.__pairs(tbl)
+            end
+        end
     end
     return pairs(tbl)
 end
 
 local function isMetatable(data)
     local meta = getmetatable(data)
-    if meta and meta.__pairs then
-        return true
+    if meta then
+        for key, value in pairs(meta) do
+            if key == "__pairs" then
+                return true
+            end
+        end
     end
     return false
 end
@@ -46,9 +54,7 @@ function dataToJson(data, depth)
         end
         return tostring(data)
     end
-    if type(data) == "userdata" then
-        return tostring(data)
-    elseif type(data) == "table" or isMetatable(data) then
+    if type(data) == "table" or isMetatable(data) then
         local str = "{"
         for key, value in pairsEx(data) do
             if str ~= "{" then
