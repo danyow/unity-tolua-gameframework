@@ -1,4 +1,4 @@
-local function pairsEx(tbl)
+local function _pairsEx(tbl)
     local meta = getmetatable(tbl)
     if meta then
         for key, value in pairs(meta) do
@@ -10,7 +10,7 @@ local function pairsEx(tbl)
     return pairs(tbl)
 end
 
-local function isMetatable(data)
+local function _isMetatable(data)
     local meta = getmetatable(data)
     if meta then
         for key, value in pairs(meta) do
@@ -22,7 +22,7 @@ local function isMetatable(data)
     return false
 end
 
-local function isLuaClass(data)
+local function _isLuaClass(data)
     if type(data) == "table" then
         for key, value in pairs(data) do
             if type(value) == "function" then
@@ -40,7 +40,7 @@ local function isLuaClass(data)
     return false
 end
 
-function dataToJson(data, depth)
+function DataToJson(data, depth)
     if data == nil then
         return "nil"
     end
@@ -48,25 +48,23 @@ function dataToJson(data, depth)
     if depth > 8 then
         return tostring(data)
     end
-    if isLuaClass(data) then
+    if _isLuaClass(data) then
         if data.__cname then
             return "class(" .. data.__cname .. ")"
         end
         return tostring(data)
     end
-    if type(data) == "table" or isMetatable(data) then
+    if type(data) == "table" or _isMetatable(data) then
         local str = "{"
-        for key, value in pairsEx(data) do
+        for key, value in _pairsEx(data) do
             if str ~= "{" then
                 str = str .. ","
             end
-            str = str .. '"' .. key .. '"' .. ":" .. dataToJson(value, depth)
+            str = str .. '"' .. key .. '"' .. ":" .. DataToJson(value, depth)
         end
         return str .. "}"
-    elseif type(data) == "string" then
-        return '"' .. tostring(data) .. '"'
     else
-        return tostring(data)
+        return '"' .. tostring(data) .. '"'
     end
 end
 
@@ -79,7 +77,7 @@ local function _log(data, method, tag)
         func = Debugger.LogError
     end
     local depth = 1
-    local str = dataToJson(data, depth)
+    local str = DataToJson(data, depth)
     if tag then
         func("WQB=> [" .. tag .. "]=> " .. str .. "\n" .. debug.traceback())
     else
@@ -87,23 +85,23 @@ local function _log(data, method, tag)
     end
 end
 
-function log(data, tag)
+function Log(data, tag)
     _log(data, 1, tag)
 end
 
-function logWarning(data, tag)
+function LogWarning(data, tag)
     _log(data, 2, tag)
 end
 
-function logError(data, tag)
+function LogError(data, tag)
     _log(data, 3, tag)
 end
 
-function logTimestamp(timestamp, addPrefix)
-    log(timestampToDate(timestamp, addPrefix))
+function LogTimestamp(timestamp, addPrefix)
+    Log(TimestampToDate(timestamp, addPrefix))
 end
 
-function timestampToDate(timestamp, addPrefix)
+function TimestampToDate(timestamp, addPrefix)
     if not addPrefix then
         addPrefix = false
     end
