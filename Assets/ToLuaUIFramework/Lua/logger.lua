@@ -63,10 +63,10 @@ function DataToJson(data, depth)
             str = str .. '"' .. key .. '"' .. ":" .. DataToJson(value, depth)
         end
         return str .. "}"
-    elseif type(data) == "string" then
-        return '"' .. tostring(data) .. '"'
-    else
+    elseif type(data) == "number" then
         return tostring(data)
+    else
+        return '"' .. tostring(data) .. '"'
     end
 end
 
