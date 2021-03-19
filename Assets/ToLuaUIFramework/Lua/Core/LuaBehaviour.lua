@@ -1,33 +1,32 @@
 local LuaBehaviour = class("LuaBehaviour")
 
-function LuaBehaviour:ctor(...)
-    self:createGameObject(...)
+function LuaBehaviour:ctor(parent)
+    self:createGameObject(parent)
 end
 
 function LuaBehaviour:createGameObject(parent)
-    local prefabPath = self:prefabPath()
-    local parentName = self:parentName()
-    if parentName and parentName ~= "" then
-        local parentGo = GameObject.Find(parentName)
-        if parentGo then
-            parent = parentGo.transform
-        end
+    local customParent = self:getParent()
+    if customParent then
+        parent = customParent
     end
-    ResManager:SpawnPrefab(
-        prefabPath,
-        parent,
-        function(go, isSingletonActiveCallback)
-            self:onGameObjectSpawn(go, isSingletonActiveCallback)
-        end,
-        self:destroyABAfterSpawn(),
-        self:destroyABAfterAllSpawnDestroy()
-    )
+    local prefabPath = self:prefabPath()
+    if prefabPath and prefabPath ~= "" then
+        ResManager:SpawnPrefab(
+            prefabPath,
+            parent,
+            function(go, _isSingletonActive)
+                self:onGameObjectSpawn(go, _isSingletonActive)
+            end,
+            self:destroyABAfterSpawn(),
+            self:destroyABAfterAllSpawnDestroy()
+        )
+    end
 end
 
-function LuaBehaviour:onGameObjectSpawn(go, isSingletonActiveCallback)
+function LuaBehaviour:onGameObjectSpawn(go, _isSingletonActive)
     self.gameObject = go
     self.transform = go.transform
-    if not isSingletonActiveCallback then
+    if not _isSingletonActive then
         self:onAwake()
         self:onEnable()
     end
@@ -35,13 +34,13 @@ function LuaBehaviour:onGameObjectSpawn(go, isSingletonActiveCallback)
     csharpLuaBehaviour:SetLuaClazz(self)
 end
 
---由子类重写来定义
-function LuaBehaviour:prefabPath()
-    return ""
+--由子类重写，设置物体生成时的父级节点，优先级高于new(parent)参数传入
+function LuaBehaviour:getParent()
+    return nil
 end
 
 --由子类重写来定义
-function LuaBehaviour:parentName()
+function LuaBehaviour:prefabPath()
     return ""
 end
 
@@ -56,23 +55,23 @@ function LuaBehaviour:destroyABAfterAllSpawnDestroy()
 end
 
 function LuaBehaviour:onAwake()
-    --print("-LuaBehaviour----onAwake")
+    Log("onAwake", self.__cname)
 end
 
 function LuaBehaviour:onEnable()
-    --print("-LuaBehaviour----onEnable")
+    Log("onEnable", self.__cname)
 end
 
 function LuaBehaviour:onStart()
-    --print("-LuaBehaviour----onStart")
+    Log("onStart", self.__cname)
 end
 
 function LuaBehaviour:onDisable()
-    --print("-LuaBehaviour----onDisable")
+    Log("onDisable", self.__cname)
 end
 
 function LuaBehaviour:onDestroy()
-    --print("-LuaBehaviour----onDestroy")
+    Log("onDestroy", self.__cname)
 end
 
 return LuaBehaviour
