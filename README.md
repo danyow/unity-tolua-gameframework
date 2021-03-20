@@ -32,35 +32,35 @@
 
 3.  Prefabs内放好预设体。建议Lua目录内创建结构一样的子目录结构，目录内创建对应的UI控制Lua脚本。如果是UI，继承BaseUI，否则继承LuaBahaviour。方式如下:  
   
-FirstUI.lua继承BaseUI:  
+Login.lua继承BaseUI:  
 ```
     local BaseUI = require "Core.BaseUI"  
-    local FirstUI = class("FirstUI", BaseUI)  
-    return FirstUI  
+    local Login = class("Login", BaseUI)  
+    return Login
 ```
-FirstActor.lua继承LuaBehaviour:  
+Ball.lua继承LuaBehaviour:  
 ```
     local LuaBehaviour = require "Core.LuaBehaviour"  
-    local FirstActor = class("FirstActor", LuaBehaviour)  
-    return FirstActor  
+    local Ball = class("Ball", LuaBehaviour)  
+    return Ball  
 ```
   
 4.  必须重写的方法prefabPath()(指定所绑定的预设体的路径)：  
 ```
    local BaseUI = require "Core.BaseUI"  
-   local FirstUI = class("FirstUI", BaseUI)  
+   local Login = class("Login", BaseUI)  
   
-   function FirstUI:prefabPath()  
-      return "Prefabs/UI/FirstUIPrefab"  
+   function Login:prefabPath()  
+      return "Prefabs/Battle/Actors/Ball" 
    end  
   
-   return FirstUI  
+   return Login  
 ```
 
 5. 选择性重写的方法：指定创建的父级。不重写或重写返回nil或""，不重写时父级默认查找场中的中的MainCanvas节点当父级（可自行修改）。
    第二种指定父级的方式见第10点。用本方法指定优先级更高。当返回nil或""时，第10点的方法才有效。    
 ```
-function BaseUI:getParent()
+function Login:getParent()
     return GameObject.Find("MainCanvas").transform
 end
 ```
@@ -68,13 +68,14 @@ end
 6.  实现经典熟悉的生命周期函数，以及按钮绑定方法、DOTween使用  
 ```
    local BaseUI = require "Core.BaseUI"  
-   local FirstUI = class("FirstUI", BaseUI)  
+   local Login = class("Login", BaseUI)  
   
-   function FirstUI:prefabPath()  
-      return "Prefabs/UI/FirstUIPrefab"  
+   function Login:prefabPath()  
+      "Prefabs/Battle/Actors/Ball"
    end  
   
-   function FirstUI:onAwake()  
+   function Login:onAwake()
+      self.super.onAwake(self)
       --按钮的绑定
       self.btnClose = self.transform:Find("BtnClose")  
       self.btnClose:OnClick(function()  
@@ -92,10 +93,11 @@ end
 
    end  
 
-   function FirstUI:onEnable()  
+   function Login:onEnable() 
+       self.super.onEnable(self)
    end  
 
-   function FirstUI:onStart()  
+   function Login:onStart()  
       --DOTween使用（本框架扩展了DOTween的整界面同时透明动画的方法，支持重载以忽略某些参数，详见DOTweenExtend.cs）     
       --self.transform:DOAlpha(初始透明度，目标透明度，动画时长，缓动方式，是否包含所有子节点)  
       self.transform:DOAlpha(0, 1, 1.5, Ease.OutExpo, true):OnComplete(function()
@@ -103,40 +105,45 @@ end
       end)  
    end  
 
-   function FirstUI:onDisable()  
+   function Login:onDisable()  
+       self.super.onDisable(self)
    end  
 
-   function FirstUI:onDestroy()  
+   function Login:onDestroy()  
+       self.super.onDestroy(self)
    end  
   
-   return FirstUI  
+   return Login
 ```
 
 7.  Update方法的实现。出于性能考虑，Update方法需要手动注册和注销： 
 ```
    local BaseUI = require "Core.BaseUI"  
-   local FirstUI = class("FirstUI", BaseUI)  
+   local Login= class("Login", BaseUI)  
   
-   function FirstUI:onAwake()  
+   function Login:onAwake()  
+       self.super.onAwake(self)
       --定义回调
       self.updateHandler = UpdateBeat:CreateListener(self.update, self)
    end  
 
-   function FirstUI:onEnable()  
+   function Login:onEnable()  
+       self.super.onEnable(self)
        --开始Update
        UpdateBeat:AddListener(self.updateHandler)
    end  
 
-   function FirstUI:onDisable()  
+   function Login:onDisable()  
+       self.super.onDisable(self)
        --停止Update
        UpdateBeat:RemoveListener(self.updateHandler)
    end  
 
-   function FirstUI:update()  
+   function Login:update()  
        --这里每帧执行一次
    end  
   
-   return FirstUI  
+   return Login
 ```
 
 8.  正式生成UI，两种方法：
@@ -150,7 +157,7 @@ end
     第2步：Define文件里创建一个模块ID，并注册到ModuleRegister
     第3步：发送一个命令，即可展示UI
 ```
-    CommandManager.execute(CommandID.OpenUI, ModuleId.您定义的UIID, 指定模块里的UI索引，父级节点(可选))  
+    CommandManager.execute(CommandID.OpenUI, ModuleId.您定义的UIID, 指定模块里的UI索引(可选)，父级节点(可选))  
 ```
     
 #### 关于UI栈  
