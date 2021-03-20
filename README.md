@@ -76,11 +76,13 @@ end
   
    function Login:onAwake()
       self.super.onAwake(self)
+
       --按钮的绑定
       self.btnClose = self.transform:Find("BtnClose")  
       self.btnClose:OnClick(function()  
           Destroy(self.gameObect)
       end)  
+
       self.btnClose:OnPointerDown(function()  
           Log("按下了关闭按钮")
       end) 
@@ -123,18 +125,21 @@ end
   
    function Login:onAwake()  
        self.super.onAwake(self)
+
       --定义回调
       self.updateHandler = UpdateBeat:CreateListener(self.update, self)
    end  
 
    function Login:onEnable()  
        self.super.onEnable(self)
+
        --开始Update
        UpdateBeat:AddListener(self.updateHandler)
    end  
 
    function Login:onDisable()  
        self.super.onDisable(self)
+
        --停止Update
        UpdateBeat:RemoveListener(self.updateHandler)
    end  
@@ -150,8 +155,9 @@ end
     
     （1）直接new()
 ```
-    FirstUI:new() 或 FirstUI:new(parent)
+    FirstUI:new() 或 FirstUI:new(parent)  
 ```
+
     （2）通过模块管理（高度解耦，模块内统一管理数据，推荐）
     第1步：创建模块类（如Demo中的LoginMgr）,并在ctor()添加好该模块各个UI类
     第2步：Define文件里创建一个模块ID，并注册到ModuleRegister
