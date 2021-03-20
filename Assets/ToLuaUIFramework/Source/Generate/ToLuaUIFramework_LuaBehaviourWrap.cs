@@ -7,8 +7,10 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ToLuaUIFramework.LuaBehaviour), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("SetLuaClazz", SetLuaClazz);
-		L.RegFunction("SetUIID", SetUIID);
+		L.RegFunction("SetOrders", SetOrders);
+		L.RegFunction("AddCanvas", AddCanvas);
+		L.RegFunction("SetLuaClass", SetLuaClass);
+		L.RegFunction("SetLuaClassId", SetLuaClassId);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("assetBundleName", get_assetBundleName, set_assetBundleName);
@@ -17,18 +19,19 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 		L.RegVar("isFloat", get_isFloat, set_isFloat);
 		L.RegVar("destroyABAfterAllSpawnDestroy", get_destroyABAfterAllSpawnDestroy, set_destroyABAfterAllSpawnDestroy);
 		L.RegVar("sortObjects", get_sortObjects, set_sortObjects);
+		L.RegVar("IsSetedOrder", get_IsSetedOrder, null);
 		L.EndClass();
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int SetLuaClazz(IntPtr L)
+	static int SetOrders(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)ToLua.CheckObject<ToLuaUIFramework.LuaBehaviour>(L, 1);
-			LuaTable arg0 = ToLua.CheckLuaTable(L, 2);
-			obj.SetLuaClazz(arg0);
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.SetOrders(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -38,14 +41,47 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int SetUIID(IntPtr L)
+	static int AddCanvas(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)ToLua.CheckObject<ToLuaUIFramework.LuaBehaviour>(L, 1);
+			obj.AddCanvas();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetLuaClass(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)ToLua.CheckObject<ToLuaUIFramework.LuaBehaviour>(L, 1);
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
-			obj.SetUIID(arg0);
+			LuaTable arg0 = ToLua.CheckLuaTable(L, 2);
+			obj.SetLuaClass(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetLuaClassId(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)ToLua.CheckObject<ToLuaUIFramework.LuaBehaviour>(L, 1);
+			string arg0 = ToLua.CheckString(L, 2);
+			obj.SetLuaClassId(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -183,6 +219,25 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index sortObjects on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_IsSetedOrder(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)o;
+			bool ret = obj.IsSetedOrder;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index IsSetedOrder on a nil value");
 		}
 	}
 

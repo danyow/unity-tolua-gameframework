@@ -2649,12 +2649,29 @@ public class UnityEngine_TransformWrap
 				obj.OnPointerDown(arg0);
 				return 0;
 			}
-			else if (count == 3)
+			else if (count == 3 && TypeChecker.CheckTypes<System.Action<object>, bool>(L, 2))
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				System.Action<object> arg0 = (System.Action<object>)ToLua.ToObject(L, 2);
+				bool arg1 = LuaDLL.lua_toboolean(L, 3);
+				obj.OnPointerDown(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes<object, System.Action<object>>(L, 2))
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				object arg0 = ToLua.ToVarObject(L, 2);
+				System.Action<object> arg1 = (System.Action<object>)ToLua.ToObject(L, 3);
+				obj.OnPointerDown(arg0, arg1);
+				return 0;
+			}
+			else if (count == 4)
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				object arg0 = ToLua.ToVarObject(L, 2);
 				System.Action<object> arg1 = (System.Action<object>)ToLua.CheckDelegate<System.Action<object>>(L, 3);
-				obj.OnPointerDown(arg0, arg1);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
+				obj.OnPointerDown(arg0, arg1, arg2);
 				return 0;
 			}
 			else
@@ -2682,12 +2699,29 @@ public class UnityEngine_TransformWrap
 				obj.OnClick(arg0);
 				return 0;
 			}
-			else if (count == 3)
+			else if (count == 3 && TypeChecker.CheckTypes<System.Action<object>, bool>(L, 2))
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				System.Action<object> arg0 = (System.Action<object>)ToLua.ToObject(L, 2);
+				bool arg1 = LuaDLL.lua_toboolean(L, 3);
+				obj.OnClick(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes<object, System.Action<object>>(L, 2))
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				object arg0 = ToLua.ToVarObject(L, 2);
+				System.Action<object> arg1 = (System.Action<object>)ToLua.ToObject(L, 3);
+				obj.OnClick(arg0, arg1);
+				return 0;
+			}
+			else if (count == 4)
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				object arg0 = ToLua.ToVarObject(L, 2);
 				System.Action<object> arg1 = (System.Action<object>)ToLua.CheckDelegate<System.Action<object>>(L, 3);
-				obj.OnClick(arg0, arg1);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
+				obj.OnClick(arg0, arg1, arg2);
 				return 0;
 			}
 			else

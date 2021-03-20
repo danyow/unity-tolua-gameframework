@@ -9,7 +9,7 @@ end
 
 --由子类重写，在UI栈内被别的UI覆盖时是否隐藏自己
 function BaseUI:keepActive()
-    return true
+    return false
 end
 
 --由子类重写，如果定义了浮动UI,则在UI栈内的下层UI将始终显示
@@ -28,9 +28,6 @@ function BaseUI:createGameObject(parent)
             prefabPath,
             parent,
             function(go, _isSingletonActive)
-                if self.ModuleId then
-                    go:GetComponent("LuaBehaviour"):SetModuleId(self.ModuleId)
-                end
                 self:onGameObjectSpawn(go, _isSingletonActive)
             end,
             self:keepActive(),

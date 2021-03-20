@@ -2,7 +2,7 @@ local BaseUI = require "Core.BaseUI"
 local LobbyMain = class("LobbyMain", BaseUI)
 
 function LobbyMain:prefabPath()
-    return "Prefabs/Lobby/Lobby/LobbyMain"
+    return "Prefabs/Lobby/LobbyMain/LobbyMain"
 end
 
 function LobbyMain:onAwake()
@@ -13,7 +13,7 @@ function LobbyMain:onAwake()
     local btnLogout = self.transform:Find("BtnLogout")
     btnLogout:OnClick(
         function()
-            --CommandManager.execute(CommandID.OpenUI, ModuleId.Login)
+            CommandManager.execute(CommandID.OpenUI, ModuleId.Login)
         end
     )
 

@@ -1,5 +1,4 @@
 ﻿using LuaInterface;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -81,7 +80,7 @@ namespace ToLuaUIFramework
         public bool keepActive;
         public bool isFloat;
         public bool destroyABAfterAllSpawnDestroy;
-        int uiID = -1;
+        string luaClassId;
         LuaTable luaClass;
 
         public List<SortObject> sortObjects = new List<SortObject>();
@@ -113,7 +112,7 @@ namespace ToLuaUIFramework
         /// <summary>
         /// Lua调用
         /// </summary>
-        public void SetLuaClazz(LuaTable luaClass)
+        public void SetLuaClass(LuaTable luaClass)
         {
             this.luaClass = luaClass;
         }
@@ -121,9 +120,9 @@ namespace ToLuaUIFramework
         /// <summary>
         /// Lua调用
         /// </summary>
-        public void SetUIID(int uiID)
+        public void SetLuaClassId(string luaClassId)
         {
-            this.uiID = uiID;
+            this.luaClassId = luaClassId;
         }
 
         protected virtual void Awake()
@@ -178,9 +177,9 @@ namespace ToLuaUIFramework
             if (luaClass != null) luaClass.GetLuaFunction("onDestroy").Call(luaClass);
             if (LuaManager.instance)
             {
-                if (uiID >= 0)
+                if (!string.IsNullOrEmpty(luaClassId))
                 {
-                    LuaManager.instance.GetFunction("onUIDestroy").Call(uiID);
+                    LuaManager.instance.GetFunction("OnGameObjectDestroy").Call(luaClassId);
                 }
                 LuaManager.instance.GetFunction("clear_class").Call(luaClass);
             }

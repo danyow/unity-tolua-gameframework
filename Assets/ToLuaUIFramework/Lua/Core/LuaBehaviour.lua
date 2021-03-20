@@ -5,6 +5,7 @@ function LuaBehaviour:ctor(parent)
 end
 
 function LuaBehaviour:createGameObject(parent)
+    self.parentFromNew = parent
     local customParent = self:getParent()
     if customParent then
         parent = customParent
@@ -26,12 +27,15 @@ end
 function LuaBehaviour:onGameObjectSpawn(go, _isSingletonActive)
     self.gameObject = go
     self.transform = go.transform
+    if self._luaClassId then
+        self.transform:GetComponent("LuaBehaviour"):SetLuaClassId(self._luaClassId)
+    end
     if not _isSingletonActive then
         self:onAwake()
         self:onEnable()
     end
     local csharpLuaBehaviour = go:GetComponent("LuaBehaviour")
-    csharpLuaBehaviour:SetLuaClazz(self)
+    csharpLuaBehaviour:SetLuaClass(self)
 end
 
 --由子类重写，设置物体生成时的父级节点，优先级高于new(parent)参数传入

@@ -2,7 +2,7 @@
 using System;
 using LuaInterface;
 
-public class ToLuaUIFramework_BButtonTriggerWrap
+public class ToLuaUIFramework_BButtonEffectWrap
 {
 	public static void Register(LuaState L)
 	{

@@ -1,6 +1,6 @@
 --[[
 队列用法：
-require "queue"
+    require "queue"
     local myQueue = Queue:new()
     Queue.push(myQueue, 1)
     Queue.push(myQueue, 2)

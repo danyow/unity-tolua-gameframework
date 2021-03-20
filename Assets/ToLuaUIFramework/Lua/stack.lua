@@ -1,6 +1,6 @@
 --[[
 栈用法：
-require "stack"
+    require "stack"
     local myStack = Stack:new()
     Stack.push(myStack, 1)
     Stack.push(myStack, 2)

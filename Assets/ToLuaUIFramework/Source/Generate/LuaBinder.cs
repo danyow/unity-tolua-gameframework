@@ -150,14 +150,14 @@ public static class LuaBinder
 		L.EndModule();
 		L.EndModule();
 		L.BeginModule("ToLuaUIFramework");
-		ToLuaUIFramework_MessageManagerWrap.Register(L);
+		ToLuaUIFramework_MessageCenterWrap.Register(L);
 		ToLuaUIFramework_LuaManagerWrap.Register(L);
 		ToLuaUIFramework_ResManagerWrap.Register(L);
 		ToLuaUIFramework_UIManagerWrap.Register(L);
 		ToLuaUIFramework_SoundManagerWrap.Register(L);
 		ToLuaUIFramework_LuaBehaviourWrap.Register(L);
 		ToLuaUIFramework_BButtonWrap.Register(L);
-		ToLuaUIFramework_BButtonTriggerWrap.Register(L);
+		ToLuaUIFramework_BButtonEffectWrap.Register(L);
 		ToLuaUIFramework_BTweenWrap.Register(L);
 		L.RegFunction("TweenEvent", ToLuaUIFramework_TweenEvent);
 		L.BeginModule("BTween");

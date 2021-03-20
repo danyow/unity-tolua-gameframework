@@ -207,7 +207,7 @@ namespace ToLuaUIFramework
         #region 对外方法
 
         /// <summary>
-        /// 创建UI(destroyAssetBundle:当所有引用完全销毁后是否同时销毁AssetBundle)
+        /// 创建对象
         /// </summary>
         public void SpawnPrefab(string prefabPath, Transform parent, Action<GameObject, bool> callback, bool destroyABAfterSpawn = false, bool destroyABAfterAllSpawnDestroy = false)
         {
