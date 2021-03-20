@@ -16,5 +16,3 @@ JSON = require "cjson"
 --Lua工具
 BButton             = ToLuaUIFramework.BButton
 BButtonTrigger      = ToLuaUIFramework.BButtonTrigger
-CommandManager      = require "CommandManager"
-EventManager        = require "EventManager"

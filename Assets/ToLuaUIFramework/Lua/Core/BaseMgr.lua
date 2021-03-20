@@ -27,15 +27,17 @@ function BaseMgr:onReceiveOpenUICmd(moduleId, uiIndex, parent)
     if not self._uiList then
         return
     end
-    Log(moduleId.." = "..self.moduleId, "onReceiveOpenUICmd")
     if moduleId == self.moduleId then
         if not uiIndex then
             uiIndex = 1
         end
-        if parent then
-            self._uiList[uiIndex]:new(parent)
-        else
-            self._uiList[uiIndex]:new()
+        local clazz = self._uiList[uiIndex]
+        if clazz then
+            if parent then
+                clazz:new(parent)
+            else
+                clazz:new()
+            end
         end
     end
 end

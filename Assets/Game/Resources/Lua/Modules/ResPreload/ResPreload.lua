@@ -21,7 +21,7 @@ function ResPreload:onStart()
             self.slider.value = progress
             if progress == 1 then
                 Destroy(self.gameObject)
-                CommandManager.execute(CommandID.OpenUI, ModuleId.Login, 5)
+                CommandManager.execute(CommandID.OpenUI, ModuleId.Login, 2)
             end
         end
     )

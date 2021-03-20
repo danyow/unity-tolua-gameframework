@@ -2,6 +2,8 @@
 
 require "logger"
 require "define"
+require "command_manager"
+require "event_manager"
 require "functions"
 require "utils"
 require "dotween"

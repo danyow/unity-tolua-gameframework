@@ -55,23 +55,23 @@ function LuaBehaviour:destroyABAfterAllSpawnDestroy()
 end
 
 function LuaBehaviour:onAwake()
-    Log("onAwake", self.__cname)
+    --Log("onAwake", self.__cname)
 end
 
 function LuaBehaviour:onEnable()
-    Log("onEnable", self.__cname)
+    --Log("onEnable", self.__cname)
 end
 
 function LuaBehaviour:onStart()
-    Log("onStart", self.__cname)
+    --Log("onStart", self.__cname)
 end
 
 function LuaBehaviour:onDisable()
-    Log("onDisable", self.__cname)
+    --Log("onDisable", self.__cname)
 end
 
 function LuaBehaviour:onDestroy()
-    Log("onDestroy", self.__cname)
+    --Log("onDestroy", self.__cname)
 end
 
 return LuaBehaviour

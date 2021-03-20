@@ -18,7 +18,7 @@ function Register:onAwake()
     local btnBack = self.transform:Find("BtnBack")
     btnBack:OnClick(
         function()
-            Destroy(self.gameObject)
+            CommandManager.execute(CommandID.OpenUI, ModuleId.Login, 1)
         end
     )
 end
