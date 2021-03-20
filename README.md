@@ -165,6 +165,7 @@ end
     第1步：创建模块类（如Demo中的LoginMgr）,并在ctor()添加好该模块各个UI类  
     第2步：Define文件里创建一个模块ID，并注册到ModuleRegister  
     第3步：发送一个命令，即可展示UI  
+    注：模块管理器与UI之间的相互访问，可参考Login.lua和LoginMgr.lua
 ```
     CommandManager.execute(CommandID.OpenUI, ModuleId.您定义的UIID, 指定模块里的UI索引(可选)，父级节点(可选))  
 ```
