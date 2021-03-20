@@ -1,70 +1,115 @@
-local function printTable(t, method, prefix)
-    local printContent = ""
-    local print_t_cache = {}
-    local function sub_tablePrint(t, indent)
-        if (print_t_cache[tostring(t)]) then
-            printContent = printContent .. (indent .. "*" .. tostring(t))
-        else
-            print_t_cache[tostring(t)] = true
-            if (type(t) == "table") then
-                for pos, val in pairs(t) do
-                    if (type(val) == "table") then
-                        printContent = printContent .. (indent .. "[" .. pos .. "] => " .. tostring(t) .. " {")
-                        sub_tablePrint(val, indent .. string.rep(" ", string.len(pos) + 8))
-                        printContent = printContent .. (indent .. string.rep(" ", string.len(pos) + 6) .. "}")
-                    elseif (type(val) == "string") then
-                        printContent = printContent .. (indent .. "[" .. pos .. '] => "' .. val .. '"')
-                    else
-                        printContent = printContent .. (indent .. "[" .. pos .. "] => " .. tostring(val))
-                    end
-                end
-            else
-                printContent = printContent .. (indent .. tostring(t))
+local function _pairsEx(tbl)
+    local meta = getmetatable(tbl)
+    if meta then
+        for key, value in pairs(meta) do
+            if key == "__pairs" then
+                return meta.__pairs(tbl)
             end
         end
     end
-    if (type(t) == "table") then
-        printContent = printContent .. (tostring(t) .. " {")
-        sub_tablePrint(t, "  ")
-        printContent = printContent .. ("}")
-    else
-        sub_tablePrint(t, "  ")
-    end
-    if prefix then
-        printContent = "WQB-> " .. prefix .. " " .. printContent .. "\n" .. debug.traceback()
-    else
-        printContent = "WQB-> " .. printContent .. "\n" .. debug.traceback()
-    end
+    return pairs(tbl)
+end
 
-    if method == 1 then
-        Debugger.Log(printContent)
-    elseif method == 2 then
-        Debugger.LogWarning(printContent)
+local function _isMetatable(data)
+    local meta = getmetatable(data)
+    if meta then
+        for key, value in pairs(meta) do
+            if key == "__pairs" then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+local function _isLuaClass(data)
+    if type(data) == "table" then
+        for key, value in pairs(data) do
+            if type(value) == "function" then
+                return true
+            end
+            if type(value) == "table" then
+                for k, v in pairs(value) do
+                    if type(v) == "function" then
+                        return true
+                    end
+                end
+            end
+        end
+    end
+    return false
+end
+
+function DataToJson(data, depth)
+    if data == nil then
+        return "nil"
+    end
+    depth = depth + 1
+    if depth > 8 then
+        return tostring(data)
+    end
+    if _isLuaClass(data) then
+        if data.__cname then
+            return "class(" .. data.__cname .. ")"
+        end
+        return tostring(data)
+    end
+    if type(data) == "table" or _isMetatable(data) then
+        local str = "{"
+        for key, value in _pairsEx(data) do
+            if str ~= "{" then
+                str = str .. ","
+            end
+            str = str .. '"' .. key .. '"' .. ":" .. DataToJson(value, depth)
+        end
+        return str .. "}"
+    elseif type(data) == "number" then
+        return tostring(data)
     else
-        Debugger.LogError(printContent)
+        return '"' .. tostring(data) .. '"'
     end
 end
 
-function Log(param1, param2)
-    if param2 then
-        printTable(param2, 1, param1)
+local function _log(data, method, tag)
+    local func = Debugger.Log
+    if method == 2 then
+        func = Debugger.LogWarning
+    end
+    if method == 3 then
+        func = Debugger.LogError
+    end
+    local depth = 1
+    local str = DataToJson(data, depth)
+    if tag then
+        func("WQB=> [" .. tag .. "]=> " .. str .. "\n" .. debug.traceback())
     else
-        printTable(param1, 1, nil)
+        func("WQB=> " .. str .. "\n" .. debug.traceback())
     end
 end
 
-function LogWarning(param1, param2)
-    if param2 then
-        printTable(param2, 2, param1)
-    else
-        printTable(param1, 2, nil)
-    end
+function Log(data, tag)
+    _log(data, 1, tag)
 end
 
-function LogError(param1, param2)
-    if param2 then
-        printTable(param2, 3, param1)
+function LogWarning(data, tag)
+    _log(data, 2, tag)
+end
+
+function LogError(data, tag)
+    _log(data, 3, tag)
+end
+
+function LogTimestamp(timestamp, addPrefix)
+    Log(TimestampToDate(timestamp, addPrefix))
+end
+
+function TimestampToDate(timestamp, addPrefix)
+    if not addPrefix then
+        addPrefix = false
+    end
+    if addPrefix then
+        return os.date("! %y年%m月%d日%H时%M分%S秒", timestamp)
     else
-        printTable(param1, 3, nil)
+        return os.date("%y年%m月%d日%H时%M分%S秒", timestamp)
     end
 end

@@ -9,6 +9,9 @@
         "ToLuaUIFramework",
         "clear_class",
         "onUIDestroy",
-        "onLuaBehaviourDestroy"
+        "onLuaBehaviourDestroy",
+        "timestampToDate",
+        "timestampToDate",
+        "dataToJson"
     ]
 }

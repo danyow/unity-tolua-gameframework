@@ -2,21 +2,24 @@
 
 require "logger"
 require "define"
-require "global"
+require "functions"
 require "utils"
 require "dotween"
 require "btween"
 
-require "Common.Define"
-UIRegister = require "Core.UIRegister"
+require "Core.Define"
+ModuleRegister = require "Core.ModuleRegister"
 
 function Main()
+    --所有注册的模块初始化
+    ModuleRegister.init()
+
+    --开始打开第一个模块
     Destroy(GameObject.Find("CanvasLoadAB"))
 
-    UIRegister.init()
-    UIRegister.register()
-
-    CommandManager.execute(CommandID.OpenUI, UIID.ResPreload)
+    --正常实例化UI，不用命令打开UI
+    local PreloadUI = require "Modules.ResPreload.ResPreload"
+    PreloadUI:new(GameObject.Find("MainCanvas").transform)
 end
 
 --场景切换通知

@@ -53,7 +53,7 @@ namespace ToLuaUIFramework
                 }
             }
             //开始创建
-            ResManager.instance.SpawnPrefab(prefabPath, parent, (GameObject go, bool isSingletonActiveCallback) =>
+            ResManager.instance.SpawnPrefab(prefabPath, parent, (GameObject go, bool isSingletonActive) =>
             {
                 LuaBehaviour luaBehaviour = go.GetComponent<LuaBehaviour>();
                 luaBehaviour.keepActive = keepActive;
@@ -61,7 +61,7 @@ namespace ToLuaUIFramework
                 //处理入栈
                 uiStack.Add(luaBehaviour);
                 RefreshStack();
-                if (callback != null) callback(go, isSingletonActiveCallback);
+                if (callback != null) callback(go, isSingletonActive);
             }, destroyABAfterSpawn, destroyABAfterAllSpawnDestroy);
         }
 
