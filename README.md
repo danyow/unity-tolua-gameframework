@@ -57,8 +57,8 @@ Ball.lua继承LuaBehaviour:
    return Login  
 ```
 
-5. 选择性重写的方法：指定创建的父级。不重写或重写返回nil或""，不重写时父级默认查找场中的中的MainCanvas节点当父级（可自行修改）。
-   第二种指定父级的方式见第10点。用本方法指定优先级更高。当返回nil或""时，第10点的方法才有效。    
+5. 选择性重写的方法：指定创建的父级。不重写时父级默认查找场中的中的MainCanvas节点当父级（可自行修改）。
+   第二种指定父级的方式是实例化时new(parent)传参。用本方法指定优先级更高。重写方法并返回nil或""时，new传入才有效。    
 ```
 function Login:getParent()
     return GameObject.Find("MainCanvas").transform
