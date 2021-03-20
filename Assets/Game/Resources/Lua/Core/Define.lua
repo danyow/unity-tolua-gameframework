@@ -7,9 +7,12 @@ ModuleId = {
     Common = 1,
     Login = 2,
     LobbyMain = 3,
-    PlayerInfo = 4,
+    Player = 4,
     Shop = 5,
-    RoomSelect = 6,
+    Room = 6,
     FightUI = 7,
-    Actor = 8
+    Actor = 8,
+
+    --活动
+    DailyReward = 100
 }

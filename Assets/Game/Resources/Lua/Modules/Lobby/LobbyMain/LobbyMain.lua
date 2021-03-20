@@ -20,9 +20,17 @@ function LobbyMain:onAwake()
     local btnPlayerInfo = self.transform:Find("BtnPlayerInfo")
     btnPlayerInfo:OnClick(
         function()
-            --CommandManager.execute(CommandID.OpenUI, ModuleId.PlayerInfo)
+            CommandManager.execute(CommandID.OpenUI, ModuleId.Player)
         end
     )
+
+    local btnDailyReward = self.transform:Find("BtnDailyReward")
+    btnDailyReward:OnClick(
+        function()
+            CommandManager.execute(CommandID.OpenUI, ModuleId.DailyReward)
+        end
+    )
+    
 
     local btnBtnShop = self.transform:Find("BtnShop")
     btnBtnShop:OnClick(
@@ -34,7 +42,7 @@ function LobbyMain:onAwake()
     local btnFight = self.transform:Find("BtnFight")
     btnFight:OnClick(
         function()
-            --CommandManager.execute(CommandID.OpenUI, ModuleId.RoomSelect)
+            --CommandManager.execute(CommandID.OpenUI, ModuleId.Room)
         end
     )
 

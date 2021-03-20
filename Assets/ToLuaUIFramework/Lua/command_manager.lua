@@ -115,7 +115,11 @@ function CommandManager.execute(id, ...)
         end
         params = params .. tostring(value)
     end
-    Log("{id=" .. id .. ", params=" .. params .. "}", "执行命令")
+    if params == "" then
+        Log("{id=" .. id .. "}", "执行命令")
+    else
+        Log("{id=" .. id .. ", params=" .. params .. "}", "执行命令")
+    end
     local listeners = listenerGroups[id]
     if not listeners then
         return

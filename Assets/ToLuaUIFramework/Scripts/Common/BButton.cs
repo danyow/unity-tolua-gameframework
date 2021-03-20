@@ -1,4 +1,4 @@
-﻿using System;
+﻿using LuaInterface;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,8 +7,9 @@ namespace ToLuaUIFramework
     public class BButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     {
         public object param = 0;
+        public LuaTable self;
         public float canTriggerInterval = 0f;
-        public Action<object> onClick, onPointerDown;
+        public LuaFunction onClick, onDown;
         public RectTransform rectTransform { get { return transform as RectTransform; } }
         float canTouchTimer;
         BButtonEffect buttonEffect;
@@ -43,7 +44,14 @@ namespace ToLuaUIFramework
             {
                 if (canTouchTimer <= 0f)
                 {
-                    if (onPointerDown != null) onPointerDown.Invoke(param);
+                    if (onDown != null)
+                    {
+                        onDown.BeginPCall();
+                        onDown.Push(self);
+                        onDown.Push(param);
+                        onDown.PCall();
+                        onDown.EndPCall();
+                    }
                     canTouchTimer = canTriggerInterval;
                     CheckFindEffect();
                     if (buttonEffect && canTouchTimer > 0)
@@ -60,7 +68,14 @@ namespace ToLuaUIFramework
             {
                 if (canTouchTimer <= 0f)
                 {
-                    if (onClick != null) onClick.Invoke(param);
+                    if (onClick != null)
+                    {
+                        onClick.BeginPCall();
+                        onClick.Push(self);
+                        onClick.Push(param);
+                        onClick.PCall();
+                        onClick.EndPCall();
+                    }
                     canTouchTimer = canTriggerInterval;
                     CheckFindEffect();
                     if (buttonEffect && canTouchTimer > 0)

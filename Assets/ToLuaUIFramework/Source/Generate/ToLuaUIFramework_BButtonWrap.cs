@@ -12,9 +12,10 @@ public class ToLuaUIFramework_BButtonWrap
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("param", get_param, set_param);
+		L.RegVar("self", get_self, set_self);
 		L.RegVar("canTriggerInterval", get_canTriggerInterval, set_canTriggerInterval);
 		L.RegVar("onClick", get_onClick, set_onClick);
-		L.RegVar("onPointerDown", get_onPointerDown, set_onPointerDown);
+		L.RegVar("onDown", get_onDown, set_onDown);
 		L.RegVar("rectTransform", get_rectTransform, null);
 		L.EndClass();
 	}
@@ -91,6 +92,25 @@ public class ToLuaUIFramework_BButtonWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_self(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ToLuaUIFramework.BButton obj = (ToLuaUIFramework.BButton)o;
+			LuaInterface.LuaTable ret = obj.self;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index self on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_canTriggerInterval(IntPtr L)
 	{
 		object o = null;
@@ -118,7 +138,7 @@ public class ToLuaUIFramework_BButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			ToLuaUIFramework.BButton obj = (ToLuaUIFramework.BButton)o;
-			System.Action<object> ret = obj.onClick;
+			LuaInterface.LuaFunction ret = obj.onClick;
 			ToLua.Push(L, ret);
 			return 1;
 		}
@@ -129,7 +149,7 @@ public class ToLuaUIFramework_BButtonWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_onPointerDown(IntPtr L)
+	static int get_onDown(IntPtr L)
 	{
 		object o = null;
 
@@ -137,13 +157,13 @@ public class ToLuaUIFramework_BButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			ToLuaUIFramework.BButton obj = (ToLuaUIFramework.BButton)o;
-			System.Action<object> ret = obj.onPointerDown;
+			LuaInterface.LuaFunction ret = obj.onDown;
 			ToLua.Push(L, ret);
 			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index onPointerDown on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index onDown on a nil value");
 		}
 	}
 
@@ -186,6 +206,25 @@ public class ToLuaUIFramework_BButtonWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_self(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ToLuaUIFramework.BButton obj = (ToLuaUIFramework.BButton)o;
+			LuaTable arg0 = ToLua.CheckLuaTable(L, 2);
+			obj.self = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index self on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_canTriggerInterval(IntPtr L)
 	{
 		object o = null;
@@ -213,7 +252,7 @@ public class ToLuaUIFramework_BButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			ToLuaUIFramework.BButton obj = (ToLuaUIFramework.BButton)o;
-			System.Action<object> arg0 = (System.Action<object>)ToLua.CheckDelegate<System.Action<object>>(L, 2);
+			LuaFunction arg0 = ToLua.CheckLuaFunction(L, 2);
 			obj.onClick = arg0;
 			return 0;
 		}
@@ -224,7 +263,7 @@ public class ToLuaUIFramework_BButtonWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_onPointerDown(IntPtr L)
+	static int set_onDown(IntPtr L)
 	{
 		object o = null;
 
@@ -232,13 +271,13 @@ public class ToLuaUIFramework_BButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			ToLuaUIFramework.BButton obj = (ToLuaUIFramework.BButton)o;
-			System.Action<object> arg0 = (System.Action<object>)ToLua.CheckDelegate<System.Action<object>>(L, 2);
-			obj.onPointerDown = arg0;
+			LuaFunction arg0 = ToLua.CheckLuaFunction(L, 2);
+			obj.onDown = arg0;
 			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index onPointerDown on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index onDown on a nil value");
 		}
 	}
 }

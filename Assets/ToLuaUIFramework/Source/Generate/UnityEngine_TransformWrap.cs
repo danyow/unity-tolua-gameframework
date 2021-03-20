@@ -76,7 +76,7 @@ public class UnityEngine_TransformWrap
 		L.RegFunction("DOMoveX", DOMoveX);
 		L.RegFunction("DOMove", DOMove);
 		L.RegFunction("DOAlpha", DOAlpha);
-		L.RegFunction("OnPointerDown", OnPointerDown);
+		L.RegFunction("OnDown", OnDown);
 		L.RegFunction("OnClick", OnClick);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -2636,7 +2636,7 @@ public class UnityEngine_TransformWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int OnPointerDown(IntPtr L)
+	static int OnDown(IntPtr L)
 	{
 		try
 		{
@@ -2645,38 +2645,57 @@ public class UnityEngine_TransformWrap
 			if (count == 2)
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
-				System.Action<object> arg0 = (System.Action<object>)ToLua.CheckDelegate<System.Action<object>>(L, 2);
-				obj.OnPointerDown(arg0);
+				LuaFunction arg0 = ToLua.CheckLuaFunction(L, 2);
+				obj.OnDown(arg0);
 				return 0;
 			}
-			else if (count == 3 && TypeChecker.CheckTypes<System.Action<object>, bool>(L, 2))
+			else if (count == 3 && TypeChecker.CheckTypes<LuaInterface.LuaFunction, LuaInterface.LuaTable>(L, 2))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
-				System.Action<object> arg0 = (System.Action<object>)ToLua.ToObject(L, 2);
-				bool arg1 = LuaDLL.lua_toboolean(L, 3);
-				obj.OnPointerDown(arg0, arg1);
+				LuaFunction arg0 = ToLua.ToLuaFunction(L, 2);
+				LuaTable arg1 = ToLua.ToLuaTable(L, 3);
+				obj.OnDown(arg0, arg1);
 				return 0;
 			}
-			else if (count == 3 && TypeChecker.CheckTypes<object, System.Action<object>>(L, 2))
-			{
-				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
-				object arg0 = ToLua.ToVarObject(L, 2);
-				System.Action<object> arg1 = (System.Action<object>)ToLua.ToObject(L, 3);
-				obj.OnPointerDown(arg0, arg1);
-				return 0;
-			}
-			else if (count == 4)
+			else if (count == 3 && TypeChecker.CheckTypes<object, LuaInterface.LuaFunction>(L, 2))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				object arg0 = ToLua.ToVarObject(L, 2);
-				System.Action<object> arg1 = (System.Action<object>)ToLua.CheckDelegate<System.Action<object>>(L, 3);
-				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
-				obj.OnPointerDown(arg0, arg1, arg2);
+				LuaFunction arg1 = ToLua.ToLuaFunction(L, 3);
+				obj.OnDown(arg0, arg1);
+				return 0;
+			}
+			else if (count == 4 && TypeChecker.CheckTypes<LuaInterface.LuaFunction, LuaInterface.LuaTable, bool>(L, 2))
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				LuaFunction arg0 = ToLua.ToLuaFunction(L, 2);
+				LuaTable arg1 = ToLua.ToLuaTable(L, 3);
+				bool arg2 = LuaDLL.lua_toboolean(L, 4);
+				obj.OnDown(arg0, arg1, arg2);
+				return 0;
+			}
+			else if (count == 4 && TypeChecker.CheckTypes<object, LuaInterface.LuaFunction, LuaInterface.LuaTable>(L, 2))
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				object arg0 = ToLua.ToVarObject(L, 2);
+				LuaFunction arg1 = ToLua.ToLuaFunction(L, 3);
+				LuaTable arg2 = ToLua.ToLuaTable(L, 4);
+				obj.OnDown(arg0, arg1, arg2);
+				return 0;
+			}
+			else if (count == 5)
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				object arg0 = ToLua.ToVarObject(L, 2);
+				LuaFunction arg1 = ToLua.CheckLuaFunction(L, 3);
+				LuaTable arg2 = ToLua.CheckLuaTable(L, 4);
+				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
+				obj.OnDown(arg0, arg1, arg2, arg3);
 				return 0;
 			}
 			else
 			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: UnityEngine.Transform.OnPointerDown");
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: UnityEngine.Transform.OnDown");
 			}
 		}
 		catch (Exception e)
@@ -2695,33 +2714,52 @@ public class UnityEngine_TransformWrap
 			if (count == 2)
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
-				System.Action<object> arg0 = (System.Action<object>)ToLua.CheckDelegate<System.Action<object>>(L, 2);
+				LuaFunction arg0 = ToLua.CheckLuaFunction(L, 2);
 				obj.OnClick(arg0);
 				return 0;
 			}
-			else if (count == 3 && TypeChecker.CheckTypes<System.Action<object>, bool>(L, 2))
+			else if (count == 3 && TypeChecker.CheckTypes<LuaInterface.LuaFunction, LuaInterface.LuaTable>(L, 2))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
-				System.Action<object> arg0 = (System.Action<object>)ToLua.ToObject(L, 2);
-				bool arg1 = LuaDLL.lua_toboolean(L, 3);
+				LuaFunction arg0 = ToLua.ToLuaFunction(L, 2);
+				LuaTable arg1 = ToLua.ToLuaTable(L, 3);
 				obj.OnClick(arg0, arg1);
 				return 0;
 			}
-			else if (count == 3 && TypeChecker.CheckTypes<object, System.Action<object>>(L, 2))
+			else if (count == 3 && TypeChecker.CheckTypes<object, LuaInterface.LuaFunction>(L, 2))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				object arg0 = ToLua.ToVarObject(L, 2);
-				System.Action<object> arg1 = (System.Action<object>)ToLua.ToObject(L, 3);
+				LuaFunction arg1 = ToLua.ToLuaFunction(L, 3);
 				obj.OnClick(arg0, arg1);
 				return 0;
 			}
-			else if (count == 4)
+			else if (count == 4 && TypeChecker.CheckTypes<LuaInterface.LuaFunction, LuaInterface.LuaTable, bool>(L, 2))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
-				object arg0 = ToLua.ToVarObject(L, 2);
-				System.Action<object> arg1 = (System.Action<object>)ToLua.CheckDelegate<System.Action<object>>(L, 3);
-				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
+				LuaFunction arg0 = ToLua.ToLuaFunction(L, 2);
+				LuaTable arg1 = ToLua.ToLuaTable(L, 3);
+				bool arg2 = LuaDLL.lua_toboolean(L, 4);
 				obj.OnClick(arg0, arg1, arg2);
+				return 0;
+			}
+			else if (count == 4 && TypeChecker.CheckTypes<object, LuaInterface.LuaFunction, LuaInterface.LuaTable>(L, 2))
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				object arg0 = ToLua.ToVarObject(L, 2);
+				LuaFunction arg1 = ToLua.ToLuaFunction(L, 3);
+				LuaTable arg2 = ToLua.ToLuaTable(L, 4);
+				obj.OnClick(arg0, arg1, arg2);
+				return 0;
+			}
+			else if (count == 5)
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				object arg0 = ToLua.ToVarObject(L, 2);
+				LuaFunction arg1 = ToLua.CheckLuaFunction(L, 3);
+				LuaTable arg2 = ToLua.CheckLuaTable(L, 4);
+				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
+				obj.OnClick(arg0, arg1, arg2, arg3);
 				return 0;
 			}
 			else

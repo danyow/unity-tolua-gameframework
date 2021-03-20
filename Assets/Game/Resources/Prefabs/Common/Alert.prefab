@@ -74,8 +74,8 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\u63D0\u793A\u6587\u5B57"
 --- !u!1 &806660338224308027
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 7156719300460881247}
   - component: {fileID: 959776361572756723}
   - component: {fileID: 5652422601144629312}
-  - component: {fileID: 6591143513593723148}
+  - component: {fileID: 8903809129974738728}
   m_Layer: 5
   m_Name: Dialog
   m_TagString: Untagged
@@ -165,19 +165,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 50
-    m_Right: 149
-    m_Top: 50
-    m_Bottom: 50
+    m_Left: 129
+    m_Right: 306
+    m_Top: 118
+    m_Bottom: 143
   m_ChildAlignment: 0
   m_Spacing: 0
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
---- !u!114 &6591143513593723148
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
+--- !u!114 &8903809129974738728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

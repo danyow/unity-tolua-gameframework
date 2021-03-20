@@ -14,6 +14,13 @@ function Login:onAwake()
             CommandManager.execute(CommandID.OpenUI, ModuleId.LobbyMain)
         end
     )
+
+    local btnRegister = self.transform:Find("BtnRegister")
+    btnRegister:OnClick(
+        function()
+            CommandManager.execute(CommandID.OpenUI, ModuleId.Login, 2)
+        end
+    )
 end
 
 --由模块触发调用

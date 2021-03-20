@@ -70,7 +70,6 @@ public class DelegateFactory
 		dict.Add(typeof(System.Action<ToLuaUIFramework.BaseMsg>), factory.System_Action_ToLuaUIFramework_BaseMsg);
 		dict.Add(typeof(System.Action<float>), factory.System_Action_float);
 		dict.Add(typeof(System.Action<UnityEngine.GameObject,bool>), factory.System_Action_UnityEngine_GameObject_bool);
-		dict.Add(typeof(System.Action<object>), factory.System_Action_object);
 		dict.Add(typeof(ToLuaUIFramework.TweenEvent), factory.ToLuaUIFramework_TweenEvent);
 
 		DelegateTraits<System.Action>.Init(factory.System_Action);
@@ -126,7 +125,6 @@ public class DelegateFactory
 		DelegateTraits<System.Action<ToLuaUIFramework.BaseMsg>>.Init(factory.System_Action_ToLuaUIFramework_BaseMsg);
 		DelegateTraits<System.Action<float>>.Init(factory.System_Action_float);
 		DelegateTraits<System.Action<UnityEngine.GameObject,bool>>.Init(factory.System_Action_UnityEngine_GameObject_bool);
-		DelegateTraits<System.Action<object>>.Init(factory.System_Action_object);
 		DelegateTraits<ToLuaUIFramework.TweenEvent>.Init(factory.ToLuaUIFramework_TweenEvent);
 
 		TypeTraits<System.Action>.Init(factory.Check_System_Action);
@@ -182,7 +180,6 @@ public class DelegateFactory
 		TypeTraits<System.Action<ToLuaUIFramework.BaseMsg>>.Init(factory.Check_System_Action_ToLuaUIFramework_BaseMsg);
 		TypeTraits<System.Action<float>>.Init(factory.Check_System_Action_float);
 		TypeTraits<System.Action<UnityEngine.GameObject,bool>>.Init(factory.Check_System_Action_UnityEngine_GameObject_bool);
-		TypeTraits<System.Action<object>>.Init(factory.Check_System_Action_object);
 		TypeTraits<ToLuaUIFramework.TweenEvent>.Init(factory.Check_ToLuaUIFramework_TweenEvent);
 
 		StackTraits<System.Action>.Push = factory.Push_System_Action;
@@ -238,7 +235,6 @@ public class DelegateFactory
 		StackTraits<System.Action<ToLuaUIFramework.BaseMsg>>.Push = factory.Push_System_Action_ToLuaUIFramework_BaseMsg;
 		StackTraits<System.Action<float>>.Push = factory.Push_System_Action_float;
 		StackTraits<System.Action<UnityEngine.GameObject,bool>>.Push = factory.Push_System_Action_UnityEngine_GameObject_bool;
-		StackTraits<System.Action<object>>.Push = factory.Push_System_Action_object;
 		StackTraits<ToLuaUIFramework.TweenEvent>.Push = factory.Push_ToLuaUIFramework_TweenEvent;
 	}
     
@@ -3416,63 +3412,6 @@ public class DelegateFactory
 	}
 
 	void Push_System_Action_UnityEngine_GameObject_bool(IntPtr L, System.Action<UnityEngine.GameObject,bool> o)
-	{
-		ToLua.Push(L, o);
-	}
-
-	class System_Action_object_Event : LuaDelegate
-	{
-		public System_Action_object_Event(LuaFunction func) : base(func) { }
-		public System_Action_object_Event(LuaFunction func, LuaTable self) : base(func, self) { }
-
-		public void Call(object param0)
-		{
-			func.BeginPCall();
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-
-		public void CallWithSelf(object param0)
-		{
-			func.BeginPCall();
-			func.Push(self);
-			func.Push(param0);
-			func.PCall();
-			func.EndPCall();
-		}
-	}
-
-	public System.Action<object> System_Action_object(LuaFunction func, LuaTable self, bool flag)
-	{
-		if (func == null)
-		{
-			System.Action<object> fn = delegate(object param0) { };
-			return fn;
-		}
-
-		if(!flag)
-		{
-			System_Action_object_Event target = new System_Action_object_Event(func);
-			System.Action<object> d = target.Call;
-			target.method = d.Method;
-			return d;
-		}
-		else
-		{
-			System_Action_object_Event target = new System_Action_object_Event(func, self);
-			System.Action<object> d = target.CallWithSelf;
-			target.method = d.Method;
-			return d;
-		}
-	}
-
-	bool Check_System_Action_object(IntPtr L, int pos)
-	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<object>), L, pos);
-	}
-
-	void Push_System_Action_object(IntPtr L, System.Action<object> o)
 	{
 		ToLua.Push(L, o);
 	}

@@ -2,7 +2,7 @@ local BaseUI = require "Core.BaseUI"
 local PlayerInfo = class("PlayerInfo", BaseUI)
 
 function PlayerInfo:prefabPath()
-    return "Prefabs/Lobby/PlayerInfo/PlayerInfo"
+    return "Prefabs/Lobby/Player/PlayerInfo"
 end
 
 function PlayerInfo:isFloat()
@@ -24,7 +24,7 @@ function PlayerInfo:onAwake()
     local btnAlert = self.transform:Find("Dialog/BtnAlert")
     btnAlert:OnClick(
         function()
-            --CommandManager.execute(CommandID.OpenUI, ModuleId.Alert)
+            CommandManager.execute(CommandID.OpenUI, ModuleId.Common, 1)
         end
     )
 end

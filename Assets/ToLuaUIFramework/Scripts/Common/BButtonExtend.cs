@@ -1,4 +1,4 @@
-﻿using System;
+﻿using LuaInterface;
 using UnityEngine;
 
 namespace ToLuaUIFramework
@@ -6,12 +6,12 @@ namespace ToLuaUIFramework
     public static class BButtonExtend
     {
 
-        public static void OnClick(this Transform btn, Action<object> clickEvent, bool addClickEffect = true)
+        public static void OnClick(this Transform btn, LuaFunction clickEvent, LuaTable self = null, bool addClickEffect = true)
         {
-            btn.OnClick(0, clickEvent, addClickEffect);
+            btn.OnClick(0, clickEvent, self, addClickEffect);
         }
 
-        public static void OnClick(this Transform btn, object param, Action<object> clickEvent, bool addClickEffect = true)
+        public static void OnClick(this Transform btn, object param, LuaFunction clickEvent, LuaTable self = null, bool addClickEffect = true)
         {
             BButton bButton = btn.GetComponent<BButton>();
             if (!bButton)
@@ -20,6 +20,7 @@ namespace ToLuaUIFramework
             }
             bButton.param = param;
             bButton.onClick = clickEvent;
+            bButton.self = self;
             if (addClickEffect)
             {
                 BButtonEffect effect = btn.gameObject.GetComponent<BButtonEffect>();
@@ -38,12 +39,12 @@ namespace ToLuaUIFramework
             }
         }
 
-        public static void OnPointerDown(this Transform btn, Action<object> pointerDownEvent, bool addClickEffect = true)
+        public static void OnDown(this Transform btn, LuaFunction pointerDownEvent, LuaTable self = null, bool addClickEffect = true)
         {
-            btn.OnPointerDown(0, pointerDownEvent, addClickEffect);
+            btn.OnDown(0, pointerDownEvent, self, addClickEffect);
         }
 
-        public static void OnPointerDown(this Transform btn, object param, Action<object> pointerDownEvent, bool addClickEffect = true)
+        public static void OnDown(this Transform btn, object param, LuaFunction pointerDownEvent, LuaTable self = null, bool addClickEffect = true)
         {
             BButton bButton = btn.GetComponent<BButton>();
             if (!bButton)
@@ -51,7 +52,8 @@ namespace ToLuaUIFramework
                 bButton = btn.gameObject.AddComponent<BButton>();
             }
             bButton.param = param;
-            bButton.onPointerDown = pointerDownEvent;
+            bButton.onDown = pointerDownEvent;
+            bButton.self = self;
             if (addClickEffect)
             {
                 BButtonEffect effect = btn.gameObject.GetComponent<BButtonEffect>();

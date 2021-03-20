@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7667011799330495669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7667011799330495666}
+  - component: {fileID: 7667011799330495664}
+  - component: {fileID: 7667011799330495667}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7667011799330495666
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667011799330495669}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7667011800684772357}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -428, y: 257}
+  m_SizeDelta: {x: 861.9, y: 539}
+  m_Pivot: {x: 0, y: 1}
+--- !u!222 &7667011799330495664
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667011799330495669}
+  m_CullTransparentMesh: 0
+--- !u!114 &7667011799330495667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667011799330495669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.92265, g: 1, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 27
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1.5
+  m_Text: "\u6218\u6CD5\u7267\u8FD9\u4E2A\u4F53\u7CFB\u867D\u7136\u4E0D\u662F\u300A\u9B54\u517D\u4E16\u754C\u300B\u521B\u9020\u7684\uFF0C\u5374\u662F\u7531\u5B83\u53D1\u626C\u5149\u5927\u7684\uFF0CWOW\u91CC\u7684\u6CD5\u5E08\u804C\u4E1A\u53EF\u8C13\u662F\u7ECF\u5178\u4E2D\u7684\u7ECF\u5178~\r\n\r\n\u706B\u7403\u672F\u3001\u708E\u7206\u672F\u3001\u5BD2\u51B0\u7BAD\u3001\u66B4\u98CE\u96EA\u2026\u2026\u7B49\u7B49\u7B49\u7B49\uFF0C\u8FD8\u6709\u72EC\u7279\u7684\u201C\u53D8\u7F8A\u201D\uFF08\u53D8\u5F62\u672F\uFF09\u548C\u7948\u7977\u672F\uFF0C\u8FD9\u4E9B\u90FD\u662FWOW\u6CD5\u5E08\u7684\u4EE3\u540D\u8BCD\u3002\u63A7\u5236\u3001\u66B4\u529B\u3001\u5F3A\u5316\u3001\u95EA\u73B0\uFF0C\u64CD\u4F5C\u6027\u6781\u5F3A\u7684\u6CD5\u5E08\u66FE\u5728\u591A\u4E2A\u7248\u672C\u4E2D\u88AB\u73A9\u5BB6\u4EEC\u79F0\u4E3A\u5B98\u65B9\u7684\u201C\u4EB2\u513F\u5B50\u201D\u3002\u4E0D\u8FC7emmmmm\u4E00\u4EE3\u7248\u672C\u4E00\u4EE3\u795E\uFF0C\u6CD5\u5E08\u4E5F\u6CA1\u529E\u6CD5\u505A\u5230\u4E00\u76F4\u5F3A\u4E0B\u53BB\u5440\uFF01\u6218\u6CD5\u7267\u8FD9\u4E2A\u4F53\u7CFB\u867D\u7136\u4E0D\u662F\u300A\u9B54\u517D\u4E16\u754C\u300B\u521B\u9020\u7684\uFF0C\u5374\u662F\u7531\u5B83\u53D1\u626C\u5149\u5927\u7684\uFF0CWOW\u91CC\u7684\u6CD5\u5E08\u804C\u4E1A\u53EF\u8C13\u662F\u7ECF\u5178\u4E2D\u7684\u7ECF\u5178~\r\n\u706B\u7403\u672F\u3001\u708E\u7206\u672F\u3001\u5BD2\u51B0\u7BAD\u3001\u66B4\u98CE\u96EA\u2026\u2026\u7B49\u7B49\u7B49\u7B49\uFF0C\u8FD8\u6709\u72EC\u7279\u7684\u201C\u53D8\u7F8A\u201D\uFF08\u53D8\u5F62\u672F\uFF09\u548C\u7948\u7977\u672F\uFF0C\u8FD9\u4E9B\u90FD\u662FWOW\u6CD5\u5E08\u7684\u4EE3\u540D\u8BCD\u3002"
+--- !u!1 &7667011800684772356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7667011800684772357}
+  - component: {fileID: 7667011800684772355}
+  - component: {fileID: 7667011800684772354}
+  m_Layer: 5
+  m_Name: DailyReward_Content_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7667011800684772357
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667011800684772356}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7667011799330495666}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -334, y: 254}
+  m_SizeDelta: {x: 978.5, y: 626.8}
+  m_Pivot: {x: 0, y: 1}
+--- !u!222 &7667011800684772355
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667011800684772356}
+  m_CullTransparentMesh: 0
+--- !u!114 &7667011800684772354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667011800684772356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 0d2c4c2f0d96baa419c24a3de8e14464, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
