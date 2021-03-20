@@ -2,6 +2,10 @@ local LuaBehaviour = require "Core.LuaBehaviour"
 
 local BaseUI = class("BaseUI", LuaBehaviour)
 
+function BaseUI:ctor(prefabPath)
+    -- body
+end
+
 --由子类重写，在UI栈内被别的UI覆盖时是否隐藏自己
 function BaseUI:keepActive()
     return false
