@@ -2,14 +2,9 @@ local LuaBehaviour = require "Core.LuaBehaviour"
 
 local BaseUI = class("BaseUI", LuaBehaviour)
 
-<<<<<<< HEAD
-function BaseUI:ctor(prefabPath)
-    -- body
-=======
 --由子类重写，设置物体生成时的父级节点，优先级高于new(parent)参数传入
 function BaseUI:getParent()
     return GameObject.Find("MainCanvas").transform
->>>>>>> 2f466de6f8c744b093f60a0f696d8e5e25793d06
 end
 
 --由子类重写，在UI栈内被别的UI覆盖时是否隐藏自己
