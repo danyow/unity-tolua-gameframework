@@ -4,14 +4,14 @@ using UnityEngine.UI;
 
 namespace ToLuaUIFramework
 {
-    [CustomEditor(typeof(BButtonTrigger))]
+    [CustomEditor(typeof(BButtonEffect))]
     public class ButtonChangeEditor : Editor
     {
-        BButtonTrigger buttonChange;
+        BButtonEffect buttonChange;
 
         void OnEnable()
         {
-            buttonChange = (BButtonTrigger)target;
+            buttonChange = (BButtonEffect)target;
         }
 
         public override void OnInspectorGUI()

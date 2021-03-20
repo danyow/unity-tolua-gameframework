@@ -11,14 +11,14 @@ function Alert:isFloat()
 end
 
 function Alert:onAwake()
-    self.super:onAwake()
+    self.super.onAwake(self)
 
     self.updateHandler = UpdateBeat:CreateListener(self.update, self)
     self.dialog = self.transform:Find("Dialog")
 end
 
 function Alert:onEnable()
-    self.super:onEnable()
+    self.super.onEnable(self)
 
     UpdateBeat:AddListener(self.updateHandler)
 
@@ -31,7 +31,7 @@ function Alert:onEnable()
 end
 
 function Alert:onDisable()
-    self.super:onDisable()
+    self.super.onDisable(self)
     
     UpdateBeat:RemoveListener(self.updateHandler)
 end

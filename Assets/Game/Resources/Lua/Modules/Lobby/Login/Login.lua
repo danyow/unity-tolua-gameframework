@@ -11,7 +11,7 @@ function Login:onAwake()
     local btnStart = self.transform:Find("BtnStart")
     btnStart:OnClick(
         function()
-            CommandManager.execute(CommandID.OpenUI, ModuleId.LobbyMain)
+            --CommandManager.execute(CommandID.OpenUI, ModuleId.LobbyMain)
         end
     )
 end

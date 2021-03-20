@@ -6,13 +6,22 @@ require "functions"
 require "utils"
 require "dotween"
 require "btween"
+require "queue"
+require "stack"
 
 require "Core.Define"
-ModuleRegister = require "Core.ModuleRegister"
+
+local moduleInstanceList = {}
+Module = {}
 
 function Main()
     --所有注册的模块初始化
-    ModuleRegister.init()
+    local registerList = require "Core.ModuleRegister"
+    for key, value in pairs(registerList) do
+        local m = value:new()
+        m.moduleId = key
+        moduleInstanceList[key] = m
+    end
 
     --开始打开第一个模块
     Destroy(GameObject.Find("CanvasLoadAB"))
@@ -20,6 +29,11 @@ function Main()
     --正常实例化UI，不用命令打开UI
     local PreloadUI = require "Modules.ResPreload.ResPreload"
     PreloadUI:new(GameObject.Find("MainCanvas").transform)
+end
+
+--根据ID获取模块
+function Module.get(moduleId)
+    return moduleInstanceList[moduleId]
 end
 
 --场景切换通知

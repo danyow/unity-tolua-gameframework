@@ -24,7 +24,7 @@ function PlayerInfo:onAwake()
     local btnAlert = self.transform:Find("Dialog/BtnAlert")
     btnAlert:OnClick(
         function()
-            CommandManager.execute(CommandID.OpenUI, ModuleId.Alert)
+            --CommandManager.execute(CommandID.OpenUI, ModuleId.Alert)
         end
     )
 end

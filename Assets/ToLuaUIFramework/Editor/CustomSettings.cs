@@ -176,7 +176,7 @@ public static class CustomSettings
         _GT(typeof(SoundManager)),
         _GT(typeof(LuaBehaviour)),
         _GT(typeof(BButton)),
-        _GT(typeof(BButtonTrigger)),
+        _GT(typeof(BButtonEffect)),
         _GT(typeof(BTween)),
         _GT(typeof(BTween.BEaseType)),
 

@@ -21,7 +21,7 @@ function RoomSelect:onAwake()
             function(param)
                 print("进入战场：" .. param)
                 Destroy(self.gameObject)
-                CommandManager.execute(CommandID.OpenUI, ModuleId.Battle)
+                --CommandManager.execute(CommandID.OpenUI, ModuleId.Battle)
             end
         )
     end

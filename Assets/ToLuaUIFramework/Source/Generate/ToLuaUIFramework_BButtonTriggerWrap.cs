@@ -6,7 +6,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(ToLuaUIFramework.BButtonTrigger), typeof(UnityEngine.MonoBehaviour));
+		L.BeginClass(typeof(ToLuaUIFramework.BButtonEffect), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("OnPointerDown", OnPointerDown);
 		L.RegFunction("OnPointerUp", OnPointerUp);
 		L.RegFunction("SetDefaultScale", SetDefaultScale);
@@ -29,7 +29,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)ToLua.CheckObject<ToLuaUIFramework.BButtonTrigger>(L, 1);
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)ToLua.CheckObject<ToLuaUIFramework.BButtonEffect>(L, 1);
 			UnityEngine.EventSystems.PointerEventData arg0 = (UnityEngine.EventSystems.PointerEventData)ToLua.CheckObject<UnityEngine.EventSystems.PointerEventData>(L, 2);
 			obj.OnPointerDown(arg0);
 			return 0;
@@ -46,7 +46,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)ToLua.CheckObject<ToLuaUIFramework.BButtonTrigger>(L, 1);
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)ToLua.CheckObject<ToLuaUIFramework.BButtonEffect>(L, 1);
 			UnityEngine.EventSystems.PointerEventData arg0 = (UnityEngine.EventSystems.PointerEventData)ToLua.CheckObject<UnityEngine.EventSystems.PointerEventData>(L, 2);
 			obj.OnPointerUp(arg0);
 			return 0;
@@ -63,7 +63,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)ToLua.CheckObject<ToLuaUIFramework.BButtonTrigger>(L, 1);
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)ToLua.CheckObject<ToLuaUIFramework.BButtonEffect>(L, 1);
 			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 			obj.SetDefaultScale(arg0);
 			return 0;
@@ -100,7 +100,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			UnityEngine.UI.Image ret = obj.targetImg;
 			ToLua.Push(L, ret);
 			return 1;
@@ -119,7 +119,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			UnityEngine.UI.RawImage ret = obj.targetRawImg;
 			ToLua.Push(L, ret);
 			return 1;
@@ -138,7 +138,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			bool ret = obj.scale;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
@@ -157,7 +157,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			bool ret = obj.color;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
@@ -176,7 +176,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			bool ret = obj.texture;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
@@ -195,7 +195,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			float ret = obj.pressScale;
 			LuaDLL.lua_pushnumber(L, ret);
 			return 1;
@@ -214,7 +214,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			UnityEngine.Color ret = obj.changeColor;
 			ToLua.Push(L, ret);
 			return 1;
@@ -233,7 +233,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			UnityEngine.Texture2D ret = obj.changeTexture;
 			ToLua.PushSealed(L, ret);
 			return 1;
@@ -252,7 +252,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			UnityEngine.UI.Image arg0 = (UnityEngine.UI.Image)ToLua.CheckObject<UnityEngine.UI.Image>(L, 2);
 			obj.targetImg = arg0;
 			return 0;
@@ -271,7 +271,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			UnityEngine.UI.RawImage arg0 = (UnityEngine.UI.RawImage)ToLua.CheckObject<UnityEngine.UI.RawImage>(L, 2);
 			obj.targetRawImg = arg0;
 			return 0;
@@ -290,7 +290,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.scale = arg0;
 			return 0;
@@ -309,7 +309,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.color = arg0;
 			return 0;
@@ -328,7 +328,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			obj.texture = arg0;
 			return 0;
@@ -347,7 +347,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			obj.pressScale = arg0;
 			return 0;
@@ -366,7 +366,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			UnityEngine.Color arg0 = ToLua.ToColor(L, 2);
 			obj.changeColor = arg0;
 			return 0;
@@ -385,7 +385,7 @@ public class ToLuaUIFramework_BButtonTriggerWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.BButtonTrigger obj = (ToLuaUIFramework.BButtonTrigger)o;
+			ToLuaUIFramework.BButtonEffect obj = (ToLuaUIFramework.BButtonEffect)o;
 			UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject(L, 2, typeof(UnityEngine.Texture2D));
 			obj.changeTexture = arg0;
 			return 0;

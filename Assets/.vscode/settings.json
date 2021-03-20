@@ -12,6 +12,11 @@
         "onLuaBehaviourDestroy",
         "timestampToDate",
         "timestampToDate",
-        "dataToJson"
+        "dataToJson",
+        "Module",
+        "Module"
+    ],
+    "Lua.diagnostics.disable": [
+        "undefined-global"
     ]
 }

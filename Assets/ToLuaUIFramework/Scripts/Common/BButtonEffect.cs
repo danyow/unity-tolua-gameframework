@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace ToLuaUIFramework
 {
-    public class BButtonTrigger : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class BButtonEffect : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         public Image targetImg;
         public RawImage targetRawImg;

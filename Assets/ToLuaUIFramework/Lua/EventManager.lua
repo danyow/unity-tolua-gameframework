@@ -1,4 +1,4 @@
-EventManager = {}
+local EventManager = {}
 
 local m_listeners = {}
 

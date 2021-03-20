@@ -11,14 +11,15 @@ namespace ToLuaUIFramework
         public Action<object> onClick, onPointerDown;
         public RectTransform rectTransform { get { return transform as RectTransform; } }
         float canTouchTimer;
-        BButtonTrigger buttonChange;
+        BButtonEffect buttonEffect;
 
-        void Awake()
+        void CheckFindEffect()
         {
-            buttonChange = GetComponent<BButtonTrigger>();
+            if (!buttonEffect)
+            {
+                buttonEffect = GetComponent<BButtonEffect>();
+            }
         }
-
-        void Start() { }
 
         void Update()
         {
@@ -27,9 +28,10 @@ namespace ToLuaUIFramework
                 canTouchTimer -= Time.deltaTime;
                 if (canTouchTimer <= 0f)
                 {
-                    if (buttonChange)
+                    CheckFindEffect();
+                    if (buttonEffect)
                     {
-                        buttonChange.enabled = true;
+                        buttonEffect.enabled = true;
                     }
                 }
             }
@@ -43,9 +45,10 @@ namespace ToLuaUIFramework
                 {
                     if (onPointerDown != null) onPointerDown.Invoke(param);
                     canTouchTimer = canTriggerInterval;
-                    if (buttonChange && canTouchTimer > 0)
+                    CheckFindEffect();
+                    if (buttonEffect && canTouchTimer > 0)
                     {
-                        buttonChange.enabled = false;
+                        buttonEffect.enabled = false;
                     }
                 }
             }
@@ -59,9 +62,10 @@ namespace ToLuaUIFramework
                 {
                     if (onClick != null) onClick.Invoke(param);
                     canTouchTimer = canTriggerInterval;
-                    if (buttonChange && canTouchTimer > 0)
+                    CheckFindEffect();
+                    if (buttonEffect && canTouchTimer > 0)
                     {
-                        buttonChange.enabled = false;
+                        buttonEffect.enabled = false;
                     }
                 }
             }
