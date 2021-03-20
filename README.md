@@ -169,7 +169,31 @@ end
 ```
     CommandManager.execute(CommandID.OpenUI, ModuleId.您定义的UIID, 指定模块里的UI索引(可选)，父级节点(可选))  
 ```
-    
+
+9.  按钮事件的绑定（两种写法）
+- 第1种写法：直接写内部函数，无需传self，循环参数可是直接引用
+```
+    for i = 1,10 do
+        local btn = self.transform:Find("Btn")
+        btn:OnClick(function()
+            --这里完全可以直接引用循环中的“i”值做计算
+            Log(i)
+        end)
+    end
+```
+- 第2种写法，引用外部函数，需要传self，循环参数需要当参数透传
+```
+    function MyClass:onAwake()
+        for i = 1,10 do
+            local btn = self.transform:Find("Btn")
+            btn:OnClick(i, self.onBtnClick, self)
+        end
+    end
+    function MyClass:onBtnClick(index)
+        Log(index)
+    end
+```
+
 #### 关于UI栈  
 
 1. 特性
