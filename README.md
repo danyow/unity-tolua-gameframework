@@ -161,10 +161,10 @@ end
     local parent = GameObject.Find("MainCanvas").transform
     PreloadUI:new(parent)
 ```
-- 通过模块管理，然后发送命令创建：（高度解耦，模块内统一管理数据，推荐）
-    第1步：创建模块类（如Demo中的LoginMgr）,并在ctor()添加好该模块各个UI类
-    第2步：Define文件里创建一个模块ID，并注册到ModuleRegister
-    第3步：发送一个命令，即可展示UI
+- 通过模块管理，然后发送命令创建：（高度解耦，模块内统一管理数据，推荐）  
+    第1步：创建模块类（如Demo中的LoginMgr）,并在ctor()添加好该模块各个UI类  
+    第2步：Define文件里创建一个模块ID，并注册到ModuleRegister  
+    第3步：发送一个命令，即可展示UI  
 ```
     CommandManager.execute(CommandID.OpenUI, ModuleId.您定义的UIID, 指定模块里的UI索引(可选)，父级节点(可选))  
 ```
