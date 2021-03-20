@@ -16,4 +16,11 @@ function Login:onAwake()
     )
 end
 
+--由模块触发调用
+function Login:refrshUI()
+    --在UI里方法模块管理器的方法
+    local serverData = self.module:getServerData()
+    Log(serverData)
+end
+
 return Login

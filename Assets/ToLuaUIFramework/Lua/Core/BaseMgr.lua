@@ -55,6 +55,11 @@ function BaseMgr:onReceiveOpenUICmd(moduleId, uiIndex, parent)
                     ui._luaClassId = _luaClassId
                 end
                 _SpawnedUIList[_luaClassId] = ui
+                if not self.uiList then
+                    self.uiList = {}
+                end
+                self.uiList[uiIndex] = ui
+                ui.module = self
             else
                 --这里本可以直接将ui.gameObject:SetActive(true)激活显示即可，但是需要调用C#层重新处理UI栈以及层级关系
                 --所以继续调用createGameObject(),C#层会直接激活已存在的对象并处理新的UI栈层级关系
@@ -62,6 +67,13 @@ function BaseMgr:onReceiveOpenUICmd(moduleId, uiIndex, parent)
             end
         end
     end
+end
+
+function BaseMgr:getUI(uiIndex)
+    if self.uiList then
+        return self.uiList[uiIndex]
+    end
+    return nil
 end
 
 return BaseMgr
