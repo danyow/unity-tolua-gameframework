@@ -4,7 +4,8 @@ local BaseUI = class("BaseUI", LuaBehaviour)
 
 --由子类重写，设置物体生成时的父级节点，优先级高于new(parent)参数传入
 function BaseUI:getParent()
-    return GameObject.Find("MainCanvas").transform
+    local go = GameObject.Find("MainCanvas")
+    return go and go.transform or nil
 end
 
 --由子类重写，在UI栈内被别的UI覆盖时是否隐藏自己
