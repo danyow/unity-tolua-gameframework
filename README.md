@@ -156,7 +156,10 @@ end
 - 直接new()： 比如：Main.lua里创建预加载界面的方法
 ```
     local PreloadUI = require "Modules.ResPreload.ResPreload"
-    PreloadUI:new(GameObject.Find("MainCanvas").transform)
+    PreloadUI:new()
+    或
+    local parent = GameObject.Find("MainCanvas").transform
+    PreloadUI:new(parent)
 ```
 - 通过模块管理，然后发送命令创建：（高度解耦，模块内统一管理数据，推荐）
     第1步：创建模块类（如Demo中的LoginMgr）,并在ctor()添加好该模块各个UI类
