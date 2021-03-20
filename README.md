@@ -193,6 +193,7 @@ end
         Log(index)
     end
 ```
+- 以上为点击放开时触发，若需按下时就触发，可将OnClick方法换成OnPointerDown方法
 
 #### 关于UI栈  
 
