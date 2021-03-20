@@ -17,7 +17,7 @@
 - 更多功能不断完善中......
 
 
-#### 快速使用
+#### 快速使用(请下载工程配合查阅对照，本文档针对工程Game目录进行讲解)
 
 - 两种模式：
 
@@ -57,11 +57,11 @@ FirstActor.lua继承LuaBehaviour:
    return FirstUI  
 ```
 
-5. 选择性重写的方法：指定创建的父级。不重写或重写返回nil或""，则物体创建在跟场景，指定父级名称后，框架用 GameObject.Find("").transform 查找节点当做父级。
+5. 选择性重写的方法：指定创建的父级。不重写或重写返回nil或""，不重写时父级默认查找场中的中的MainCanvas节点当父级（可自行修改）。
    第二种指定父级的方式见第10点。用本方法指定优先级更高。当返回nil或""时，第10点的方法才有效。    
 ```
-function FirstUI:parentName()
-    return ""
+function BaseUI:getParent()
+    return GameObject.Find("MainCanvas").transform
 end
 ```
 
@@ -139,21 +139,18 @@ end
    return FirstUI  
 ```
 
-8.  注册UI,以实现通过发送命令展示UI，高度解耦：  
-    按照Demo定义UIID,然后添加到UIRegisterList.lua内的列表里即可  
-
-9.  通过命令启动第一个UI  
-    打开ToLuaUIFramework/Lua/Main.lua脚本，替换第19行开启UI命令里的UIID成你的UIID即可  
+8.  正式生成UI，两种方法：
+    
+    （1）直接new()
 ```
-    CommandManager.execute(CommandID.OpenUI, UIID.您定义的UIID)  
+    FirstUI:new() 或 FirstUI:new(parent)
 ```
-
-10.  不通过发送消息开启UI的方法（即常规创建预设体的方法）如下：（如果按第5点用函数指定了有效的父级名称，则在此new()传入的父级无效。）
+    （2）通过模块管理（高度解耦，模块内统一管理数据，推荐）
+    第1步：创建模块类（如Demo中的LoginMgr）,并在ctor()添加好该模块各个UI类
+    第2步：Define文件里创建一个模块ID，并注册到ModuleRegister
+    第3步：发送一个命令，即可展示UI
 ```
-    local classPath = require "LobbyUI.Lobby.LobbyMain"
-    local lobbyUI = classPath:new(parent) 
-    --parent没有可不传
-    local lobbyUI = classPath:new()
+    CommandManager.execute(CommandID.OpenUI, ModuleId.您定义的UIID, 指定模块里的UI索引，父级节点(可选))  
 ```
     
 #### 关于UI栈  
