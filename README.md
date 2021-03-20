@@ -174,7 +174,7 @@ end
 - 第1种写法：直接写内部函数，无需传self，循环参数可是直接引用
 ```
     for i = 1,10 do
-        local btn = self.transform:Find("Btn")
+        local btn = self.transform:Find("Btn_"..i)
         btn:OnClick(function()
             --这里完全可以直接引用循环中的“i”值做计算
             Log(i)
@@ -185,7 +185,7 @@ end
 ```
     function MyClass:onAwake()
         for i = 1,10 do
-            local btn = self.transform:Find("Btn")
+            local btn = self.transform:Find("Btn_"..i)
             btn:OnClick(i, self.onBtnClick, self)
         end
     end
