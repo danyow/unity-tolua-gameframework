@@ -58,13 +58,13 @@ Ball.lua继承LuaBehaviour:
 ```
 
 5. 选择性重写的方法：指定本UI是否参与UI栈的层级管理，如果是某主UI的子页面需要菜单点击才创建的子UI,可重写并返回false。  
+   子UI延迟创建时设置了不参与UI栈管理层级，但包含特效需要刷新层级关系的，首次生成时调用UIManager.RefreshSortObjects(self.transform)方法刷新一次即可  
+   参考：脚本DailyReward.lua中的onMenuSelect(index)方法
 ```
 function DailyReward_Content_1:isUIStack()
     return false
 end
 ```
-   子UI可用模块内方法openUI(UI索引)创建，且如果子UI包含特效需要刷新层级关系的，首次生成时调用UIManager.RefreshSortObjects(self.transform)方法刷新一次即可  
-   参考：脚本DailyReward.lua中的onMenuSelect(index)方法
 
 6.  实现经典熟悉的生命周期函数，以及按钮绑定方法、DOTween使用  
 ```
