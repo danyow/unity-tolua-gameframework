@@ -151,7 +151,7 @@ end
    return Login
 ```
 
-8.  正式生成UI，两种方法：
+8.  正式生成UI，三种情况：
     
 - 直接new()： 比如：Main.lua里创建预加载界面的方法
 ```
@@ -167,7 +167,13 @@ end
     第3步：发送一个命令，即可展示UI  
     注：模块管理器与UI之间的相互访问，可参考Login.lua和LoginMgr.lua
 ```
-    CommandManager.execute(CommandID.OpenUI, ModuleId.您定义的UIID, 指定模块里的UI索引(可选)，父级节点(可选))  
+    CommandManager.execute(CommandID.OpenUI, ModuleId.您定义的UIID, 指定模块里的UI索引(可选)，父级(可选))  
+    --发送命令适合跨模块使用，不想用命令也可以这样打开UI(适合模块内使用)
+    Module.get(ModuleId.您定义的UIID):openUI(UI索引)
+```
+- 以上对象有脚本绑定的打开方法，如果简单一个无绑定的对象，用以下方法即可：
+```
+    local go = ResManager.SpawnPrefab(预设体在Resources目录下的路径，父级(可选))
 ```
 
 9.  按钮事件的绑定（两种写法）
