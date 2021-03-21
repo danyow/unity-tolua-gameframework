@@ -5,10 +5,9 @@ Slider = UnityEngine.UI.Slider
 
 --C#对象
 EventManager = ToLuaUIFramework.EventManager
-LuaManager   = ToLuaUIFramework.LuaManager.instance
-ResManager   = ToLuaUIFramework.ResManager.instance
-UIManager    = ToLuaUIFramework.UIManager.instance
-SoundManager = ToLuaUIFramework.SoundManager.instance
+ResManager   = ToLuaUIFramework.ResManager
+UIManager    = ToLuaUIFramework.UIManager
+SoundManager = ToLuaUIFramework.SoundManager
 
 --第三方插件
 JSON = require "cjson"

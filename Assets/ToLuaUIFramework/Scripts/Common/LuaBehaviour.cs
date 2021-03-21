@@ -77,6 +77,7 @@ namespace ToLuaUIFramework
         }
         public string assetBundleName;
         public string prefabPath;
+        public bool isUIStack;
         public bool keepActive;
         public bool isFloat;
         public bool destroyABAfterAllSpawnDestroy;
@@ -90,7 +91,7 @@ namespace ToLuaUIFramework
             for (int i = 0; i < sortObjects.Count; i++)
             {
                 LuaBehaviour.SortObject sortObject = sortObjects[i];
-                sortObject.SetOrder(order * 100 + i);
+                sortObject.SetOrder(order * 1000 + i);
             }
             IsSetedOrder = sortObjects.Count > 0;
         }
@@ -127,10 +128,11 @@ namespace ToLuaUIFramework
 
         protected virtual void Awake()
         {
-            FindSortObjects(transform);
+            RefreshSortObjects(transform);
         }
 
-        void FindSortObjects(Transform trans)
+        //如果Lua动态给本UI添加子物体，且子物体包含ParticleSystem或者Canvas组件，则在设置父级完成后需要调用本方法刷新
+        public void RefreshSortObjects(Transform trans)
         {
             Canvas canvas = trans.GetComponent<Canvas>();
             if (canvas)
@@ -147,7 +149,7 @@ namespace ToLuaUIFramework
             }
             for (int i = 0; i < trans.childCount; i++)
             {
-                FindSortObjects(trans.GetChild(i));
+                RefreshSortObjects(trans.GetChild(i));
             }
         }
 
@@ -181,7 +183,10 @@ namespace ToLuaUIFramework
                 {
                     LuaManager.instance.GetFunction("OnGameObjectDestroy").Call(luaClassId);
                 }
-                LuaManager.instance.GetFunction("clear_class").Call(luaClass);
+                if (luaClass != null)
+                {
+                    LuaManager.instance.GetFunction("clear_class").Call(luaClass);
+                }
             }
             if (UIManager.instance)
             {

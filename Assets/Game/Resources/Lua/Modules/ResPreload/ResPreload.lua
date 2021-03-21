@@ -15,7 +15,7 @@ function ResPreload:onStart()
     local preloadPrefabPaths = {
         "Prefabs/Lobby"
     }
-    ResManager:PreloadLocalAssetBundles(
+    ResManager.PreloadLocalAssetBundles(
         preloadPrefabPaths,
         function(progress)
             self.slider.value = progress

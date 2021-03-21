@@ -24,6 +24,10 @@ function DailyReward:onAwake()
         btn.trans:OnClick(i, self.onMenuSelect, self)
     end
 
+    --内容页
+    self.contentRoot = self.transform:Find("MainPanel/ContentRoot")
+    self.contents = {}
+
     local btnClose = self.transform:Find("MainPanel/BtnClose")
     btnClose:OnClick(
         function()
@@ -46,13 +50,23 @@ function DailyReward:onEnable()
 end
 
 function DailyReward:onMenuSelect(index)
-    Log(self, "self")
-    Log(index, "index")
     self.currSelectIndex = index
     for i = 1, #self.menus do
         local btn = self.menus[i]
         btn.on.gameObject:SetActive(i == index)
         btn.off.gameObject:SetActive(i ~= index)
+    end
+
+    if not self.contents[index] then
+        local contentIndexInModule = 10 + index
+        self.contents[self.currSelectIndex] = self.module:openUI(contentIndexInModule, self.contentRoot)
+        UIManager.RefreshSortObjects(self.transform)
+    end
+    for i = 1, #self.menus do
+        local content = self.contents[i]
+        if content then
+            content.gameObject:SetActive(i == self.currSelectIndex)
+        end
     end
 end
 

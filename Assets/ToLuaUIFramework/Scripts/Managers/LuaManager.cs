@@ -96,7 +96,7 @@ namespace ToLuaUIFramework
         /// </summary>
         void InitLuaBundle()
         {
-            Dictionary<string, string> files = ResManager.instance.localFiles;
+            Dictionary<string, string> files = ResManager.localFiles;
             foreach (var item in files)
             {
                 string bundleName = item.Key;

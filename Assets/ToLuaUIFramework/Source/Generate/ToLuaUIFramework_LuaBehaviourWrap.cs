@@ -11,10 +11,12 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 		L.RegFunction("AddCanvas", AddCanvas);
 		L.RegFunction("SetLuaClass", SetLuaClass);
 		L.RegFunction("SetLuaClassId", SetLuaClassId);
+		L.RegFunction("RefreshSortObjects", RefreshSortObjects);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("assetBundleName", get_assetBundleName, set_assetBundleName);
 		L.RegVar("prefabPath", get_prefabPath, set_prefabPath);
+		L.RegVar("isUIStack", get_isUIStack, set_isUIStack);
 		L.RegVar("keepActive", get_keepActive, set_keepActive);
 		L.RegVar("isFloat", get_isFloat, set_isFloat);
 		L.RegVar("destroyABAfterAllSpawnDestroy", get_destroyABAfterAllSpawnDestroy, set_destroyABAfterAllSpawnDestroy);
@@ -91,6 +93,23 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int RefreshSortObjects(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)ToLua.CheckObject<ToLuaUIFramework.LuaBehaviour>(L, 1);
+			UnityEngine.Transform arg0 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+			obj.RefreshSortObjects(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int op_Equality(IntPtr L)
 	{
 		try
@@ -143,6 +162,25 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index prefabPath on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_isUIStack(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)o;
+			bool ret = obj.isUIStack;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isUIStack on a nil value");
 		}
 	}
 
@@ -276,6 +314,25 @@ public class ToLuaUIFramework_LuaBehaviourWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index prefabPath on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_isUIStack(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ToLuaUIFramework.LuaBehaviour obj = (ToLuaUIFramework.LuaBehaviour)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.isUIStack = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isUIStack on a nil value");
 		}
 	}
 

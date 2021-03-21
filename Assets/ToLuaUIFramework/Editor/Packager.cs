@@ -83,7 +83,8 @@ public class Packager
         AssetDatabase.Refresh();
 
         string relativePath = outputPath.Substring(outputPath.IndexOf("Assets/"));
-        BuildPipeline.BuildAssetBundles(relativePath, maps.ToArray(), BuildAssetBundleOptions.None, target);
+        //需要同步加载AssetBundle就选不压缩模式BuildAssetBundleOptions.UncompressedAssetBundle
+        BuildPipeline.BuildAssetBundles(relativePath, maps.ToArray(), BuildAssetBundleOptions.UncompressedAssetBundle, target);
         BuildFileIndex();
 
         if (mode == 0 || mode == 1)

@@ -12,16 +12,16 @@ end
 function PlayerInfo:onAwake()
     self.super.onAwake(self)
 
-    self.dialog = self.transform:Find("Dialog")
+    self.panel = self.transform:Find("Panel")
 
-    local btnBack = self.transform:Find("Dialog/BtnBack")
+    local btnBack = self.transform:Find("Panel/OverLayer/BtnBack")
     btnBack:OnClick(
         function()
             Destroy(self.gameObject)
         end
     )
 
-    local btnAlert = self.transform:Find("Dialog/BtnAlert")
+    local btnAlert = self.transform:Find("Panel/OverLayer/BtnAlert")
     btnAlert:OnClick(
         function()
             CommandManager.execute(CommandID.OpenUI, ModuleId.Common, 1)
@@ -36,8 +36,8 @@ function PlayerInfo:onEnable()
     self.transform:DOAlpha(0, 0.5, 0.3, Ease.OutSine, false)
 
     --小对话框动画
-    self.dialog.anchoredPosition = Vector2(0, -200)
-    self.dialog:DOLocalMove(Vector3.one, 0.3):SetEase(Ease.OutBack)
+    self.panel.anchoredPosition = Vector2(0, -200)
+    self.panel:DOLocalMove(Vector3.one, 0.3):SetEase(Ease.OutBack)
 end
 
 return PlayerInfo

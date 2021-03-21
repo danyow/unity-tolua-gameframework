@@ -11,6 +11,7 @@ public class ToLuaUIFramework_ResManagerWrap
 		L.RegFunction("PreloadLocalAssetBundles", PreloadLocalAssetBundles);
 		L.RegFunction("UnloadAllAssetBundles", UnloadAllAssetBundles);
 		L.RegFunction("SpawnPrefab", SpawnPrefab);
+		L.RegFunction("SpawnPrefabAsyn", SpawnPrefabAsyn);
 		L.RegFunction("OnSpawnDestroy", OnSpawnDestroy);
 		L.RegFunction("ClearMemory", ClearMemory);
 		L.RegFunction("__eq", op_Equality);
@@ -43,11 +44,10 @@ public class ToLuaUIFramework_ResManagerWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 3);
-			ToLuaUIFramework.ResManager obj = (ToLuaUIFramework.ResManager)ToLua.CheckObject<ToLuaUIFramework.ResManager>(L, 1);
-			string[] arg0 = ToLua.CheckStringArray(L, 2);
-			System.Action<float> arg1 = (System.Action<float>)ToLua.CheckDelegate<System.Action<float>>(L, 3);
-			obj.PreloadLocalAssetBundles(arg0, arg1);
+			ToLua.CheckArgsCount(L, 2);
+			string[] arg0 = ToLua.CheckStringArray(L, 1);
+			LuaFunction arg1 = ToLua.CheckLuaFunction(L, 2);
+			ToLuaUIFramework.ResManager.PreloadLocalAssetBundles(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)
@@ -80,39 +80,81 @@ public class ToLuaUIFramework_ResManagerWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 4)
+			if (count == 2)
 			{
-				ToLuaUIFramework.ResManager obj = (ToLuaUIFramework.ResManager)ToLua.CheckObject<ToLuaUIFramework.ResManager>(L, 1);
-				string arg0 = ToLua.CheckString(L, 2);
-				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
-				obj.SpawnPrefab(arg0, arg1, arg2);
-				return 0;
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+				UnityEngine.GameObject o = ToLuaUIFramework.ResManager.SpawnPrefab(arg0, arg1);
+				ToLua.PushSealed(L, o);
+				return 1;
 			}
-			else if (count == 5)
+			else if (count == 3)
 			{
-				ToLuaUIFramework.ResManager obj = (ToLuaUIFramework.ResManager)ToLua.CheckObject<ToLuaUIFramework.ResManager>(L, 1);
-				string arg0 = ToLua.CheckString(L, 2);
-				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
-				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
-				obj.SpawnPrefab(arg0, arg1, arg2, arg3);
-				return 0;
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 3);
+				UnityEngine.GameObject o = ToLuaUIFramework.ResManager.SpawnPrefab(arg0, arg1, arg2);
+				ToLua.PushSealed(L, o);
+				return 1;
 			}
-			else if (count == 6)
+			else if (count == 4)
 			{
-				ToLuaUIFramework.ResManager obj = (ToLuaUIFramework.ResManager)ToLua.CheckObject<ToLuaUIFramework.ResManager>(L, 1);
-				string arg0 = ToLua.CheckString(L, 2);
-				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
-				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
-				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
-				obj.SpawnPrefab(arg0, arg1, arg2, arg3, arg4);
-				return 0;
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 3);
+				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
+				UnityEngine.GameObject o = ToLuaUIFramework.ResManager.SpawnPrefab(arg0, arg1, arg2, arg3);
+				ToLua.PushSealed(L, o);
+				return 1;
 			}
 			else
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: ToLuaUIFramework.ResManager.SpawnPrefab");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SpawnPrefabAsyn(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 3)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+				LuaFunction arg2 = ToLua.CheckLuaFunction(L, 3);
+				ToLuaUIFramework.ResManager.SpawnPrefabAsyn(arg0, arg1, arg2);
+				return 0;
+			}
+			else if (count == 4)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+				LuaFunction arg2 = ToLua.CheckLuaFunction(L, 3);
+				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
+				ToLuaUIFramework.ResManager.SpawnPrefabAsyn(arg0, arg1, arg2, arg3);
+				return 0;
+			}
+			else if (count == 5)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+				LuaFunction arg2 = ToLua.CheckLuaFunction(L, 3);
+				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
+				bool arg4 = LuaDLL.luaL_checkboolean(L, 5);
+				ToLuaUIFramework.ResManager.SpawnPrefabAsyn(arg0, arg1, arg2, arg3, arg4);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: ToLuaUIFramework.ResManager.SpawnPrefabAsyn");
 			}
 		}
 		catch (Exception e)
@@ -190,19 +232,14 @@ public class ToLuaUIFramework_ResManagerWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_localFiles(IntPtr L)
 	{
-		object o = null;
-
 		try
 		{
-			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.ResManager obj = (ToLuaUIFramework.ResManager)o;
-			System.Collections.Generic.Dictionary<string,string> ret = obj.localFiles;
-			ToLua.PushSealed(L, ret);
+			ToLua.PushSealed(L, ToLuaUIFramework.ResManager.localFiles);
 			return 1;
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index localFiles on a nil value");
+			return LuaDLL.toluaL_exception(L, e);
 		}
 	}
 
@@ -224,19 +261,15 @@ public class ToLuaUIFramework_ResManagerWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_localFiles(IntPtr L)
 	{
-		object o = null;
-
 		try
 		{
-			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.ResManager obj = (ToLuaUIFramework.ResManager)o;
 			System.Collections.Generic.Dictionary<string,string> arg0 = (System.Collections.Generic.Dictionary<string,string>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.Dictionary<string,string>));
-			obj.localFiles = arg0;
+			ToLuaUIFramework.ResManager.localFiles = arg0;
 			return 0;
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index localFiles on a nil value");
+			return LuaDLL.toluaL_exception(L, e);
 		}
 	}
 }

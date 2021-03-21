@@ -9,14 +9,15 @@ public class ToLuaUIFramework_UIManagerWrap
 		L.BeginClass(typeof(ToLuaUIFramework.UIManager), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("ExeCommand", ExeCommand);
 		L.RegFunction("SpawnUI", SpawnUI);
+		L.RegFunction("SpawnUIAsyn", SpawnUIAsyn);
 		L.RegFunction("ResumeUI", ResumeUI);
 		L.RegFunction("ClearAllUI", ClearAllUI);
 		L.RegFunction("OnUIDestroy", OnUIDestroy);
 		L.RegFunction("RefreshStack", RefreshStack);
+		L.RegFunction("RefreshSortObjects", RefreshSortObjects);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("instance", get_instance, set_instance);
-		L.RegVar("uiStack", get_uiStack, set_uiStack);
 		L.EndClass();
 	}
 
@@ -45,13 +46,94 @@ public class ToLuaUIFramework_UIManagerWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
+			if (count == 2)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+				UnityEngine.GameObject o = ToLuaUIFramework.UIManager.SpawnUI(arg0, arg1);
+				ToLua.PushSealed(L, o);
+				return 1;
+			}
+			else if (count == 3)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 3);
+				UnityEngine.GameObject o = ToLuaUIFramework.UIManager.SpawnUI(arg0, arg1, arg2);
+				ToLua.PushSealed(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 3);
+				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
+				UnityEngine.GameObject o = ToLuaUIFramework.UIManager.SpawnUI(arg0, arg1, arg2, arg3);
+				ToLua.PushSealed(L, o);
+				return 1;
+			}
+			else if (count == 5)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 3);
+				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
+				bool arg4 = LuaDLL.luaL_checkboolean(L, 5);
+				UnityEngine.GameObject o = ToLuaUIFramework.UIManager.SpawnUI(arg0, arg1, arg2, arg3, arg4);
+				ToLua.PushSealed(L, o);
+				return 1;
+			}
+			else if (count == 6)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 3);
+				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
+				bool arg4 = LuaDLL.luaL_checkboolean(L, 5);
+				bool arg5 = LuaDLL.luaL_checkboolean(L, 6);
+				UnityEngine.GameObject o = ToLuaUIFramework.UIManager.SpawnUI(arg0, arg1, arg2, arg3, arg4, arg5);
+				ToLua.PushSealed(L, o);
+				return 1;
+			}
+			else if (count == 7)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 3);
+				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
+				bool arg4 = LuaDLL.luaL_checkboolean(L, 5);
+				bool arg5 = LuaDLL.luaL_checkboolean(L, 6);
+				bool arg6 = LuaDLL.luaL_checkboolean(L, 7);
+				UnityEngine.GameObject o = ToLuaUIFramework.UIManager.SpawnUI(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+				ToLua.PushSealed(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: ToLuaUIFramework.UIManager.SpawnUI");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SpawnUIAsyn(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
 			if (count == 4)
 			{
 				ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)ToLua.CheckObject<ToLuaUIFramework.UIManager>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
-				obj.SpawnUI(arg0, arg1, arg2);
+				LuaFunction arg2 = ToLua.CheckLuaFunction(L, 4);
+				obj.SpawnUIAsyn(arg0, arg1, arg2);
 				return 0;
 			}
 			else if (count == 5)
@@ -59,9 +141,9 @@ public class ToLuaUIFramework_UIManagerWrap
 				ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)ToLua.CheckObject<ToLuaUIFramework.UIManager>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
+				LuaFunction arg2 = ToLua.CheckLuaFunction(L, 4);
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
-				obj.SpawnUI(arg0, arg1, arg2, arg3);
+				obj.SpawnUIAsyn(arg0, arg1, arg2, arg3);
 				return 0;
 			}
 			else if (count == 6)
@@ -69,10 +151,10 @@ public class ToLuaUIFramework_UIManagerWrap
 				ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)ToLua.CheckObject<ToLuaUIFramework.UIManager>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
+				LuaFunction arg2 = ToLua.CheckLuaFunction(L, 4);
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
 				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
-				obj.SpawnUI(arg0, arg1, arg2, arg3, arg4);
+				obj.SpawnUIAsyn(arg0, arg1, arg2, arg3, arg4);
 				return 0;
 			}
 			else if (count == 7)
@@ -80,11 +162,11 @@ public class ToLuaUIFramework_UIManagerWrap
 				ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)ToLua.CheckObject<ToLuaUIFramework.UIManager>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
+				LuaFunction arg2 = ToLua.CheckLuaFunction(L, 4);
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
 				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
 				bool arg5 = LuaDLL.luaL_checkboolean(L, 7);
-				obj.SpawnUI(arg0, arg1, arg2, arg3, arg4, arg5);
+				obj.SpawnUIAsyn(arg0, arg1, arg2, arg3, arg4, arg5);
 				return 0;
 			}
 			else if (count == 8)
@@ -92,17 +174,31 @@ public class ToLuaUIFramework_UIManagerWrap
 				ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)ToLua.CheckObject<ToLuaUIFramework.UIManager>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
-				System.Action<UnityEngine.GameObject,bool> arg2 = (System.Action<UnityEngine.GameObject,bool>)ToLua.CheckDelegate<System.Action<UnityEngine.GameObject,bool>>(L, 4);
+				LuaFunction arg2 = ToLua.CheckLuaFunction(L, 4);
 				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
 				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
 				bool arg5 = LuaDLL.luaL_checkboolean(L, 7);
 				bool arg6 = LuaDLL.luaL_checkboolean(L, 8);
-				obj.SpawnUI(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+				obj.SpawnUIAsyn(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+				return 0;
+			}
+			else if (count == 9)
+			{
+				ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)ToLua.CheckObject<ToLuaUIFramework.UIManager>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				UnityEngine.Transform arg1 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 3);
+				LuaFunction arg2 = ToLua.CheckLuaFunction(L, 4);
+				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
+				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
+				bool arg5 = LuaDLL.luaL_checkboolean(L, 7);
+				bool arg6 = LuaDLL.luaL_checkboolean(L, 8);
+				bool arg7 = LuaDLL.luaL_checkboolean(L, 9);
+				obj.SpawnUIAsyn(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
 				return 0;
 			}
 			else
 			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: ToLuaUIFramework.UIManager.SpawnUI");
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: ToLuaUIFramework.UIManager.SpawnUIAsyn");
 			}
 		}
 		catch (Exception e)
@@ -166,9 +262,24 @@ public class ToLuaUIFramework_UIManagerWrap
 	{
 		try
 		{
+			ToLua.CheckArgsCount(L, 0);
+			ToLuaUIFramework.UIManager.RefreshStack();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int RefreshSortObjects(IntPtr L)
+	{
+		try
+		{
 			ToLua.CheckArgsCount(L, 1);
-			ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)ToLua.CheckObject<ToLuaUIFramework.UIManager>(L, 1);
-			obj.RefreshStack();
+			UnityEngine.Transform arg0 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+			ToLuaUIFramework.UIManager.RefreshSortObjects(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -210,25 +321,6 @@ public class ToLuaUIFramework_UIManagerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_uiStack(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)o;
-			System.Collections.Generic.List<ToLuaUIFramework.LuaBehaviour> ret = obj.uiStack;
-			ToLua.PushSealed(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index uiStack on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_instance(IntPtr L)
 	{
 		try
@@ -240,25 +332,6 @@ public class ToLuaUIFramework_UIManagerWrap
 		catch (Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_uiStack(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			ToLuaUIFramework.UIManager obj = (ToLuaUIFramework.UIManager)o;
-			System.Collections.Generic.List<ToLuaUIFramework.LuaBehaviour> arg0 = (System.Collections.Generic.List<ToLuaUIFramework.LuaBehaviour>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<ToLuaUIFramework.LuaBehaviour>));
-			obj.uiStack = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index uiStack on a nil value");
 		}
 	}
 }

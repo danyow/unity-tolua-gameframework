@@ -30,9 +30,8 @@ function Main()
 
     --正常实例化UI，不用命令打开UI
     local PreloadUI = require "Modules.ResPreload.ResPreload"
-    PreloadUI:new()
-    --local parent = GameObject.Find("MainCanvas").transform
-    --PreloadUI:new(parent))
+    local parent = GameObject.Find("MainCanvas").transform
+    PreloadUI:new(parent)
 end
 
 --根据ID获取模块

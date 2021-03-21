@@ -1,10 +1,12 @@
-﻿using System;
+﻿using LuaInterface;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
+using static ToLuaUIFramework.UIManager;
 
 namespace ToLuaUIFramework
 {
@@ -21,12 +23,11 @@ namespace ToLuaUIFramework
     public class ResManager : MonoBehaviour, ICommand
     {
         public static ResManager instance;
-
-        public Dictionary<string, string> localFiles = new Dictionary<string, string>();
+        public static Dictionary<string, string> localFiles = new Dictionary<string, string>();
         Dictionary<string, string> loadSuccessFiles = new Dictionary<string, string>();
-        Dictionary<string, AssetBundleInfo> loadedAssetBundles = new Dictionary<string, AssetBundleInfo>();
-        List<string> preloadAssetBundleNames = new List<string>();
-        int totalPreloadAssetBundles;
+        static Dictionary<string, AssetBundleInfo> loadedAssetBundles = new Dictionary<string, AssetBundleInfo>();
+        static List<string> preloadAssetBundleNames = new List<string>();
+        static int totalPreloadAssetBundles;
 
         void Awake()
         {
@@ -148,11 +149,14 @@ namespace ToLuaUIFramework
         /// <summary>
         /// Lua调用,预加载AssetBundle列表，传入目录路径
         /// </summary>
-        public void PreloadLocalAssetBundles(string[] assetBundlePaths, Action<float> onProgress)
+        public static void PreloadLocalAssetBundles(string[] assetBundlePaths, LuaFunction onProgress)
         {
             if (!Config.UseAssetBundle)
             {
-                if (onProgress != null) onProgress(1);
+                if (onProgress != null)
+                {
+                    onProgress.Call(1);
+                }
                 return;
             }
             preloadAssetBundleNames.Clear();
@@ -185,7 +189,7 @@ namespace ToLuaUIFramework
                 }
             }
             totalPreloadAssetBundles = preloadAssetBundleNames.Count;
-            StartCoroutine(PreloadAssetBundle(onProgress));
+            instance.StartCoroutine(PreloadAssetBundle(onProgress));
         }
 
         /// <summary>
@@ -207,9 +211,51 @@ namespace ToLuaUIFramework
         #region 对外方法
 
         /// <summary>
-        /// 创建对象
+        /// 同步创建对象
         /// </summary>
-        public void SpawnPrefab(string prefabPath, Transform parent, Action<GameObject, bool> callback, bool destroyABAfterSpawn = false, bool destroyABAfterAllSpawnDestroy = false)
+        public static GameObject SpawnPrefab(string prefabPath, Transform parent, bool destroyABAfterSpawn = false, bool destroyABAfterAllSpawnDestroy = false)
+        {
+            if (string.IsNullOrEmpty(prefabPath))
+            {
+                Debug.LogError("prefabPath为空");
+                return null;
+            }
+            if (Config.UseAssetBundle)
+            {
+                string assetBundleName = "res/" + prefabPath.ToLower();
+                string prefabName = prefabPath;
+                if (prefabPath.Contains("/"))
+                {
+                    assetBundleName = prefabPath.Substring(0, prefabPath.LastIndexOf("/"));
+                    assetBundleName = "res/" + assetBundleName.Replace("/", "_").ToLower();
+                    prefabName = prefabPath.Substring(prefabPath.LastIndexOf("/") + 1);
+                }
+                GameObject prefab = GetPrefabFromAssetBundleSyn(assetBundleName, prefabName, destroyABAfterSpawn);
+                GameObject go = Instantiate(prefab);
+                if (parent) go.transform.SetParent(parent, false);
+                LuaBehaviour luaBehaviour = go.AddComponent<LuaBehaviour>();
+                luaBehaviour.assetBundleName = assetBundleName;
+                luaBehaviour.prefabPath = prefabPath;
+                luaBehaviour.destroyABAfterAllSpawnDestroy = destroyABAfterAllSpawnDestroy;
+                return luaBehaviour.gameObject;
+            }
+            else
+            {
+                GameObject prefab = Resources.Load<GameObject>(prefabPath);
+                GameObject go = Instantiate(prefab);
+                if (parent) go.transform.SetParent(parent, false);
+                LuaBehaviour luaBehaviour = go.AddComponent<LuaBehaviour>();
+                luaBehaviour.assetBundleName = "";
+                luaBehaviour.prefabPath = prefabPath;
+                luaBehaviour.destroyABAfterAllSpawnDestroy = destroyABAfterAllSpawnDestroy;
+                return luaBehaviour.gameObject;
+            }
+        }
+
+        /// <summary>
+        /// 异步创建对象
+        /// </summary>
+        public static void SpawnPrefabAsyn(string prefabPath, Transform parent, LuaFunction callback, bool destroyABAfterSpawn = false, bool destroyABAfterAllSpawnDestroy = false)
         {
             if (string.IsNullOrEmpty(prefabPath))
             {
@@ -226,7 +272,7 @@ namespace ToLuaUIFramework
                     assetBundleName = "res/" + assetBundleName.Replace("/", "_").ToLower();
                     prefabName = prefabPath.Substring(prefabPath.LastIndexOf("/") + 1);
                 }
-                StartCoroutine(LoadAssetFromAssetBundle(assetBundleName, prefabName, (GameObject prefab) =>
+                instance.StartCoroutine(LoadAssetFromAssetBundleAsyn(assetBundleName, prefabName, (GameObject prefab) =>
                 {
                     GameObject go = Instantiate(prefab);
                     if (parent) go.transform.SetParent(parent, false);
@@ -234,7 +280,17 @@ namespace ToLuaUIFramework
                     luaBehaviour.assetBundleName = assetBundleName;
                     luaBehaviour.prefabPath = prefabPath;
                     luaBehaviour.destroyABAfterAllSpawnDestroy = destroyABAfterAllSpawnDestroy;
-                    if (callback != null) callback(luaBehaviour.gameObject, false);
+                    if (!string.IsNullOrEmpty(callback + ""))
+                    {
+                        if (callback.GetType() == typeof(M_LuaFunction))
+                        {
+                            ((M_LuaFunction)callback).action.Invoke(luaBehaviour.gameObject);
+                        }
+                        else
+                        {
+                            callback.Call(luaBehaviour.gameObject, false);
+                        }
+                    }
                 }, destroyABAfterSpawn));
             }
             else
@@ -246,7 +302,17 @@ namespace ToLuaUIFramework
                 luaBehaviour.assetBundleName = "";
                 luaBehaviour.prefabPath = prefabPath;
                 luaBehaviour.destroyABAfterAllSpawnDestroy = destroyABAfterAllSpawnDestroy;
-                if (callback != null) callback(luaBehaviour.gameObject, false);
+                if (!string.IsNullOrEmpty(callback + ""))
+                {
+                    if (callback.GetType() == typeof(M_LuaFunction))
+                    {
+                        ((M_LuaFunction)callback).action.Invoke(luaBehaviour.gameObject);
+                    }
+                    else
+                    {
+                        callback.Call(luaBehaviour.gameObject, false);
+                    }
+                }
             }
         }
 
@@ -282,7 +348,43 @@ namespace ToLuaUIFramework
 
         #region 内部方法
 
-        IEnumerator LoadAssetFromAssetBundle(string assetBundleName, string prefabName, Action<GameObject> callback, bool destroyABAfterSpawn = false)
+        static GameObject GetPrefabFromAssetBundleSyn(string assetBundleName, string prefabName, bool destroyABAfterSpawn = false)
+        {
+            GameObject prefab = null;
+            AssetBundleInfo assetBundleInfo = null;
+            loadedAssetBundles.TryGetValue(assetBundleName, out assetBundleInfo);
+            if (assetBundleInfo == null)
+            {
+                Debug.Log("重新加载AssetBundle: " + assetBundleName);
+                string localUrl = LuaConst.localABPath + "/" + assetBundleName + LuaConst.ExtName;
+                AssetBundle assetBundle = AssetBundle.LoadFromFile(localUrl);
+                if (destroyABAfterSpawn)
+                {
+                    prefab = assetBundle.LoadAsset<GameObject>(prefabName);
+                    assetBundle.Unload(false);
+                }
+                else
+                {
+                    assetBundleInfo = new AssetBundleInfo(assetBundle);
+                    prefab = assetBundleInfo.assetBundle.LoadAsset<GameObject>(prefabName);
+                    assetBundleInfo.referencedCount++;
+                    loadedAssetBundles.Add(assetBundleName, assetBundleInfo);
+                }
+            }
+            else
+            {
+                prefab = assetBundleInfo.assetBundle.LoadAsset<GameObject>(prefabName);
+                assetBundleInfo.referencedCount++;
+                if (destroyABAfterSpawn)
+                {
+                    assetBundleInfo.assetBundle.Unload(false);
+                    loadedAssetBundles.Remove(assetBundleName);
+                }
+            }
+            return prefab;
+        }
+
+        static IEnumerator LoadAssetFromAssetBundleAsyn(string assetBundleName, string prefabName, Action<GameObject> callback, bool destroyABAfterSpawn = false)
         {
             AssetBundleInfo assetBundleInfo = null;
             loadedAssetBundles.TryGetValue(assetBundleName, out assetBundleInfo);
@@ -331,7 +433,7 @@ namespace ToLuaUIFramework
             }
         }
 
-        IEnumerator PreloadAssetBundle(Action<float> onProgress)
+        static IEnumerator PreloadAssetBundle(LuaFunction onProgress)
         {
             while (preloadAssetBundleNames.Count > 0)
             {
@@ -352,7 +454,7 @@ namespace ToLuaUIFramework
                     assetBundleInfo = new AssetBundleInfo(assetBundle);
                     loadedAssetBundles.Add(assetBundleName, assetBundleInfo);
                 }
-                if (onProgress != null) onProgress((totalPreloadAssetBundles - preloadAssetBundleNames.Count) / (float)totalPreloadAssetBundles);
+                if (onProgress != null) onProgress.Call((totalPreloadAssetBundles - preloadAssetBundleNames.Count) / (float)totalPreloadAssetBundles);
             }
         }
 

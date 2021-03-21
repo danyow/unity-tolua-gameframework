@@ -46,11 +46,7 @@ namespace ToLuaUIFramework
                 {
                     if (onDown != null)
                     {
-                        onDown.BeginPCall();
-                        onDown.Push(self);
-                        onDown.Push(param);
-                        onDown.PCall();
-                        onDown.EndPCall();
+                        onDown.Call(self, param);
                     }
                     canTouchTimer = canTriggerInterval;
                     CheckFindEffect();
@@ -70,11 +66,7 @@ namespace ToLuaUIFramework
                 {
                     if (onClick != null)
                     {
-                        onClick.BeginPCall();
-                        onClick.Push(self);
-                        onClick.Push(param);
-                        onClick.PCall();
-                        onClick.EndPCall();
+                        onClick.Call(self, param);
                     }
                     canTouchTimer = canTriggerInterval;
                     CheckFindEffect();

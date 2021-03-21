@@ -1,46 +1,34 @@
 local LuaBehaviour = class("LuaBehaviour")
 
-function LuaBehaviour:ctor(parent)
+function LuaBehaviour:ctor(parent, module)
+    self.module = module
     self:createGameObject(parent)
 end
 
 function LuaBehaviour:createGameObject(parent)
-    self.parentFromNew = parent
-    local customParent = self:getParent()
-    if customParent then
-        parent = customParent
-    end
     local prefabPath = self:prefabPath()
-    if prefabPath and prefabPath ~= "" then
-        ResManager:SpawnPrefab(
-            prefabPath,
-            parent,
-            function(go, _isSingletonActive)
-                self:onGameObjectSpawn(go, _isSingletonActive)
-            end,
-            self:destroyABAfterSpawn(),
-            self:destroyABAfterAllSpawnDestroy()
-        )
+    if not prefabPath or prefabPath == "" then
+        LogError("请重写prefabPath()方法并指定Prefab路径")
+        return
     end
+    local go =
+        ResManager.SpawnPrefab(prefabPath, parent, self:destroyABAfterSpawn(), self:destroyABAfterAllSpawnDestroy())
+    self:onGameObjectSpawn(go)
 end
 
-function LuaBehaviour:onGameObjectSpawn(go, _isSingletonActive)
+function LuaBehaviour:onGameObjectSpawn(go)
     self.gameObject = go
     self.transform = go.transform
     if self._luaClassId then
         self.transform:GetComponent("LuaBehaviour"):SetLuaClassId(self._luaClassId)
     end
-    if not _isSingletonActive then
+    if not self.hasCallAwake then
         self:onAwake()
         self:onEnable()
+        self.hasCallAwake = true
     end
     local csharpLuaBehaviour = go:GetComponent("LuaBehaviour")
     csharpLuaBehaviour:SetLuaClass(self)
-end
-
---由子类重写，设置物体生成时的父级节点，优先级高于new(parent)参数传入
-function LuaBehaviour:getParent()
-    return nil
 end
 
 --由子类重写来定义

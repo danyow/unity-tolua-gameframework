@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7667011799330495669
+--- !u!1 &3888946744662356792
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7667011799330495666}
-  - component: {fileID: 7667011799330495664}
-  - component: {fileID: 7667011799330495667}
+  - component: {fileID: 7540794650870235765}
+  - component: {fileID: 5640132713252611858}
+  - component: {fileID: 3585308122080097306}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -18,14 +18,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &7667011799330495666
+--- !u!224 &7540794650870235765
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7667011799330495669}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 3888946744662356792}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -37,28 +37,28 @@ RectTransform:
   m_AnchoredPosition: {x: -428, y: 257}
   m_SizeDelta: {x: 861.9, y: 539}
   m_Pivot: {x: 0, y: 1}
---- !u!222 &7667011799330495664
+--- !u!222 &5640132713252611858
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7667011799330495669}
+  m_GameObject: {fileID: 3888946744662356792}
   m_CullTransparentMesh: 0
---- !u!114 &7667011799330495667
+--- !u!114 &3585308122080097306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7667011799330495669}
+  m_GameObject: {fileID: 3888946744662356792}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.92265, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -77,7 +77,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: "\u6218\u6CD5\u7267\u8FD9\u4E2A\u4F53\u7CFB\u867D\u7136\u4E0D\u662F\u300A\u9B54\u517D\u4E16\u754C\u300B\u521B\u9020\u7684\uFF0C\u5374\u662F\u7531\u5B83\u53D1\u626C\u5149\u5927\u7684\uFF0CWOW\u91CC\u7684\u6CD5\u5E08\u804C\u4E1A\u53EF\u8C13\u662F\u7ECF\u5178\u4E2D\u7684\u7ECF\u5178~\r\n\r\n\u706B\u7403\u672F\u3001\u708E\u7206\u672F\u3001\u5BD2\u51B0\u7BAD\u3001\u66B4\u98CE\u96EA\u2026\u2026\u7B49\u7B49\u7B49\u7B49\uFF0C\u8FD8\u6709\u72EC\u7279\u7684\u201C\u53D8\u7F8A\u201D\uFF08\u53D8\u5F62\u672F\uFF09\u548C\u7948\u7977\u672F\uFF0C\u8FD9\u4E9B\u90FD\u662FWOW\u6CD5\u5E08\u7684\u4EE3\u540D\u8BCD\u3002\u63A7\u5236\u3001\u66B4\u529B\u3001\u5F3A\u5316\u3001\u95EA\u73B0\uFF0C\u64CD\u4F5C\u6027\u6781\u5F3A\u7684\u6CD5\u5E08\u66FE\u5728\u591A\u4E2A\u7248\u672C\u4E2D\u88AB\u73A9\u5BB6\u4EEC\u79F0\u4E3A\u5B98\u65B9\u7684\u201C\u4EB2\u513F\u5B50\u201D\u3002\u4E0D\u8FC7emmmmm\u4E00\u4EE3\u7248\u672C\u4E00\u4EE3\u795E\uFF0C\u6CD5\u5E08\u4E5F\u6CA1\u529E\u6CD5\u505A\u5230\u4E00\u76F4\u5F3A\u4E0B\u53BB\u5440\uFF01\u6218\u6CD5\u7267\u8FD9\u4E2A\u4F53\u7CFB\u867D\u7136\u4E0D\u662F\u300A\u9B54\u517D\u4E16\u754C\u300B\u521B\u9020\u7684\uFF0C\u5374\u662F\u7531\u5B83\u53D1\u626C\u5149\u5927\u7684\uFF0CWOW\u91CC\u7684\u6CD5\u5E08\u804C\u4E1A\u53EF\u8C13\u662F\u7ECF\u5178\u4E2D\u7684\u7ECF\u5178~\r\n\u706B\u7403\u672F\u3001\u708E\u7206\u672F\u3001\u5BD2\u51B0\u7BAD\u3001\u66B4\u98CE\u96EA\u2026\u2026\u7B49\u7B49\u7B49\u7B49\uFF0C\u8FD8\u6709\u72EC\u7279\u7684\u201C\u53D8\u7F8A\u201D\uFF08\u53D8\u5F62\u672F\uFF09\u548C\u7948\u7977\u672F\uFF0C\u8FD9\u4E9B\u90FD\u662FWOW\u6CD5\u5E08\u7684\u4EE3\u540D\u8BCD\u3002"
+  m_Text: "\u6218\u6CD5\u7267\u662FMMORPG\u6218\u6597\u7CFB\u7EDF\u91CC\u7684\u6838\u5FC3\u804C\u4E1A\u4F53\u7CFB\uFF0C\u5176\u4E2D\u7684\u6CD5\u5E08\u56E0\u5176\u8FDC\u7A0B\u8F93\u51FA\u548C\u9AD8\u4F24\u5BB3\u7684\u7279\u70B9\u4E00\u76F4\u5F88\u53D7\u591A\u6570\u73A9\u5BB6\u7684\u559C\u7231\u3002\u563F\u563F\uFF0C\u8BF4\u5B9E\u8BDD\uFF0C\u5C0F\u7F16\u73A9MMO\u5C31\u5BF9\u6CD5\u5E08\u60C5\u6709\u72EC\u949F\uFF01\u4E0B\u9762\u6211\u4EEC\u5C31\u6765\u76D8\u70B9\u4E00\u4E0B\u90A3\u4E9BMMO\u91CC\u7ECF\u5178\u7684\u6CD5\u5E08\u804C\u4E1A\u5427\uFF01\u6218\u6CD5\u7267\u662FMMORPG\u6218\u6597\u7CFB\u7EDF\u91CC\u7684\u6838\u5FC3\u804C\u4E1A\u4F53\u7CFB\uFF0C\u5176\u4E2D\u7684\u6CD5\u5E08\u56E0\u5176\u8FDC\u7A0B\u8F93\u51FA\u548C\u9AD8\u4F24\u5BB3\u7684\u7279\u70B9\u4E00\u76F4\u5F88\u53D7\u591A\u6570\u73A9\u5BB6\u7684\u559C\u7231\u3002\n\n\u563F\u563F\uFF0C\u8BF4\u5B9E\u8BDD\uFF0C\u5C0F\u7F16\u73A9MMO\u5C31\u5BF9\u6CD5\u5E08\u60C5\u6709\u72EC\u949F\uFF01\u4E0B\u9762\u6211\u4EEC\u5C31\u6765\u76D8\u70B9\u4E00\u4E0B\u90A3\u4E9BMMO\u91CC\u7ECF\u5178\u7684\u6CD5\u5E08\u804C\u4E1A\u5427\uFF01\u6218\u6CD5\u7267\u662FMMORPG\u6218\u6597\u7CFB\u7EDF\u91CC\u7684\u6838\u5FC3\u804C\u4E1A\u4F53\u7CFB\uFF0C\u5176\u4E2D\u7684\u6CD5\u5E08\u56E0\u5176\u8FDC\u7A0B\u8F93\u51FA\u548C\u9AD8\u4F24\u5BB3\u7684\u7279\u70B9\u4E00\u76F4\u5F88\u53D7\u591A\u6570\u73A9\u5BB6\u7684\u559C\u7231\u3002\u563F\u563F\uFF0C\u8BF4\u5B9E\u8BDD\uFF0C\u5C0F\u7F16\u73A9MMO\u5C31\u5BF9\u6CD5\u5E08\u60C5\u6709\u72EC\u949F\uFF01\u4E0B\u9762\u6211\u4EEC\u5C31\u6765\u76D8\u70B9\u4E00\u4E0B\u90A3\u4E9BMMO\u91CC\u7ECF\u5178\u7684\u6CD5\u5E08\u804C\u4E1A\u5427\uFF01"
 --- !u!1 &7667011800684772356
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7667011799330495666}
+  - {fileID: 7540794650870235765}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
