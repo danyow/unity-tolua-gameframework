@@ -57,13 +57,14 @@ Ball.lua继承LuaBehaviour:
    return Login  
 ```
 
-5. 选择性重写的方法：指定创建的父级。不重写时父级默认查找场中的中的MainCanvas节点当父级（可自行修改）。
-   第二种指定父级的方式是实例化时new(parent)传参。用本方法指定优先级更高。重写方法并返回nil或""时，new传入才有效。    
+5. 选择性重写的方法：指定本UI是否参与UI栈的层级管理，如果是某主UI的子页面需要菜单点击才创建的子UI,可重写并返回false。  
 ```
-function Login:getParent()
-    return GameObject.Find("MainCanvas").transform
+function DailyReward_Content_1:isUIStack()
+    return false
 end
 ```
+   子UI可用模块内方法openUI(UI索引)创建，且如果子UI包含特效需要刷新层级关系的，首次生成时调用UIManager.RefreshSortObjects(self.transform)方法刷新一次即可  
+   参考：脚本DailyReward.lua中的onMenuSelect(index)方法
 
 6.  实现经典熟悉的生命周期函数，以及按钮绑定方法、DOTween使用  
 ```
