@@ -209,6 +209,8 @@ end
 1. 特性
 - 继承BaseUI后，UI自动受UI栈管理。即每生成一个UI界面都会自动压入UI栈，Destroy后自动出栈，默认情况下除栈顶之外的其他UI自动隐藏，只需发送命令打开新UI即可，前一个UI无需多加代码关闭。栈顶的UI被Destroy出栈后，新的栈顶UI会自动显示，无需多写代码激活。如果不希望关闭UI后自动显示前一个UI,可在打开新UI命令前，先将当前UI进行Destroy即可
 
+- 当某些UI因特殊情况需要自己添加Canvas并且指定独立的Camera的情况，本UI栈也会和无Canvas的普通UI合理排序，无需自行处理
+
 - 所以：当打开一个UI后，想跳回原来的UI，有两种方法：方法1：直接Destroy自己，无需再发送命令打开前UI。方法2：直接用命令或者模块方法打开前UI，无需多写代码关掉自己
 
 - 继承BaseUI后，通过发送命令打开新UI时，UI将被当成一个单例使用。系统先从栈内查找，如果找到则直接移到栈顶显示，不会重复创建新UI
@@ -228,6 +230,10 @@ end
 ```
 3. 刷新UI栈：当创建UI后又动态在onAwake里指定Canvas的Camera，或者因为动态添加特效需要调整层级的，必须用以下方法刷新一次UI栈，以便框架重新排列sortingOrder的关系。  
 ```
+    --有特效添加的先调用该方法再刷新
+    UIManager.RefreshSortObjects(self.transform)
+
+    --否则只调用该方法即可
     UIManager:RefreshStack() 
 ```
 
