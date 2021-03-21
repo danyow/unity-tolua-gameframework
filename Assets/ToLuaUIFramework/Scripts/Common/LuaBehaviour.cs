@@ -91,7 +91,7 @@ namespace ToLuaUIFramework
             for (int i = 0; i < sortObjects.Count; i++)
             {
                 LuaBehaviour.SortObject sortObject = sortObjects[i];
-                sortObject.SetOrder(order * 1000 + i);
+                sortObject.SetOrder(order * 100 + i);
             }
             IsSetedOrder = sortObjects.Count > 0;
         }
