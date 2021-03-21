@@ -66,6 +66,12 @@ namespace ToLuaUIFramework
             luaBehaviour.isUIStack = isUIStack;
             luaBehaviour.keepActive = keepActive;
             luaBehaviour.isFloat = isFloat;
+            //检测到时带Camera的Canvas，则默认忽略父级，直接放根目录
+            Canvas canvas = go.GetComponentInChildren<Canvas>();
+            if(canvas && canvas.renderMode == RenderMode.ScreenSpaceCamera && canvas.worldCamera)
+            {
+                go.transform.SetParent(null, false);
+            }
             //处理入栈
             if (luaBehaviour.isUIStack)
             {

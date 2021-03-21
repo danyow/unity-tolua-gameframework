@@ -13,14 +13,18 @@ function LobbyMain:onAwake()
     local btnLogout = self.transform:Find("BtnLogout")
     btnLogout:OnClick(
         function()
-            CommandManager.execute(CommandID.OpenUI, ModuleId.Login)
+            --CommandManager.execute(CommandID.OpenUI, ModuleId.Login)
+            --或
+            Module.get(ModuleId.Login):openUI(1)
         end
     )
 
     local btnPlayerInfo = self.transform:Find("BtnPlayerInfo")
     btnPlayerInfo:OnClick(
         function()
-            CommandManager.execute(CommandID.OpenUI, ModuleId.Player)
+            --CommandManager.execute(CommandID.OpenUI, ModuleId.Player)
+            --或
+            Module.get(ModuleId.Player):openUI(1)
         end
     )
 
@@ -28,6 +32,8 @@ function LobbyMain:onAwake()
     btnDailyReward:OnClick(
         function()
             CommandManager.execute(CommandID.OpenUI, ModuleId.DailyReward)
+            --或
+            --Module.get(ModuleId.DailyReward):openUI(1)
         end
     )
     
@@ -35,21 +41,25 @@ function LobbyMain:onAwake()
     local btnBtnShop = self.transform:Find("BtnShop")
     btnBtnShop:OnClick(
         function()
-            --CommandManager.execute(CommandID.OpenUI, ModuleId.Shop)
+            CommandManager.execute(CommandID.OpenUI, ModuleId.Shop)
+            --或
+            --Module.get(ModuleId.Shop):openUI(1)
         end
     )
 
     local btnFight = self.transform:Find("BtnFight")
     btnFight:OnClick(
         function()
-            --CommandManager.execute(CommandID.OpenUI, ModuleId.Room)
+            CommandManager.execute(CommandID.OpenUI, ModuleId.Room)
+            --或
+            --Module.get(ModuleId.Room):openUI(1)
         end
     )
 
     local btnAlert = self.transform:Find("BtnAlert")
     btnAlert:OnClick(
         function()
-            --CommandManager.execute(CommandID.OpenUI, ModuleId.Alert)
+            CommandManager.execute(CommandID.OpenUI, ModuleId.Common, 1)
         end
     )
 end
@@ -66,7 +76,7 @@ end
 
 function LobbyMain:update()
     if Input.GetMouseButtonUp(1) then
-        --CommandManager.execute(CommandID.OpenUI, ModuleId.Alert)
+        CommandManager.execute(CommandID.OpenUI, ModuleId.Common, 1)
     end
 end
 

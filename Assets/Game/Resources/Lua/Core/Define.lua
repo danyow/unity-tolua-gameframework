@@ -10,7 +10,7 @@ ModuleId = {
     Player = 4,
     Shop = 5,
     Room = 6,
-    FightUI = 7,
+    Battle = 7,
     Actor = 8,
 
     --活动

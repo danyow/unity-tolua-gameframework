@@ -38,15 +38,22 @@ namespace ToLuaUIFramework
             }
         }
 
-        public void OnPointerDown(PointerEventData eventData)
+        public void OnPointerClick(PointerEventData eventData)
         {
             if (enabled)
             {
                 if (canTouchTimer <= 0f)
                 {
-                    if (onDown != null)
+                    if (onClick != null)
                     {
-                        onDown.Call(self, param);
+                        if (self == null)
+                        {
+                            onClick.Call(param);
+                        }
+                        else
+                        {
+                            onClick.Call(self, param);
+                        }
                     }
                     canTouchTimer = canTriggerInterval;
                     CheckFindEffect();
@@ -58,15 +65,22 @@ namespace ToLuaUIFramework
             }
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void OnPointerDown(PointerEventData eventData)
         {
             if (enabled)
             {
                 if (canTouchTimer <= 0f)
                 {
-                    if (onClick != null)
+                    if (onDown != null)
                     {
-                        onClick.Call(self, param);
+                        if (self == null)
+                        {
+                            onDown.Call(param);
+                        }
+                        else
+                        {
+                            onDown.Call(self, param);
+                        }
                     }
                     canTouchTimer = canTriggerInterval;
                     CheckFindEffect();
