@@ -181,7 +181,7 @@ end
 ```
 
 9.  按钮事件的绑定（两种写法）
-- 第1种写法：绑定内部函数，无需传self，循环参数可是直接引用
+- 第1种写法：绑定内部函数，无需传self，循环参数i可直接引用,不会被循环覆盖
 ```
     for i = 1,10 do
         local btn = self.transform:Find("Btn_"..i)
@@ -191,7 +191,7 @@ end
         end)
     end
 ```
-- 第2种写法，绑定外部函数，需要传self，循环参数需要当参数透传
+- 第2种写法，绑定外部函数，需要传self，循环参数i需要当参数透传
 ```
     function MyClass:onAwake()
         for i = 1,10 do
