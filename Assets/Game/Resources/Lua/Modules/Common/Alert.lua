@@ -13,8 +13,11 @@ end
 function Alert:onAwake()
     self.super.onAwake(self)
 
+    self.openTime = Time.time
+
     self.updateHandler = UpdateBeat:CreateListener(self.update, self)
     self.dialog = self.transform:Find("Dialog")
+    self.content = self.dialog:Find("Text"):GetComponent("Text")
 end
 
 function Alert:onEnable()
@@ -30,15 +33,22 @@ function Alert:onEnable()
     self.dialog:DOScale(Vector3.one, 0.3):SetEase(Ease.OutBack)
 end
 
+--外部调用
+function Alert:setContent(text)
+    self.content.text = text
+end
+
 function Alert:onDisable()
     self.super.onDisable(self)
-    
+
     UpdateBeat:RemoveListener(self.updateHandler)
 end
 
 function Alert:update()
     if Input.GetMouseButtonUp(0) then
-        Destroy(self.gameObject)
+        if Time.time > self.openTime + 1 then
+            Destroy(self.gameObject)
+        end
     end
 end
 

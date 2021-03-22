@@ -11,14 +11,15 @@ function Register:onAwake()
     local btnRegister = self.transform:Find("BtnRegister")
     btnRegister:OnClick(
         function()
-            Log("功能暂未实现")
+            local alert = Module.get(ModuleID.Common):openUI(1)
+            alert:setContent("暂未开发")
         end
     )
 
     local btnBack = self.transform:Find("BtnBack")
     btnBack:OnClick(
         function()
-            CommandManager.execute(CommandID.OpenUI, ModuleId.Login, 1)
+            CommandManager.execute(CommandID.OpenUI, ModuleID.Login, 1)
         end
     )
 end

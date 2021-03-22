@@ -2,8 +2,8 @@ CommandID = {
     OpenUI = 1
 }
 
---ModuleId
-ModuleId = {
+--ModuleID
+ModuleID = {
     Common = 1,
     Login = 2,
     LobbyMain = 3,

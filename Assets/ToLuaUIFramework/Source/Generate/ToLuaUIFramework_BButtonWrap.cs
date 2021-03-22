@@ -7,8 +7,8 @@ public class ToLuaUIFramework_BButtonWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ToLuaUIFramework.BButton), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("OnPointerDown", OnPointerDown);
 		L.RegFunction("OnPointerClick", OnPointerClick);
+		L.RegFunction("OnPointerDown", OnPointerDown);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("param", get_param, set_param);
@@ -21,14 +21,14 @@ public class ToLuaUIFramework_BButtonWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int OnPointerDown(IntPtr L)
+	static int OnPointerClick(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ToLuaUIFramework.BButton obj = (ToLuaUIFramework.BButton)ToLua.CheckObject<ToLuaUIFramework.BButton>(L, 1);
 			UnityEngine.EventSystems.PointerEventData arg0 = (UnityEngine.EventSystems.PointerEventData)ToLua.CheckObject<UnityEngine.EventSystems.PointerEventData>(L, 2);
-			obj.OnPointerDown(arg0);
+			obj.OnPointerClick(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -38,14 +38,14 @@ public class ToLuaUIFramework_BButtonWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int OnPointerClick(IntPtr L)
+	static int OnPointerDown(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ToLuaUIFramework.BButton obj = (ToLuaUIFramework.BButton)ToLua.CheckObject<ToLuaUIFramework.BButton>(L, 1);
 			UnityEngine.EventSystems.PointerEventData arg0 = (UnityEngine.EventSystems.PointerEventData)ToLua.CheckObject<UnityEngine.EventSystems.PointerEventData>(L, 2);
-			obj.OnPointerClick(arg0);
+			obj.OnPointerDown(arg0);
 			return 0;
 		}
 		catch (Exception e)

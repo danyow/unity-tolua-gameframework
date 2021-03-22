@@ -22,7 +22,7 @@ function ResPreload:onStart()
             if progress == 1 then
                 Destroy(self.gameObject)
                 --最后一个参数不传，默认是1
-                CommandManager.execute(CommandID.OpenUI, ModuleId.Login, 2)
+                CommandManager.execute(CommandID.OpenUI, ModuleID.Login, 2)
             end
         end
     )

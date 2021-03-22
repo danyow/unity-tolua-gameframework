@@ -22,7 +22,7 @@ function RoomSelect:onAwake()
                 Log(param)
                 print("进入战场：" .. param)
                 Destroy(self.gameObject)
-                Module.get(ModuleId.Battle):openUI(1, nil)
+                Module.get(ModuleID.Battle):openUI(1, nil)
             end
         )
     end

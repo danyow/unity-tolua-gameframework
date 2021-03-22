@@ -11,16 +11,16 @@ function Login:onAwake()
     local btnStart = self.transform:Find("BtnStart")
     btnStart:OnClick(
         function()
-            CommandManager.execute(CommandID.OpenUI, ModuleId.LobbyMain)
+            CommandManager.execute(CommandID.OpenUI, ModuleID.LobbyMain)
         end
     )
 
     local btnRegister = self.transform:Find("BtnRegister")
     btnRegister:OnClick(
         function()
-            --CommandManager.execute(CommandID.OpenUI, ModuleId.Login, 2)
+            --CommandManager.execute(CommandID.OpenUI, ModuleID.Login, 2)
             --或
-            Module.get(ModuleId.Login):openUI(2)
+            Module.get(ModuleID.Login):openUI(2)
         end
     )
 end

@@ -145,7 +145,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 300
+    m_FontSize: 114
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -156,7 +156,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u6355\u9C7C\u573A\u666F"
+  m_Text: "<size=180>\u6218\u6597\u573A\u666F</size>\n\u652F\u6301UI\u4F7F\u7528\u72EC\u7ACB\u7684Camera"
 --- !u!1 &3941082033996357387
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 1779473120154001848}
   - component: {fileID: 5158750938940803047}
   m_Layer: 5
-  m_Name: Fight
+  m_Name: BattleUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

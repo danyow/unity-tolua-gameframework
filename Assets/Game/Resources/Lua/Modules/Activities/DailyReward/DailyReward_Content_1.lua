@@ -15,7 +15,8 @@ function DailyReward_Content_1:onAwake()
     local btnAlert = self.transform:Find("BtnAlert")
     btnAlert:OnClick(
         function()
-            CommandManager.execute(CommandID.OpenUI, ModuleId.Common, 1)
+            local alert = Module.get(ModuleID.Common):openUI(1)
+            alert:setContent("动态添加Canvas以盖住特效")
         end
     )
 end

@@ -13,53 +13,53 @@ function LobbyMain:onAwake()
     local btnLogout = self.transform:Find("BtnLogout")
     btnLogout:OnClick(
         function()
-            --CommandManager.execute(CommandID.OpenUI, ModuleId.Login)
+            --CommandManager.execute(CommandID.OpenUI, ModuleID.Login)
             --或
-            Module.get(ModuleId.Login):openUI(1)
+            Module.get(ModuleID.Login):openUI(1)
         end
     )
 
     local btnPlayerInfo = self.transform:Find("BtnPlayerInfo")
     btnPlayerInfo:OnClick(
         function()
-            --CommandManager.execute(CommandID.OpenUI, ModuleId.Player)
+            --CommandManager.execute(CommandID.OpenUI, ModuleID.Player)
             --或
-            Module.get(ModuleId.Player):openUI(1)
+            Module.get(ModuleID.Player):openUI(1)
         end
     )
 
     local btnDailyReward = self.transform:Find("BtnDailyReward")
     btnDailyReward:OnClick(
         function()
-            CommandManager.execute(CommandID.OpenUI, ModuleId.DailyReward)
+            CommandManager.execute(CommandID.OpenUI, ModuleID.DailyReward)
             --或
-            --Module.get(ModuleId.DailyReward):openUI(1)
+            --Module.get(ModuleID.DailyReward):openUI(1)
         end
     )
-    
 
     local btnBtnShop = self.transform:Find("BtnShop")
     btnBtnShop:OnClick(
         function()
-            CommandManager.execute(CommandID.OpenUI, ModuleId.Shop)
+            CommandManager.execute(CommandID.OpenUI, ModuleID.Shop)
             --或
-            --Module.get(ModuleId.Shop):openUI(1)
+            --Module.get(ModuleID.Shop):openUI(1)
         end
     )
 
     local btnFight = self.transform:Find("BtnFight")
     btnFight:OnClick(
         function()
-            CommandManager.execute(CommandID.OpenUI, ModuleId.Room)
+            CommandManager.execute(CommandID.OpenUI, ModuleID.Room)
             --或
-            --Module.get(ModuleId.Room):openUI(1)
+            --Module.get(ModuleID.Room):openUI(1)
         end
     )
 
     local btnAlert = self.transform:Find("BtnAlert")
     btnAlert:OnClick(
         function()
-            CommandManager.execute(CommandID.OpenUI, ModuleId.Common, 1)
+            local alert = Module.get(ModuleID.Common):openUI(1)
+            alert:setContent("底层无特效，无需动态添加Canvas")
         end
     )
 end
@@ -76,7 +76,8 @@ end
 
 function LobbyMain:update()
     if Input.GetMouseButtonUp(1) then
-        CommandManager.execute(CommandID.OpenUI, ModuleId.Common, 1)
+        local alert = Module.get(ModuleID.Common):openUI(1)
+        alert:setContent("鼠标右键事件")
     end
 end
 
