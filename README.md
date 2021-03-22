@@ -170,9 +170,10 @@ end
 ```
     CommandManager.execute(CommandID.OpenUI, ModuleId.您定义的UIID, 指定模块里的UI索引(可选)，父级(可选))  
 
-    --发送命令适合跨模块使用，不想用命令也可以调用方法实现打开UI(适合模块内使用)
+    --发送命令适合跨模块使用，不想用命令也可以调用方法实现打开UI(适合模块内使用,或需要得到UI对象进行进一步赋值时使用)
 
-    Module.get(ModuleId.您定义的UIID):openUI(UI索引)
+    local alert = Module.get(ModuleId.Common):openUI(1)
+    alert:setContent("Hello Lua")
 ```
 - 以上是对象有脚本绑定的打开方法，如果简单一个无绑定的对象，用以下方法即可：
 ```
