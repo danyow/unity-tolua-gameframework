@@ -46,7 +46,8 @@ end
 
 function Alert:update()
     if Input.GetMouseButtonUp(0) then
-        if Time.time > self.openTime + 1 then
+        --鼠标放开时触发，错开点击按钮打开本页的冲突，否则打开同时又会触发关闭
+        if Time.time > self.openTime + 0.2 then
             Destroy(self.gameObject)
         end
     end
