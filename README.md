@@ -26,7 +26,11 @@
 
 - C#的开始：  
 
-注册好各种事件，然后直接调用 Main.Instance.StartFramework(); 即可
+1.  修改Config.cs中的GameResourcesPath定义您的开发目录，必须是Resources目录  
+
+2.  Resources内创建Lua目录和Prefabs目录，强烈建议两个文件夹名称不要修改。UI图集、模型、音效等素材可放在Resources目录外。以保证开发目录干净整洁  
+
+    注册好各种事件，然后直接调用 Main.Instance.StartFramework(); 即可
 ```
         MessageCenter.Add(MsgEnum.ABLoadingBegin, (BaseMsg msg) =>
         {
@@ -58,13 +62,9 @@
         Main.Instance.StartFramework();
 ```
 
-- 开始码代码：
+- 开始码Lua代码：
 
-1.  修改Config.cs中的GameResourcesPath定义您的开发目录，必须是Resources目录
-
-2.  Resources内创建Lua目录和Prefabs目录，强烈建议两个文件夹名称不要修改。UI图集、模型、音效等素材可放在Resources目录外。以保证开发目录干净整洁
-
-3.  Prefabs内放好预设体。建议Lua目录内创建结构一样的子目录结构，目录内创建对应的UI控制Lua脚本。如果是UI，继承BaseUI，否则继承LuaBahaviour。方式如下:  
+Prefabs内放好预设体。建议Lua目录内创建结构一样的子目录结构，目录内创建对应的UI控制Lua脚本。如果是UI，继承BaseUI，否则继承LuaBahaviour。方式如下:  
   
 Login.lua继承BaseUI:  
 ```
