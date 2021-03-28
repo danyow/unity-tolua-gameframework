@@ -11,6 +11,7 @@ public class StartGame : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
 
+        //注册好各种事件，然后直接调用 Main.Instance.StartFramework(); 即可
 
         MessageCenter.Add(MsgEnum.ABLoadingBegin, (BaseMsg msg) =>
         {
