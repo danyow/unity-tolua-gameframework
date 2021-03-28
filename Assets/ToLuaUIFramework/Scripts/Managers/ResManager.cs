@@ -139,6 +139,7 @@ namespace ToLuaUIFramework
             yield return new WaitForEndOfFrame();
 
             MessageCenter.Dispatch(MsgEnum.ABLoadingFinish);
+            MessageCenter.Dispatch(MsgEnum.RunLuaMain);
             CommandController.Instance.Execute(CommandEnum.StartLuaMain);
         }
 
