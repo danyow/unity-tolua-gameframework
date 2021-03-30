@@ -1,3 +1,7 @@
+--wqb
+--2020.11.26
+--封装打印方法，添加打印Lua日志堆栈，表数据和协议数据自动转json
+
 local function _pairsEx(tbl)
     local meta = getmetatable(tbl)
     if meta then
@@ -59,6 +63,9 @@ function DataToJson(data, depth)
         for key, value in _pairsEx(data) do
             if str ~= "{" then
                 str = str .. ","
+            end
+            if type(key) == "table" then
+                key = "Key type is table"
             end
             str = str .. '"' .. key .. '"' .. ":" .. DataToJson(value, depth)
         end
