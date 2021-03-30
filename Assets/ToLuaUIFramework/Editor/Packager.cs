@@ -99,27 +99,33 @@ public class Packager
     /// </summary>
     static void HandleLuaBundle(string tempDir)
     {
-
         if (!Directory.Exists(tempDir)) Directory.CreateDirectory(tempDir);
 
         string[] srcDirs = Config.ExportLuaPaths;
         for (int i = 0; i < srcDirs.Length; i++)
         {
-            string sourceDir = srcDirs[i];
-            string[] files = Directory.GetFiles(sourceDir, "*.lua", SearchOption.AllDirectories);
-            int len = sourceDir.Length;
+            if (LuaConst.LuaByteMode)
+            {
+                string sourceDir = srcDirs[i];
+                string[] files = Directory.GetFiles(sourceDir, "*.lua", SearchOption.AllDirectories);
+                int len = sourceDir.Length;
 
-            if (sourceDir[len - 1] == '/' || sourceDir[len - 1] == '\\')
-            {
-                --len;
+                if (sourceDir[len - 1] == '/' || sourceDir[len - 1] == '\\')
+                {
+                    --len;
+                }
+                for (int j = 0; j < files.Length; j++)
+                {
+                    string str = files[j].Remove(0, len);
+                    string dest = tempDir + str + ".bytes";
+                    string dir = Path.GetDirectoryName(dest);
+                    Directory.CreateDirectory(dir);
+                    EncodeLuaFile(files[j], dest);
+                }
             }
-            for (int j = 0; j < files.Length; j++)
+            else
             {
-                string str = files[j].Remove(0, len);
-                string dest = tempDir + str + ".bytes";
-                string dir = Path.GetDirectoryName(dest);
-                Directory.CreateDirectory(dir);
-                EncodeLuaFile(files[j], dest);
+                ToLuaMenu.CopyLuaBytesFiles(srcDirs[i], tempDir);
             }
         }
         string[] dirs = Directory.GetDirectories(tempDir, "*", SearchOption.AllDirectories);

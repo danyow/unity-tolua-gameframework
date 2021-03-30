@@ -116,7 +116,7 @@ namespace ToLuaUIFramework
             foreach (var item in reloadFiles)
             {
                 string url = Config.RemoteUrl + "/" + item.Key;
-                if (!url.Contains(".")) continue;
+                if (!item.Key.Contains(".")) continue;
                 Debug.Log("下载资源：" + url);
                 UnityWebRequest resRequest = UnityWebRequest.Get(url);
                 yield return resRequest.SendWebRequest();

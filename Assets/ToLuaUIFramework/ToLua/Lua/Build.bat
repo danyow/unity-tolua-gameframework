@@ -4,7 +4,7 @@ rd /s/q Out
 mkdir jit
 mkdir Out
 
-xcopy /Y /D ..\..\..\Luajit\jit jit
+xcopy /Y /D ..\..\..\..\Luajit\jit jit
 setlocal enabledelayedexpansion
 
 for /r %%i in (*.lua) do (
@@ -18,12 +18,12 @@ for /r %%i in (*.lua) do (
  set v=%%i 
  set v=!v:%~dp0=! 
  call :loop
- ..\..\..\Luajit\luajit.exe -b -g !v! Out\!v!.bytes 
+ ..\..\..\..\Luajit\luajit32.exe -b -g !v! Out\!v!.bytes 
 )
 
 rd /s/q jit
 rd /s/q .\Out\jit\
-xcopy /Y /D /S Out ..\..\StreamingAssets\Lua
+xcopy /Y /D /S Out ..\..\..\StreamingAssets\Lua
 setlocal disabledelayedexpansion
 
 :loop 
