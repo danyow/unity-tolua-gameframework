@@ -9,6 +9,7 @@ public class ToLuaUIFramework_LuaManagerWrap
 		L.BeginClass(typeof(ToLuaUIFramework.LuaManager), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("ExeCommand", ExeCommand);
 		L.RegFunction("DoFile", DoFile);
+		L.RegFunction("CallFunction", CallFunction);
 		L.RegFunction("GetFunction", GetFunction);
 		L.RegFunction("LuaGC", LuaGC);
 		L.RegFunction("Close", Close);
@@ -46,6 +47,39 @@ public class ToLuaUIFramework_LuaManagerWrap
 			string arg0 = ToLua.CheckString(L, 2);
 			obj.DoFile(arg0);
 			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int CallFunction(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				ToLuaUIFramework.LuaManager obj = (ToLuaUIFramework.LuaManager)ToLua.CheckObject<ToLuaUIFramework.LuaManager>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				obj.CallFunction(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				ToLuaUIFramework.LuaManager obj = (ToLuaUIFramework.LuaManager)ToLua.CheckObject<ToLuaUIFramework.LuaManager>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				object arg1 = ToLua.ToVarObject(L, 3);
+				obj.CallFunction(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: ToLuaUIFramework.LuaManager.CallFunction");
+			}
 		}
 		catch (Exception e)
 		{

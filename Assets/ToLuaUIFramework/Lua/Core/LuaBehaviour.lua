@@ -1,4 +1,4 @@
-local LuaBehaviour = class("LuaBehaviour")
+local LuaBehaviour = Class("LuaBehaviour")
 
 function LuaBehaviour:ctor(parent, module)
     self.module = module

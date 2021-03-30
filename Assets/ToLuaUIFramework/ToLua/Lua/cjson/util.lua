@@ -10,12 +10,21 @@ local json = require "cjson"
 -- -1   Not an array
 -- 0    Empty table
 -- >0   Highest index in the array
+
+-- Provide unpack for Lua 5.3+ built without LUA_COMPAT_UNPACK
+local unpack = unpack
+if table.unpack then
+    unpack = table.unpack
+end
+
 local function is_array(table)
     local max = 0
     local count = 0
     for k, v in pairs(table) do
         if type(k) == "number" then
-            if k > max then max = k end
+            if k > max then
+                max = k
+            end
             count = count + 1
         else
             return -1
@@ -47,7 +56,7 @@ local function serialise_table(value, indent, depth)
     local max = is_array(value)
 
     local comma = false
-    local fragment = { "{" .. spacing2 }
+    local fragment = {"{" .. spacing2}
     if max > 0 then
         -- Serialise array
         for i = 1, max do
@@ -63,9 +72,10 @@ local function serialise_table(value, indent, depth)
             if comma then
                 table.insert(fragment, "," .. spacing2)
             end
-            table.insert(fragment,
-                ("[%s] = %s"):format(serialise_value(k, indent2, depth),
-                                     serialise_value(v, indent2, depth)))
+            table.insert(
+                fragment,
+                ("[%s] = %s"):format(serialise_value(k, indent2, depth), serialise_value(v, indent2, depth))
+            )
             comma = true
         end
     end
@@ -75,20 +85,23 @@ local function serialise_table(value, indent, depth)
 end
 
 function serialise_value(value, indent, depth)
-    if indent == nil then indent = "" end
-    if depth == nil then depth = 0 end
+    if indent == nil then
+        indent = ""
+    end
+    if depth == nil then
+        depth = 0
+    end
 
     if value == json.null then
         return "json.null"
     elseif type(value) == "string" then
         return ("%q"):format(value)
-    elseif type(value) == "nil" or type(value) == "number" or
-           type(value) == "boolean" then
+    elseif type(value) == "nil" or type(value) == "number" or type(value) == "boolean" then
         return tostring(value)
     elseif type(value) == "table" then
         return serialise_table(value, indent, depth)
     else
-        return "\"<" .. type(value) .. ">\""
+        return '"<' .. type(value) .. '>"'
     end
 end
 
@@ -182,14 +195,14 @@ end
 
 local function run_test(testname, func, input, should_work, output)
     local function status_line(name, status, value)
-        local statusmap = { [true] = ":success", [false] = ":error" }
+        local statusmap = {[true] = ":success", [false] = ":error"}
         if status ~= nil then
             name = name .. statusmap[status]
         end
         print(("[%s] %s"):format(name, serialise_value(value, false)))
     end
 
-    local result = { pcall(func, unpack(input)) }
+    local result = {pcall(func, unpack(input))}
     local success = table.remove(result, 1)
 
     local correct = false
@@ -199,9 +212,8 @@ local function run_test(testname, func, input, should_work, output)
     end
     test_count_total = test_count_total + 1
 
-    local teststatus = { [true] = "PASS", [false] = "FAIL" }
-    print(("==> Test [%d] %s: %s"):format(test_count_total, testname,
-                                          teststatus[correct]))
+    local teststatus = {[true] = "PASS", [false] = "FAIL"}
+    print(("==> Test [%d] %s: %s"):format(test_count_total, testname, teststatus[correct]))
 
     status_line("Input", nil, input)
     if not correct then
@@ -249,7 +261,7 @@ local function run_script(script, env)
     end
 
     if func == nil then
-            error("Invalid syntax.")
+        error("Invalid syntax.")
     end
     func()
 

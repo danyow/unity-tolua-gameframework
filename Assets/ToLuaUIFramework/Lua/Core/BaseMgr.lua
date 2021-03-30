@@ -1,4 +1,4 @@
-local BaseMgr = class("BaseMgr")
+local BaseMgr = Class("BaseMgr")
 
 _SpawnedUIList = {}
 function OnGameObjectDestroy(_luaClassId)
@@ -86,7 +86,7 @@ end
 
 function BaseMgr:defaultParent()
     --TODO:请根据项目实际情况修改
-    return GameObject.Find("MainCanvas").transform
+    return nil
 end
 
 return BaseMgr

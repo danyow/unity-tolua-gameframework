@@ -1,6 +1,6 @@
 local LuaBehaviour = require "Core.LuaBehaviour"
 
-local BaseUI = class("BaseUI", LuaBehaviour)
+local BaseUI = Class("BaseUI", LuaBehaviour)
 
 --由子类重写，是否加入Ui栈策略
 function BaseUI:isUIStack()

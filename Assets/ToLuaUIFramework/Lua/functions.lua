@@ -1,4 +1,4 @@
-function class(classname, super)
+function Class(classname, super)
     local superType = type(super)
     local cls
 
@@ -28,7 +28,7 @@ function class(classname, super)
     return cls
 end
 
-function clear_class(class)
+function ClearClass(class)
     for i, v in pairs(class) do
         if type(v) ~= "function" then
             class[i] = nil
@@ -36,8 +36,8 @@ function clear_class(class)
     end
 end
 
-function Destroy(obj)
-    if obj then
-        GameObject.Destroy(obj)
+function Destroy(gameObject)
+    if gameObject then
+        GameObject.Destroy(gameObject)
     end
 end

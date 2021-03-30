@@ -155,6 +155,7 @@ public static class LuaBinder
 		ToLuaUIFramework_ResManagerWrap.Register(L);
 		ToLuaUIFramework_UIManagerWrap.Register(L);
 		ToLuaUIFramework_SoundManagerWrap.Register(L);
+		ToLuaUIFramework_HttpManagerWrap.Register(L);
 		ToLuaUIFramework_LuaBehaviourWrap.Register(L);
 		ToLuaUIFramework_BButtonWrap.Register(L);
 		ToLuaUIFramework_BButtonEffectWrap.Register(L);

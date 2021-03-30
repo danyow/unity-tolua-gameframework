@@ -181,11 +181,11 @@ namespace ToLuaUIFramework
             {
                 if (!string.IsNullOrEmpty(luaClassId))
                 {
-                    LuaManager.instance.GetFunction("OnGameObjectDestroy").Call(luaClassId);
+                    LuaManager.instance.CallFunction("OnGameObjectDestroy", luaClassId);
                 }
                 if (luaClass != null)
                 {
-                    LuaManager.instance.GetFunction("clear_class").Call(luaClass);
+                    LuaManager.instance.CallFunction("ClearClass", luaClass);
                 }
             }
             if (UIManager.instance)

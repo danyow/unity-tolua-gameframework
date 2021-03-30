@@ -13,7 +13,8 @@ public static class LuaConst
     public readonly static string luaEncoderRoot = frameworkRoot + "/LuaEncoder";
     public readonly static string localABPath = Application.persistentDataPath + "/AssetBundle";
     public const string MD5FileName = "files.txt";
-    public const string ExtName = ".u3d";
+    public const string ExtName = ".zip";//用.u3d容易被服务器MIME限制
+
     public static string streamPathUrl
     {
         get

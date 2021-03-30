@@ -33,6 +33,7 @@ namespace ToLuaUIFramework
             CommandController.Instance.AddManager(typeof(UIManager));
             CommandController.Instance.AddManager(typeof(LuaManager));
             CommandController.Instance.AddManager(typeof(SoundManager));
+            CommandController.Instance.AddManager(typeof(HttpManager));
 
             CommandController.Instance.Execute(CommandEnum.UpdateRemoteAssetBundle);
         }

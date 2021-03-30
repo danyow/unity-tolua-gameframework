@@ -139,7 +139,23 @@ namespace ToLuaUIFramework
         }
 
         /// <summary>
-        /// Update is called once per frame
+        /// 执行Lua全局方法
+        /// </summary>
+        public void CallFunction(string funcName)
+        {
+            lua.GetFunction(funcName).Call();
+        }
+
+        /// <summary>
+        /// 执行Lua全局方法(带1个参数，支持多参数)
+        /// </summary>
+        public void CallFunction(string funcName, object param)
+        {
+            lua.GetFunction(funcName).Call(param);
+        }
+
+        /// <summary>
+        /// 获取Lua全局方法
         /// </summary>
         public LuaFunction GetFunction(string funcName)
         {

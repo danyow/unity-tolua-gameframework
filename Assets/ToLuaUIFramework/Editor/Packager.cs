@@ -134,7 +134,7 @@ public class Packager
         AddBuildMap("lua/lua" + LuaConst.ExtName, "*.bytes", tempDir.Substring(tempDir.IndexOf("Assets/")));
 
         //-------------------------------处理非Lua文件(如Build.bat文件等)----------------------------------
-        string luaPath = Application.streamingAssetsPath + "/lua/";
+        string luaPath = Config.OutputPath + "/lua/";
         for (int i = 0; i < srcDirs.Length; i++)
         {
             paths.Clear(); files.Clear();
@@ -158,7 +158,8 @@ public class Packager
     /// </summary>
     static void HandleResBundle()
     {
-        string name = "res/" + Config.ExportResPath.Substring(Config.ExportResPath.LastIndexOf("/") + 1);
+        string tag = "/Resources/";
+        string name = "res/" + Config.ExportResPath.Substring(Config.ExportResPath.IndexOf(tag) + tag.Length).Replace("\\", "_").Replace("/", "_");
         string path = "Assets" + Config.ExportResPath.Replace(Application.dataPath, "");
         AddBuildMap(name + LuaConst.ExtName, "*.prefab", path);
 
@@ -166,7 +167,7 @@ public class Packager
         for (int i = 0; i < typePaths.Length; i++)
         {
             string typePath = typePaths[i];
-            name = typePath.Substring(typePath.LastIndexOf("/") + 1).Replace("\\", "_").Replace("/", "_");
+            name = typePath.Substring(typePath.IndexOf(tag) + tag.Length).Replace("\\", "_").Replace("/", "_");
             name = "res/" + name;
             path = "Assets" + typePath.Replace(Application.dataPath, "");
             AddBuildMap(name + LuaConst.ExtName, "*.prefab", path);
@@ -175,7 +176,7 @@ public class Packager
             for (int j = 0; j < modulePaths.Length; j++)
             {
                 string modulePath = modulePaths[j];
-                name = modulePath.Substring(modulePath.LastIndexOf("/") + 1).Replace("\\", "_").Replace("/", "_");
+                name = modulePath.Substring(modulePath.IndexOf(tag) + tag.Length).Replace("\\", "_").Replace("/", "_");
                 name = "res/" + name;
                 path = "Assets" + modulePath.Replace(Application.dataPath, "");
                 AddBuildMap(name + LuaConst.ExtName, "*.prefab", path);
@@ -202,11 +203,12 @@ public class Packager
     /// </summary>
     static void BuildFileIndex()
     {
-        string resPath = Application.streamingAssetsPath;
+        string resPath = Config.OutputPath;
         string newFilePath = resPath + "/" + LuaConst.MD5FileName;
         if (File.Exists(newFilePath)) File.Delete(newFilePath);
 
-        paths.Clear(); files.Clear();
+        paths.Clear();
+        files.Clear();
         Recursive(resPath);
 
         FileStream fs = new FileStream(newFilePath, FileMode.CreateNew);
