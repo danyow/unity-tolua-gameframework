@@ -44,7 +44,7 @@ namespace ToLuaUIFramework
                 }
                 else
                 {
-                    MessageCenter.Dispatch(MsgEnum.ABLoadingFinish);
+                    MessageCenter.Dispatch(MsgEnum.RunLuaMain);
                     CommandController.Instance.Execute(CommandEnum.StartLuaMain);
                 }
                 return true;
@@ -59,8 +59,6 @@ namespace ToLuaUIFramework
         /// </summary>
         IEnumerator CheckAndDownloadAssetBundle()
         {
-            MessageCenter.Dispatch(MsgEnum.ABLoadingBegin);
-            MessageCenter.Dispatch(MsgEnum.ABLoadingProgress, 0);
             //读取本地MD5文件
             localFiles = new Dictionary<string, string>();
             string localFilesPath = LuaConst.localABPath + "/" + LuaConst.MD5FileName;
@@ -87,7 +85,7 @@ namespace ToLuaUIFramework
                 if (!localHaveKey)
                 {
                     //是新的文件，加入加载
-                    reloadFiles.Add(item.Key, item.Value);
+                    if (item.Key.EndsWith(LuaConst.ExtName)) reloadFiles.Add(item.Key, item.Value);
                 }
                 else
                 {
@@ -95,7 +93,7 @@ namespace ToLuaUIFramework
                     if (!fileExists)
                     {
                         //本地找不到，加入下载
-                        reloadFiles.Add(item.Key, item.Value);
+                        if (item.Key.EndsWith(LuaConst.ExtName)) reloadFiles.Add(item.Key, item.Value);
                     }
                     else
                     {
@@ -105,13 +103,18 @@ namespace ToLuaUIFramework
                         if (!md5Match)
                         {
                             //文件有改动，加入下载
-                            reloadFiles.Add(item.Key, item.Value);
+                            if (item.Key.EndsWith(LuaConst.ExtName)) reloadFiles.Add(item.Key, item.Value);
                         }
                     }
                 }
             }
             int maxCount = reloadFiles.Count;
             Debug.Log("下载资源数量：" + maxCount);
+            if (maxCount > 0)
+            {
+                MessageCenter.Dispatch(MsgEnum.ABLoadingBegin);
+                MessageCenter.Dispatch(MsgEnum.ABLoadingProgress, 0);
+            }
             int loadedCount = 0;
             foreach (var item in reloadFiles)
             {
@@ -132,14 +135,15 @@ namespace ToLuaUIFramework
                 loadSuccessFiles.Add(item.Key, item.Value);
                 loadedCount++;
                 float progress = loadedCount / (float)maxCount;
-                Debug.Log("下载进度：" + progress);
+                Debug.Log("下载进度：" + loadedCount + " / " + maxCount + " = " + progress);
                 MessageCenter.Dispatch(MsgEnum.ABLoadingProgress, progress);
+                if (loadedCount == maxCount)
+                {
+                    MessageCenter.Dispatch(MsgEnum.ABLoadingFinish);
+                }
             }
             UpdateLocalFiles();
-            MessageCenter.Dispatch(MsgEnum.ABLoadingProgress, 1);
             yield return new WaitForEndOfFrame();
-
-            MessageCenter.Dispatch(MsgEnum.ABLoadingFinish);
             MessageCenter.Dispatch(MsgEnum.RunLuaMain);
             CommandController.Instance.Execute(CommandEnum.StartLuaMain);
         }
