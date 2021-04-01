@@ -147,11 +147,43 @@ namespace ToLuaUIFramework
         }
 
         /// <summary>
-        /// 执行Lua全局方法(带1个参数，支持多参数)
+        /// 执行Lua全局方法
         /// </summary>
         public void CallFunction(string funcName, object param)
         {
             lua.GetFunction(funcName).Call(param);
+        }
+
+        /// <summary>
+        /// 执行Lua全局方法
+        /// </summary>
+        public void CallFunction(string funcName, object param1, object param2)
+        {
+            lua.GetFunction(funcName).Call(param1, param2);
+        }
+
+        /// <summary>
+        /// 执行Lua全局方法
+        /// </summary>
+        public void CallFunction(string funcName, object param1, object param2, object param3)
+        {
+            lua.GetFunction(funcName).Call(param1, param2, param3);
+        }
+
+        /// <summary>
+        /// 执行Lua全局方法
+        /// </summary>
+        public void CallFunction(string funcName, object param1, object param2, object param3, object param4)
+        {
+            lua.GetFunction(funcName).Call(param1, param2, param3, param4);
+        }
+
+        /// <summary>
+        /// 执行Lua全局方法
+        /// </summary>
+        public void CallFunction(string funcName, object param1, object param2, object param3, object param4, object param5)
+        {
+            lua.GetFunction(funcName).Call(param1, param2, param3, param4, param5);
         }
 
         /// <summary>
