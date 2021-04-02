@@ -1,4 +1,4 @@
-﻿using ToLuaUIFramework;
+using ToLuaUIFramework;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,7 +34,7 @@ public class StartGame : MonoBehaviour
         });
         MessageCenter.Add(MsgEnum.RunLuaMain, (BaseMsg msg) =>
         {
-            Debug.Log("开始执行LuaMain脚本");
+            Debug.Log("开始执行Lua的Main脚本");
             Destroy(text.gameObject);
             Destroy(slider.gameObject);
         });
