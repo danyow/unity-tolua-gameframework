@@ -21,7 +21,7 @@
 
 - 两种模式：
 
-1.  开发模式：Config.cs里将UseAssetBundle设置为false。lua代码和预设体都放入Resources目录里开发，方便即写即跑快速调试，出母包时将Resources文件名改名以排除打包
+1.  开发模式：Config.cs里将UseAssetBundle设置为false。lua代码和预设体都放入Resources目录里开发，方便即写即跑快速调试，出母包时将Resources文件名改名或将将已打过包的资源移出Resources目录，以排除打包
 2.  发布模式：Config.cs里将UseAssetBundle设置为true。菜单ToLuaUIFramework->Build XXX AssetBundle（此时Resources不要改名）
 
 - C#的开始：  
@@ -53,7 +53,7 @@
         });
         MessageCenter.Add(MsgEnum.RunLuaMain, (BaseMsg msg) =>
         {
-            Debug.Log("开始执行LuaMain脚本");
+            Debug.Log("开始执行Lua的Main脚本");
             Destroy(text.gameObject);
             Destroy(slider.gameObject);
         });
