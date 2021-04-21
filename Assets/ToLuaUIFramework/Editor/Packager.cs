@@ -8,7 +8,6 @@ using ToLuaUIFramework;
 public class Packager
 {
     public static string platform = string.Empty;
-    static List<string> paths = new List<string>();
     static List<string> files = new List<string>();
     static List<AssetBundleBuild> maps = new List<AssetBundleBuild>();
 
@@ -85,6 +84,7 @@ public class Packager
         string relativePath = outputPath.Substring(outputPath.IndexOf("Assets/"));
         //需要同步加载AssetBundle就选不压缩模式BuildAssetBundleOptions.UncompressedAssetBundle
         BuildPipeline.BuildAssetBundles(relativePath, maps.ToArray(), BuildAssetBundleOptions.UncompressedAssetBundle, target);
+        ClearUselessFiles();
         BuildFileIndex();
 
         if (mode == 0 || mode == 1)
@@ -143,7 +143,7 @@ public class Packager
         string luaPath = Config.OutputPath + "/lua/";
         for (int i = 0; i < srcDirs.Length; i++)
         {
-            paths.Clear(); files.Clear();
+            files.Clear();
             string luaDataPath = srcDirs[i].ToLower();
             Recursive(luaDataPath);
             foreach (string f in files)
@@ -205,6 +205,31 @@ public class Packager
     }
 
     /// <summary>
+    /// 清除.manifest,.meta,.DS_Store等无用文件
+    /// </summary>
+    static void ClearUselessFiles()
+    {
+        List<string> paths = new List<string>();
+        paths.AddRange(Directory.GetFiles(Config.OutputPath, "*.manifest", SearchOption.AllDirectories));
+        paths.AddRange(Directory.GetFiles(Config.OutputPath, "*.meta", SearchOption.AllDirectories));
+        paths.AddRange(Directory.GetFiles(Config.OutputPath, "*.DS_Store", SearchOption.AllDirectories));
+        for (int i = 0; i < paths.Count; i++)
+        {
+            File.Delete(paths[i]);
+        }
+        string rootFileName = Config.OutputPath.Substring(Config.OutputPath.LastIndexOf("/"));
+        string rootFilePath = Config.OutputPath + rootFileName;
+        if (File.Exists(rootFilePath))
+        {
+            File.Delete(rootFilePath);
+        }
+        if (File.Exists(rootFilePath + ".manifest"))
+        {
+            File.Delete(rootFilePath + ".manifest");
+        }
+    }
+
+    /// <summary>
     /// 创建资源MD5列表，以便检查更新
     /// </summary>
     static void BuildFileIndex()
@@ -213,7 +238,6 @@ public class Packager
         string newFilePath = resPath + "/" + LuaConst.MD5FileName;
         if (File.Exists(newFilePath)) File.Delete(newFilePath);
 
-        paths.Clear();
         files.Clear();
         Recursive(resPath);
 
@@ -222,9 +246,6 @@ public class Packager
         for (int i = 0; i < files.Count; i++)
         {
             string file = files[i];
-            string ext = Path.GetExtension(file);
-            if (file.EndsWith(".meta") || file.Contains(".DS_Store")) continue;
-
             string md5 = Utils.md5file(file);
             string value = file.Replace(resPath + "/", string.Empty);
             sw.WriteLine(value + "|" + md5);
@@ -241,13 +262,11 @@ public class Packager
         string[] dirs = Directory.GetDirectories(path);
         foreach (string filename in names)
         {
-            string ext = Path.GetExtension(filename);
-            if (ext.Equals(".meta")) continue;
+            if (filename.EndsWith(".meta")) continue;
             files.Add(filename.Replace('\\', '/'));
         }
         foreach (string dir in dirs)
         {
-            paths.Add(dir.Replace('\\', '/'));
             Recursive(dir);
         }
     }
