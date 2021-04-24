@@ -217,7 +217,7 @@ end
 
    触发打开
 ```
-    CommandManager.execute(CommandID.OpenUI, ModuleID.您定义的ModuleID, 指定模块里的UI索引(可选)，父级(可选))  
+    CommandManager.execute(CommandID.OpenUI, ModuleID.您定义的ModuleID, 模块管理类里的UI索引(可选)，父级(可选))  
 
     --发送命令适合跨模块使用，不想用命令也可以调用方法实现打开UI(适合模块内使用,或需要得到UI对象进行进一步赋值时使用)
 
@@ -262,7 +262,7 @@ end
 ```
 - 第2种：发送命令时当参数携带
 ```
-    CommandManager.execute(CommandID.OpenUI, ModuleID.您定义的ModuleID, 指定模块里的UI索引(可选)，父级(可选))
+    CommandManager.execute(CommandID.OpenUI, ModuleID.您定义的ModuleID, 模块管理类里的UI索引(可选)，父级(可选))
 ```
 - 第3种：修改模块管理器的基类（BaseMgr.lua）公共方法，当以上两种都不传时，将默认以此为父级
 ```
