@@ -181,6 +181,19 @@ public static class CustomSettings
         _GT(typeof(BTween)),
         _GT(typeof(BTween.BEaseType)),
 
+        //项目自定义
+        //_GT(typeof(BToolkit.ImgText)),
+        //_GT(typeof(BToolkit.LanguageManager)),
+        //_GT(typeof(BToolkit.CopyAndPaste)),
+        //_GT(typeof(BToolkit.TextureDownloader)),
+        //_GT(typeof(Client.Common.UrlConfig)),
+        //_GT(typeof(Client.Common.GameData)),
+        //_GT(typeof(Client.Common.HttpRequest)),
+        //_GT(typeof(Client.Common.TopRecharge_Online)),
+        //_GT(typeof(MainCtrl.TopTip)),
+        //_GT(typeof(MainCtrl.TopDialog)),
+        //_GT(typeof(Lobby.UI.PanelMoNiTiXian)),
+
     };
 
     public static List<Type> dynamicList = new List<Type>()

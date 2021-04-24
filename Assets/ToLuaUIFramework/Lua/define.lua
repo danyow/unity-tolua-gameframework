@@ -16,3 +16,15 @@ JSON = require "cjson"
 --Lua工具
 BButton             = ToLuaUIFramework.BButton
 BButtonTrigger      = ToLuaUIFramework.BButtonTrigger
+
+--项目自定义
+//LanguageManager     = BToolkit.LanguageManager
+//CopyAndPaste        = BToolkit.CopyAndPaste
+//TextureDownloader   = BToolkit.TextureDownloader
+//TopTip              = MainCtrl.TopTip
+//TopDialog           = MainCtrl.TopDialog
+//UrlConfig           = Client.Common.UrlConfig
+//GameData            = Client.Common.GameData
+//HttpRequest         = Client.Common.HttpRequest
+//TopRecharge_Online  = Client.Common.TopRecharge_Online
+//PanelMoNiTiXian     = Lobby.UI.PanelMoNiTiXian
