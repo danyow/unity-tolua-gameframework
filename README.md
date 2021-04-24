@@ -125,7 +125,7 @@ end
       --按钮事件支持传递一个参数，放在首位
       self.btnOpenSecondUI = self.transform:Find("BtnOpenSecondUI")  
       self.btnOpenSecondUI:OnClick(传递的参数, function(传递的参数)  
-          CommandManager.execute(CommandID.OpenUI, UIID.您定义的UIID)  
+          CommandManager.execute(CommandID.OpenUI, ModuleID.您定义的ModuleID)  
       end) 
 
    end  
@@ -217,7 +217,7 @@ end
 
    触发打开
 ```
-    CommandManager.execute(CommandID.OpenUI, ModuleId.您定义的UIID, 指定模块里的UI索引(可选)，父级(可选))  
+    CommandManager.execute(CommandID.OpenUI, ModuleID.您定义的ModuleID, 指定模块里的UI索引(可选)，父级(可选))  
 
     --发送命令适合跨模块使用，不想用命令也可以调用方法实现打开UI(适合模块内使用,或需要得到UI对象进行进一步赋值时使用)
 
@@ -253,6 +253,25 @@ end
     end
 ```
 - 以上为点击放开时触发，若需按下时就触发，可将OnClick方法换成OnDown方法
+
+10.  创建时指定父级的三种方法：  
+- 第1种：new传入
+```
+    local PreloadUI = require "Modules.ResPreload.ResPreload"
+    PreloadUI:new(parent)
+```
+- 第2种：发送命令时当参数携带
+```
+    CommandManager.execute(CommandID.OpenUI, ModuleID.您定义的ModuleID, 指定模块里的UI索引(可选)，父级(可选))
+```
+- 第3种：修改模块管理器的基类（BaseMgr.lua）公共方法，当以上两种都不传时，将默认以此为父级
+```
+    function BaseMgr:defaultParent()
+        --TODO:请根据项目实际情况修改
+        local parent = GameObject.Find("MainCanvas").transform
+        return parent
+    end
+```
 
 #### 关于UI栈  
 
