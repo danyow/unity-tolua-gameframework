@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-namespace ToLuaUIFramework
+namespace ToLuaGameFramework
 {
     public class BButtonEffect : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {

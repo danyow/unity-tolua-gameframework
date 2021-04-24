@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ToLuaUIFramework
+namespace ToLuaGameFramework
 {
     public delegate void TweenEvent(Transform target);
     public class BTween

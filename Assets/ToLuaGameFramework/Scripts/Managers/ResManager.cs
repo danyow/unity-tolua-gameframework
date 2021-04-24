@@ -6,9 +6,9 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
-using static ToLuaUIFramework.UIManager;
+using static ToLuaGameFramework.UIManager;
 
-namespace ToLuaUIFramework
+namespace ToLuaGameFramework
 {
     public class AssetBundleInfo
     {

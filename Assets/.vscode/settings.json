@@ -2,11 +2,11 @@
     "Lua.diagnostics.globals": [
         "json",
         "UnityEngine",
-        "ToLuaUIFramework",
+        "ToLuaGameFramework",
         "class",
         "Debugger",
         "DG",
-        "ToLuaUIFramework",
+        "ToLuaGameFramework",
         "clear_class",
         "onUIDestroy",
         "onLuaBehaviourDestroy",

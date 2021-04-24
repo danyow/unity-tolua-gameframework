@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine.UI;
 
-namespace ToLuaUIFramework
+namespace ToLuaGameFramework
 {
     [CustomEditor(typeof(BButtonEffect))]
     public class ButtonChangeEditor : Editor

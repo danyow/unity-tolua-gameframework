@@ -67,8 +67,8 @@ public class DelegateFactory
 		dict.Add(typeof(UnityEngine.Canvas.WillRenderCanvases), factory.UnityEngine_Canvas_WillRenderCanvases);
 		dict.Add(typeof(UnityEngine.RectTransform.ReapplyDrivenProperties), factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
 		dict.Add(typeof(UnityEngine.UI.InputField.OnValidateInput), factory.UnityEngine_UI_InputField_OnValidateInput);
-		dict.Add(typeof(System.Action<ToLuaUIFramework.BaseMsg>), factory.System_Action_ToLuaUIFramework_BaseMsg);
-		dict.Add(typeof(ToLuaUIFramework.TweenEvent), factory.ToLuaUIFramework_TweenEvent);
+		dict.Add(typeof(System.Action<ToLuaGameFramework.BaseMsg>), factory.System_Action_ToLuaGameFramework_BaseMsg);
+		dict.Add(typeof(ToLuaGameFramework.TweenEvent), factory.ToLuaGameFramework_TweenEvent);
 		dict.Add(typeof(System.Action<float>), factory.System_Action_float);
 
 		DelegateTraits<System.Action>.Init(factory.System_Action);
@@ -121,8 +121,8 @@ public class DelegateFactory
 		DelegateTraits<UnityEngine.Canvas.WillRenderCanvases>.Init(factory.UnityEngine_Canvas_WillRenderCanvases);
 		DelegateTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
 		DelegateTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.UnityEngine_UI_InputField_OnValidateInput);
-		DelegateTraits<System.Action<ToLuaUIFramework.BaseMsg>>.Init(factory.System_Action_ToLuaUIFramework_BaseMsg);
-		DelegateTraits<ToLuaUIFramework.TweenEvent>.Init(factory.ToLuaUIFramework_TweenEvent);
+		DelegateTraits<System.Action<ToLuaGameFramework.BaseMsg>>.Init(factory.System_Action_ToLuaGameFramework_BaseMsg);
+		DelegateTraits<ToLuaGameFramework.TweenEvent>.Init(factory.ToLuaGameFramework_TweenEvent);
 		DelegateTraits<System.Action<float>>.Init(factory.System_Action_float);
 
 		TypeTraits<System.Action>.Init(factory.Check_System_Action);
@@ -175,8 +175,8 @@ public class DelegateFactory
 		TypeTraits<UnityEngine.Canvas.WillRenderCanvases>.Init(factory.Check_UnityEngine_Canvas_WillRenderCanvases);
 		TypeTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.Check_UnityEngine_RectTransform_ReapplyDrivenProperties);
 		TypeTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.Check_UnityEngine_UI_InputField_OnValidateInput);
-		TypeTraits<System.Action<ToLuaUIFramework.BaseMsg>>.Init(factory.Check_System_Action_ToLuaUIFramework_BaseMsg);
-		TypeTraits<ToLuaUIFramework.TweenEvent>.Init(factory.Check_ToLuaUIFramework_TweenEvent);
+		TypeTraits<System.Action<ToLuaGameFramework.BaseMsg>>.Init(factory.Check_System_Action_ToLuaGameFramework_BaseMsg);
+		TypeTraits<ToLuaGameFramework.TweenEvent>.Init(factory.Check_ToLuaGameFramework_TweenEvent);
 		TypeTraits<System.Action<float>>.Init(factory.Check_System_Action_float);
 
 		StackTraits<System.Action>.Push = factory.Push_System_Action;
@@ -229,8 +229,8 @@ public class DelegateFactory
 		StackTraits<UnityEngine.Canvas.WillRenderCanvases>.Push = factory.Push_UnityEngine_Canvas_WillRenderCanvases;
 		StackTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Push = factory.Push_UnityEngine_RectTransform_ReapplyDrivenProperties;
 		StackTraits<UnityEngine.UI.InputField.OnValidateInput>.Push = factory.Push_UnityEngine_UI_InputField_OnValidateInput;
-		StackTraits<System.Action<ToLuaUIFramework.BaseMsg>>.Push = factory.Push_System_Action_ToLuaUIFramework_BaseMsg;
-		StackTraits<ToLuaUIFramework.TweenEvent>.Push = factory.Push_ToLuaUIFramework_TweenEvent;
+		StackTraits<System.Action<ToLuaGameFramework.BaseMsg>>.Push = factory.Push_System_Action_ToLuaGameFramework_BaseMsg;
+		StackTraits<ToLuaGameFramework.TweenEvent>.Push = factory.Push_ToLuaGameFramework_TweenEvent;
 		StackTraits<System.Action<float>>.Push = factory.Push_System_Action_float;
 	}
     
@@ -3239,12 +3239,12 @@ public class DelegateFactory
 		ToLua.Push(L, o);
 	}
 
-	class System_Action_ToLuaUIFramework_BaseMsg_Event : LuaDelegate
+	class System_Action_ToLuaGameFramework_BaseMsg_Event : LuaDelegate
 	{
-		public System_Action_ToLuaUIFramework_BaseMsg_Event(LuaFunction func) : base(func) { }
-		public System_Action_ToLuaUIFramework_BaseMsg_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+		public System_Action_ToLuaGameFramework_BaseMsg_Event(LuaFunction func) : base(func) { }
+		public System_Action_ToLuaGameFramework_BaseMsg_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public void Call(ToLuaUIFramework.BaseMsg param0)
+		public void Call(ToLuaGameFramework.BaseMsg param0)
 		{
 			func.BeginPCall();
 			func.PushObject(param0);
@@ -3252,7 +3252,7 @@ public class DelegateFactory
 			func.EndPCall();
 		}
 
-		public void CallWithSelf(ToLuaUIFramework.BaseMsg param0)
+		public void CallWithSelf(ToLuaGameFramework.BaseMsg param0)
 		{
 			func.BeginPCall();
 			func.Push(self);
@@ -3262,44 +3262,44 @@ public class DelegateFactory
 		}
 	}
 
-	public System.Action<ToLuaUIFramework.BaseMsg> System_Action_ToLuaUIFramework_BaseMsg(LuaFunction func, LuaTable self, bool flag)
+	public System.Action<ToLuaGameFramework.BaseMsg> System_Action_ToLuaGameFramework_BaseMsg(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			System.Action<ToLuaUIFramework.BaseMsg> fn = delegate(ToLuaUIFramework.BaseMsg param0) { };
+			System.Action<ToLuaGameFramework.BaseMsg> fn = delegate(ToLuaGameFramework.BaseMsg param0) { };
 			return fn;
 		}
 
 		if(!flag)
 		{
-			System_Action_ToLuaUIFramework_BaseMsg_Event target = new System_Action_ToLuaUIFramework_BaseMsg_Event(func);
-			System.Action<ToLuaUIFramework.BaseMsg> d = target.Call;
+			System_Action_ToLuaGameFramework_BaseMsg_Event target = new System_Action_ToLuaGameFramework_BaseMsg_Event(func);
+			System.Action<ToLuaGameFramework.BaseMsg> d = target.Call;
 			target.method = d.Method;
 			return d;
 		}
 		else
 		{
-			System_Action_ToLuaUIFramework_BaseMsg_Event target = new System_Action_ToLuaUIFramework_BaseMsg_Event(func, self);
-			System.Action<ToLuaUIFramework.BaseMsg> d = target.CallWithSelf;
+			System_Action_ToLuaGameFramework_BaseMsg_Event target = new System_Action_ToLuaGameFramework_BaseMsg_Event(func, self);
+			System.Action<ToLuaGameFramework.BaseMsg> d = target.CallWithSelf;
 			target.method = d.Method;
 			return d;
 		}
 	}
 
-	bool Check_System_Action_ToLuaUIFramework_BaseMsg(IntPtr L, int pos)
+	bool Check_System_Action_ToLuaGameFramework_BaseMsg(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<ToLuaUIFramework.BaseMsg>), L, pos);
+		return TypeChecker.CheckDelegateType(typeof(System.Action<ToLuaGameFramework.BaseMsg>), L, pos);
 	}
 
-	void Push_System_Action_ToLuaUIFramework_BaseMsg(IntPtr L, System.Action<ToLuaUIFramework.BaseMsg> o)
+	void Push_System_Action_ToLuaGameFramework_BaseMsg(IntPtr L, System.Action<ToLuaGameFramework.BaseMsg> o)
 	{
 		ToLua.Push(L, o);
 	}
 
-	class ToLuaUIFramework_TweenEvent_Event : LuaDelegate
+	class ToLuaGameFramework_TweenEvent_Event : LuaDelegate
 	{
-		public ToLuaUIFramework_TweenEvent_Event(LuaFunction func) : base(func) { }
-		public ToLuaUIFramework_TweenEvent_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+		public ToLuaGameFramework_TweenEvent_Event(LuaFunction func) : base(func) { }
+		public ToLuaGameFramework_TweenEvent_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
 		public void Call(UnityEngine.Transform param0)
 		{
@@ -3319,36 +3319,36 @@ public class DelegateFactory
 		}
 	}
 
-	public ToLuaUIFramework.TweenEvent ToLuaUIFramework_TweenEvent(LuaFunction func, LuaTable self, bool flag)
+	public ToLuaGameFramework.TweenEvent ToLuaGameFramework_TweenEvent(LuaFunction func, LuaTable self, bool flag)
 	{
 		if (func == null)
 		{
-			ToLuaUIFramework.TweenEvent fn = delegate(UnityEngine.Transform param0) { };
+			ToLuaGameFramework.TweenEvent fn = delegate(UnityEngine.Transform param0) { };
 			return fn;
 		}
 
 		if(!flag)
 		{
-			ToLuaUIFramework_TweenEvent_Event target = new ToLuaUIFramework_TweenEvent_Event(func);
-			ToLuaUIFramework.TweenEvent d = target.Call;
+			ToLuaGameFramework_TweenEvent_Event target = new ToLuaGameFramework_TweenEvent_Event(func);
+			ToLuaGameFramework.TweenEvent d = target.Call;
 			target.method = d.Method;
 			return d;
 		}
 		else
 		{
-			ToLuaUIFramework_TweenEvent_Event target = new ToLuaUIFramework_TweenEvent_Event(func, self);
-			ToLuaUIFramework.TweenEvent d = target.CallWithSelf;
+			ToLuaGameFramework_TweenEvent_Event target = new ToLuaGameFramework_TweenEvent_Event(func, self);
+			ToLuaGameFramework.TweenEvent d = target.CallWithSelf;
 			target.method = d.Method;
 			return d;
 		}
 	}
 
-	bool Check_ToLuaUIFramework_TweenEvent(IntPtr L, int pos)
+	bool Check_ToLuaGameFramework_TweenEvent(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(ToLuaUIFramework.TweenEvent), L, pos);
+		return TypeChecker.CheckDelegateType(typeof(ToLuaGameFramework.TweenEvent), L, pos);
 	}
 
-	void Push_ToLuaUIFramework_TweenEvent(IntPtr L, ToLuaUIFramework.TweenEvent o)
+	void Push_ToLuaGameFramework_TweenEvent(IntPtr L, ToLuaGameFramework.TweenEvent o)
 	{
 		ToLua.Push(L, o);
 	}

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ToLuaUIFramework
+namespace ToLuaGameFramework
 {
     public class ValueUpdate : MonoBehaviour
     {

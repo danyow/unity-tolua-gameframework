@@ -1,4 +1,4 @@
-﻿namespace ToLuaUIFramework
+﻿namespace ToLuaGameFramework
 {
     /// <summary>
     /// 全局命令枚举

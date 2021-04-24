@@ -1,4 +1,4 @@
-﻿using ToLuaUIFramework;
+﻿using ToLuaGameFramework;
 using UnityEngine;
 
 /// <summary>
@@ -6,7 +6,8 @@ using UnityEngine;
 /// </summary>
 public static class LuaConst
 {
-    public readonly static string frameworkRoot = Application.dataPath + "/ToLuaUIFramework";
+    public readonly static bool LuaByteMode = false; //Lua字节码模式-默认关闭 
+    public readonly static string frameworkRoot = Application.dataPath + "/ToLuaGameFramework";
     public readonly static string toluaRoot = frameworkRoot + "/ToLua";
     public readonly static string luaDir = frameworkRoot + "/Lua";
     public readonly static string toluaDir = frameworkRoot + "/ToLua/Lua";

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ToLuaUIFramework
+namespace ToLuaGameFramework
 {
     public class LuaBehaviour : MonoBehaviour
     {

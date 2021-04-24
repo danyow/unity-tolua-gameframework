@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ToLuaUIFramework
+namespace ToLuaGameFramework
 {
     public class SoundManager : MonoBehaviour, ICommand
     {

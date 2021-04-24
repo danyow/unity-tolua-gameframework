@@ -7,7 +7,7 @@ using LuaInterface;
 using UnityEditor;
 
 using BindType = ToLuaMenu.BindType;
-using ToLuaUIFramework;
+using ToLuaGameFramework;
 using DG.Tweening;
 
 public static class CustomSettings

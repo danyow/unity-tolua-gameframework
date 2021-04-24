@@ -86,7 +86,8 @@ end
 
 function BaseMgr:defaultParent()
     --TODO:请根据项目实际情况修改
-    return nil
+    local parent = GameObject.Find("MainCanvas").transform
+    return parent
 end
 
 return BaseMgr

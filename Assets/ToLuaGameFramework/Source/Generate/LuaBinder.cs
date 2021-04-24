@@ -149,20 +149,20 @@ public static class LuaBinder
 		L.RegFunction("ReapplyDrivenProperties", UnityEngine_RectTransform_ReapplyDrivenProperties);
 		L.EndModule();
 		L.EndModule();
-		L.BeginModule("ToLuaUIFramework");
-		ToLuaUIFramework_MessageCenterWrap.Register(L);
-		ToLuaUIFramework_LuaManagerWrap.Register(L);
-		ToLuaUIFramework_ResManagerWrap.Register(L);
-		ToLuaUIFramework_UIManagerWrap.Register(L);
-		ToLuaUIFramework_SoundManagerWrap.Register(L);
-		ToLuaUIFramework_HttpManagerWrap.Register(L);
-		ToLuaUIFramework_LuaBehaviourWrap.Register(L);
-		ToLuaUIFramework_BButtonWrap.Register(L);
-		ToLuaUIFramework_BButtonEffectWrap.Register(L);
-		ToLuaUIFramework_BTweenWrap.Register(L);
-		L.RegFunction("TweenEvent", ToLuaUIFramework_TweenEvent);
+		L.BeginModule("ToLuaGameFramework");
+		ToLuaGameFramework_MessageCenterWrap.Register(L);
+		ToLuaGameFramework_LuaManagerWrap.Register(L);
+		ToLuaGameFramework_ResManagerWrap.Register(L);
+		ToLuaGameFramework_UIManagerWrap.Register(L);
+		ToLuaGameFramework_SoundManagerWrap.Register(L);
+		ToLuaGameFramework_HttpManagerWrap.Register(L);
+		ToLuaGameFramework_LuaBehaviourWrap.Register(L);
+		ToLuaGameFramework_BButtonWrap.Register(L);
+		ToLuaGameFramework_BButtonEffectWrap.Register(L);
+		ToLuaGameFramework_BTweenWrap.Register(L);
+		L.RegFunction("TweenEvent", ToLuaGameFramework_TweenEvent);
 		L.BeginModule("BTween");
-		ToLuaUIFramework_BTween_BEaseTypeWrap.Register(L);
+		ToLuaGameFramework_BTween_BEaseTypeWrap.Register(L);
 		L.EndModule();
 		L.EndModule();
 		L.BeginModule("System");
@@ -176,7 +176,7 @@ public static class LuaBinder
 		L.RegFunction("Action_string", System_Action_string);
 		L.RegFunction("Func_bool", System_Func_bool);
 		L.RegFunction("Action_UnityEngine_AsyncOperation", System_Action_UnityEngine_AsyncOperation);
-		L.RegFunction("Action_ToLuaUIFramework_BaseMsg", System_Action_ToLuaUIFramework_BaseMsg);
+		L.RegFunction("Action_ToLuaGameFramework_BaseMsg", System_Action_ToLuaGameFramework_BaseMsg);
 		L.RegFunction("Action_float", System_Action_float);
 		L.EndModule();
 		L.EndModule();
@@ -1277,7 +1277,7 @@ public static class LuaBinder
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ToLuaUIFramework_TweenEvent(IntPtr L)
+	static int ToLuaGameFramework_TweenEvent(IntPtr L)
 	{
 		try
 		{
@@ -1286,13 +1286,13 @@ public static class LuaBinder
 
 			if (count == 1)
 			{
-				Delegate arg1 = DelegateTraits<ToLuaUIFramework.TweenEvent>.Create(func);
+				Delegate arg1 = DelegateTraits<ToLuaGameFramework.TweenEvent>.Create(func);
 				ToLua.Push(L, arg1);
 			}
 			else
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
-				Delegate arg1 = DelegateTraits<ToLuaUIFramework.TweenEvent>.Create(func, self);
+				Delegate arg1 = DelegateTraits<ToLuaGameFramework.TweenEvent>.Create(func, self);
 				ToLua.Push(L, arg1);
 			}
 			return 1;
@@ -1574,7 +1574,7 @@ public static class LuaBinder
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int System_Action_ToLuaUIFramework_BaseMsg(IntPtr L)
+	static int System_Action_ToLuaGameFramework_BaseMsg(IntPtr L)
 	{
 		try
 		{
@@ -1583,13 +1583,13 @@ public static class LuaBinder
 
 			if (count == 1)
 			{
-				Delegate arg1 = DelegateTraits<System.Action<ToLuaUIFramework.BaseMsg>>.Create(func);
+				Delegate arg1 = DelegateTraits<System.Action<ToLuaGameFramework.BaseMsg>>.Create(func);
 				ToLua.Push(L, arg1);
 			}
 			else
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
-				Delegate arg1 = DelegateTraits<System.Action<ToLuaUIFramework.BaseMsg>>.Create(func, self);
+				Delegate arg1 = DelegateTraits<System.Action<ToLuaGameFramework.BaseMsg>>.Create(func, self);
 				ToLua.Push(L, arg1);
 			}
 			return 1;

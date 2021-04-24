@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using System.Net;
 using System.IO;
 
-namespace ToLuaUIFramework
+namespace ToLuaGameFramework
 {
     public class HttpManager : MonoBehaviour, ICommand
     {

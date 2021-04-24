@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ToLuaUIFramework
+namespace ToLuaGameFramework
 {
     public class UIManager : MonoBehaviour, ICommand
     {

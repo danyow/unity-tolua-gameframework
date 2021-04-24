@@ -3,7 +3,7 @@ using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
-using ToLuaUIFramework;
+using ToLuaGameFramework;
 
 public class Packager
 {
@@ -11,31 +11,31 @@ public class Packager
     static List<string> files = new List<string>();
     static List<AssetBundleBuild> maps = new List<AssetBundleBuild>();
 
-    [MenuItem("ToLuaUIFramework/Build iPhone AssetBundle", false, 100)]
+    [MenuItem("ToLuaGameFramework/Build iPhone AssetBundle", false, 100)]
     public static void BuildiPhoneResource()
     {
         BuildAssetResource(BuildTarget.iOS, 0);
     }
 
-    [MenuItem("ToLuaUIFramework/Build Android AssetBundle/All", false, 101)]
+    [MenuItem("ToLuaGameFramework/Build Android AssetBundle/All", false, 101)]
     public static void BuildAndroidResourceAll()
     {
         BuildAssetResource(BuildTarget.Android, 0);
     }
 
-    [MenuItem("ToLuaUIFramework/Build Android AssetBundle/Lua", false, 101)]
+    [MenuItem("ToLuaGameFramework/Build Android AssetBundle/Lua", false, 101)]
     public static void BuildAndroidResourceLua()
     {
         BuildAssetResource(BuildTarget.Android, 1);
     }
 
-    [MenuItem("ToLuaUIFramework/Build Android AssetBundle/Res", false, 101)]
+    [MenuItem("ToLuaGameFramework/Build Android AssetBundle/Res", false, 101)]
     public static void BuildAndroidResourceRes()
     {
         BuildAssetResource(BuildTarget.Android, 2);
     }
 
-    [MenuItem("ToLuaUIFramework/Build Windows AssetBundle", false, 102)]
+    [MenuItem("ToLuaGameFramework/Build Windows AssetBundle", false, 102)]
     public static void BuildWindowsResource()
     {
         BuildAssetResource(BuildTarget.StandaloneWindows, 0);

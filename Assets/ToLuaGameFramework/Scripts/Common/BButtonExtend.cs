@@ -1,7 +1,7 @@
 ﻿using LuaInterface;
 using UnityEngine;
 
-namespace ToLuaUIFramework
+namespace ToLuaGameFramework
 {
     public static class BButtonExtend
     {
