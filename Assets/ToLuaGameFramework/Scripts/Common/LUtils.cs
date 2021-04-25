@@ -9,7 +9,7 @@ namespace ToLuaGameFramework
     /// <summary>
     /// 工具集
     /// </summary>
-    public class Utils
+    public class LUtils
     {
         /// <summary>
         /// 计算字符串的MD5值

@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace ToLuaGameFramework
 {
-    public class BButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
+    public class LButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     {
         public object param = 0;
         public LuaTable self;
@@ -12,13 +12,13 @@ namespace ToLuaGameFramework
         public LuaFunction onClick, onDown;
         public RectTransform rectTransform { get { return transform as RectTransform; } }
         float canTouchTimer;
-        BButtonEffect buttonEffect;
+        LButtonEffect buttonEffect;
 
         void CheckFindEffect()
         {
             if (!buttonEffect)
             {
-                buttonEffect = GetComponent<BButtonEffect>();
+                buttonEffect = GetComponent<LButtonEffect>();
             }
         }
 

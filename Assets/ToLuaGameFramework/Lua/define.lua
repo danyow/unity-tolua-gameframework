@@ -14,8 +14,8 @@ HttpManager  = ToLuaGameFramework.HttpManager
 JSON = require "cjson"
 
 --Lua工具
-BButton             = ToLuaGameFramework.BButton
-BButtonTrigger      = ToLuaGameFramework.BButtonTrigger
+LButton             = ToLuaGameFramework.LButton
+LButtonEffect       = ToLuaGameFramework.LButtonEffect
 
 --项目自定义
 --LanguageManager     = BToolkit.LanguageManager

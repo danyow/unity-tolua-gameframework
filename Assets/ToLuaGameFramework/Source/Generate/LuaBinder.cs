@@ -157,8 +157,8 @@ public static class LuaBinder
 		ToLuaGameFramework_SoundManagerWrap.Register(L);
 		ToLuaGameFramework_HttpManagerWrap.Register(L);
 		ToLuaGameFramework_LuaBehaviourWrap.Register(L);
-		ToLuaGameFramework_BButtonWrap.Register(L);
-		ToLuaGameFramework_BButtonEffectWrap.Register(L);
+		ToLuaGameFramework_LButtonWrap.Register(L);
+		ToLuaGameFramework_LButtonEffectWrap.Register(L);
 		ToLuaGameFramework_BTweenWrap.Register(L);
 		L.RegFunction("TweenEvent", ToLuaGameFramework_TweenEvent);
 		L.BeginModule("BTween");

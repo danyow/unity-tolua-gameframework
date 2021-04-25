@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace ToLuaGameFramework
 {
-    public class BButtonEffect : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class LButtonEffect : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         public Image targetImg;
         public RawImage targetRawImg;
@@ -17,7 +17,7 @@ namespace ToLuaGameFramework
         Sprite spriteDefault;
         Texture textureDefault;
         Vector3 defaultScale;
-        BButton button;
+        LButton button;
 
         void Awake()
         {
@@ -39,7 +39,7 @@ namespace ToLuaGameFramework
                 textureDefault = targetRawImg.texture;
                 colorDefault = targetRawImg.color;
             }
-            button = GetComponent<BButton>();
+            button = GetComponent<LButton>();
         }
 
         public void OnPointerDown(PointerEventData eventData)

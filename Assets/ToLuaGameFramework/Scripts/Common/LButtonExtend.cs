@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ToLuaGameFramework
 {
-    public static class BButtonExtend
+    public static class LButtonExtend
     {
 
         public static void OnClick(this Transform btn, LuaFunction clickEvent, LuaTable self = null, bool addClickEffect = true)
@@ -13,25 +13,25 @@ namespace ToLuaGameFramework
 
         public static void OnClick(this Transform btn, object param, LuaFunction clickEvent, LuaTable self = null, bool addClickEffect = true)
         {
-            BButton bButton = btn.GetComponent<BButton>();
+            LButton bButton = btn.GetComponent<LButton>();
             if (!bButton)
             {
-                bButton = btn.gameObject.AddComponent<BButton>();
+                bButton = btn.gameObject.AddComponent<LButton>();
             }
             bButton.param = param;
             bButton.onClick = clickEvent;
             bButton.self = self;
             if (addClickEffect)
             {
-                BButtonEffect effect = btn.gameObject.GetComponent<BButtonEffect>();
+                LButtonEffect effect = btn.gameObject.GetComponent<LButtonEffect>();
                 if (!effect)
                 {
-                    btn.gameObject.AddComponent<BButtonEffect>();
+                    btn.gameObject.AddComponent<LButtonEffect>();
                 }
             }
             else
             {
-                BButtonEffect effect = btn.gameObject.GetComponent<BButtonEffect>();
+                LButtonEffect effect = btn.gameObject.GetComponent<LButtonEffect>();
                 if (effect)
                 {
                     GameObject.Destroy(effect);
@@ -46,25 +46,25 @@ namespace ToLuaGameFramework
 
         public static void OnDown(this Transform btn, object param, LuaFunction pointerDownEvent, LuaTable self = null, bool addClickEffect = true)
         {
-            BButton bButton = btn.GetComponent<BButton>();
+            LButton bButton = btn.GetComponent<LButton>();
             if (!bButton)
             {
-                bButton = btn.gameObject.AddComponent<BButton>();
+                bButton = btn.gameObject.AddComponent<LButton>();
             }
             bButton.param = param;
             bButton.onDown = pointerDownEvent;
             bButton.self = self;
             if (addClickEffect)
             {
-                BButtonEffect effect = btn.gameObject.GetComponent<BButtonEffect>();
+                LButtonEffect effect = btn.gameObject.GetComponent<LButtonEffect>();
                 if (!effect)
                 {
-                    btn.gameObject.AddComponent<BButtonEffect>();
+                    btn.gameObject.AddComponent<LButtonEffect>();
                 }
             }
             else
             {
-                BButtonEffect effect = btn.gameObject.GetComponent<BButtonEffect>();
+                LButtonEffect effect = btn.gameObject.GetComponent<LButtonEffect>();
                 if (effect)
                 {
                     GameObject.Destroy(effect);

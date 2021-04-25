@@ -2,11 +2,11 @@
 using System;
 using LuaInterface;
 
-public class ToLuaGameFramework_BButtonWrap
+public class ToLuaGameFramework_LButtonWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(ToLuaGameFramework.BButton), typeof(UnityEngine.MonoBehaviour));
+		L.BeginClass(typeof(ToLuaGameFramework.LButton), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("OnPointerClick", OnPointerClick);
 		L.RegFunction("OnPointerDown", OnPointerDown);
 		L.RegFunction("__eq", op_Equality);
@@ -26,7 +26,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)ToLua.CheckObject<ToLuaGameFramework.BButton>(L, 1);
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)ToLua.CheckObject<ToLuaGameFramework.LButton>(L, 1);
 			UnityEngine.EventSystems.PointerEventData arg0 = (UnityEngine.EventSystems.PointerEventData)ToLua.CheckObject<UnityEngine.EventSystems.PointerEventData>(L, 2);
 			obj.OnPointerClick(arg0);
 			return 0;
@@ -43,7 +43,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)ToLua.CheckObject<ToLuaGameFramework.BButton>(L, 1);
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)ToLua.CheckObject<ToLuaGameFramework.LButton>(L, 1);
 			UnityEngine.EventSystems.PointerEventData arg0 = (UnityEngine.EventSystems.PointerEventData)ToLua.CheckObject<UnityEngine.EventSystems.PointerEventData>(L, 2);
 			obj.OnPointerDown(arg0);
 			return 0;
@@ -80,7 +80,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)o;
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
 			object ret = obj.param;
 			ToLua.Push(L, ret);
 			return 1;
@@ -99,7 +99,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)o;
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
 			LuaInterface.LuaTable ret = obj.self;
 			ToLua.Push(L, ret);
 			return 1;
@@ -118,7 +118,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)o;
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
 			float ret = obj.canTriggerInterval;
 			LuaDLL.lua_pushnumber(L, ret);
 			return 1;
@@ -137,7 +137,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)o;
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
 			LuaInterface.LuaFunction ret = obj.onClick;
 			ToLua.Push(L, ret);
 			return 1;
@@ -156,7 +156,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)o;
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
 			LuaInterface.LuaFunction ret = obj.onDown;
 			ToLua.Push(L, ret);
 			return 1;
@@ -175,7 +175,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)o;
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
 			UnityEngine.RectTransform ret = obj.rectTransform;
 			ToLua.PushSealed(L, ret);
 			return 1;
@@ -194,7 +194,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)o;
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
 			object arg0 = ToLua.ToVarObject(L, 2);
 			obj.param = arg0;
 			return 0;
@@ -213,7 +213,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)o;
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
 			LuaTable arg0 = ToLua.CheckLuaTable(L, 2);
 			obj.self = arg0;
 			return 0;
@@ -232,7 +232,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)o;
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			obj.canTriggerInterval = arg0;
 			return 0;
@@ -251,7 +251,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)o;
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
 			LuaFunction arg0 = ToLua.CheckLuaFunction(L, 2);
 			obj.onClick = arg0;
 			return 0;
@@ -270,7 +270,7 @@ public class ToLuaGameFramework_BButtonWrap
 		try
 		{
 			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.BButton obj = (ToLuaGameFramework.BButton)o;
+			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
 			LuaFunction arg0 = ToLua.CheckLuaFunction(L, 2);
 			obj.onDown = arg0;
 			return 0;

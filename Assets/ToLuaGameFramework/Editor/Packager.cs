@@ -191,6 +191,7 @@ public class Packager
         name = "res/" + name.Replace("\\", "_").Replace("/", "_");
         return name;
     }
+	
     static void AddBuildMap(string bundleName, string pattern, string path)
     {
         string[] files = Directory.GetFiles(path, pattern);
@@ -248,7 +249,7 @@ public class Packager
         for (int i = 0; i < files.Count; i++)
         {
             string file = files[i];
-            string md5 = Utils.md5file(file);
+            string md5 = LUtils.md5file(file);
             string value = file.Replace(resPath + "/", string.Empty);
             sw.WriteLine(value + "|" + md5);
         }
