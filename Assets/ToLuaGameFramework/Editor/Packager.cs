@@ -187,16 +187,7 @@ public class Packager
 
     static string GetNameFromPath(string resPath)
     {
-        string name = null;
-        string resourcesTag = "/Resources";
-        if (resPath.Contains(resourcesTag))
-        {
-            name = resPath.Substring(resPath.IndexOf(resourcesTag) + resourcesTag.Length + 1);
-        }
-        else
-        {
-            name = resPath.Replace(Application.dataPath + "/", "");
-        }
+        string name = resPath.Replace(Config.LuaDevPath + "/", "");
         name = "res/" + name.Replace("\\", "_").Replace("/", "_");
         return name;
     }
