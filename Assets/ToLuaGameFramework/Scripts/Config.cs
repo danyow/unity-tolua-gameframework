@@ -13,10 +13,9 @@ namespace ToLuaGameFramework
         public readonly static bool UseAssetBundle = true;
 
         /// <summary>
-        /// 开发专用目录，放在Resources里方便写完代码直接启动测试，正式发布时因为使用外部加载的AB，所以该目录需要临时排除不打入包内
-        /// 编辑器测试无需配置到Resources目录里，如果导出游戏又不使用热更模式的，需配置到Resources目录
+        /// 开发专用目录，如果导出游戏又临时不使用热更模式的，需配置到Resources目录
         /// </summary>
-        public readonly static string GameResourcesPath = Application.dataPath + "/LuaDev";
+        public readonly static string LuaDevPath = Application.dataPath + "/LuaDev";
 
         /// <summary>
         /// 导出AB包的路径，导出后资源从该目录上传到远程服务器，并本地清除，切勿留着导入包内，建议定义在工程目录外，如"E:/ExportAssetBundles"
@@ -37,13 +36,13 @@ namespace ToLuaGameFramework
             LuaConst.luaDir,
             LuaConst.toluaDir,
             //Game
-            GameResourcesPath + "/Lua"
+            LuaDevPath + "/Lua"
         };
 
         /// <summary>
         /// 需要导出AssetBundle的所有Prefabs目录
         /// </summary>
-        public static string ExportResPath = GameResourcesPath + "/Prefabs";
+        public static string ExportResPath = LuaDevPath + "/Prefabs";
 
     }
 }

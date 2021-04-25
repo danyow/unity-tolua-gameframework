@@ -249,16 +249,16 @@ namespace ToLuaGameFramework
             {
                 GameObject prefab = null;
                 string resourcesTag = "/Resources";
-                if (Config.GameResourcesPath.Contains(resourcesTag))
+                if (Config.LuaDevPath.Contains(resourcesTag))
                 {
-                    string prefabFullPath = Config.GameResourcesPath + "/" + prefabPath;
+                    string prefabFullPath = Config.LuaDevPath + "/" + prefabPath;
                     prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf(resourcesTag) + resourcesTag.Length + 1);
                     prefab = Resources.Load<GameObject>(prefabFullPath);
                 }
                 else
                 {
 #if UNITY_EDITOR
-                    string prefabFullPath = Config.GameResourcesPath + "/" + prefabPath + ".prefab";
+                    string prefabFullPath = Config.LuaDevPath + "/" + prefabPath + ".prefab";
                     prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf("Assets/"));
                     prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(prefabFullPath);
 #else
@@ -320,16 +320,16 @@ namespace ToLuaGameFramework
             {
                 GameObject prefab = null;
                 string resourcesTag = "/Resources";
-                if (Config.GameResourcesPath.Contains(resourcesTag))
+                if (Config.LuaDevPath.Contains(resourcesTag))
                 {
-                    string prefabFullPath = Config.GameResourcesPath + "/" + prefabPath;
+                    string prefabFullPath = Config.LuaDevPath + "/" + prefabPath;
                     prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf(resourcesTag) + resourcesTag.Length + 1);
                     prefab = Resources.Load<GameObject>(prefabFullPath);
                 }
                 else
                 {
 #if UNITY_EDITOR
-                    string prefabFullPath = Config.GameResourcesPath + "/" + prefabPath + ".prefab";
+                    string prefabFullPath = Config.LuaDevPath + "/" + prefabPath + ".prefab";
                     prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf("Assets/"));
                     prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(prefabFullPath);
 #else
