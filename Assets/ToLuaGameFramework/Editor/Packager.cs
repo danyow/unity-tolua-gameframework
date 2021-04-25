@@ -164,30 +164,41 @@ public class Packager
     /// </summary>
     static void HandleResBundle()
     {
-        string tag = "/Resources/";
-        string name = "res/" + Config.ExportResPath.Substring(Config.ExportResPath.IndexOf(tag) + tag.Length).Replace("\\", "_").Replace("/", "_");
+        string name = GetNameFromPath(Config.ExportResPath);
         string path = "Assets" + Config.ExportResPath.Replace(Application.dataPath, "");
         AddBuildMap(name + LuaConst.ExtName, "*.prefab", path);
-
         string[] typePaths = Directory.GetDirectories(Config.ExportResPath);
         for (int i = 0; i < typePaths.Length; i++)
         {
             string typePath = typePaths[i];
-            name = typePath.Substring(typePath.IndexOf(tag) + tag.Length).Replace("\\", "_").Replace("/", "_");
-            name = "res/" + name;
+            name = GetNameFromPath(typePath);
             path = "Assets" + typePath.Replace(Application.dataPath, "");
             AddBuildMap(name + LuaConst.ExtName, "*.prefab", path);
-
             string[] modulePaths = Directory.GetDirectories(typePath);
             for (int j = 0; j < modulePaths.Length; j++)
             {
                 string modulePath = modulePaths[j];
-                name = modulePath.Substring(modulePath.IndexOf(tag) + tag.Length).Replace("\\", "_").Replace("/", "_");
-                name = "res/" + name;
+                name = GetNameFromPath(modulePath);
                 path = "Assets" + modulePath.Replace(Application.dataPath, "");
                 AddBuildMap(name + LuaConst.ExtName, "*.prefab", path);
             }
         }
+    }
+
+    static string GetNameFromPath(string resPath)
+    {
+        string name = null;
+        string resourcesTag = "/Resources";
+        if (resPath.Contains(resourcesTag))
+        {
+            name = resPath.Substring(resPath.IndexOf(resourcesTag) + resourcesTag.Length + 1);
+        }
+        else
+        {
+            name = resPath.Replace(Application.dataPath + "/", "");
+        }
+        name = "res/" + name.Replace("\\", "_").Replace("/", "_");
+        return name;
     }
     static void AddBuildMap(string bundleName, string pattern, string path)
     {

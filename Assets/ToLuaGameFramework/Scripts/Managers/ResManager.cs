@@ -247,7 +247,24 @@ namespace ToLuaGameFramework
             }
             else
             {
-                GameObject prefab = Resources.Load<GameObject>(prefabPath);
+                GameObject prefab = null;
+                string resourcesTag = "/Resources";
+                if (Config.GameResourcesPath.Contains(resourcesTag))
+                {
+                    string prefabFullPath = Config.GameResourcesPath + "/" + prefabPath;
+                    prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf(resourcesTag) + resourcesTag.Length + 1);
+                    prefab = Resources.Load<GameObject>(prefabFullPath);
+                }
+                else
+                {
+#if UNITY_EDITOR
+                    string prefabFullPath = Config.GameResourcesPath + "/" + prefabPath + ".prefab";
+                    prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf("Assets/"));
+                    prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(prefabFullPath);
+#else
+                    Debug.LogError("导出前须配置Config.UseAssetBundle=true或将Lua开发目录移动到Resources目录内");
+#endif
+                }
                 GameObject go = Instantiate(prefab);
                 if (parent) go.transform.SetParent(parent, false);
                 LuaBehaviour luaBehaviour = go.AddComponent<LuaBehaviour>();
@@ -301,7 +318,24 @@ namespace ToLuaGameFramework
             }
             else
             {
-                GameObject prefab = Resources.Load<GameObject>(prefabPath);
+                GameObject prefab = null;
+                string resourcesTag = "/Resources";
+                if (Config.GameResourcesPath.Contains(resourcesTag))
+                {
+                    string prefabFullPath = Config.GameResourcesPath + "/" + prefabPath;
+                    prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf(resourcesTag) + resourcesTag.Length + 1);
+                    prefab = Resources.Load<GameObject>(prefabFullPath);
+                }
+                else
+                {
+#if UNITY_EDITOR
+                    string prefabFullPath = Config.GameResourcesPath + "/" + prefabPath + ".prefab";
+                    prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf("Assets/"));
+                    prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(prefabFullPath);
+#else
+                    Debug.LogError("导出前须配置Config.UseAssetBundle=true或将Lua开发目录移动到Resources目录内");
+#endif
+                }
                 GameObject go = Instantiate(prefab);
                 if (parent) go.transform.SetParent(parent, false);
                 LuaBehaviour luaBehaviour = go.AddComponent<LuaBehaviour>();
