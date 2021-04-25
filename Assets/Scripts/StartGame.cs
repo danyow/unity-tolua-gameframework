@@ -40,6 +40,6 @@ public class StartGame : MonoBehaviour
         });
 
         //启动框架
-        Main.Instance.StartFramework();
+        LuaMain.Instance.StartFramework();
     }
 }

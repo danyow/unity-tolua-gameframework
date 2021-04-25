@@ -13,10 +13,10 @@ namespace ToLuaGameFramework
             {
                 if (!_instance)
                 {
-                    _instance = Main.Instance.GetComponent<CommandController>();
+                    _instance = LuaMain.Instance.GetComponent<CommandController>();
                     if (!_instance)
                     {
-                        _instance = Main.Instance.gameObject.AddComponent<CommandController>();
+                        _instance = LuaMain.Instance.gameObject.AddComponent<CommandController>();
                     }
                 }
                 return _instance;
@@ -44,7 +44,7 @@ namespace ToLuaGameFramework
         {
             if (!managers.ContainsKey(managerType))
             {
-                object manager = Main.Instance.gameObject.AddComponent(managerType);
+                object manager = LuaMain.Instance.gameObject.AddComponent(managerType);
                 managers.Add(managerType, manager as ICommand);
             }
         }

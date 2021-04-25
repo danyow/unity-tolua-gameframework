@@ -2,21 +2,21 @@
 
 namespace ToLuaGameFramework
 {
-    public class Main : MonoBehaviour
+    public class LuaMain : MonoBehaviour
     {
-        private static Main _instance;
-        public static Main Instance
+        private static LuaMain _instance;
+        public static LuaMain Instance
         {
             get
             {
                 if (!_instance)
                 {
-                    _instance = GameObject.FindObjectOfType<Main>();
+                    _instance = GameObject.FindObjectOfType<LuaMain>();
                     if (!_instance)
                     {
-                        GameObject go = new GameObject("Main");
+                        GameObject go = new GameObject("LuaMain");
                         DontDestroyOnLoad(go);
-                        _instance = go.AddComponent<Main>();
+                        _instance = go.AddComponent<LuaMain>();
                     }
                 }
                 return _instance;
