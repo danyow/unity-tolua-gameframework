@@ -13,7 +13,7 @@
         /// <summary>
         /// 开始执行Main.lua
         /// </summary>
-        StartLuaMain,
+        StartLua,
 
         /// <summary>
         /// 背景音乐开启
@@ -55,7 +55,7 @@
         /// <summary>
         /// 开始执行Lua的Main脚本
         /// </summary>
-        RunLuaMain,
+        RunLua,
 
     }
 }

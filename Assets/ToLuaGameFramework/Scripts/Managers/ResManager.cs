@@ -44,8 +44,7 @@ namespace ToLuaGameFramework
                 }
                 else
                 {
-                    MessageCenter.Dispatch(MsgEnum.RunLuaMain);
-                    CommandController.Instance.Execute(CommandEnum.StartLuaMain);
+                    CommandController.Instance.Execute(CommandEnum.StartLua);
                 }
                 return true;
             }
@@ -144,8 +143,7 @@ namespace ToLuaGameFramework
             }
             UpdateLocalFiles();
             yield return new WaitForEndOfFrame();
-            MessageCenter.Dispatch(MsgEnum.RunLuaMain);
-            CommandController.Instance.Execute(CommandEnum.StartLuaMain);
+            CommandController.Instance.Execute(CommandEnum.StartLua);
         }
 
         #endregion

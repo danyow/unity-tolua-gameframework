@@ -55,7 +55,7 @@ namespace ToLuaGameFramework
 
         public bool ExeCommand(CommandEnum command)
         {
-            if (command == CommandEnum.StartLuaMain)
+            if (command == CommandEnum.StartLua)
             {
                 if (Config.UseAssetBundle)
                 {
@@ -68,6 +68,7 @@ namespace ToLuaGameFramework
                 lua.Start();
                 StartMain();
                 StartLooper();
+                MessageCenter.Dispatch(MsgEnum.RunLua);
                 return true;
             }
             return false;

@@ -32,7 +32,7 @@ public class StartGame : MonoBehaviour
         {
             Debug.Log("更新完成");
         });
-        MessageCenter.Add(MsgEnum.RunLuaMain, (BaseMsg msg) =>
+        MessageCenter.Add(MsgEnum.RunLua, (BaseMsg msg) =>
         {
             Debug.Log("开始执行Lua的Main脚本");
             Destroy(text.gameObject);

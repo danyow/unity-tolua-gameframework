@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace ToLuaGameFramework
+﻿namespace ToLuaGameFramework
 {
     public interface ICommand
     {
