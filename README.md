@@ -21,14 +21,14 @@
 
 - 两种模式：
 
-1.  开发模式：Config.cs里将UseAssetBundle设置为false。lua代码和预设体都放入Resources目录里开发，方便即写即跑快速调试，出母包时将Resources文件名改名或将将已打过包的资源移出Resources目录，以排除打包
-2.  发布模式：Config.cs里将UseAssetBundle设置为true。菜单ToLuaUIFramework->Build XXX AssetBundle（此时Resources不要改名）
+1.  开发模式：Config.cs里将UseAssetBundle设置为false。 
+2.  发布模式：Config.cs里将UseAssetBundle设置为true。菜单ToLuaUIFramework->Build XXX AssetBundle（此时Resources不要改名）。 如果发布安装包时临时不用热更新，则lua代码和预设体都放入Resources目录里。   
 
 - C#的开始：  
 
-1.  修改Config.cs中的GameResourcesPath定义您的开发目录，必须是Resources目录  
+1.  修改Config.cs中的LuaDevPath定义您的开发目录。  
 
-2.  Resources内创建Lua目录和Prefabs目录，强烈建议两个文件夹名称不要修改。UI图集、模型、音效等素材可放在Resources目录外。以保证开发目录干净整洁  
+2.  开发目录内创建Lua目录和Prefabs目录，强烈建议两个文件夹名称不要修改。UI图集、模型、音效等素材可放在开发目录外。以保证开发目录干净整洁  
 
     注册好各种事件，然后直接调用 Main.Instance.StartFramework(); 即可
 ```
