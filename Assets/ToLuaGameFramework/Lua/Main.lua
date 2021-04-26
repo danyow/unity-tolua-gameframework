@@ -11,7 +11,7 @@ require "btween"
 require "queue"
 require "stack"
 
-require "Core.Define"
+require "Core.Enum"
 
 local moduleInstanceList = {}
 Module = {}
