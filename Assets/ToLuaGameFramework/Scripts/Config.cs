@@ -24,8 +24,10 @@ namespace ToLuaGameFramework
 
         /// <summary>
         /// 远程服务器上AB资源网址(如：http://xxx.xxx.xxx.xxx:8081/res)
+        /// (若是streamingAssetsPath，因为使用UnityWebRequest，所以无需加头部file://,否则反而读取失败)
         /// </summary>
-        public readonly static string RemoteUrl = "file://" + OutputPath;
+        public readonly static string RemoteUrl = OutputPath;
+        //public readonly static string RemoteUrl = Client.Common.UrlConfig.SERVER_RES_URL + "/Lua";
 
         /// <summary>
         /// 需要导出AssetBundle的Lua代码目录
