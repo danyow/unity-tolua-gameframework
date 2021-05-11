@@ -221,7 +221,7 @@ end
 
     --发送命令适合跨模块使用，不想用命令也可以调用方法实现打开UI(适合模块内使用,或需要得到UI对象进行进一步赋值时使用)
 
-    local alert = Module.get(ModuleId.Common):openUI(1)
+    local alert = Module.Get(ModuleId.Common):openUI(1)
     alert:setContent("Hello Lua")
 ```
 - 以上是对象有脚本绑定的打开方法，如果简单一个无绑定的对象，用以下方法即可：
