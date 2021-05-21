@@ -7,7 +7,8 @@ public class ToLuaGameFramework_SoundManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ToLuaGameFramework.SoundManager), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("ExeCommand", ExeCommand);
+		L.RegFunction("PlaySound", PlaySound);
+		L.RegFunction("StopSound", StopSound);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("instance", get_instance, set_instance);
@@ -15,16 +16,62 @@ public class ToLuaGameFramework_SoundManagerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ExeCommand(IntPtr L)
+	static int PlaySound(IntPtr L)
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
-			ToLuaGameFramework.SoundManager obj = (ToLuaGameFramework.SoundManager)ToLua.CheckObject<ToLuaGameFramework.SoundManager>(L, 1);
-			ToLuaGameFramework.CommandEnum arg0 = (ToLuaGameFramework.CommandEnum)ToLua.CheckObject(L, 2, typeof(ToLuaGameFramework.CommandEnum));
-			bool o = obj.ExeCommand(arg0);
-			LuaDLL.lua_pushboolean(L, o);
-			return 1;
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				ToLuaGameFramework.SoundManager.PlaySound(arg0);
+				return 0;
+			}
+			else if (count == 2)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				ToLuaGameFramework.SoundManager.PlaySound(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				int arg2 = (int)LuaDLL.luaL_checknumber(L, 3);
+				ToLuaGameFramework.SoundManager.PlaySound(arg0, arg1, arg2);
+				return 0;
+			}
+			else if (count == 4)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				int arg2 = (int)LuaDLL.luaL_checknumber(L, 3);
+				string arg3 = ToLua.CheckString(L, 4);
+				ToLuaGameFramework.SoundManager.PlaySound(arg0, arg1, arg2, arg3);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: ToLuaGameFramework.SoundManager.PlaySound");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int StopSound(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			ToLuaGameFramework.SoundManager.StopSound(arg0);
+			return 0;
 		}
 		catch (Exception e)
 		{

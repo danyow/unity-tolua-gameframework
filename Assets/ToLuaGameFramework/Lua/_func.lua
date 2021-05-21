@@ -41,3 +41,8 @@ function Destroy(gameObject)
         GameObject.Destroy(gameObject)
     end
 end
+
+--C#的long型转number
+function LongToNum(longValue)
+    return tonumber(tostring(longValue))
+end

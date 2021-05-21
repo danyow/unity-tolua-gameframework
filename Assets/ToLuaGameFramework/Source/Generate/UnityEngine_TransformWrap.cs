@@ -76,6 +76,7 @@ public class UnityEngine_TransformWrap
 		L.RegFunction("DOMoveX", DOMoveX);
 		L.RegFunction("DOMove", DOMove);
 		L.RegFunction("DOAlpha", DOAlpha);
+		L.RegFunction("ClearEvent", ClearEvent);
 		L.RegFunction("OnDown", OnDown);
 		L.RegFunction("OnClick", OnClick);
 		L.RegFunction("__eq", op_Equality);
@@ -2628,6 +2629,22 @@ public class UnityEngine_TransformWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: UnityEngine.Transform.DOAlpha");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ClearEvent(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+			obj.ClearEvent();
+			return 0;
 		}
 		catch (Exception e)
 		{

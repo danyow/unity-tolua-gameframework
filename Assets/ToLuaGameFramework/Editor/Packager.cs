@@ -46,6 +46,11 @@ public class Packager
     /// </summary>
     public static void BuildAssetResource(BuildTarget target, int mode)
     {
+        if (Config.OutputPath.EndsWith("/lua"))
+        {
+            EditorUtility.DisplayDialog("提示", "导出目录(Config.OutputPath)不能用lua命名", "确定");
+            return;
+        }
         string outputPath = Config.OutputPath;
         string delPath = outputPath;
         if (mode == 1)
@@ -81,9 +86,8 @@ public class Packager
         }
         AssetDatabase.Refresh();
 
-        string relativePath = outputPath.Substring(outputPath.IndexOf("Assets/"));
         //需要同步加载AssetBundle就选不压缩模式BuildAssetBundleOptions.UncompressedAssetBundle
-        BuildPipeline.BuildAssetBundles(relativePath, maps.ToArray(), BuildAssetBundleOptions.UncompressedAssetBundle, target);
+        BuildPipeline.BuildAssetBundles(outputPath, maps.ToArray(), BuildAssetBundleOptions.UncompressedAssetBundle, target);
         ClearUselessFiles();
         BuildFileIndex();
 
@@ -135,9 +139,9 @@ public class Packager
             name = name.Replace('\\', '_').Replace('/', '_');
             name = "lua/lua" + name.ToLower() + LuaConst.ExtName;
             string path = "Assets" + dirs[i].Replace(Application.dataPath, "");
-            AddBuildMap(name, "*.bytes", path);
+            AddBuildMap(name, path);
         }
-        AddBuildMap("lua/lua" + LuaConst.ExtName, "*.bytes", tempDir.Substring(tempDir.IndexOf("Assets/")));
+        AddBuildMap("lua/lua" + LuaConst.ExtName, tempDir.Substring(tempDir.IndexOf("Assets/")));
 
         //-------------------------------处理非Lua文件(如Build.bat文件等)----------------------------------
         string luaPath = Config.OutputPath + "/lua/";
@@ -164,23 +168,27 @@ public class Packager
     /// </summary>
     static void HandleResBundle()
     {
-        string name = GetNameFromPath(Config.ExportResPath);
-        string path = "Assets" + Config.ExportResPath.Replace(Application.dataPath, "");
-        AddBuildMap(name + LuaConst.ExtName, "*.prefab", path);
-        string[] typePaths = Directory.GetDirectories(Config.ExportResPath);
-        for (int i = 0; i < typePaths.Length; i++)
+        for (int p = 0; p < Config.ExportResPaths.Length; p++)
         {
-            string typePath = typePaths[i];
-            name = GetNameFromPath(typePath);
-            path = "Assets" + typePath.Replace(Application.dataPath, "");
-            AddBuildMap(name + LuaConst.ExtName, "*.prefab", path);
-            string[] modulePaths = Directory.GetDirectories(typePath);
-            for (int j = 0; j < modulePaths.Length; j++)
+            string resPath = Config.ExportResPaths[p];
+            string name = GetNameFromPath(resPath);
+            string path = "Assets" + resPath.Replace(Application.dataPath, "");
+            AddBuildMap(name + LuaConst.ExtName, path);
+            string[] typePaths = Directory.GetDirectories(resPath);
+            for (int i = 0; i < typePaths.Length; i++)
             {
-                string modulePath = modulePaths[j];
-                name = GetNameFromPath(modulePath);
-                path = "Assets" + modulePath.Replace(Application.dataPath, "");
-                AddBuildMap(name + LuaConst.ExtName, "*.prefab", path);
+                string typePath = typePaths[i];
+                name = GetNameFromPath(typePath);
+                path = "Assets" + typePath.Replace(Application.dataPath, "");
+                AddBuildMap(name + LuaConst.ExtName, path);
+                string[] modulePaths = Directory.GetDirectories(typePath);
+                for (int j = 0; j < modulePaths.Length; j++)
+                {
+                    string modulePath = modulePaths[j];
+                    name = GetNameFromPath(modulePath);
+                    path = "Assets" + modulePath.Replace(Application.dataPath, "");
+                    AddBuildMap(name + LuaConst.ExtName, path);
+                }
             }
         }
     }
@@ -191,10 +199,10 @@ public class Packager
         name = "res/" + name.Replace("\\", "_").Replace("/", "_");
         return name;
     }
-	
-    static void AddBuildMap(string bundleName, string pattern, string path)
+
+    static void AddBuildMap(string bundleName, string path)
     {
-        string[] files = Directory.GetFiles(path, pattern);
+        string[] files = Directory.GetFiles(path);
         if (files.Length == 0) return;
 
         for (int i = 0; i < files.Length; i++)

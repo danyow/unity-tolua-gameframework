@@ -7,31 +7,14 @@ public class ToLuaGameFramework_HttpManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ToLuaGameFramework.HttpManager), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("ExeCommand", ExeCommand);
 		L.RegFunction("Get", Get);
 		L.RegFunction("Post", Post);
+		L.RegFunction("UrlEncode", UrlEncode);
+		L.RegFunction("UrlDecode", UrlDecode);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("instance", get_instance, set_instance);
 		L.EndClass();
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ExeCommand(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			ToLuaGameFramework.HttpManager obj = (ToLuaGameFramework.HttpManager)ToLua.CheckObject<ToLuaGameFramework.HttpManager>(L, 1);
-			ToLuaGameFramework.CommandEnum arg0 = (ToLuaGameFramework.CommandEnum)ToLua.CheckObject(L, 2, typeof(ToLuaGameFramework.CommandEnum));
-			bool o = obj.ExeCommand(arg0);
-			LuaDLL.lua_pushboolean(L, o);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -73,21 +56,37 @@ public class ToLuaGameFramework_HttpManagerWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 3)
+			if (count == 2)
 			{
 				string arg0 = ToLua.CheckString(L, 1);
-				string arg1 = ToLua.CheckString(L, 2);
-				string arg2 = ToLua.CheckString(L, 3);
+				LuaTable arg1 = ToLua.CheckLuaTable(L, 2);
+				string o = ToLuaGameFramework.HttpManager.Post(arg0, arg1);
+				LuaDLL.lua_pushstring(L, o);
+				return 1;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes<string>(L, 3))
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				LuaTable arg1 = ToLua.CheckLuaTable(L, 2);
+				string arg2 = ToLua.ToString(L, 3);
 				string o = ToLuaGameFramework.HttpManager.Post(arg0, arg1, arg2);
 				LuaDLL.lua_pushstring(L, o);
 				return 1;
 			}
+			else if (count == 3 && TypeChecker.CheckTypes<LuaInterface.LuaFunction>(L, 3))
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				LuaTable arg1 = ToLua.CheckLuaTable(L, 2);
+				LuaFunction arg2 = ToLua.ToLuaFunction(L, 3);
+				ToLuaGameFramework.HttpManager.Post(arg0, arg1, arg2);
+				return 0;
+			}
 			else if (count == 4)
 			{
 				string arg0 = ToLua.CheckString(L, 1);
-				string arg1 = ToLua.CheckString(L, 2);
-				string arg2 = ToLua.CheckString(L, 3);
-				LuaFunction arg3 = ToLua.CheckLuaFunction(L, 4);
+				LuaTable arg1 = ToLua.CheckLuaTable(L, 2);
+				LuaFunction arg2 = ToLua.CheckLuaFunction(L, 3);
+				string arg3 = ToLua.CheckString(L, 4);
 				ToLuaGameFramework.HttpManager.Post(arg0, arg1, arg2, arg3);
 				return 0;
 			}
@@ -95,6 +94,40 @@ public class ToLuaGameFramework_HttpManagerWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: ToLuaGameFramework.HttpManager.Post");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int UrlEncode(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			string o = ToLuaGameFramework.HttpManager.UrlEncode(arg0);
+			LuaDLL.lua_pushstring(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int UrlDecode(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			string o = ToLuaGameFramework.HttpManager.UrlDecode(arg0);
+			LuaDLL.lua_pushstring(L, o);
+			return 1;
 		}
 		catch (Exception e)
 		{

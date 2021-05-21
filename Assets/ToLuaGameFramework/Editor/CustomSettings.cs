@@ -39,6 +39,7 @@ public static class CustomSettings
     {
         _DT(typeof(Action)),
         _DT(typeof(UnityEngine.Events.UnityAction)),
+        _DT(typeof(UnityEngine.Events.UnityAction<bool>)),
         _DT(typeof(System.Predicate<int>)),
         _DT(typeof(System.Action<int>)),
         _DT(typeof(System.Comparison<int>)),
@@ -157,18 +158,21 @@ public static class CustomSettings
         _GT(typeof(Resources)),
         _GT(typeof(LuaProfiler)),
 
-        //GUGI
+        //UGUI
         _GT(typeof(Canvas)),
-        _GT(typeof(RectTransform)),
+        _GT(typeof(RectTransform)).AddExtendType(typeof(DG.Tweening.DOTweenModuleUI)),
         _GT(typeof(UnityEngine.UI.Text)),
         _GT(typeof(UnityEngine.UI.Image)),
         _GT(typeof(UnityEngine.UI.RawImage)),
         _GT(typeof(UnityEngine.UI.Button)),
         _GT(typeof(UnityEngine.UI.Slider)),
+        _GT(typeof(UnityEngine.UI.Toggle)).AddExtendType(typeof(ToggleExtend)),
         _GT(typeof(UnityEngine.UI.InputField)),
         _GT(typeof(UnityEngine.UI.ScrollRect)),
+        _GT(typeof(UnityEngine.EventSystems.EventTrigger)),
 
         //Custom
+        _GT(typeof(PlayerPrefs)),
         _GT(typeof(MessageCenter)),
         _GT(typeof(LuaManager)),
         _GT(typeof(ResManager)),
@@ -178,22 +182,23 @@ public static class CustomSettings
         _GT(typeof(LuaBehaviour)),
         _GT(typeof(LButton)),
         _GT(typeof(LButtonEffect)),
+        _GT(typeof(LTimer)),
         _GT(typeof(BTween)),
         _GT(typeof(BTween.BEaseType)),
+        _GT(typeof(LMD5)),
+        _GT(typeof(LAES)),
 
         //项目自定义
         //_GT(typeof(BToolkit.ImgText)),
         //_GT(typeof(BToolkit.LanguageManager)),
         //_GT(typeof(BToolkit.CopyAndPaste)),
-        //_GT(typeof(BToolkit.TextureDownloader)),
         //_GT(typeof(Client.Common.UrlConfig)),
+        //_GT(typeof(Client.Common.VersionConfig)),
         //_GT(typeof(Client.Common.GameData)),
         //_GT(typeof(Client.Common.HttpRequest)),
-        //_GT(typeof(Client.Common.TopRecharge_Online)),
         //_GT(typeof(MainCtrl.TopTip)),
         //_GT(typeof(MainCtrl.TopDialog)),
-        //_GT(typeof(Lobby.UI.PanelMoNiTiXian)),
-
+        //_GT(typeof(Abx.Protocol.HTTP.WebApiProtocol)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

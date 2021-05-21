@@ -11,7 +11,7 @@ function Register:onAwake()
     local btnRegister = self.transform:Find("BtnRegister")
     btnRegister:OnClick(
         function()
-            local alert = Module.get(ModuleID.Common):openUI(1)
+            local alert = Module.Get(ModuleID.Common):openUI(1)
             alert:setContent("暂未开发")
         end
     )

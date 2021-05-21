@@ -20,7 +20,7 @@ function Login:onAwake()
         function()
             --CommandManager.execute(CommandID.OpenUI, ModuleID.Login, 2)
             --或
-            Module.get(ModuleID.Login):openUI(2)
+            Module.Get(ModuleID.Login):openUI(2)
         end
     )
 end

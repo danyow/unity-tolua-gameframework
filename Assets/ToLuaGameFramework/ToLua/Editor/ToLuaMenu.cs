@@ -25,7 +25,6 @@ SOFTWARE.
 using UnityEngine;
 using UnityEditor;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -979,12 +978,11 @@ public static class ToLuaMenu
     }
 
 
-    [MenuItem("Lua/Copy Lua files to Resources", false, 51)]
+    //[MenuItem("Lua/Copy Lua files to Resources", false, 51)]
     public static void CopyLuaFilesToRes()
     {
         EditorUtility.DisplayDialog("提示", tip, "确认");
-        return;
-
+        
         ClearAllLuaFiles();
         string destDir = Application.dataPath + "/Resources" + "/Lua";
         CopyLuaBytesFiles(LuaConst.luaDir, destDir);
@@ -993,11 +991,10 @@ public static class ToLuaMenu
         Debug.Log("Copy lua files over");
     }
 
-    [MenuItem("Lua/Copy Lua files to Persistent", false, 52)]
+    //[MenuItem("Lua/Copy Lua files to Persistent", false, 52)]
     public static void CopyLuaFilesToPersistent()
     {
         EditorUtility.DisplayDialog("提示", tip, "确认");
-        return;
 
         ClearAllLuaFiles();
         string destDir = Application.persistentDataPath + "/" + GetOS() + "/Lua";
@@ -1065,11 +1062,10 @@ public static class ToLuaMenu
 
     }
 
-    [MenuItem("Lua/Build Lua files to Resources (PC)", false, 53)]
+    //[MenuItem("Lua/Build Lua files to Resources (PC)", false, 53)]
     public static void BuildLuaToResources()
     {
         EditorUtility.DisplayDialog("提示", tip, "确认");
-        return;
 
         ClearAllLuaFiles();
         string tempDir = CreateStreamDir("Lua");
@@ -1087,12 +1083,11 @@ public static class ToLuaMenu
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("Lua/Build Lua files to Persistent (PC)", false, 54)]
+    //[MenuItem("Lua/Build Lua files to Persistent (PC)", false, 54)]
     public static void BuildLuaToPersistent()
     {
         EditorUtility.DisplayDialog("提示", tip, "确认");
-        return;
-
+        
         ClearAllLuaFiles();
         string tempDir = CreateStreamDir("Lua");
         string destDir = Application.persistentDataPath + "/" + GetOS() + "/Lua/";
@@ -1122,12 +1117,11 @@ public static class ToLuaMenu
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("Lua/Build bundle files not jit", false, 55)]
+    //[MenuItem("Lua/Build bundle files not jit", false, 55)]
     public static void BuildNotJitBundles()
     {
         EditorUtility.DisplayDialog("提示", tip, "确认");
-        return;
-
+        
         ClearAllLuaFiles();
         CreateStreamDir(GetOS());
 
@@ -1175,12 +1169,11 @@ public static class ToLuaMenu
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("Lua/Build Luajit bundle files (PC)", false, 56)]
+    //[MenuItem("Lua/Build Luajit bundle files (PC)", false, 56)]
     public static void BuildLuaBundles()
     {
         EditorUtility.DisplayDialog("提示", tip, "确认");
-        return;
-
+        
         ClearAllLuaFiles();
         CreateStreamDir(GetOS());
 
@@ -1235,11 +1228,10 @@ public static class ToLuaMenu
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("Lua/Clear all Lua files", false, 57)]
+    //[MenuItem("Lua/Clear all Lua files", false, 57)]
     public static void ClearLuaFiles()
     {
         EditorUtility.DisplayDialog("提示", tip, "确认");
-        return;
 
         ClearAllLuaFiles();
     }

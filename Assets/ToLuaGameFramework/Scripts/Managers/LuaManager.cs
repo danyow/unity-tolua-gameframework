@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ToLuaGameFramework
 {
-    public class LuaManager : MonoBehaviour, ICommand
+    public class LuaManager : MonoBehaviour
     {
         public static LuaManager instance;
 
@@ -53,25 +53,23 @@ namespace ToLuaGameFramework
             lua.LuaSetField(-2, "cjson.safe");
         }
 
-        public bool ExeCommand(CommandEnum command)
+        /// <summary>
+        /// 启动Lua框架
+        /// </summary>
+        public void StartLua()
         {
-            if (command == CommandEnum.StartLua)
+            if (Config.UseAssetBundle)
             {
-                if (Config.UseAssetBundle)
-                {
-                    InitLuaBundle();
-                }
-                else
-                {
-                    InitLuaPath();
-                }
-                lua.Start();
-                StartMain();
-                StartLooper();
-                MessageCenter.Dispatch(MsgEnum.RunLua);
-                return true;
+                InitLuaBundle();
             }
-            return false;
+            else
+            {
+                InitLuaPath();
+            }
+            lua.Start();
+            StartMain();
+            StartLooper();
+            MessageCenter.Dispatch(MsgEnum.RunLua);
         }
 
         /// <summary>

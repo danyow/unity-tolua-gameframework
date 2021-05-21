@@ -19,7 +19,7 @@ public class ToLuaGameFramework_LuaBehaviourWrap
 		L.RegVar("isUIStack", get_isUIStack, set_isUIStack);
 		L.RegVar("keepActive", get_keepActive, set_keepActive);
 		L.RegVar("isFloat", get_isFloat, set_isFloat);
-		L.RegVar("destroyABAfterAllSpawnDestroy", get_destroyABAfterAllSpawnDestroy, set_destroyABAfterAllSpawnDestroy);
+		L.RegVar("unloadABAfterAllSpawnDestroy", get_unloadABAfterAllSpawnDestroy, set_unloadABAfterAllSpawnDestroy);
 		L.RegVar("sortObjects", get_sortObjects, set_sortObjects);
 		L.RegVar("IsSetedOrder", get_IsSetedOrder, null);
 		L.EndClass();
@@ -223,7 +223,7 @@ public class ToLuaGameFramework_LuaBehaviourWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_destroyABAfterAllSpawnDestroy(IntPtr L)
+	static int get_unloadABAfterAllSpawnDestroy(IntPtr L)
 	{
 		object o = null;
 
@@ -231,13 +231,13 @@ public class ToLuaGameFramework_LuaBehaviourWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			ToLuaGameFramework.LuaBehaviour obj = (ToLuaGameFramework.LuaBehaviour)o;
-			bool ret = obj.destroyABAfterAllSpawnDestroy;
+			bool ret = obj.unloadABAfterAllSpawnDestroy;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index destroyABAfterAllSpawnDestroy on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index unloadABAfterAllSpawnDestroy on a nil value");
 		}
 	}
 
@@ -375,7 +375,7 @@ public class ToLuaGameFramework_LuaBehaviourWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_destroyABAfterAllSpawnDestroy(IntPtr L)
+	static int set_unloadABAfterAllSpawnDestroy(IntPtr L)
 	{
 		object o = null;
 
@@ -384,12 +384,12 @@ public class ToLuaGameFramework_LuaBehaviourWrap
 			o = ToLua.ToObject(L, 1);
 			ToLuaGameFramework.LuaBehaviour obj = (ToLuaGameFramework.LuaBehaviour)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
-			obj.destroyABAfterAllSpawnDestroy = arg0;
+			obj.unloadABAfterAllSpawnDestroy = arg0;
 			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index destroyABAfterAllSpawnDestroy on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index unloadABAfterAllSpawnDestroy on a nil value");
 		}
 	}
 

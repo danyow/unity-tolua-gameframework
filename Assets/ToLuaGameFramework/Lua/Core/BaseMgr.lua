@@ -84,10 +84,16 @@ function BaseMgr:getUI(uiIndex)
     return nil
 end
 
+function BaseMgr:closeUI(uiIndex)
+    local ui = self:getUI(uiIndex)
+    if ui then
+        Destroy(ui.gameObject)
+    end
+end
+
 function BaseMgr:defaultParent()
-    --TODO:请根据项目实际情况修改
-    local parent = GameObject.Find("MainCanvas").transform
-    return parent
+    --请根据项目实际情况修改
+    return GameObject.Find("MainCanvas").transform
 end
 
 return BaseMgr

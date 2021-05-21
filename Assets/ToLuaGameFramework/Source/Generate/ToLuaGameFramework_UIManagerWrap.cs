@@ -7,7 +7,6 @@ public class ToLuaGameFramework_UIManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ToLuaGameFramework.UIManager), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("ExeCommand", ExeCommand);
 		L.RegFunction("SpawnUI", SpawnUI);
 		L.RegFunction("SpawnUIAsyn", SpawnUIAsyn);
 		L.RegFunction("ResumeUI", ResumeUI);
@@ -19,24 +18,6 @@ public class ToLuaGameFramework_UIManagerWrap
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("instance", get_instance, set_instance);
 		L.EndClass();
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ExeCommand(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			ToLuaGameFramework.UIManager obj = (ToLuaGameFramework.UIManager)ToLua.CheckObject<ToLuaGameFramework.UIManager>(L, 1);
-			ToLuaGameFramework.CommandEnum arg0 = (ToLuaGameFramework.CommandEnum)ToLua.CheckObject(L, 2, typeof(ToLuaGameFramework.CommandEnum));
-			bool o = obj.ExeCommand(arg0);
-			LuaDLL.lua_pushboolean(L, o);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

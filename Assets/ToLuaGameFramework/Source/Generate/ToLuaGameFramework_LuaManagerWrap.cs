@@ -7,7 +7,7 @@ public class ToLuaGameFramework_LuaManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ToLuaGameFramework.LuaManager), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("ExeCommand", ExeCommand);
+		L.RegFunction("StartLua", StartLua);
 		L.RegFunction("DoFile", DoFile);
 		L.RegFunction("CallFunction", CallFunction);
 		L.RegFunction("GetFunction", GetFunction);
@@ -20,16 +20,14 @@ public class ToLuaGameFramework_LuaManagerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ExeCommand(IntPtr L)
+	static int StartLua(IntPtr L)
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 1);
 			ToLuaGameFramework.LuaManager obj = (ToLuaGameFramework.LuaManager)ToLua.CheckObject<ToLuaGameFramework.LuaManager>(L, 1);
-			ToLuaGameFramework.CommandEnum arg0 = (ToLuaGameFramework.CommandEnum)ToLua.CheckObject(L, 2, typeof(ToLuaGameFramework.CommandEnum));
-			bool o = obj.ExeCommand(arg0);
-			LuaDLL.lua_pushboolean(L, o);
-			return 1;
+			obj.StartLua();
+			return 0;
 		}
 		catch (Exception e)
 		{

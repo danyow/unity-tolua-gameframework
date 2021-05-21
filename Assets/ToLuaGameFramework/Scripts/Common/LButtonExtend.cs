@@ -72,5 +72,19 @@ namespace ToLuaGameFramework
             }
         }
 
+        public static void ClearEvent(this Transform btn)
+        {
+            LButton bButton = btn.GetComponent<LButton>();
+            if (bButton)
+            {
+                GameObject.Destroy(bButton);
+            }
+            LButtonEffect effect = btn.gameObject.GetComponent<LButtonEffect>();
+            if (effect)
+            {
+                GameObject.Destroy(effect);
+            }
+        }
+
     }
 }

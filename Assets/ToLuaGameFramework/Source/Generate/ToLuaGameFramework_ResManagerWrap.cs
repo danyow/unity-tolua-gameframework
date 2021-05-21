@@ -7,7 +7,7 @@ public class ToLuaGameFramework_ResManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ToLuaGameFramework.ResManager), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("ExeCommand", ExeCommand);
+		L.RegFunction("UpdateRemoteAssetBundle", UpdateRemoteAssetBundle);
 		L.RegFunction("PreloadLocalAssetBundles", PreloadLocalAssetBundles);
 		L.RegFunction("UnloadAllAssetBundles", UnloadAllAssetBundles);
 		L.RegFunction("SpawnPrefab", SpawnPrefab);
@@ -22,16 +22,14 @@ public class ToLuaGameFramework_ResManagerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ExeCommand(IntPtr L)
+	static int UpdateRemoteAssetBundle(IntPtr L)
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 1);
 			ToLuaGameFramework.ResManager obj = (ToLuaGameFramework.ResManager)ToLua.CheckObject<ToLuaGameFramework.ResManager>(L, 1);
-			ToLuaGameFramework.CommandEnum arg0 = (ToLuaGameFramework.CommandEnum)ToLua.CheckObject(L, 2, typeof(ToLuaGameFramework.CommandEnum));
-			bool o = obj.ExeCommand(arg0);
-			LuaDLL.lua_pushboolean(L, o);
-			return 1;
+			obj.UpdateRemoteAssetBundle();
+			return 0;
 		}
 		catch (Exception e)
 		{

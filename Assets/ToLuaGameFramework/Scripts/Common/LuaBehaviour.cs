@@ -80,7 +80,7 @@ namespace ToLuaGameFramework
         public bool isUIStack;
         public bool keepActive;
         public bool isFloat;
-        public bool destroyABAfterAllSpawnDestroy;
+        public bool unloadABAfterAllSpawnDestroy;
         string luaClassId;
         LuaTable luaClass;
 
@@ -196,7 +196,7 @@ namespace ToLuaGameFramework
             {
                 if (!string.IsNullOrEmpty(assetBundleName))
                 {
-                    ResManager.instance.OnSpawnDestroy(assetBundleName, destroyABAfterAllSpawnDestroy);
+                    ResManager.instance.OnSpawnDestroy(assetBundleName, unloadABAfterAllSpawnDestroy);
                 }
                 ResManager.instance.ClearMemory();
             }

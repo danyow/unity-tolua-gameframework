@@ -15,7 +15,7 @@ namespace DG.Tweening
         /// </summary>
         public static TweenerCore<Color, Color, ColorOptions> DOAlpha(this Transform target, float endAlpha, bool includeChildren = true)
         {
-            return target.DOAlpha(endAlpha, -1, 0, Ease.Linear, includeChildren);
+            return target.DOAlpha(-1, endAlpha, 0, Ease.Linear, includeChildren);
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace DG.Tweening
         /// </summary>
         public static TweenerCore<Color, Color, ColorOptions> DOAlpha(this Transform target, float endAlpha, float duration, Ease ease, bool includeChildren = true)
         {
-            return target.DOAlpha(endAlpha, -1, duration, ease, includeChildren);
+            return target.DOAlpha(-1, endAlpha, duration, ease, includeChildren);
         }
 
         /// <summary>

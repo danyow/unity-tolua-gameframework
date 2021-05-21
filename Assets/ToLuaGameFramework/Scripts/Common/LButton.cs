@@ -1,6 +1,7 @@
 ﻿using LuaInterface;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace ToLuaGameFramework
 {
@@ -8,7 +9,7 @@ namespace ToLuaGameFramework
     {
         public object param = 0;
         public LuaTable self;
-        public float canTriggerInterval = 0f;
+        public float canTriggerInterval = 1f;
         public LuaFunction onClick, onDown;
         public RectTransform rectTransform { get { return transform as RectTransform; } }
         float canTouchTimer;
@@ -22,6 +23,15 @@ namespace ToLuaGameFramework
             }
         }
 
+        void OnEnable()
+        {
+            canTouchTimer = 0;
+            if (buttonEffect && canTouchTimer <= 0)
+            {
+                buttonEffect.enabled = true;
+            }
+        }
+
         void Update()
         {
             if (canTouchTimer > 0f)
@@ -30,7 +40,7 @@ namespace ToLuaGameFramework
                 if (canTouchTimer <= 0f)
                 {
                     CheckFindEffect();
-                    if (buttonEffect)
+                    if (enabled && buttonEffect)
                     {
                         buttonEffect.enabled = true;
                     }
@@ -54,8 +64,8 @@ namespace ToLuaGameFramework
                         {
                             onClick.Call(self, param);
                         }
+                        canTouchTimer = canTriggerInterval;
                     }
-                    canTouchTimer = canTriggerInterval;
                     CheckFindEffect();
                     if (buttonEffect && canTouchTimer > 0)
                     {
@@ -81,8 +91,8 @@ namespace ToLuaGameFramework
                         {
                             onDown.Call(self, param);
                         }
+                        canTouchTimer = canTriggerInterval;
                     }
-                    canTouchTimer = canTriggerInterval;
                     CheckFindEffect();
                     if (buttonEffect && canTouchTimer > 0)
                     {

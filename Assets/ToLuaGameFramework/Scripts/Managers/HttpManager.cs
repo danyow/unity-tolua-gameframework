@@ -4,10 +4,11 @@ using LuaInterface;
 using UnityEngine.Networking;
 using System.Net;
 using System.IO;
+using System;
 
 namespace ToLuaGameFramework
 {
-    public class HttpManager : MonoBehaviour, ICommand
+    public class HttpManager : MonoBehaviour
     {
         public static HttpManager instance;
 
@@ -15,21 +16,25 @@ namespace ToLuaGameFramework
         {
             instance = this;
         }
-        public bool ExeCommand(CommandEnum command)
-        {
-            return false;
-        }
 
         /// <summary>
         /// 同步
         /// </summary>
         public static string Get(string url)
         {
+            if (url.Contains("?"))
+            {
+                url += "&rand=" + DateTime.Now.Ticks;
+            }
+            else
+            {
+                url += "?rand=" + DateTime.Now.Ticks;
+            }
             string responseData = null;
             HttpWebRequest webRequest = WebRequest.Create(url) as HttpWebRequest;
             webRequest.Method = "GET";
             webRequest.ServicePoint.Expect100Continue = false;
-            webRequest.Timeout = 20000;
+            webRequest.Timeout = 5000;
             StreamReader responseReader = null;
             try
             {
@@ -59,11 +64,19 @@ namespace ToLuaGameFramework
 
         static IEnumerator GetDo(string url, LuaFunction callback)
         {
+            if (url.Contains("?"))
+            {
+                url += "&rand=" + DateTime.Now.Ticks;
+            }
+            else
+            {
+                url += "?rand=" + DateTime.Now.Ticks;
+            }
             UnityWebRequest request = UnityWebRequest.Get(url);
             yield return request.SendWebRequest();
             if (request.error != null)
             {
-                Debug.LogError("Http-Get Fail: " + request.error);
+                Debug.LogError("Http Get Fail: " + request.error);
                 callback.Call("");
                 yield break;
             }
@@ -73,23 +86,50 @@ namespace ToLuaGameFramework
         /// <summary>
         /// 同步
         /// </summary>
-        public static string Post(string url, string args, string dataType)
+        public static string Post(string url, LuaTable data, string dataType = null)
         {
-            StreamWriter requestWriter = null;
-            StreamReader responseReader = null;
-            string responseData = null;
-            HttpWebRequest webRequest = WebRequest.Create(url) as HttpWebRequest;
-            webRequest.Method = "POST";
-            if (dataType.ToLower().Contains("json"))
+            if (url.Contains("?"))
             {
-                webRequest.ContentType = "application/json";
+                url += "&rand=" + DateTime.Now.Ticks;
             }
             else
             {
-                webRequest.ContentType = "application/x-www-form-urlencoded";
+                url += "?rand=" + DateTime.Now.Ticks;
+            }
+            HttpWebRequest webRequest = WebRequest.Create(url) as HttpWebRequest;
+            webRequest.Method = "POST";
+            string args = "";
+            if (!string.IsNullOrEmpty(dataType) && dataType.ToLower().Contains("json"))
+            {
+                webRequest.ContentType = "application/json;charset=utf-8";
+                args = "{";
+                foreach (var item in data.ToDictTable<string, string>())
+                {
+                    if (!args.Equals("{"))
+                    {
+                        args += ",";
+                    }
+                    args += "\"" + item.Key + "\":\"" + item.Value + "\"";
+                }
+                args += "}";
+            }
+            else
+            {
+                webRequest.ContentType = "application/x-www-form-urlencoded;charset=utf-8";
+                foreach (var item in data.ToDictTable<string, string>())
+                {
+                    if (args != "")
+                    {
+                        args += "&";
+                    }
+                    args += item.Key + "=" + item.Value;
+                }
             }
             webRequest.ServicePoint.Expect100Continue = false;
-            webRequest.Timeout = 20000;
+            webRequest.Timeout = 5000;
+            StreamWriter requestWriter = null;
+            StreamReader responseReader = null;
+            string responseData = null;
             try
             {
                 requestWriter = new StreamWriter(webRequest.GetRequestStream());
@@ -99,24 +139,21 @@ namespace ToLuaGameFramework
                 responseReader = new StreamReader(webRequest.GetResponse().GetResponseStream());
                 responseData = responseReader.ReadToEnd();
             }
-            catch
+            catch (Exception e)
             {
-                throw;
+                Debug.LogError(e);
             }
             finally
             {
                 if (requestWriter != null)
                 {
                     requestWriter.Close();
-                    requestWriter = null;
                 }
                 if (responseReader != null)
                 {
                     responseReader.Close();
-                    responseReader = null;
                 }
                 webRequest.GetResponse().GetResponseStream().Close();
-                webRequest = null;
             }
             return responseData;
         }
@@ -124,35 +161,63 @@ namespace ToLuaGameFramework
         /// <summary>
         /// 异步
         /// </summary>
-        public static void Post(string url, string args, string dataType, LuaFunction callback)
+        public static void Post(string url, LuaTable data, LuaFunction callback, string dataType = null)
         {
-            instance.StartCoroutine(PostDo(url, args, dataType, callback));
+            instance.StartCoroutine(PostDo(url, data, callback, dataType));
         }
 
-        static IEnumerator PostDo(string url, string args, string dataType, LuaFunction callback)
+        static IEnumerator PostDo(string url, LuaTable data, LuaFunction callback, string dataType)
         {
-            using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+            if (url.Contains("?"))
             {
-                byte[] postBytes = System.Text.Encoding.UTF8.GetBytes(args);
-                request.uploadHandler = (UploadHandler)new UploadHandlerRaw(postBytes);
-                request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-                if (dataType.ToLower().Contains("json"))
-                {
-                    request.SetRequestHeader("Content-Type", "application/json");
-                }
-                else
-                {
-                    request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                }
-                yield return request.SendWebRequest();
-                if (request.error != null)
-                {
-                    Debug.LogError("Http-Post Fail: " + request.error);
-                    callback.Call("");
-                    yield break;
-                }
-                callback.Call(request.downloadHandler.text);
+                url += "&rand=" + DateTime.Now.Ticks;
             }
+            else
+            {
+                url += "?rand=" + DateTime.Now.Ticks;
+            }
+            string contentType = null;
+            string args = "";
+            if (!string.IsNullOrEmpty(dataType) && dataType.ToLower().Contains("json"))
+            {
+                contentType = "application/json;charset=utf-8";
+                args = "{";
+                foreach (var item in data.ToDictTable<string, string>())
+                {
+                    if (!args.Equals("{")) args += ",";
+                    args += "\"" + item.Key + "\":\"" + item.Value + "\"";
+                }
+                args += "}";
+            }
+            else
+            {
+                contentType = "application/x-www-form-urlencoded;charset=utf-8";
+                foreach (var item in data.ToDictTable<string, string>())
+                {
+                    if (args != "") args += "&";
+                    args += item.Key + "=" + item.Value;
+                }
+            }
+            UnityWebRequest request = UnityWebRequest.Post(url, args);
+            request.SetRequestHeader("Content-Type", contentType);
+            yield return request.SendWebRequest();
+            if (request.error != null)
+            {
+                Debug.LogError("Http POST Fail: " + request.error);
+                callback.Call("");
+                yield break;
+            }
+            callback.Call(request.downloadHandler.text);
+        }
+
+        public static string UrlEncode(string str)
+        {
+            return UnityWebRequest.EscapeURL(str);
+        }
+
+        public static string UrlDecode(string str)
+        {
+            return UnityWebRequest.UnEscapeURL(str);
         }
     }
 }

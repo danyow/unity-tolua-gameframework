@@ -1,24 +1,24 @@
 --主入口函数。从这里开始lua逻辑
 
-require "logger"
-require "functions"
-require "define"
+require "_define"
+require "_logger"
+require "_utils"
+require "_func"
 require "command_manager"
 require "event_manager"
-require "utils"
 require "dotween"
 require "btween"
 require "queue"
 require "stack"
 
-require "Core.Enum"
+require "Custom.Enum"
 
 local moduleInstanceList = {}
 Module = {}
 
 function Main()
     --所有注册的模块初始化
-    local registerList = require "Core.ModuleRegister"
+    local registerList = require "Custom.ModuleRegister"
     for key, value in pairs(registerList) do
         local m = value:new()
         m.moduleId = key
@@ -35,7 +35,7 @@ function Main()
 end
 
 --根据ID获取模块
-function Module.get(moduleId)
+function Module.Get(moduleId)
     return moduleInstanceList[moduleId]
 end
 
@@ -47,3 +47,4 @@ end
 
 function OnApplicationQuit()
 end
+
