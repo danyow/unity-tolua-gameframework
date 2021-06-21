@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace ToLuaGameFramework
 {
@@ -24,7 +24,7 @@ namespace ToLuaGameFramework
         public readonly static string OutputPath = "E:/WorksProjects/MoLiHaiYang/ExportRes/res/patch5/lua_res";
 
         /// <summary>
-        /// 远程服务器上AB资源网址(如：http://xxx.xxx.xxx.xxx:8081/res)
+        /// 远程服务器上AB资源网址(如：http://xxx.xxx.xxx.xxx:8081/lua_res)
         /// (若是streamingAssetsPath，因为使用UnityWebRequest，所以无需加头部file://,否则反而读取失败)
         /// </summary>
         public readonly static string RemoteUrl = OutputPath;
