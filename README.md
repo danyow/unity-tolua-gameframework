@@ -21,8 +21,8 @@
 
 - 两种模式：
 
-1.  开发模式：Config.cs里将UseAssetBundle设置为false。 
-2.  发布模式：Config.cs里将UseAssetBundle设置为true。菜单ToLuaUIFramework->Build XXX AssetBundle（此时Resources不要改名）。 如果发布安装包时临时不用热更新，则lua代码和预设体都放入Resources目录里。   
+1.  开发模式：Config.cs里将UseAssetBundle设置为false，读取LuaDev目录下实时编写的代码。 
+2.  发布模式：Config.cs里将UseAssetBundle设置为true，加载AB包里的代码。菜单ToLuaUIFramework->Build XXX AssetBundle。 
 
 - C#的开始：  
 
