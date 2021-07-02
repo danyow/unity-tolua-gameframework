@@ -73,7 +73,11 @@ function DataToJson(data, depth)
     elseif type(data) == "number" then
         return tostring(data)
     else
-        return '"' .. tostring(data) .. '"'
+        if data==nil or (data.Equals and data:Equals(nil)) then
+            return '"nil"'
+        else
+            return '"' .. tostring(data) .. '"'
+        end
     end
 end
 
