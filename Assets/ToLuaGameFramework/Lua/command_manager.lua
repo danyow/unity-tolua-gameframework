@@ -94,13 +94,17 @@ function CommandManager.Add(id, listener, self)
     end
 end
 
-function CommandManager.Remove(id, listener)
+function CommandManager.Remove(id, listener, self)
     if listener then
+        if not self then
+            LogError("仅移除特定ID的某个回调时必须传 self 作用域")
+            return
+        end
         local listeners = listenerGroups[id]
         if listeners then
-            for i = 1, #listeners do
-                if listeners[i] == listener then
-                    table.remove(listeners, i)
+            for i, value in pairs(listeners) do
+                if value.listener == listener and value.self == self then
+                    listeners[i] = nil
                 end
             end
         end

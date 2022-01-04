@@ -12,33 +12,18 @@ require "queue"
 require "stack"
 
 --require "Samples.Enum"
+--require "Samples.Module"
+require "Define.Requires"
 require "Define.Enum"
-
-local moduleInstanceList = {}
-Module = {}
+require "Define.Define"
+require "Define.Modules"
+require "CSharpBridge"
 
 function Main()
-    --所有注册的模块初始化
-    --local registerList = require "Samples.ModuleRegister"
-    local registerList = require "Define.ModuleRegister"
-    for key, value in pairs(registerList) do
-        local m = value:new()
-        m.moduleId = key
-        moduleInstanceList[key] = m
-    end
-
-    --开始打开第一个模块
-    Destroy(GameObject.Find("CanvasLoadAB"))
-
     --正常实例化UI，不用命令打开UI
     local PreloadUI = require "Modules.ResPreload.ResPreload"
     local parent = GameObject.Find("MainCanvas").transform
-    PreloadUI:new(parent)
-end
-
---根据ID获取模块
-function Module.Get(moduleId)
-    return moduleInstanceList[moduleId]
+    PreloadUI:New(parent)
 end
 
 --场景切换通知

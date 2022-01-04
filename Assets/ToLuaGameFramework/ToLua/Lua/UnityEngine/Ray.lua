@@ -7,6 +7,7 @@ local rawget = rawget
 local setmetatable = setmetatable
 local Vector3 = Vector3
 
+---@class Ray
 local Ray = 
 {
 	direction = Vector3.zero,

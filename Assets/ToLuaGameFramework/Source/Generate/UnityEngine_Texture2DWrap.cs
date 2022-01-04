@@ -38,6 +38,7 @@ public class UnityEngine_Texture2DWrap
 		L.RegVar("linearGrayTexture", get_linearGrayTexture, null);
 		L.RegVar("normalTexture", get_normalTexture, null);
 		L.RegVar("isReadable", get_isReadable, null);
+		L.RegVar("vtOnly", get_vtOnly, null);
 		L.RegVar("streamingMipmaps", get_streamingMipmaps, null);
 		L.RegVar("streamingMipmapsPriority", get_streamingMipmapsPriority, null);
 		L.RegVar("requestedMipmapLevel", get_requestedMipmapLevel, set_requestedMipmapLevel);
@@ -652,13 +653,24 @@ public class UnityEngine_Texture2DWrap
 				LuaDLL.lua_pushboolean(L, o);
 				return 1;
 			}
-			else if (count == 5)
+			else if (count == 5 && TypeChecker.CheckTypes<UnityEngine.TextureFormat, bool>(L, 4))
 			{
 				UnityEngine.Texture2D obj = (UnityEngine.Texture2D)ToLua.CheckObject(L, 1, typeof(UnityEngine.Texture2D));
 				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
 				int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
-				UnityEngine.TextureFormat arg2 = (UnityEngine.TextureFormat)ToLua.CheckObject(L, 4, typeof(UnityEngine.TextureFormat));
-				bool arg3 = LuaDLL.luaL_checkboolean(L, 5);
+				UnityEngine.TextureFormat arg2 = (UnityEngine.TextureFormat)ToLua.ToObject(L, 4);
+				bool arg3 = LuaDLL.lua_toboolean(L, 5);
+				bool o = obj.Resize(arg0, arg1, arg2, arg3);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else if (count == 5 && TypeChecker.CheckTypes<UnityEngine.Experimental.Rendering.GraphicsFormat, bool>(L, 4))
+			{
+				UnityEngine.Texture2D obj = (UnityEngine.Texture2D)ToLua.CheckObject(L, 1, typeof(UnityEngine.Texture2D));
+				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+				UnityEngine.Experimental.Rendering.GraphicsFormat arg2 = (UnityEngine.Experimental.Rendering.GraphicsFormat)ToLua.ToObject(L, 4);
+				bool arg3 = LuaDLL.lua_toboolean(L, 5);
 				bool o = obj.Resize(arg0, arg1, arg2, arg3);
 				LuaDLL.lua_pushboolean(L, o);
 				return 1;
@@ -924,6 +936,25 @@ public class UnityEngine_Texture2DWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isReadable on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_vtOnly(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Texture2D obj = (UnityEngine.Texture2D)o;
+			bool ret = obj.vtOnly;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index vtOnly on a nil value");
 		}
 	}
 

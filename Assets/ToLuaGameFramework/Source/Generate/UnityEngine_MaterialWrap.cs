@@ -703,11 +703,27 @@ public class UnityEngine_MaterialWrap
 				obj.SetBuffer(arg0, arg1);
 				return 0;
 			}
+			else if (count == 3 && TypeChecker.CheckTypes<int, UnityEngine.GraphicsBuffer>(L, 2))
+			{
+				UnityEngine.Material obj = (UnityEngine.Material)ToLua.CheckObject<UnityEngine.Material>(L, 1);
+				int arg0 = (int)LuaDLL.lua_tonumber(L, 2);
+				UnityEngine.GraphicsBuffer arg1 = (UnityEngine.GraphicsBuffer)ToLua.ToObject(L, 3);
+				obj.SetBuffer(arg0, arg1);
+				return 0;
+			}
 			else if (count == 3 && TypeChecker.CheckTypes<string, UnityEngine.ComputeBuffer>(L, 2))
 			{
 				UnityEngine.Material obj = (UnityEngine.Material)ToLua.CheckObject<UnityEngine.Material>(L, 1);
 				string arg0 = ToLua.ToString(L, 2);
 				UnityEngine.ComputeBuffer arg1 = (UnityEngine.ComputeBuffer)ToLua.ToObject(L, 3);
+				obj.SetBuffer(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes<string, UnityEngine.GraphicsBuffer>(L, 2))
+			{
+				UnityEngine.Material obj = (UnityEngine.Material)ToLua.CheckObject<UnityEngine.Material>(L, 1);
+				string arg0 = ToLua.ToString(L, 2);
+				UnityEngine.GraphicsBuffer arg1 = (UnityEngine.GraphicsBuffer)ToLua.ToObject(L, 3);
 				obj.SetBuffer(arg0, arg1);
 				return 0;
 			}
@@ -739,11 +755,31 @@ public class UnityEngine_MaterialWrap
 				obj.SetConstantBuffer(arg0, arg1, arg2, arg3);
 				return 0;
 			}
+			else if (count == 5 && TypeChecker.CheckTypes<int, UnityEngine.GraphicsBuffer, int, int>(L, 2))
+			{
+				UnityEngine.Material obj = (UnityEngine.Material)ToLua.CheckObject<UnityEngine.Material>(L, 1);
+				int arg0 = (int)LuaDLL.lua_tonumber(L, 2);
+				UnityEngine.GraphicsBuffer arg1 = (UnityEngine.GraphicsBuffer)ToLua.ToObject(L, 3);
+				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg3 = (int)LuaDLL.lua_tonumber(L, 5);
+				obj.SetConstantBuffer(arg0, arg1, arg2, arg3);
+				return 0;
+			}
 			else if (count == 5 && TypeChecker.CheckTypes<string, UnityEngine.ComputeBuffer, int, int>(L, 2))
 			{
 				UnityEngine.Material obj = (UnityEngine.Material)ToLua.CheckObject<UnityEngine.Material>(L, 1);
 				string arg0 = ToLua.ToString(L, 2);
 				UnityEngine.ComputeBuffer arg1 = (UnityEngine.ComputeBuffer)ToLua.ToObject(L, 3);
+				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg3 = (int)LuaDLL.lua_tonumber(L, 5);
+				obj.SetConstantBuffer(arg0, arg1, arg2, arg3);
+				return 0;
+			}
+			else if (count == 5 && TypeChecker.CheckTypes<string, UnityEngine.GraphicsBuffer, int, int>(L, 2))
+			{
+				UnityEngine.Material obj = (UnityEngine.Material)ToLua.CheckObject<UnityEngine.Material>(L, 1);
+				string arg0 = ToLua.ToString(L, 2);
+				UnityEngine.GraphicsBuffer arg1 = (UnityEngine.GraphicsBuffer)ToLua.ToObject(L, 3);
 				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
 				int arg3 = (int)LuaDLL.lua_tonumber(L, 5);
 				obj.SetConstantBuffer(arg0, arg1, arg2, arg3);

@@ -17,6 +17,7 @@ public class StartGame : MonoBehaviour
         {
             text.text = "正在更新资源";
             slider.value = 0;
+            MessageCenter.Remove(MsgEnum.ABLoadingBegin);
         });
         MessageCenter.Add(MsgEnum.ABLoadingError, (BaseMsg msg) =>
         {
@@ -31,12 +32,14 @@ public class StartGame : MonoBehaviour
         MessageCenter.Add(MsgEnum.ABLoadingFinish, (BaseMsg msg) =>
         {
             Debug.Log("更新完成");
+            MessageCenter.Remove(MsgEnum.ABLoadingFinish);
         });
         MessageCenter.Add(MsgEnum.RunLua, (BaseMsg msg) =>
         {
             Debug.Log("开始执行Lua的Main脚本");
             Destroy(text.gameObject);
             Destroy(slider.gameObject);
+            MessageCenter.Remove(MsgEnum.RunLua);
         });
 
         //启动框架

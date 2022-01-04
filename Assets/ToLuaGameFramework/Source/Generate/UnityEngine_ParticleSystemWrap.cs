@@ -24,6 +24,10 @@ public class UnityEngine_ParticleSystemWrap
 		L.RegFunction("Emit", Emit);
 		L.RegFunction("TriggerSubEmitter", TriggerSubEmitter);
 		L.RegFunction("ResetPreMappedBufferMemory", ResetPreMappedBufferMemory);
+		L.RegFunction("SetMaximumPreMappedBufferCounts", SetMaximumPreMappedBufferCounts);
+		L.RegFunction("AllocateAxisOfRotationAttribute", AllocateAxisOfRotationAttribute);
+		L.RegFunction("AllocateMeshIndexAttribute", AllocateMeshIndexAttribute);
+		L.RegFunction("AllocateCustomDataAttribute", AllocateCustomDataAttribute);
 		L.RegFunction("New", _CreateUnityEngine_ParticleSystem);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -42,6 +46,7 @@ public class UnityEngine_ParticleSystemWrap
 		L.RegVar("velocityOverLifetime", get_velocityOverLifetime, null);
 		L.RegVar("limitVelocityOverLifetime", get_limitVelocityOverLifetime, null);
 		L.RegVar("inheritVelocity", get_inheritVelocity, null);
+		L.RegVar("lifetimeByEmitterSpeed", get_lifetimeByEmitterSpeed, null);
 		L.RegVar("forceOverLifetime", get_forceOverLifetime, null);
 		L.RegVar("colorOverLifetime", get_colorOverLifetime, null);
 		L.RegVar("colorBySpeed", get_colorBySpeed, null);
@@ -635,6 +640,72 @@ public class UnityEngine_ParticleSystemWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetMaximumPreMappedBufferCounts(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.ParticleSystem.SetMaximumPreMappedBufferCounts(arg0, arg1);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AllocateAxisOfRotationAttribute(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			UnityEngine.ParticleSystem obj = (UnityEngine.ParticleSystem)ToLua.CheckObject(L, 1, typeof(UnityEngine.ParticleSystem));
+			obj.AllocateAxisOfRotationAttribute();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AllocateMeshIndexAttribute(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			UnityEngine.ParticleSystem obj = (UnityEngine.ParticleSystem)ToLua.CheckObject(L, 1, typeof(UnityEngine.ParticleSystem));
+			obj.AllocateMeshIndexAttribute();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AllocateCustomDataAttribute(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.ParticleSystem obj = (UnityEngine.ParticleSystem)ToLua.CheckObject(L, 1, typeof(UnityEngine.ParticleSystem));
+			UnityEngine.ParticleSystemCustomData arg0 = (UnityEngine.ParticleSystemCustomData)ToLua.CheckObject(L, 2, typeof(UnityEngine.ParticleSystemCustomData));
+			obj.AllocateCustomDataAttribute(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int op_Equality(IntPtr L)
 	{
 		try
@@ -934,6 +1005,25 @@ public class UnityEngine_ParticleSystemWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index inheritVelocity on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_lifetimeByEmitterSpeed(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.ParticleSystem obj = (UnityEngine.ParticleSystem)o;
+			UnityEngine.ParticleSystem.LifetimeByEmitterSpeedModule ret = obj.lifetimeByEmitterSpeed;
+			ToLua.PushValue(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index lifetimeByEmitterSpeed on a nil value");
 		}
 	}
 

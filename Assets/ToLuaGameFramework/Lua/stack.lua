@@ -1,9 +1,9 @@
 --[[
 栈用法：
     require "stack"
-    local myStack = Stack:new()
-    Stack.push(myStack, 1)
-    Stack.push(myStack, 2)
+    local myStack = Stack.New()
+    Stack.Push(myStack, 1)
+    Stack.Push(myStack, 2)
     Log(Stack.Pop(myStack))
     Log(Stack.Pop(myStack))
 ]]
@@ -14,7 +14,7 @@ function Stack.New()
     return {first = 0, last = -1}
 end
 
-function Stack.push(stack, value)
+function Stack.Push(stack, value)
     local last = stack.last + 1
     stack.last = last
     stack[last] = value

@@ -6,6 +6,7 @@
 local math = math
 local floor = math.floor
 local abs = math.abs
+---@class Mathf
 local Mathf = Mathf
 
 Mathf.Deg2Rad = math.rad(1)

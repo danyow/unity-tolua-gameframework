@@ -22,7 +22,7 @@ function ResPreload:Start()
             if progress == 1 then
                 Destroy(self.gameObject)
                 --最后一个参数不传，默认是1
-                CommandManager.Execute(CommandID.OpenUI, ModuleID.Login, 2)
+                CommandManager.Execute(CommandID.OpenUI, "LoginMgr", "Login")
             end
         end
     )

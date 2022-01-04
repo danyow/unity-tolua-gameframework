@@ -119,15 +119,19 @@ public static class LuaBinder
 		UnityEngine_UI_ToggleWrap.Register(L);
 		UnityEngine_UI_InputFieldWrap.Register(L);
 		UnityEngine_UI_ScrollRectWrap.Register(L);
+		UnityEngine_UI_HorizontalLayoutGroupWrap.Register(L);
+		UnityEngine_UI_VerticalLayoutGroupWrap.Register(L);
+		UnityEngine_UI_LayoutRebuilderWrap.Register(L);
 		UnityEngine_UI_MaskableGraphicWrap.Register(L);
 		UnityEngine_UI_GraphicWrap.Register(L);
 		UnityEngine_UI_SelectableWrap.Register(L);
+		UnityEngine_UI_HorizontalOrVerticalLayoutGroupWrap.Register(L);
+		UnityEngine_UI_LayoutGroupWrap.Register(L);
 		L.BeginModule("InputField");
 		L.RegFunction("OnValidateInput", UnityEngine_UI_InputField_OnValidateInput);
 		L.EndModule();
 		L.EndModule();
 		L.BeginModule("EventSystems");
-		UnityEngine_EventSystems_EventTriggerWrap.Register(L);
 		UnityEngine_EventSystems_UIBehaviourWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("Events");
@@ -165,12 +169,10 @@ public static class LuaBinder
 		ToLuaGameFramework_LButtonEffectWrap.Register(L);
 		ToLuaGameFramework_LTimerWrap.Register(L);
 		ToLuaGameFramework_BTweenWrap.Register(L);
+		ToLuaGameFramework_BEaseTypeWrap.Register(L);
 		ToLuaGameFramework_LMD5Wrap.Register(L);
 		ToLuaGameFramework_LAESWrap.Register(L);
 		L.RegFunction("TweenEvent", ToLuaGameFramework_TweenEvent);
-		L.BeginModule("BTween");
-		ToLuaGameFramework_BTween_BEaseTypeWrap.Register(L);
-		L.EndModule();
 		L.EndModule();
 		L.BeginModule("System");
 		L.RegFunction("Action", System_Action);
@@ -184,6 +186,7 @@ public static class LuaBinder
 		L.RegFunction("Func_bool", System_Func_bool);
 		L.RegFunction("Action_UnityEngine_AsyncOperation", System_Action_UnityEngine_AsyncOperation);
 		L.RegFunction("Action_ToLuaGameFramework_BaseMsg", System_Action_ToLuaGameFramework_BaseMsg);
+		L.RegFunction("Action_string_float_bool", System_Action_string_float_bool);
 		L.RegFunction("Action_float", System_Action_float);
 		L.EndModule();
 		L.EndModule();
@@ -1624,6 +1627,33 @@ public static class LuaBinder
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
 				Delegate arg1 = DelegateTraits<System.Action<ToLuaGameFramework.BaseMsg>>.Create(func, self);
+				ToLua.Push(L, arg1);
+			}
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int System_Action_string_float_bool(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+
+			if (count == 1)
+			{
+				Delegate arg1 = DelegateTraits<System.Action<string,float,bool>>.Create(func);
+				ToLua.Push(L, arg1);
+			}
+			else
+			{
+				LuaTable self = ToLua.CheckLuaTable(L, 2);
+				Delegate arg1 = DelegateTraits<System.Action<string,float,bool>>.Create(func, self);
 				ToLua.Push(L, arg1);
 			}
 			return 1;

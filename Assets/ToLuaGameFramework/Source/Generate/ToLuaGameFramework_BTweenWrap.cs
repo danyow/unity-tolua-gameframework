@@ -275,7 +275,7 @@ public class ToLuaGameFramework_BTweenWrap
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
-				ToLuaGameFramework.BTween.BEaseType arg4 = (ToLuaGameFramework.BTween.BEaseType)ToLua.CheckObject(L, 5, typeof(ToLuaGameFramework.BTween.BEaseType));
+				ToLuaGameFramework.BEaseType arg4 = (ToLuaGameFramework.BEaseType)ToLua.CheckObject(L, 5, typeof(ToLuaGameFramework.BEaseType));
 				System.Action<float> arg5 = (System.Action<float>)ToLua.CheckDelegate<System.Action<float>>(L, 6);
 				ToLuaGameFramework.ValueUpdate o = ToLuaGameFramework.BTween.Value(arg0, arg1, arg2, arg3, arg4, arg5);
 				ToLua.Push(L, o);
@@ -287,7 +287,7 @@ public class ToLuaGameFramework_BTweenWrap
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
-				ToLuaGameFramework.BTween.BEaseType arg4 = (ToLuaGameFramework.BTween.BEaseType)ToLua.CheckObject(L, 5, typeof(ToLuaGameFramework.BTween.BEaseType));
+				ToLuaGameFramework.BEaseType arg4 = (ToLuaGameFramework.BEaseType)ToLua.CheckObject(L, 5, typeof(ToLuaGameFramework.BEaseType));
 				System.Action<float> arg5 = (System.Action<float>)ToLua.CheckDelegate<System.Action<float>>(L, 6);
 				System.Action arg6 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 7);
 				ToLuaGameFramework.ValueUpdate o = ToLuaGameFramework.BTween.Value(arg0, arg1, arg2, arg3, arg4, arg5, arg6);

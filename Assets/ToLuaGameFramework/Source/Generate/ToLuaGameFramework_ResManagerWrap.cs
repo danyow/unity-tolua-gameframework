@@ -7,7 +7,9 @@ public class ToLuaGameFramework_ResManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ToLuaGameFramework.ResManager), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("UpdateRemoteAssetBundle", UpdateRemoteAssetBundle);
+		L.RegFunction("StartUpdateABOnStartup", StartUpdateABOnStartup);
+		L.RegFunction("IsABLoaded", IsABLoaded);
+		L.RegFunction("UpdateABsByNames", UpdateABsByNames);
 		L.RegFunction("PreloadLocalAssetBundles", PreloadLocalAssetBundles);
 		L.RegFunction("UnloadAllAssetBundles", UnloadAllAssetBundles);
 		L.RegFunction("SpawnPrefab", SpawnPrefab);
@@ -17,18 +19,53 @@ public class ToLuaGameFramework_ResManagerWrap
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("instance", get_instance, set_instance);
-		L.RegVar("localFiles", get_localFiles, set_localFiles);
 		L.EndClass();
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int UpdateRemoteAssetBundle(IntPtr L)
+	static int StartUpdateABOnStartup(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
 			ToLuaGameFramework.ResManager obj = (ToLuaGameFramework.ResManager)ToLua.CheckObject<ToLuaGameFramework.ResManager>(L, 1);
-			obj.UpdateRemoteAssetBundle();
+			obj.StartUpdateABOnStartup();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int IsABLoaded(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			ToLuaGameFramework.ResManager obj = (ToLuaGameFramework.ResManager)ToLua.CheckObject<ToLuaGameFramework.ResManager>(L, 1);
+			string arg0 = ToLua.CheckString(L, 2);
+			bool o = obj.IsABLoaded(arg0);
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int UpdateABsByNames(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			ToLuaGameFramework.ResManager obj = (ToLuaGameFramework.ResManager)ToLua.CheckObject<ToLuaGameFramework.ResManager>(L, 1);
+			string[] arg0 = ToLua.CheckStringArray(L, 2);
+			System.Action<string,float,bool> arg1 = (System.Action<string,float,bool>)ToLua.CheckDelegate<System.Action<string,float,bool>>(L, 3);
+			obj.UpdateABsByNames(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)
@@ -228,41 +265,12 @@ public class ToLuaGameFramework_ResManagerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_localFiles(IntPtr L)
-	{
-		try
-		{
-			ToLua.PushSealed(L, ToLuaGameFramework.ResManager.localFiles);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_instance(IntPtr L)
 	{
 		try
 		{
 			ToLuaGameFramework.ResManager arg0 = (ToLuaGameFramework.ResManager)ToLua.CheckObject<ToLuaGameFramework.ResManager>(L, 2);
 			ToLuaGameFramework.ResManager.instance = arg0;
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_localFiles(IntPtr L)
-	{
-		try
-		{
-			System.Collections.Generic.Dictionary<string,string> arg0 = (System.Collections.Generic.Dictionary<string,string>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.Dictionary<string,string>));
-			ToLuaGameFramework.ResManager.localFiles = arg0;
 			return 0;
 		}
 		catch (Exception e)

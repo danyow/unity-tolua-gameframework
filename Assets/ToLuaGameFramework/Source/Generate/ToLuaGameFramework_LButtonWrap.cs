@@ -7,51 +7,12 @@ public class ToLuaGameFramework_LButtonWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ToLuaGameFramework.LButton), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("OnPointerClick", OnPointerClick);
-		L.RegFunction("OnPointerDown", OnPointerDown);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("param", get_param, set_param);
 		L.RegVar("self", get_self, set_self);
 		L.RegVar("canTriggerInterval", get_canTriggerInterval, set_canTriggerInterval);
-		L.RegVar("onClick", get_onClick, set_onClick);
-		L.RegVar("onDown", get_onDown, set_onDown);
-		L.RegVar("rectTransform", get_rectTransform, null);
 		L.EndClass();
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int OnPointerClick(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)ToLua.CheckObject<ToLuaGameFramework.LButton>(L, 1);
-			UnityEngine.EventSystems.PointerEventData arg0 = (UnityEngine.EventSystems.PointerEventData)ToLua.CheckObject<UnityEngine.EventSystems.PointerEventData>(L, 2);
-			obj.OnPointerClick(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int OnPointerDown(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)ToLua.CheckObject<ToLuaGameFramework.LButton>(L, 1);
-			UnityEngine.EventSystems.PointerEventData arg0 = (UnityEngine.EventSystems.PointerEventData)ToLua.CheckObject<UnityEngine.EventSystems.PointerEventData>(L, 2);
-			obj.OnPointerDown(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -130,63 +91,6 @@ public class ToLuaGameFramework_LButtonWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_onClick(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
-			LuaInterface.LuaFunction ret = obj.onClick;
-			ToLua.Push(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index onClick on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_onDown(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
-			LuaInterface.LuaFunction ret = obj.onDown;
-			ToLua.Push(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index onDown on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_rectTransform(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
-			UnityEngine.RectTransform ret = obj.rectTransform;
-			ToLua.PushSealed(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index rectTransform on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_param(IntPtr L)
 	{
 		object o = null;
@@ -240,44 +144,6 @@ public class ToLuaGameFramework_LButtonWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index canTriggerInterval on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_onClick(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
-			LuaFunction arg0 = ToLua.CheckLuaFunction(L, 2);
-			obj.onClick = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index onClick on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_onDown(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			ToLuaGameFramework.LButton obj = (ToLuaGameFramework.LButton)o;
-			LuaFunction arg0 = ToLua.CheckLuaFunction(L, 2);
-			obj.onDown = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index onDown on a nil value");
 		}
 	}
 }

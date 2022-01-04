@@ -58,6 +58,7 @@ public class UnityEngine_ApplicationWrap
 		L.RegVar("deepLinkActivated", get_deepLinkActivated, set_deepLinkActivated);
 		L.RegVar("wantsToQuit", get_wantsToQuit, set_wantsToQuit);
 		L.RegVar("quitting", get_quitting, set_quitting);
+		L.RegVar("unloading", get_unloading, set_unloading);
 		L.RegFunction("AdvertisingIdentifierCallback", UnityEngine_Application_AdvertisingIdentifierCallback);
 		L.RegFunction("LogCallback", UnityEngine_Application_LogCallback);
 		L.RegFunction("LowMemoryCallback", UnityEngine_Application_LowMemoryCallback);
@@ -783,6 +784,13 @@ public class UnityEngine_ApplicationWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_unloading(IntPtr L)
+	{
+		ToLua.Push(L, new EventObject(typeof(System.Action)));
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_runInBackground(IntPtr L)
 	{
 		try
@@ -1097,6 +1105,41 @@ public class UnityEngine_ApplicationWrap
 			{
 				System.Action ev = (System.Action)arg0.func;
 				UnityEngine.Application.quitting -= ev;
+			}
+
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_unloading(IntPtr L)
+	{
+		try
+		{
+			EventObject arg0 = null;
+
+			if (LuaDLL.lua_isuserdata(L, 2) != 0)
+			{
+				arg0 = (EventObject)ToLua.ToObject(L, 2);
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "The event 'UnityEngine.Application.unloading' can only appear on the left hand side of += or -= when used outside of the type 'UnityEngine.Application'");
+			}
+
+			if (arg0.op == EventOp.Add)
+			{
+				System.Action ev = (System.Action)arg0.func;
+				UnityEngine.Application.unloading += ev;
+			}
+			else if (arg0.op == EventOp.Sub)
+			{
+				System.Action ev = (System.Action)arg0.func;
+				UnityEngine.Application.unloading -= ev;
 			}
 
 			return 0;

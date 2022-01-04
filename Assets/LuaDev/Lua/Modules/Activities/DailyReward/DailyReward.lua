@@ -21,7 +21,7 @@ function DailyReward:Awake()
         btn.trans = self.transform:Find("MainPanel/Menus/Btn" .. i)
         btn.on = btn.trans:Find("On")
         btn.off = btn.trans:Find("Off")
-        btn.trans:OnClick(i, self.onMenuSelect, self)
+        btn.trans:OnClick(self.onMenuSelect, self, i)
     end
 
     --内容页
@@ -58,7 +58,7 @@ function DailyReward:onMenuSelect(index)
     end
 
     if not self.contents[index] then
-        local contentIndexInModule = 10 + index
+        local contentIndexInModule = index
         self.contents[self.currSelectIndex] = self.module:OpenUI(contentIndexInModule, self.contentRoot)
         UIManager.RefreshSortObjects(self.transform)
     end

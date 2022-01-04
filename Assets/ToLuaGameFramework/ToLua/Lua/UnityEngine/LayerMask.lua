@@ -7,6 +7,7 @@ local Layer = Layer
 local rawget = rawget
 local setmetatable = setmetatable
 
+---@class LayerMask
 local LayerMask = {}
 
 LayerMask.__index = function(t,k)

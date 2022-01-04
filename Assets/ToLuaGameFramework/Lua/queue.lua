@@ -1,7 +1,7 @@
 --[[
 队列用法：
     require "queue"
-    local myQueue = Queue:new()
+    local myQueue = Queue.New()
     Queue.Push(myQueue, 1)
     Queue.Push(myQueue, 2)
     Log(Queue.Pop(myQueue))

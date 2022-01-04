@@ -26,6 +26,7 @@ TouchBits =
 
 local TouchPhase = TouchPhase
 local TouchBits = TouchBits
+---@class Touch
 local Touch = {}
 local get = tolua.initget(Touch)
 

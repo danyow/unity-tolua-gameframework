@@ -64,7 +64,7 @@ namespace ToLuaGameFramework
         /// <summary>
         /// 清空所有事件
         /// </summary>
-        public static void Clear(MsgEnum msgEnum)
+        public static void Remove(MsgEnum msgEnum)
         {
             if (eventsBuffer.ContainsKey(msgEnum))
             {
@@ -75,7 +75,7 @@ namespace ToLuaGameFramework
         /// <summary>
         /// 清空所有事件
         /// </summary>
-        public static void ClearAll()
+        public static void Clear()
         {
             Debug.Log(">>>>>>>>>>清空所有事件");
             eventsBuffer.Clear();

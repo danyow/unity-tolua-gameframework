@@ -11,6 +11,7 @@ local max 	= Mathf.Max
 local setmetatable = setmetatable
 local rawget = rawget
 
+---@class Vector4
 local Vector4 = {}
 local get = tolua.initget(Vector4)
 

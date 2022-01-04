@@ -1,5 +1,4 @@
-﻿using ToLuaGameFramework;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 框架配置
@@ -39,7 +38,7 @@ public static class LuaConst
 #elif UNITY_ANDROID
     public static string osDir = "Android";
 #elif UNITY_IPHONE
-    public static string osDir = "iOS";        
+    public static string osDir = "iOS";
 #else
     public static string osDir = "";        
 #endif

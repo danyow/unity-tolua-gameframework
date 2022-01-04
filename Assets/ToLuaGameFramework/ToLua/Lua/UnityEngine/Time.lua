@@ -68,6 +68,7 @@ _Time.__newindex = function(t, k, v)
 	error(string.format("Property or indexer `UnityEngine.Time.%s' cannot be assigned to (it is read only)", k))	
 end
 
+---@class Time
 local Time = {}
 local counter = 1
 

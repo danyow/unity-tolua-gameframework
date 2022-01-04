@@ -7,6 +7,7 @@ local setmetatable = setmetatable
 local Mathf = Mathf
 local Vector3 = Vector3
 
+---@class Plane
 local Plane = {}
 
 Plane.__index = function(t,k)

@@ -69,6 +69,7 @@ public class DelegateFactory
 		dict.Add(typeof(UnityEngine.RectTransform.ReapplyDrivenProperties), factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
 		dict.Add(typeof(UnityEngine.UI.InputField.OnValidateInput), factory.UnityEngine_UI_InputField_OnValidateInput);
 		dict.Add(typeof(System.Action<ToLuaGameFramework.BaseMsg>), factory.System_Action_ToLuaGameFramework_BaseMsg);
+		dict.Add(typeof(System.Action<string,float,bool>), factory.System_Action_string_float_bool);
 		dict.Add(typeof(ToLuaGameFramework.TweenEvent), factory.ToLuaGameFramework_TweenEvent);
 		dict.Add(typeof(System.Action<float>), factory.System_Action_float);
 
@@ -124,6 +125,7 @@ public class DelegateFactory
 		DelegateTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
 		DelegateTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.UnityEngine_UI_InputField_OnValidateInput);
 		DelegateTraits<System.Action<ToLuaGameFramework.BaseMsg>>.Init(factory.System_Action_ToLuaGameFramework_BaseMsg);
+		DelegateTraits<System.Action<string,float,bool>>.Init(factory.System_Action_string_float_bool);
 		DelegateTraits<ToLuaGameFramework.TweenEvent>.Init(factory.ToLuaGameFramework_TweenEvent);
 		DelegateTraits<System.Action<float>>.Init(factory.System_Action_float);
 
@@ -179,6 +181,7 @@ public class DelegateFactory
 		TypeTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.Check_UnityEngine_RectTransform_ReapplyDrivenProperties);
 		TypeTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.Check_UnityEngine_UI_InputField_OnValidateInput);
 		TypeTraits<System.Action<ToLuaGameFramework.BaseMsg>>.Init(factory.Check_System_Action_ToLuaGameFramework_BaseMsg);
+		TypeTraits<System.Action<string,float,bool>>.Init(factory.Check_System_Action_string_float_bool);
 		TypeTraits<ToLuaGameFramework.TweenEvent>.Init(factory.Check_ToLuaGameFramework_TweenEvent);
 		TypeTraits<System.Action<float>>.Init(factory.Check_System_Action_float);
 
@@ -234,6 +237,7 @@ public class DelegateFactory
 		StackTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Push = factory.Push_UnityEngine_RectTransform_ReapplyDrivenProperties;
 		StackTraits<UnityEngine.UI.InputField.OnValidateInput>.Push = factory.Push_UnityEngine_UI_InputField_OnValidateInput;
 		StackTraits<System.Action<ToLuaGameFramework.BaseMsg>>.Push = factory.Push_System_Action_ToLuaGameFramework_BaseMsg;
+		StackTraits<System.Action<string,float,bool>>.Push = factory.Push_System_Action_string_float_bool;
 		StackTraits<ToLuaGameFramework.TweenEvent>.Push = factory.Push_ToLuaGameFramework_TweenEvent;
 		StackTraits<System.Action<float>>.Push = factory.Push_System_Action_float;
 	}
@@ -3353,6 +3357,67 @@ public class DelegateFactory
 	}
 
 	void Push_System_Action_ToLuaGameFramework_BaseMsg(IntPtr L, System.Action<ToLuaGameFramework.BaseMsg> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_string_float_bool_Event : LuaDelegate
+	{
+		public System_Action_string_float_bool_Event(LuaFunction func) : base(func) { }
+		public System_Action_string_float_bool_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(string param0, float param1, bool param2)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.Push(param1);
+			func.Push(param2);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(string param0, float param1, bool param2)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.Push(param2);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<string,float,bool> System_Action_string_float_bool(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<string,float,bool> fn = delegate(string param0, float param1, bool param2) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_string_float_bool_Event target = new System_Action_string_float_bool_Event(func);
+			System.Action<string,float,bool> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_string_float_bool_Event target = new System_Action_string_float_bool_Event(func, self);
+			System.Action<string,float,bool> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_string_float_bool(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<string,float,bool>), L, pos);
+	}
+
+	void Push_System_Action_string_float_bool(IntPtr L, System.Action<string,float,bool> o)
 	{
 		ToLua.Push(L, o);
 	}

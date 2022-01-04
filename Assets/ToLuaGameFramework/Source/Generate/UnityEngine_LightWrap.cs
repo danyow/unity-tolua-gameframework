@@ -46,6 +46,7 @@ public class UnityEngine_LightWrap
 		L.RegVar("bounceIntensity", get_bounceIntensity, set_bounceIntensity);
 		L.RegVar("useBoundingSphereOverride", get_useBoundingSphereOverride, set_useBoundingSphereOverride);
 		L.RegVar("boundingSphereOverride", get_boundingSphereOverride, set_boundingSphereOverride);
+		L.RegVar("useViewFrustumForShadowCasterCull", get_useViewFrustumForShadowCasterCull, set_useViewFrustumForShadowCasterCull);
 		L.RegVar("shadowCustomResolution", get_shadowCustomResolution, set_shadowCustomResolution);
 		L.RegVar("shadowBias", get_shadowBias, set_shadowBias);
 		L.RegVar("shadowNormalBias", get_shadowNormalBias, set_shadowNormalBias);
@@ -858,6 +859,25 @@ public class UnityEngine_LightWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_useViewFrustumForShadowCasterCull(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Light obj = (UnityEngine.Light)o;
+			bool ret = obj.useViewFrustumForShadowCasterCull;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index useViewFrustumForShadowCasterCull on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_shadowCustomResolution(IntPtr L)
 	{
 		object o = null;
@@ -1443,6 +1463,25 @@ public class UnityEngine_LightWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index boundingSphereOverride on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_useViewFrustumForShadowCasterCull(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Light obj = (UnityEngine.Light)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.useViewFrustumForShadowCasterCull = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index useViewFrustumForShadowCasterCull on a nil value");
 		}
 	}
 

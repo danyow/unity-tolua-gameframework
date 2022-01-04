@@ -3,29 +3,29 @@ using UnityEngine;
 
 namespace ToLuaGameFramework
 {
+    public enum BEaseType
+    {
+        Linear,
+        ExpoIn,
+        ExpoOut,
+        ExpoInOut,
+        SineIn,
+        SineOut,
+        SineInOut,
+        ElasticIn,
+        ElasticOut,
+        ElasticInOut,
+        BackIn,
+        BackOut,
+        BackInOut,
+        BounceIn,
+        BounceOut,
+        BounceInOut
+    }
+
     public delegate void TweenEvent(Transform target);
     public class BTween
     {
-        public enum BEaseType
-        {
-            Linear,
-            ExpoIn,
-            ExpoOut,
-            ExpoInOut,
-            SineIn,
-            SineOut,
-            SineInOut,
-            ElasticIn,
-            ElasticOut,
-            ElasticInOut,
-            BackIn,
-            BackOut,
-            BackInOut,
-            BounceIn,
-            BounceOut,
-            BounceInOut
-        }
-
         /// <summary>
         /// 不加Time.deltaTime
         /// </summary>

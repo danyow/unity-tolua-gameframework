@@ -21,6 +21,7 @@ local type = type
 local rad2Deg = 57.295779513082
 local deg2Rad = 0.017453292519943
 
+---@class Vector3
 local Vector3 = {}
 local get = tolua.initget(Vector3)
 

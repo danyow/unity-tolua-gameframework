@@ -218,7 +218,9 @@ namespace ToLuaGameFramework
             {
                 LuaBehaviour luaBehaviour = currVisibleUIList[i];
                 //如果前一层被设置过，说明前一层又PartileSystem或者Canvas，则本层也需要追加Canvas才能盖住
-                if (i > 0 && currVisibleUIList[i - 1].IsSetedOrder)
+                //但是：内部检测到摄像机，说明该UI自己管理层级，必须要添加Canvas
+                Camera uiCamera = luaBehaviour.GetComponentInChildren<Camera>();
+                if (i > 0 && currVisibleUIList[i - 1].IsSetedOrder && !uiCamera)
                 {
                     luaBehaviour.AddCanvas();
                 }

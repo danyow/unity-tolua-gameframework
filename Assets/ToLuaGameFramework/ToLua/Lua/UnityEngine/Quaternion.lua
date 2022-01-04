@@ -27,6 +27,7 @@ local _forward = Vector3.forward
 local _up = Vector3.up
 local _next = { 2, 3, 1 }
 
+---@class Quaternion
 local Quaternion = {}
 local get = tolua.initget(Quaternion)
 

@@ -9,6 +9,7 @@ local setmetatable = setmetatable
 local type = type
 local Mathf = Mathf
 
+---@class Color
 local Color = {}
 local get = tolua.initget(Color)
 

@@ -1,5 +1,5 @@
 local LuaBehaviour = require "Core.LuaBehaviour"
-
+---@class BaseUI : LuaBehaviour
 local BaseUI = Class("BaseUI", LuaBehaviour)
 
 --由子类重写，是否加入Ui栈策略
@@ -20,8 +20,11 @@ end
 function BaseUI:CreateGameObject(parent)
     local prefabPath = self:PrefabPath()
     if not prefabPath or prefabPath == "" then
-        LogError("请重写prefabPath()方法并指定Prefab路径")
+        LogError("请重写PrefabPath()方法并指定Prefab路径")
         return
+    end
+    if not parent then
+        parent = self:GetParent()
     end
     local go =
         UIManager.SpawnUI(

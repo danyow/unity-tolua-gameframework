@@ -82,7 +82,7 @@ public class ToLuaGameFramework_MessageCenterWrap
 		{
 			ToLua.CheckArgsCount(L, 1);
 			ToLuaGameFramework.MsgEnum arg0 = (ToLuaGameFramework.MsgEnum)ToLua.CheckObject(L, 1, typeof(ToLuaGameFramework.MsgEnum));
-			ToLuaGameFramework.MessageCenter.Clear(arg0);
+			ToLuaGameFramework.MessageCenter.Remove(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -97,7 +97,7 @@ public class ToLuaGameFramework_MessageCenterWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 0);
-			ToLuaGameFramework.MessageCenter.ClearAll();
+			ToLuaGameFramework.MessageCenter.Clear();
 			return 0;
 		}
 		catch (Exception e)

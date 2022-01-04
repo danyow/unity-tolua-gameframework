@@ -24,7 +24,7 @@ function PlayerInfo:Awake()
     local btnAlert = self.transform:Find("Panel/OverLayer/BtnAlert")
     btnAlert:OnClick(
         function()
-            local alert = Module.Get(ModuleID.Common):OpenUI(1)
+            local alert = Modules.Common:OpenUI("Alert")
             alert:SetContent("自动添加Canvas以盖住特效")
         end
     )

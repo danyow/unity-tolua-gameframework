@@ -47,6 +47,7 @@ public class UnityEngine_CameraWrap
 		L.RegFunction("Render", Render);
 		L.RegFunction("RenderWithShader", RenderWithShader);
 		L.RegFunction("RenderDontRestore", RenderDontRestore);
+		L.RegFunction("SubmitRenderRequests", SubmitRenderRequests);
 		L.RegFunction("SetupCurrent", SetupCurrent);
 		L.RegFunction("CopyFrom", CopyFrom);
 		L.RegFunction("RemoveCommandBuffers", RemoveCommandBuffers);
@@ -1030,6 +1031,23 @@ public class UnityEngine_CameraWrap
 			ToLua.CheckArgsCount(L, 1);
 			UnityEngine.Camera obj = (UnityEngine.Camera)ToLua.CheckObject(L, 1, typeof(UnityEngine.Camera));
 			obj.RenderDontRestore();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SubmitRenderRequests(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.Camera obj = (UnityEngine.Camera)ToLua.CheckObject(L, 1, typeof(UnityEngine.Camera));
+			System.Collections.Generic.List<UnityEngine.Camera.RenderRequest> arg0 = (System.Collections.Generic.List<UnityEngine.Camera.RenderRequest>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Camera.RenderRequest>));
+			obj.SubmitRenderRequests(arg0);
 			return 0;
 		}
 		catch (Exception e)

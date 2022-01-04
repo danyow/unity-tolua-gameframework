@@ -48,6 +48,7 @@ public class UnityEngine_ShaderWrap
 		L.RegFunction("GetPropertyRangeLimits", GetPropertyRangeLimits);
 		L.RegFunction("GetPropertyTextureDimension", GetPropertyTextureDimension);
 		L.RegFunction("GetPropertyTextureDefaultName", GetPropertyTextureDefaultName);
+		L.RegFunction("FindTextureStack", FindTextureStack);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("maximumLOD", get_maximumLOD, set_maximumLOD);
@@ -416,10 +417,24 @@ public class UnityEngine_ShaderWrap
 				UnityEngine.Shader.SetGlobalBuffer(arg0, arg1);
 				return 0;
 			}
+			else if (count == 2 && TypeChecker.CheckTypes<int, UnityEngine.GraphicsBuffer>(L, 1))
+			{
+				int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+				UnityEngine.GraphicsBuffer arg1 = (UnityEngine.GraphicsBuffer)ToLua.ToObject(L, 2);
+				UnityEngine.Shader.SetGlobalBuffer(arg0, arg1);
+				return 0;
+			}
 			else if (count == 2 && TypeChecker.CheckTypes<string, UnityEngine.ComputeBuffer>(L, 1))
 			{
 				string arg0 = ToLua.ToString(L, 1);
 				UnityEngine.ComputeBuffer arg1 = (UnityEngine.ComputeBuffer)ToLua.ToObject(L, 2);
+				UnityEngine.Shader.SetGlobalBuffer(arg0, arg1);
+				return 0;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes<string, UnityEngine.GraphicsBuffer>(L, 1))
+			{
+				string arg0 = ToLua.ToString(L, 1);
+				UnityEngine.GraphicsBuffer arg1 = (UnityEngine.GraphicsBuffer)ToLua.ToObject(L, 2);
 				UnityEngine.Shader.SetGlobalBuffer(arg0, arg1);
 				return 0;
 			}
@@ -439,13 +454,48 @@ public class UnityEngine_ShaderWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 4);
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
-			UnityEngine.ComputeBuffer arg1 = (UnityEngine.ComputeBuffer)ToLua.CheckObject(L, 2, typeof(UnityEngine.ComputeBuffer));
-			int arg2 = (int)LuaDLL.luaL_checknumber(L, 3);
-			int arg3 = (int)LuaDLL.luaL_checknumber(L, 4);
-			UnityEngine.Shader.SetGlobalConstantBuffer(arg0, arg1, arg2, arg3);
-			return 0;
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 4 && TypeChecker.CheckTypes<int, UnityEngine.ComputeBuffer, int, int>(L, 1))
+			{
+				int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+				UnityEngine.ComputeBuffer arg1 = (UnityEngine.ComputeBuffer)ToLua.ToObject(L, 2);
+				int arg2 = (int)LuaDLL.lua_tonumber(L, 3);
+				int arg3 = (int)LuaDLL.lua_tonumber(L, 4);
+				UnityEngine.Shader.SetGlobalConstantBuffer(arg0, arg1, arg2, arg3);
+				return 0;
+			}
+			else if (count == 4 && TypeChecker.CheckTypes<int, UnityEngine.GraphicsBuffer, int, int>(L, 1))
+			{
+				int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+				UnityEngine.GraphicsBuffer arg1 = (UnityEngine.GraphicsBuffer)ToLua.ToObject(L, 2);
+				int arg2 = (int)LuaDLL.lua_tonumber(L, 3);
+				int arg3 = (int)LuaDLL.lua_tonumber(L, 4);
+				UnityEngine.Shader.SetGlobalConstantBuffer(arg0, arg1, arg2, arg3);
+				return 0;
+			}
+			else if (count == 4 && TypeChecker.CheckTypes<string, UnityEngine.ComputeBuffer, int, int>(L, 1))
+			{
+				string arg0 = ToLua.ToString(L, 1);
+				UnityEngine.ComputeBuffer arg1 = (UnityEngine.ComputeBuffer)ToLua.ToObject(L, 2);
+				int arg2 = (int)LuaDLL.lua_tonumber(L, 3);
+				int arg3 = (int)LuaDLL.lua_tonumber(L, 4);
+				UnityEngine.Shader.SetGlobalConstantBuffer(arg0, arg1, arg2, arg3);
+				return 0;
+			}
+			else if (count == 4 && TypeChecker.CheckTypes<string, UnityEngine.GraphicsBuffer, int, int>(L, 1))
+			{
+				string arg0 = ToLua.ToString(L, 1);
+				UnityEngine.GraphicsBuffer arg1 = (UnityEngine.GraphicsBuffer)ToLua.ToObject(L, 2);
+				int arg2 = (int)LuaDLL.lua_tonumber(L, 3);
+				int arg3 = (int)LuaDLL.lua_tonumber(L, 4);
+				UnityEngine.Shader.SetGlobalConstantBuffer(arg0, arg1, arg2, arg3);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: UnityEngine.Shader.SetGlobalConstantBuffer");
+			}
 		}
 		catch (Exception e)
 		{
@@ -1147,6 +1197,28 @@ public class UnityEngine_ShaderWrap
 			string o = obj.GetPropertyTextureDefaultName(arg0);
 			LuaDLL.lua_pushstring(L, o);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int FindTextureStack(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 4);
+			UnityEngine.Shader obj = (UnityEngine.Shader)ToLua.CheckObject(L, 1, typeof(UnityEngine.Shader));
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			string arg1 = null;
+			int arg2;
+			bool o = obj.FindTextureStack(arg0, out arg1, out arg2);
+			LuaDLL.lua_pushboolean(L, o);
+			LuaDLL.lua_pushstring(L, arg1);
+			LuaDLL.lua_pushinteger(L, arg2);
+			return 3;
 		}
 		catch (Exception e)
 		{

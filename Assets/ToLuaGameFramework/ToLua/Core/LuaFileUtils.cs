@@ -225,18 +225,13 @@ namespace LuaInterface
         {
             AssetBundle zipFile = null;
             byte[] buffer = null;
-            string zipName = null;
 
             using (CString.Block())
             {
-                CString sb = CString.Alloc(256);
-                sb.Append("lua");
                 int pos = fileName.LastIndexOf('/');
 
                 if (pos > 0)
                 {
-                    sb.Append("_");
-                    sb.Append(fileName, 0, pos).ToLower().Replace('/', '_');
                     fileName = fileName.Substring(pos + 1);
                 }
 
@@ -248,8 +243,8 @@ namespace LuaInterface
 #if UNITY_5 || UNITY_5_3_OR_NEWER
                 fileName += ".bytes";
 #endif
-                zipName = sb.ToString();
-                zipMap.TryGetValue(zipName, out zipFile);
+                //所有lua脚本都打进一个AB包里，由LuaManager.cs的106行一次添加，所以这里不管查找什么名字的脚本，只从lua这个AB包里查找即可
+                zipMap.TryGetValue("lua", out zipFile);
             }
 
             if (zipFile != null)

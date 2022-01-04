@@ -6,22 +6,18 @@ namespace ToLuaGameFramework
     public static class LButtonExtend
     {
 
-        public static void OnClick(this Transform btn, LuaFunction clickEvent, LuaTable self = null, bool addClickEffect = true)
+        public static LButton OnClick(this Transform btn, LuaFunction clickEvent, LuaTable self = null, object param = null, bool addTriggerEffect = true, float interval = 0.5f)
         {
-            btn.OnClick(0, clickEvent, self, addClickEffect);
-        }
-
-        public static void OnClick(this Transform btn, object param, LuaFunction clickEvent, LuaTable self = null, bool addClickEffect = true)
-        {
-            LButton bButton = btn.GetComponent<LButton>();
+            LButtonClick bButton = btn.GetComponent<LButtonClick>();
             if (!bButton)
             {
-                bButton = btn.gameObject.AddComponent<LButton>();
+                bButton = btn.gameObject.AddComponent<LButtonClick>();
             }
-            bButton.param = param;
             bButton.onClick = clickEvent;
+            bButton.param = param;
             bButton.self = self;
-            if (addClickEffect)
+            bButton.canTriggerInterval = interval;
+            if (addTriggerEffect)
             {
                 LButtonEffect effect = btn.gameObject.GetComponent<LButtonEffect>();
                 if (!effect)
@@ -37,24 +33,21 @@ namespace ToLuaGameFramework
                     GameObject.Destroy(effect);
                 }
             }
+            return bButton;
         }
 
-        public static void OnDown(this Transform btn, LuaFunction pointerDownEvent, LuaTable self = null, bool addClickEffect = true)
+        public static LButton OnDown(this Transform btn, LuaFunction downEvent, LuaTable self = null, object param = null, bool addTriggerEffect = true, float interval = 1)
         {
-            btn.OnDown(0, pointerDownEvent, self, addClickEffect);
-        }
-
-        public static void OnDown(this Transform btn, object param, LuaFunction pointerDownEvent, LuaTable self = null, bool addClickEffect = true)
-        {
-            LButton bButton = btn.GetComponent<LButton>();
+            LButtonDown bButton = btn.GetComponent<LButtonDown>();
             if (!bButton)
             {
-                bButton = btn.gameObject.AddComponent<LButton>();
+                bButton = btn.gameObject.AddComponent<LButtonDown>();
             }
+            bButton.onDown = downEvent;
             bButton.param = param;
-            bButton.onDown = pointerDownEvent;
             bButton.self = self;
-            if (addClickEffect)
+            bButton.canTriggerInterval = interval;
+            if (addTriggerEffect)
             {
                 LButtonEffect effect = btn.gameObject.GetComponent<LButtonEffect>();
                 if (!effect)
@@ -70,9 +63,40 @@ namespace ToLuaGameFramework
                     GameObject.Destroy(effect);
                 }
             }
+            return bButton;
         }
 
-        public static void ClearEvent(this Transform btn)
+        public static LButton OnPressEnter(this Transform btn, LuaFunction pressEnterEvent, LuaTable self = null, object param = null, bool addTriggerEffect = true, float interval = 1)
+        {
+            LButtonPressEnter bButton = btn.GetComponent<LButtonPressEnter>();
+            if (!bButton)
+            {
+                bButton = btn.gameObject.AddComponent<LButtonPressEnter>();
+            }
+            bButton.onPressEnter = pressEnterEvent;
+            bButton.param = param;
+            bButton.self = self;
+            bButton.canTriggerInterval = interval;
+            if (addTriggerEffect)
+            {
+                LButtonEffect effect = btn.gameObject.GetComponent<LButtonEffect>();
+                if (!effect)
+                {
+                    btn.gameObject.AddComponent<LButtonEffect>();
+                }
+            }
+            else
+            {
+                LButtonEffect effect = btn.gameObject.GetComponent<LButtonEffect>();
+                if (effect)
+                {
+                    GameObject.Destroy(effect);
+                }
+            }
+            return bButton;
+        }
+
+        public static LButton ClearEvent(this Transform btn)
         {
             LButton bButton = btn.GetComponent<LButton>();
             if (bButton)
@@ -84,6 +108,7 @@ namespace ToLuaGameFramework
             {
                 GameObject.Destroy(effect);
             }
+            return bButton;
         }
 
     }

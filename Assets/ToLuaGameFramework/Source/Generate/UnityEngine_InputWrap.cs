@@ -43,7 +43,6 @@ public class UnityEngine_InputWrap
 		L.RegVar("compensateSensors", get_compensateSensors, set_compensateSensors);
 		L.RegVar("accelerationEventCount", get_accelerationEventCount, null);
 		L.RegVar("backButtonLeavesApp", get_backButtonLeavesApp, set_backButtonLeavesApp);
-		L.RegVar("location", get_location, null);
 		L.RegVar("compass", get_compass, null);
 		L.RegVar("gyro", get_gyro, null);
 		L.RegVar("touches", get_touches, null);
@@ -634,20 +633,6 @@ public class UnityEngine_InputWrap
 		try
 		{
 			LuaDLL.lua_pushboolean(L, UnityEngine.Input.backButtonLeavesApp);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_location(IntPtr L)
-	{
-		try
-		{
-			ToLua.PushObject(L, UnityEngine.Input.location);
 			return 1;
 		}
 		catch (Exception e)

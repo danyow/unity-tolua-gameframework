@@ -8,11 +8,16 @@ public class UnityEngine_TimeWrap
 	{
 		L.BeginStaticLibs("Time");
 		L.RegVar("time", get_time, null);
+		L.RegVar("timeAsDouble", get_timeAsDouble, null);
 		L.RegVar("timeSinceLevelLoad", get_timeSinceLevelLoad, null);
+		L.RegVar("timeSinceLevelLoadAsDouble", get_timeSinceLevelLoadAsDouble, null);
 		L.RegVar("deltaTime", get_deltaTime, null);
 		L.RegVar("fixedTime", get_fixedTime, null);
+		L.RegVar("fixedTimeAsDouble", get_fixedTimeAsDouble, null);
 		L.RegVar("unscaledTime", get_unscaledTime, null);
+		L.RegVar("unscaledTimeAsDouble", get_unscaledTimeAsDouble, null);
 		L.RegVar("fixedUnscaledTime", get_fixedUnscaledTime, null);
+		L.RegVar("fixedUnscaledTimeAsDouble", get_fixedUnscaledTimeAsDouble, null);
 		L.RegVar("unscaledDeltaTime", get_unscaledDeltaTime, null);
 		L.RegVar("fixedUnscaledDeltaTime", get_fixedUnscaledDeltaTime, null);
 		L.RegVar("fixedDeltaTime", get_fixedDeltaTime, set_fixedDeltaTime);
@@ -23,6 +28,7 @@ public class UnityEngine_TimeWrap
 		L.RegVar("frameCount", get_frameCount, null);
 		L.RegVar("renderedFrameCount", get_renderedFrameCount, null);
 		L.RegVar("realtimeSinceStartup", get_realtimeSinceStartup, null);
+		L.RegVar("realtimeSinceStartupAsDouble", get_realtimeSinceStartupAsDouble, null);
 		L.RegVar("captureDeltaTime", get_captureDeltaTime, set_captureDeltaTime);
 		L.RegVar("captureFramerate", get_captureFramerate, set_captureFramerate);
 		L.RegVar("inFixedTimeStep", get_inFixedTimeStep, null);
@@ -44,11 +50,39 @@ public class UnityEngine_TimeWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_timeAsDouble(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.timeAsDouble);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_timeSinceLevelLoad(IntPtr L)
 	{
 		try
 		{
 			LuaDLL.lua_pushnumber(L, UnityEngine.Time.timeSinceLevelLoad);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_timeSinceLevelLoadAsDouble(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.timeSinceLevelLoadAsDouble);
 			return 1;
 		}
 		catch (Exception e)
@@ -86,6 +120,20 @@ public class UnityEngine_TimeWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_fixedTimeAsDouble(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.fixedTimeAsDouble);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_unscaledTime(IntPtr L)
 	{
 		try
@@ -100,11 +148,39 @@ public class UnityEngine_TimeWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_unscaledTimeAsDouble(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.unscaledTimeAsDouble);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_fixedUnscaledTime(IntPtr L)
 	{
 		try
 		{
 			LuaDLL.lua_pushnumber(L, UnityEngine.Time.fixedUnscaledTime);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_fixedUnscaledTimeAsDouble(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.fixedUnscaledTimeAsDouble);
 			return 1;
 		}
 		catch (Exception e)
@@ -245,6 +321,20 @@ public class UnityEngine_TimeWrap
 		try
 		{
 			LuaDLL.lua_pushnumber(L, UnityEngine.Time.realtimeSinceStartup);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_realtimeSinceStartupAsDouble(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Time.realtimeSinceStartupAsDouble);
 			return 1;
 		}
 		catch (Exception e)

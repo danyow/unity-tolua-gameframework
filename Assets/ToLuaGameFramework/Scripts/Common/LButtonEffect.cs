@@ -9,7 +9,7 @@ namespace ToLuaGameFramework
         public Image targetImg;
         public RawImage targetRawImg;
         public bool scale = true, color, texture;
-        public float pressScale = 0.98f;
+        public float pressScale = 0.95f;
         public Color changeColor = new Color(0.97f, 0.97f, 0.97f, 1);
         public Texture2D changeTexture;
 
@@ -17,7 +17,7 @@ namespace ToLuaGameFramework
         Sprite spriteDefault;
         Texture textureDefault;
         Vector3 defaultScale;
-        LButton button;
+        LButton[] buttons;
 
         void Awake()
         {
@@ -39,21 +39,26 @@ namespace ToLuaGameFramework
                 textureDefault = targetRawImg.texture;
                 colorDefault = targetRawImg.color;
             }
-            button = GetComponent<LButton>();
+            buttons = GetComponents<LButton>();
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (IsEnable())
+            if (targetImg && scale && defaultScale == Vector3.zero)
+            {
+                defaultScale = targetImg.transform.localScale;
+            }
+            if (targetRawImg && scale && defaultScale == Vector3.zero)
+            {
+                defaultScale = targetRawImg.transform.localScale;
+            }
+
+            if (IsButtonsEnable())
             {
                 if (targetImg)
                 {
                     if (scale)
                     {
-                        if (defaultScale == Vector3.zero)
-                        {
-                            defaultScale = targetImg.transform.localScale;
-                        }
                         targetImg.transform.localScale = defaultScale * pressScale;
                     }
                     if (texture)
@@ -69,10 +74,6 @@ namespace ToLuaGameFramework
                 {
                     if (scale)
                     {
-                        if (defaultScale == Vector3.zero)
-                        {
-                            defaultScale = targetRawImg.transform.localScale;
-                        }
                         targetRawImg.transform.localScale = defaultScale * pressScale;
                     }
                     if (texture)
@@ -89,55 +90,48 @@ namespace ToLuaGameFramework
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (IsEnable())
+            if (targetImg)
             {
-                if (targetImg)
+                if (scale)
                 {
-                    if (scale)
-                    {
-                        targetImg.transform.localScale = defaultScale;
-                    }
-                    if (texture)
-                    {
-                        targetImg.sprite = spriteDefault;
-                    }
-                    if (color)
-                    {
-                        targetImg.color = colorDefault;
-                    }
+                    targetImg.transform.localScale = defaultScale;
                 }
-                if (targetRawImg)
+                if (texture)
                 {
-                    if (scale)
-                    {
-                        targetRawImg.transform.localScale = defaultScale;
-                    }
-                    if (texture)
-                    {
-                        targetRawImg.texture = textureDefault;
-                    }
-                    if (color)
-                    {
-                        targetRawImg.color = colorDefault;
-                    }
+                    targetImg.sprite = spriteDefault;
+                }
+                if (color)
+                {
+                    targetImg.color = colorDefault;
+                }
+            }
+            if (targetRawImg)
+            {
+                if (scale)
+                {
+                    targetRawImg.transform.localScale = defaultScale;
+                }
+                if (texture)
+                {
+                    targetRawImg.texture = textureDefault;
+                }
+                if (color)
+                {
+                    targetRawImg.color = colorDefault;
                 }
             }
         }
 
-        bool IsEnable()
+        bool IsButtonsEnable()
         {
-            if (!this.enabled)
+            for (int i = 0; i < buttons.Length; i++)
             {
-                return false;
-            }
-            else
-            {
-                if (button)
+                if (buttons[i].enabled)
                 {
-                    return button.enabled;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         Sprite TextureToSprite(Texture2D texture)

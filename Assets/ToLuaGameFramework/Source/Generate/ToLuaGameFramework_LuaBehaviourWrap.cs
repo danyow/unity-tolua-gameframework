@@ -9,8 +9,8 @@ public class ToLuaGameFramework_LuaBehaviourWrap
 		L.BeginClass(typeof(ToLuaGameFramework.LuaBehaviour), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("SetOrders", SetOrders);
 		L.RegFunction("AddCanvas", AddCanvas);
-		L.RegFunction("SetLuaClass", SetLuaClass);
-		L.RegFunction("SetLuaClassId", SetLuaClassId);
+		L.RegFunction("AddLuaClass", AddLuaClass);
+		L.RegFunction("RemoveLuaClass", RemoveLuaClass);
 		L.RegFunction("RefreshSortObjects", RefreshSortObjects);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -59,14 +59,19 @@ public class ToLuaGameFramework_LuaBehaviourWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int SetLuaClass(IntPtr L)
+	static int AddLuaClass(IntPtr L)
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 7);
 			ToLuaGameFramework.LuaBehaviour obj = (ToLuaGameFramework.LuaBehaviour)ToLua.CheckObject<ToLuaGameFramework.LuaBehaviour>(L, 1);
 			LuaTable arg0 = ToLua.CheckLuaTable(L, 2);
-			obj.SetLuaClass(arg0);
+			LuaFunction arg1 = ToLua.CheckLuaFunction(L, 3);
+			LuaFunction arg2 = ToLua.CheckLuaFunction(L, 4);
+			LuaFunction arg3 = ToLua.CheckLuaFunction(L, 5);
+			LuaFunction arg4 = ToLua.CheckLuaFunction(L, 6);
+			LuaFunction arg5 = ToLua.CheckLuaFunction(L, 7);
+			obj.AddLuaClass(arg0, arg1, arg2, arg3, arg4, arg5);
 			return 0;
 		}
 		catch (Exception e)
@@ -76,14 +81,14 @@ public class ToLuaGameFramework_LuaBehaviourWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int SetLuaClassId(IntPtr L)
+	static int RemoveLuaClass(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ToLuaGameFramework.LuaBehaviour obj = (ToLuaGameFramework.LuaBehaviour)ToLua.CheckObject<ToLuaGameFramework.LuaBehaviour>(L, 1);
-			string arg0 = ToLua.CheckString(L, 2);
-			obj.SetLuaClassId(arg0);
+			LuaTable arg0 = ToLua.CheckLuaTable(L, 2);
+			obj.RemoveLuaClass(arg0);
 			return 0;
 		}
 		catch (Exception e)

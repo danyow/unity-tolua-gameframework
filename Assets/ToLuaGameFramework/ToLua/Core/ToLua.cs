@@ -21,14 +21,11 @@ SOFTWARE.
 */
 using UnityEngine;
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Collections.Generic;
 using System.Collections;
 using System.Runtime.InteropServices;
-using System.Text;
 
-#if UNITY_EDITOR  
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.Callbacks;
 using System.Reflection;

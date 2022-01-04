@@ -44,8 +44,20 @@ local function _isLuaClass(data)
     return false
 end
 
+local function _isNil(uobj)
+    if uobj then
+        return false
+    end
+    if type(uobj) == "userdata" then
+        if not uobj.Equals or uobj:Equals(nil) then
+            return true
+        end
+    end
+    return false
+end
+
 function DataToJson(data, depth)
-    if data == nil then
+    if _isNil(data) then
         return "nil"
     end
     depth = depth + 1
@@ -73,11 +85,7 @@ function DataToJson(data, depth)
     elseif type(data) == "number" then
         return tostring(data)
     else
-        if data ~= nil and type(data) == "userdata" and (data.Equals and data:Equals(nil)) then
-            return '"nil"'
-        else
-            return '"' .. tostring(data) .. '"'
-        end
+        return '"' .. tostring(data) .. '"'
     end
 end
 
@@ -92,9 +100,9 @@ local function _log(data, method, tag)
     local depth = 1
     local str = DataToJson(data, depth)
     if tag then
-        func("WQB=> [" .. tag .. "]=> " .. str .. "\n" .. debug.traceback())
+        func("LUA=> [" .. tag .. "]=> " .. str .. "\n" .. debug.traceback())
     else
-        func("WQB=> " .. str .. "\n" .. debug.traceback())
+        func("LUA=> " .. str .. "\n" .. debug.traceback())
     end
 end
 
@@ -108,19 +116,4 @@ end
 
 function LogError(data, tag)
     _log(data, 3, tag)
-end
-
-function LogTimestamp(timestamp, addPrefix)
-    Log(TimestampToDate(timestamp, addPrefix))
-end
-
-function TimestampToDate(timestamp, addPrefix)
-    if not addPrefix then
-        addPrefix = false
-    end
-    if addPrefix then
-        return os.date("! %y年%m月%d日%H时%M分%S秒", timestamp)
-    else
-        return os.date("%y年%m月%d日%H时%M分%S秒", timestamp)
-    end
 end

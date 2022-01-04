@@ -32,6 +32,7 @@ namespace ToLuaGameFramework
                 clip = ResManager.LoadAssetSyn<AudioClip>(clipPath);
                 loadedClips.Add(clipPath, clip);
             }
+            //魔力海洋暂用原有自带播放接口，以后纯lua用AudioSource
             AudioSource audioSource = instance.GetComponent<AudioSource>();
             if (!audioSource) audioSource = instance.gameObject.AddComponent<AudioSource>();
             if (loopTimes == 0)

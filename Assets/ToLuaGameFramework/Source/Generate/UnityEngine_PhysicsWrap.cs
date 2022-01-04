@@ -48,6 +48,7 @@ public class UnityEngine_PhysicsWrap
 		L.RegVar("queriesHitTriggers", get_queriesHitTriggers, set_queriesHitTriggers);
 		L.RegVar("queriesHitBackfaces", get_queriesHitBackfaces, set_queriesHitBackfaces);
 		L.RegVar("bounceThreshold", get_bounceThreshold, set_bounceThreshold);
+		L.RegVar("defaultMaxDepenetrationVelocity", get_defaultMaxDepenetrationVelocity, set_defaultMaxDepenetrationVelocity);
 		L.RegVar("defaultSolverIterations", get_defaultSolverIterations, set_defaultSolverIterations);
 		L.RegVar("defaultSolverVelocityIterations", get_defaultSolverVelocityIterations, set_defaultSolverVelocityIterations);
 		L.RegVar("defaultMaxAngularSpeed", get_defaultMaxAngularSpeed, set_defaultMaxAngularSpeed);
@@ -2156,6 +2157,20 @@ public class UnityEngine_PhysicsWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_defaultMaxDepenetrationVelocity(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushnumber(L, UnityEngine.Physics.defaultMaxDepenetrationVelocity);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_defaultSolverIterations(IntPtr L)
 	{
 		try
@@ -2391,6 +2406,21 @@ public class UnityEngine_PhysicsWrap
 		{
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			UnityEngine.Physics.bounceThreshold = arg0;
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_defaultMaxDepenetrationVelocity(IntPtr L)
+	{
+		try
+		{
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.Physics.defaultMaxDepenetrationVelocity = arg0;
 			return 0;
 		}
 		catch (Exception e)

@@ -17,12 +17,10 @@ function RoomSelect:Awake()
     for i = 1, 3, 1 do
         local btnRoom = self.transform:Find("BtnRoom" .. i)
         btnRoom:OnClick(
-            i,
-            function(param)
-                Log(param)
-                print("进入战场：" .. param)
+            function()
+                Log("进入战场：" .. i)
                 Destroy(self.gameObject)
-                Module.Get(ModuleID.Battle):OpenUI(1, nil)
+                Modules.Battle:OpenUI("BattleUI", nil)
             end
         )
     end

@@ -81,8 +81,22 @@ namespace ToLuaGameFramework
         public bool keepActive;
         public bool isFloat;
         public bool unloadABAfterAllSpawnDestroy;
-        string luaClassId;
-        LuaTable luaClass;
+        LuaTable lua;
+        class Functions
+        {
+            public LuaTable lua;
+            public LuaFunction onEnable, start, onDisable, onAppFocus, onDestroy;
+            public Functions(LuaTable lua, LuaFunction onEnable, LuaFunction start, LuaFunction onDisable, LuaFunction onAppFocus, LuaFunction onDestroy)
+            {
+                this.lua = lua;
+                this.onEnable = onEnable;
+                this.start = start;
+                this.onDisable = onDisable;
+                this.onAppFocus = onAppFocus;
+                this.onDestroy = onDestroy;
+            }
+        }
+        Dictionary<string, Functions> luas = new Dictionary<string, Functions>();
 
         public List<SortObject> sortObjects = new List<SortObject>();
         public bool IsSetedOrder { get; private set; }
@@ -113,17 +127,25 @@ namespace ToLuaGameFramework
         /// <summary>
         /// Lua调用
         /// </summary>
-        public void SetLuaClass(LuaTable luaClass)
+        public void AddLuaClass(LuaTable lua, LuaFunction onEnable, LuaFunction start, LuaFunction onDisable, LuaFunction onAppFocus, LuaFunction onDestroy)
         {
-            this.luaClass = luaClass;
+            string className = lua.GetStringField("__cname");
+            if (!luas.ContainsKey(className))
+            {
+                luas.Add(className, new Functions(lua, onEnable, start, onDisable, onAppFocus, onDestroy));
+            }
         }
 
         /// <summary>
         /// Lua调用
         /// </summary>
-        public void SetLuaClassId(string luaClassId)
+        public void RemoveLuaClass(LuaTable lua)
         {
-            this.luaClassId = luaClassId;
+            string className = lua.GetStringField("__cname");
+            if (luas.ContainsKey(className))
+            {
+                luas.Remove(className);
+            }
         }
 
         protected virtual void Awake()
@@ -155,17 +177,26 @@ namespace ToLuaGameFramework
 
         protected virtual void OnEnable()
         {
-            if (luaClass != null) luaClass.GetLuaFunction("OnEnable").Call(luaClass);
+            foreach (var lua in luas.Values)
+            {
+                if (lua.onEnable != null) lua.onEnable.Call(lua.lua);
+            }
         }
 
         protected virtual void Start()
         {
-            if (luaClass != null) luaClass.GetLuaFunction("Start").Call(luaClass);
+            foreach (var lua in luas.Values)
+            {
+                if (lua.start != null) lua.start.Call(lua.lua);
+            }
         }
 
         protected virtual void OnDisable()
         {
-            if (luaClass != null) luaClass.GetLuaFunction("OnDisable").Call(luaClass);
+            foreach (var lua in luas.Values)
+            {
+                if (lua.onDisable != null) lua.onDisable.Call(lua.lua);
+            }
             //还原sorting
             for (int i = 0; i < sortObjects.Count; i++)
             {
@@ -174,19 +205,19 @@ namespace ToLuaGameFramework
             IsSetedOrder = false;
         }
 
+        protected virtual void OnApplicationFocus(bool isFocus)
+        {
+            foreach (var lua in luas.Values)
+            {
+                if (lua.onAppFocus != null) lua.onAppFocus.Call(lua.lua, isFocus);
+            }
+        }
+
         protected virtual void OnDestroy()
         {
-            if (luaClass != null) luaClass.GetLuaFunction("OnDestroy").Call(luaClass);
-            if (LuaManager.instance)
+            foreach (var lua in luas.Values)
             {
-                if (!string.IsNullOrEmpty(luaClassId))
-                {
-                    LuaManager.instance.CallFunction("OnGameObjectDestroy", luaClassId);
-                }
-                if (luaClass != null)
-                {
-                    LuaManager.instance.CallFunction("ClearClass", luaClass);
-                }
+                if (lua.onDestroy != null) lua.onDestroy.Call(lua.lua);
             }
             if (UIManager.instance)
             {
@@ -198,7 +229,6 @@ namespace ToLuaGameFramework
                 {
                     ResManager.instance.OnSpawnDestroy(assetBundleName, unloadABAfterAllSpawnDestroy);
                 }
-                ResManager.instance.ClearMemory();
             }
         }
 

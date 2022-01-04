@@ -22,20 +22,19 @@ namespace ToLuaGameFramework
                 return _instance;
             }
         }
-        bool isStarted;
 
         public void StartFramework()
         {
-            if (isStarted) return;
-            isStarted = true;
+            if (!gameObject.GetComponent<ResManager>())
+            {
+                gameObject.AddComponent<ResManager>();
+                gameObject.AddComponent<UIManager>();
+                gameObject.AddComponent<LuaManager>();
+                gameObject.AddComponent<SoundManager>();
+                gameObject.AddComponent<HttpManager>();
 
-            gameObject.AddComponent<ResManager>();
-            gameObject.AddComponent<UIManager>();
-            gameObject.AddComponent<LuaManager>();
-            gameObject.AddComponent<SoundManager>();
-            gameObject.AddComponent<HttpManager>();
-
-            ResManager.instance.UpdateRemoteAssetBundle();
+                ResManager.instance.StartUpdateABOnStartup();
+            }
         }
 
     }

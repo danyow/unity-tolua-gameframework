@@ -1,5 +1,4 @@
 ﻿using LuaInterface;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -15,7 +14,7 @@ namespace ToLuaGameFramework
         void Awake()
         {
             instance = this;
-            LuaFileUtils.Instance.beZip = Config.UseAssetBundle;
+            LuaFileUtils.Instance.beZip = LuaConfig.UseAssetBundleLua;
             lua = new LuaState();
             OpenLibs();
             OpenCJson();
@@ -32,7 +31,9 @@ namespace ToLuaGameFramework
         void OpenLibs()
         {
             lua.OpenLibs(LuaDLL.luaopen_pb);
+#if UNITY_ANDROID
             lua.OpenLibs(LuaDLL.luaopen_ffi);
+#endif
             lua.OpenLibs(LuaDLL.luaopen_bit);
             lua.OpenLibs(LuaDLL.luaopen_struct);
             lua.OpenLibs(LuaDLL.luaopen_lpeg);
@@ -58,7 +59,7 @@ namespace ToLuaGameFramework
         /// </summary>
         public void StartLua()
         {
-            if (Config.UseAssetBundle)
+            if (LuaConfig.UseAssetBundleLua)
             {
                 InitLuaBundle();
             }
@@ -77,7 +78,7 @@ namespace ToLuaGameFramework
         /// </summary>
         void InitLuaPath()
         {
-            FindAndAddPaths(Config.LuaDevPath + "/Lua");
+            FindAndAddPaths(LuaConfig.LuaDevPath + "/Lua");
         }
 
         void FindAndAddPaths(string path)
@@ -95,24 +96,19 @@ namespace ToLuaGameFramework
         /// </summary>
         void InitLuaBundle()
         {
-            Dictionary<string, string> files = ResManager.localFiles;
-            foreach (var item in files)
+            string url = LuaConst.localABPath + "/lua" + LuaConst.ExtName;
+            if (File.Exists(url))
             {
-                string bundleName = item.Key;
-                if (bundleName.StartsWith("lua/") && bundleName.EndsWith(LuaConst.ExtName))
+                AssetBundle bundle = AssetBundle.LoadFromFile(url);
+                if (bundle != null)
                 {
-                    string url = LuaConst.localABPath + "/" + bundleName.ToLower();
-                    if (File.Exists(url))
-                    {
-                        var bytes = File.ReadAllBytes(url);
-                        AssetBundle bundle = AssetBundle.LoadFromMemory(bytes);
-                        if (bundle != null)
-                        {
-                            string name = bundleName.Replace("lua/", "").Replace(LuaConst.ExtName, "").ToLower();
-                            LuaFileUtils.Instance.AddSearchBundle(name, bundle);
-                        }
-                    }
+                    //LuaFileUtils.cs的247行 zipMap.TryGetValue("lua", out zipFile); 全部统一用"lua"做name进行查找
+                    LuaFileUtils.Instance.AddSearchBundle("lua", bundle);
                 }
+            }
+            else
+            {
+                Debug.LogError("本地找不到lua" + LuaConst.ExtName + "文件");
             }
         }
 

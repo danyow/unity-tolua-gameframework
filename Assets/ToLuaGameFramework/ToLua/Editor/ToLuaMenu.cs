@@ -303,7 +303,7 @@ public static class ToLuaMenu
         AutoAddBaseType(bt, beDropBaseType);
     }
 
-    static BindType[] GenBindTypes(BindType[] list, bool beDropBaseType = true)
+    public static BindType[] GenBindTypes(BindType[] list, bool beDropBaseType = true)
     {
         allTypes = new List<BindType>(list);
 
@@ -358,10 +358,16 @@ public static class ToLuaMenu
         BindType[] list = GenBindTypes(typeList);
         ToLuaExport.allTypes.AddRange(baseType);
 
-        for (int i = 0; i < list.Length; i++)
+        ToLuaGameFramework.ExportUintyAPIForEmmyLua.Reset();
+        int total = list.Length;
+        for (int i = 0; i < total; i++)
         {
             ToLuaExport.allTypes.Add(list[i].type);
+            ToLuaGameFramework.ExportUintyAPIForEmmyLua.ExportClass(list[i].type, false, false);
+            EditorUtility.DisplayProgressBar("正在为EmmyLua导出Unity API", i + "/" + total, i / (float)total);
         }
+        ToLuaGameFramework.ExportUintyAPIForEmmyLua.SaveFile();
+        EditorUtility.ClearProgressBar();
 
         for (int i = 0; i < list.Length; i++)
         {

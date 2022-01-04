@@ -169,9 +169,11 @@ public static class CustomSettings
         _GT(typeof(UnityEngine.UI.Toggle)).AddExtendType(typeof(ToggleExtend)),
         _GT(typeof(UnityEngine.UI.InputField)),
         _GT(typeof(UnityEngine.UI.ScrollRect)),
-        _GT(typeof(UnityEngine.EventSystems.EventTrigger)),
+        _GT(typeof(UnityEngine.UI.HorizontalLayoutGroup)),
+        _GT(typeof(UnityEngine.UI.VerticalLayoutGroup)),
+        _GT(typeof(UnityEngine.UI.LayoutRebuilder)),
 
-        //Custom
+        //ToLuaGameFramework
         _GT(typeof(PlayerPrefs)),
         _GT(typeof(MessageCenter)),
         _GT(typeof(LuaManager)),
@@ -184,7 +186,7 @@ public static class CustomSettings
         _GT(typeof(LButtonEffect)),
         _GT(typeof(LTimer)),
         _GT(typeof(BTween)),
-        _GT(typeof(BTween.BEaseType)),
+        _GT(typeof(BEaseType)),
         _GT(typeof(LMD5)),
         _GT(typeof(LAES)),
 

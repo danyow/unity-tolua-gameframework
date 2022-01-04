@@ -9,6 +9,7 @@ local type = type
 local Vector3 = Vector3
 local zero = Vector3.zero
 
+---@class Bounds
 local Bounds = 
 {
 	center = Vector3.zero,

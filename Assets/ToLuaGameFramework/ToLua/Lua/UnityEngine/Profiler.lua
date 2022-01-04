@@ -34,6 +34,7 @@ local blacklist =
     ["unknow"] = 1,
 }
 
+---@class Profiler
 local profiler = 
 {
     mark = 1,
