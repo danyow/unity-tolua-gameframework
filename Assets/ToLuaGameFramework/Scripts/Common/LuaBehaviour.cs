@@ -155,17 +155,17 @@ namespace ToLuaGameFramework
 
         protected virtual void OnEnable()
         {
-            if (luaClass != null) luaClass.GetLuaFunction("onEnable").Call(luaClass);
+            if (luaClass != null) luaClass.GetLuaFunction("OnEnable").Call(luaClass);
         }
 
         protected virtual void Start()
         {
-            if (luaClass != null) luaClass.GetLuaFunction("onStart").Call(luaClass);
+            if (luaClass != null) luaClass.GetLuaFunction("Start").Call(luaClass);
         }
 
         protected virtual void OnDisable()
         {
-            if (luaClass != null) luaClass.GetLuaFunction("onDisable").Call(luaClass);
+            if (luaClass != null) luaClass.GetLuaFunction("OnDisable").Call(luaClass);
             //还原sorting
             for (int i = 0; i < sortObjects.Count; i++)
             {
@@ -176,7 +176,7 @@ namespace ToLuaGameFramework
 
         protected virtual void OnDestroy()
         {
-            if (luaClass != null) luaClass.GetLuaFunction("onDestroy").Call(luaClass);
+            if (luaClass != null) luaClass.GetLuaFunction("OnDestroy").Call(luaClass);
             if (LuaManager.instance)
             {
                 if (!string.IsNullOrEmpty(luaClassId))

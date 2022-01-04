@@ -1,12 +1,12 @@
 local BaseUI = require "Core.BaseUI"
 local RoomSelect = Class("RoomSelect", BaseUI)
 
-function RoomSelect:prefabPath()
+function RoomSelect:PrefabPath()
     return "Prefabs/Lobby/Room/RoomSelect"
 end
 
-function RoomSelect:onAwake()
-    self.super.onAwake(self)
+function RoomSelect:Awake()
+    self.super.Awake(self)
     local btnBack = self.transform:Find("BtnBack")
     btnBack:OnClick(
         function()
@@ -22,7 +22,7 @@ function RoomSelect:onAwake()
                 Log(param)
                 print("进入战场：" .. param)
                 Destroy(self.gameObject)
-                Module.Get(ModuleID.Battle):openUI(1, nil)
+                Module.Get(ModuleID.Battle):OpenUI(1, nil)
             end
         )
     end

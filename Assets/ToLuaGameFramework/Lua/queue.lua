@@ -2,25 +2,25 @@
 队列用法：
     require "queue"
     local myQueue = Queue:new()
-    Queue.push(myQueue, 1)
-    Queue.push(myQueue, 2)
-    Log(Queue.pop(myQueue))
-    Log(Queue.pop(myQueue))
+    Queue.Push(myQueue, 1)
+    Queue.Push(myQueue, 2)
+    Log(Queue.Pop(myQueue))
+    Log(Queue.Pop(myQueue))
 ]]
 
 Queue = {}
 
-function Queue.new()
+function Queue.New()
     return {first = 0, last = -1}
 end
 
-function Queue.push(queue, value)
+function Queue.Push(queue, value)
     local last = queue.last + 1
     queue.last = last
     queue[last] = value
 end
 
-function Queue.pop(queue)
+function Queue.Pop(queue)
     local first = queue.first
     if first > queue.last then
         return nil
@@ -31,7 +31,7 @@ function Queue.pop(queue)
     return value
 end
 
-function Queue.isEmpty(queue)
+function Queue.IsEmpty(queue)
     if not queue then
         return true
     end

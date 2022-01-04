@@ -5,39 +5,39 @@ function OnGameObjectDestroy(_luaClassId)
     _SpawnedUIList[_luaClassId] = nil
 end
 
-function BaseMgr:ctor()
+function BaseMgr:Ctor()
     --self.moduleId在Main.lua初始化时自动赋值
     self.moduleId = 0
-    CommandManager.add(CommandID.OpenUI, self.onReceiveOpenUICmd, self)
+    CommandManager.Add(CommandID.OpenUI, self.OnReceiveOpenUICmd, self)
 end
 
 --子类在构造ctor()里调用添加UI类(子类构造加super)
-function BaseMgr:addUI(index, ui)
+function BaseMgr:AddUI(index, ui)
     if not self.uiClassList then
         self.uiClassList = {}
     end
     for key, value in pairs(self.uiClassList) do
         if key == index then
-            LogError("index(" .. index .. ")已存在", "addUI")
+            LogError("index(" .. index .. ")已存在", "AddUI")
             return
         elseif value == ui then
-            LogError("ui(" .. ui.__cname .. ")已存在", "addUI")
+            LogError("ui(" .. ui.__cname .. ")已存在", "AddUI")
             return
         end
     end
     self.uiClassList[index] = ui
 end
 
-function BaseMgr:onReceiveOpenUICmd(moduleId, uiIndex, parent)
+function BaseMgr:OnReceiveOpenUICmd(moduleId, uiIndex, parent)
     if moduleId == self.moduleId then
         if not uiIndex then
             uiIndex = 1
         end
-        self:openUI(uiIndex, parent)
+        self:OpenUI(uiIndex, parent)
     end
 end
 
-function BaseMgr:openUI(uiIndex, parent)
+function BaseMgr:OpenUI(uiIndex, parent)
     if not self.uiClassList then
         return
     end
@@ -64,10 +64,10 @@ function BaseMgr:openUI(uiIndex, parent)
             end
             self.uiList[uiIndex] = ui
         else
-            if ui:isUIStack() then
+            if ui:IsUIStack() then
                 --这里本可以直接将ui.gameObject:SetActive(true)激活显示即可，但是需要调用C#层重新处理UI栈以及层级关系
                 --所以继续调用createGameObject(),C#层会直接激活已存在的对象并处理新的UI栈层级关系
-                ui:createGameObject(parent)
+                ui:CreateGameObject(parent)
             else
                 ui.gameObject:SetActive(true)
             end
@@ -77,15 +77,15 @@ function BaseMgr:openUI(uiIndex, parent)
     return nil
 end
 
-function BaseMgr:getUI(uiIndex)
+function BaseMgr:GetUI(uiIndex)
     if self.uiList then
         return self.uiList[uiIndex]
     end
     return nil
 end
 
-function BaseMgr:closeUI(uiIndex)
-    local ui = self:getUI(uiIndex)
+function BaseMgr:CloseUI(uiIndex)
+    local ui = self:GetUI(uiIndex)
     if ui then
         Destroy(ui.gameObject)
     end

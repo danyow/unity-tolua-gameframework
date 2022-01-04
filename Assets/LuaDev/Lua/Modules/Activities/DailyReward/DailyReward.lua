@@ -1,16 +1,16 @@
 local BaseUI = require "Core.BaseUI"
 local DailyReward = Class("DailyReward", BaseUI)
 
-function DailyReward:prefabPath()
+function DailyReward:PrefabPath()
     return "Prefabs/Activities/DailyReward/DailyReward"
 end
 
-function DailyReward:isFloat()
+function DailyReward:IsFloat()
     return true
 end
 
-function DailyReward:onAwake()
-    self.super.onAwake(self)
+function DailyReward:Awake()
+    self.super.Awake(self)
 
     self.mianPanel = self.transform:Find("MainPanel")
 
@@ -36,8 +36,8 @@ function DailyReward:onAwake()
     )
 end
 
-function DailyReward:onEnable()
-    self.super.onEnable(self)
+function DailyReward:OnEnable()
+    self.super.OnEnable(self)
 
     --黑色蒙版动画
     self.transform:DOAlpha(0, 0.5, 0.3, Ease.OutSine, false)
@@ -59,7 +59,7 @@ function DailyReward:onMenuSelect(index)
 
     if not self.contents[index] then
         local contentIndexInModule = 10 + index
-        self.contents[self.currSelectIndex] = self.module:openUI(contentIndexInModule, self.contentRoot)
+        self.contents[self.currSelectIndex] = self.module:OpenUI(contentIndexInModule, self.contentRoot)
         UIManager.RefreshSortObjects(self.transform)
     end
     for i = 1, #self.menus do

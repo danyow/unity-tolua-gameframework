@@ -1,16 +1,16 @@
 local BaseUI = require "Core.BaseUI"
 local PlayerInfo = Class("PlayerInfo", BaseUI)
 
-function PlayerInfo:prefabPath()
+function PlayerInfo:PrefabPath()
     return "Prefabs/Lobby/Player/PlayerInfo"
 end
 
-function PlayerInfo:isFloat()
+function PlayerInfo:IsFloat()
     return true
 end
 
-function PlayerInfo:onAwake()
-    self.super.onAwake(self)
+function PlayerInfo:Awake()
+    self.super.Awake(self)
 
     self.panel = self.transform:Find("Panel")
 
@@ -24,14 +24,14 @@ function PlayerInfo:onAwake()
     local btnAlert = self.transform:Find("Panel/OverLayer/BtnAlert")
     btnAlert:OnClick(
         function()
-            local alert = Module.Get(ModuleID.Common):openUI(1)
-            alert:setContent("自动添加Canvas以盖住特效")
+            local alert = Module.Get(ModuleID.Common):OpenUI(1)
+            alert:SetContent("自动添加Canvas以盖住特效")
         end
     )
 end
 
-function PlayerInfo:onEnable()
-    self.super.onEnable(self)
+function PlayerInfo:OnEnable()
+    self.super.OnEnable(self)
 
     --黑色蒙版动画
     self.transform:DOAlpha(0, 0.5, 0.3, Ease.OutSine, false)

@@ -192,13 +192,21 @@ public static class CustomSettings
         //_GT(typeof(BToolkit.ImgText)),
         //_GT(typeof(BToolkit.LanguageManager)),
         //_GT(typeof(BToolkit.CopyAndPaste)),
+        //_GT(typeof(BToolkit.EventManager)),
         //_GT(typeof(Client.Common.UrlConfig)),
         //_GT(typeof(Client.Common.VersionConfig)),
         //_GT(typeof(Client.Common.GameData)),
         //_GT(typeof(Client.Common.HttpRequest)),
+        //_GT(typeof(Client.Common.Utils)),
+        //_GT(typeof(Client.Common.MainEventNames)),
         //_GT(typeof(MainCtrl.TopTip)),
         //_GT(typeof(MainCtrl.TopDialog)),
+        //_GT(typeof(MainCtrl.BaseConfigLoader)),
+        //_GT(typeof(MainCtrl.CopyrightInfo)),
         //_GT(typeof(Abx.Protocol.HTTP.WebApiProtocol)),
+        //_GT(typeof(Abx.Common.Define.EFuncOnOffType)),
+        //_GT(typeof(Login.Logic.LoginManager)),
+        //_GT(typeof(Abx.Protocol.AccountWebApi.CUserModel)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

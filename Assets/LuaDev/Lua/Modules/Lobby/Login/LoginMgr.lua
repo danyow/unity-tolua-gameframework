@@ -1,21 +1,21 @@
 local BaseMgr = require "Core.BaseMgr"
 local LoginMgr = Class("LoginMgr", BaseMgr)
 
-function LoginMgr:ctor()
-    self.super.ctor(self)
-    self:addUI(1, require "Modules.Lobby.Login.Login")
-    self:addUI(2, require "Modules.Lobby.Login.Register")
+function LoginMgr:Ctor()
+    self.super.Ctor(self)
+    self:AddUI(1, require "Modules.Lobby.Login.Login")
+    self:AddUI(2, require "Modules.Lobby.Login.Register")
 
     --TODO:注册服务器广播事件：onReceveServerData()
 end
 
 --由服务器广播触发
-function LoginMgr:onReceveServerData(msg)
+function LoginMgr:OnReceveServerData(msg)
     self.msg = msg
     --在模块管理器里获取UI的方法
-    local loginUI = self:getUI(1)
+    local loginUI = self:GetUI(1)
     if loginUI and loginUI.gameObject.activeInHierarchy then
-        loginUI:refrshUI()
+        loginUI:RefrshUI()
     end
 end
 

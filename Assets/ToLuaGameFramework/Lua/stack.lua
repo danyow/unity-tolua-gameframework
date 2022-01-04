@@ -4,13 +4,13 @@
     local myStack = Stack:new()
     Stack.push(myStack, 1)
     Stack.push(myStack, 2)
-    Log(Stack.pop(myStack))
-    Log(Stack.pop(myStack))
+    Log(Stack.Pop(myStack))
+    Log(Stack.Pop(myStack))
 ]]
 
 Stack = {}
 
-function Stack.new()
+function Stack.New()
     return {first = 0, last = -1}
 end
 
@@ -20,7 +20,7 @@ function Stack.push(stack, value)
     stack[last] = value
 end
 
-function Stack.pop(stack)
+function Stack.Pop(stack)
     local last = stack.last
     if stack.first > last then
         return nil
@@ -31,7 +31,7 @@ function Stack.pop(stack)
     return value
 end
 
-function Stack.isEmpty(stack)
+function Stack.IsEmpty(stack)
     if not stack then
         return true
     end

@@ -11,14 +11,16 @@ require "btween"
 require "queue"
 require "stack"
 
-require "Custom.Enum"
+--require "Samples.Enum"
+require "Define.Enum"
 
 local moduleInstanceList = {}
 Module = {}
 
 function Main()
     --所有注册的模块初始化
-    local registerList = require "Custom.ModuleRegister"
+    --local registerList = require "Samples.ModuleRegister"
+    local registerList = require "Define.ModuleRegister"
     for key, value in pairs(registerList) do
         local m = value:new()
         m.moduleId = key
@@ -47,4 +49,3 @@ end
 
 function OnApplicationQuit()
 end
-

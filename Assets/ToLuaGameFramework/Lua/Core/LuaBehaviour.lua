@@ -1,30 +1,30 @@
 local LuaBehaviour = Class("LuaBehaviour")
 
-function LuaBehaviour:ctor(parent, module)
+function LuaBehaviour:Ctor(parent, module)
     self.module = module
-    self:createGameObject(parent)
+    self:CreateGameObject(parent)
 end
 
-function LuaBehaviour:createGameObject(parent)
-    local prefabPath = self:prefabPath()
+function LuaBehaviour:CreateGameObject(parent)
+    local prefabPath = self:PrefabPath()
     if not prefabPath or prefabPath == "" then
         LogError("请重写prefabPath()方法并指定Prefab路径")
         return
     end
     local go =
-        ResManager.SpawnPrefab(prefabPath, parent, self:destroyABAfterSpawn(), self:destroyABAfterAllSpawnDestroy())
-    self:onGameObjectSpawn(go)
+        ResManager.SpawnPrefab(prefabPath, parent, self:DestroyABAfterSpawn(), self:DestroyABAfterAllSpawnDestroy())
+    self:OnGameObjectSpawn(go)
 end
 
-function LuaBehaviour:onGameObjectSpawn(go)
+function LuaBehaviour:OnGameObjectSpawn(go)
     self.gameObject = go
     self.transform = go.transform
     if self._luaClassId then
         self.transform:GetComponent("LuaBehaviour"):SetLuaClassId(self._luaClassId)
     end
     if not self.hasCallAwake then
-        self:onAwake()
-        self:onEnable()
+        self:Awake()
+        self:OnEnable()
         self.hasCallAwake = true
     end
     local csharpLuaBehaviour = go:GetComponent("LuaBehaviour")
@@ -32,38 +32,38 @@ function LuaBehaviour:onGameObjectSpawn(go)
 end
 
 --由子类重写来定义
-function LuaBehaviour:prefabPath()
+function LuaBehaviour:PrefabPath()
     return ""
 end
 
 --由子类重写来定义
-function LuaBehaviour:destroyABAfterSpawn()
+function LuaBehaviour:DestroyABAfterSpawn()
     return false
 end
 
 --由子类重写来定义
-function LuaBehaviour:destroyABAfterAllSpawnDestroy()
+function LuaBehaviour:DestroyABAfterAllSpawnDestroy()
     return false
 end
 
-function LuaBehaviour:onAwake()
-    --Log("onAwake", self.__cname)
+function LuaBehaviour:Awake()
+    --Log("Awake", self.__cname)
 end
 
-function LuaBehaviour:onEnable()
-    --Log("onEnable", self.__cname)
+function LuaBehaviour:OnEnable()
+    --Log("OnEnable", self.__cname)
 end
 
-function LuaBehaviour:onStart()
-    --Log("onStart", self.__cname)
+function LuaBehaviour:Start()
+    --Log("Start", self.__cname)
 end
 
-function LuaBehaviour:onDisable()
-    --Log("onDisable", self.__cname)
+function LuaBehaviour:OnDisable()
+    --Log("OnDisable", self.__cname)
 end
 
-function LuaBehaviour:onDestroy()
-    --Log("onDestroy", self.__cname)
+function LuaBehaviour:OnDestroy()
+    --Log("OnDestroy", self.__cname)
 end
 
 return LuaBehaviour

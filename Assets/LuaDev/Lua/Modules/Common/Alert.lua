@@ -2,26 +2,26 @@ local BaseUI = require "Core.BaseUI"
 
 local Alert = Class("Alert", BaseUI)
 
-function Alert:prefabPath()
+function Alert:PrefabPath()
     return "Prefabs/Common/Alert"
 end
 
-function Alert:isFloat()
+function Alert:IsFloat()
     return true
 end
 
-function Alert:onAwake()
-    self.super.onAwake(self)
+function Alert:Awake()
+    self.super.Awake(self)
 
     self.openTime = Time.time
 
-    self.updateHandler = UpdateBeat:CreateListener(self.update, self)
+    self.updateHandler = UpdateBeat:CreateListener(self.Update, self)
     self.dialog = self.transform:Find("Dialog")
     self.content = self.dialog:Find("Text"):GetComponent("Text")
 end
 
-function Alert:onEnable()
-    self.super.onEnable(self)
+function Alert:OnEnable()
+    self.super.OnEnable(self)
 
     UpdateBeat:AddListener(self.updateHandler)
 
@@ -34,17 +34,17 @@ function Alert:onEnable()
 end
 
 --外部调用
-function Alert:setContent(text)
+function Alert:SetContent(text)
     self.content.text = text
 end
 
-function Alert:onDisable()
-    self.super.onDisable(self)
+function Alert:OnDisable()
+    self.super.OnDisable(self)
 
     UpdateBeat:RemoveListener(self.updateHandler)
 end
 
-function Alert:update()
+function Alert:Update()
     if Input.GetMouseButtonUp(0) then
         --鼠标放开时触发，错开点击按钮打开本页的冲突，否则打开同时又会触发关闭
         if Time.time > self.openTime + 0.2 then

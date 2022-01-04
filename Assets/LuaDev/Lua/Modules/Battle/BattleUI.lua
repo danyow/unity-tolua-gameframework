@@ -1,11 +1,11 @@
 local BaseUI = require "Core.BaseUI"
 local BattleUI = Class("BattleUI", BaseUI)
 
-function BattleUI:prefabPath()
+function BattleUI:PrefabPath()
     return "Prefabs/Battle/BattleUI"
 end
 
-function BattleUI:onAwake()
+function BattleUI:Awake()
     local btnBack = self.transform:Find("Panel/BtnBack")
     btnBack:OnClick(
         function()

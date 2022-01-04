@@ -5,8 +5,8 @@ local listenerGroups = {}
 local queue = nil
 
 local function mainThreadUpdate()
-    while not Queue.isEmpty(queue) do
-        local command = Queue.pop(queue)
+    while not Queue.IsEmpty(queue) do
+        local command = Queue.Pop(queue)
         local listeners = listenerGroups[command.id]
         if listeners then
             for key, value in pairs(listeners) do
@@ -74,7 +74,7 @@ end
 
 UpdateBeat:AddListener(UpdateBeat:CreateListener(mainThreadUpdate))
 
-function CommandManager.add(id, listener, self)
+function CommandManager.Add(id, listener, self)
     local listeners = listenerGroups[id]
     if not listeners then
         listeners = {}
@@ -94,20 +94,23 @@ function CommandManager.add(id, listener, self)
     end
 end
 
-function CommandManager.remove(id, listener)
-    local listeners = listenerGroups[id]
-    if not listeners then
-        return
-    end
-    for key, value in pairs(listeners) do
-        if value.listener == listener then
-            table.remove(listeners, key)
+function CommandManager.Remove(id, listener)
+    if listener then
+        local listeners = listenerGroups[id]
+        if listeners then
+            for i = 1, #listeners do
+                if listeners[i] == listener then
+                    table.remove(listeners, i)
+                end
+            end
         end
+    else
+        listenerGroups[id] = nil
     end
 end
 
 --执行命令(一般用于系统逻辑命令传递，若是用户触发事件，请使用事件管理器 EventManager)
-function CommandManager.execute(id, ...)
+function CommandManager.Execute(id, ...)
     local params = ""
     for key, value in pairs({...}) do
         if params ~= "" then
@@ -125,7 +128,7 @@ function CommandManager.execute(id, ...)
         return
     end
     if not queue then
-        queue = Queue.new()
+        queue = Queue.New()
     end
-    Queue.push(queue, {id = id, params = {...}})
+    Queue.Push(queue, {id = id, params = {...}})
 end

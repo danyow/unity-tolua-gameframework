@@ -1,12 +1,12 @@
 local LuaBehaviour = require "Core.LuaBehaviour"
 local Ball = Class("Ball", LuaBehaviour)
 
-function Ball:prefabPath()
+function Ball:PrefabPath()
     return "Prefabs/Actors/Ball"
 end
 
-function Ball:onAwake()
-    self.super.onAwake(self)
+function Ball:Awake()
+    self.super.Awake(self)
 end
 
 return Ball
