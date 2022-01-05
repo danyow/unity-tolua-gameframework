@@ -82,7 +82,7 @@ Ball.lua继承LuaBehaviour:
     return Ball  
 ```
   
-4.  必须重写的方法prefabPath()(指定所绑定的预设体的路径)：  
+4.  必须重写的方法PrefabPath()(指定所绑定的预设体的路径)：  
 ```
    local BaseUI = require "Core.BaseUI"  
    local Login = Class("Login", BaseUI)  
@@ -136,6 +136,14 @@ end
    end  
 
    function Login:Update()  
+       --这里每帧执行一次
+   end
+
+   function Login:FixedUpdate()  
+       --这里每帧执行一次
+   end
+
+   function Login:LateUpdate()  
        --这里每帧执行一次
    end
 
