@@ -1,6 +1,6 @@
 # Unity-ToLua-GameFramework 
 
-（框架文件夹ToLua-GameFramework，拖入到你的工程里即可。但是熟悉本框架之前建议整个Demo工程全部下载，业务层开发都在LuaDev里）
+（框架文件夹ToLuaGameFramework，拖入到你的工程里即可。但是熟悉本框架之前建议整个Demo工程全部下载，业务层开发都在LuaDev里）
 
 #### 介绍
 
