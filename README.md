@@ -62,7 +62,7 @@
         });
 
         //启动框架
-        Main.Instance.StartFramework();
+        LuaMain.Instance.StartFramework();
 ```
 
 - 开始全游戏Lua代码：
