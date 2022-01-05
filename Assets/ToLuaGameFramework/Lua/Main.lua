@@ -1,5 +1,4 @@
---主入口函数。从这里开始lua逻辑
-
+--主入口函数(从这里开始lua逻辑)
 require "_define"
 require "_logger"
 require "_utils"
@@ -11,19 +10,9 @@ require "btween"
 require "queue"
 require "stack"
 
---require "Samples.Enum"
---require "Samples.Module"
-require "Define.Requires"
-require "Define.Enum"
-require "Define.Define"
-require "Define.Modules"
-require "CSharpBridge"
-
 function Main()
-    --正常实例化UI，不用命令打开UI
-    local PreloadUI = require "Modules.ResPreload.ResPreload"
-    local parent = GameObject.Find("MainCanvas").transform
-    PreloadUI:New(parent)
+    local StartGame = require "StartGame"
+    StartGame.Run()
 end
 
 --场景切换通知
