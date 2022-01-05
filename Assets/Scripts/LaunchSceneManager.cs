@@ -2,7 +2,7 @@ using ToLuaGameFramework;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartGame : MonoBehaviour
+public class LaunchSceneManager : MonoBehaviour
 {
     public Text text;
     public Slider slider;

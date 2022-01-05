@@ -1,3 +1,5 @@
+Global = Global or {}
+
 --[[
 
 LanguageManager     = BToolkit.LanguageManager
@@ -44,5 +46,3 @@ WeiXin              = BToolkit.WeiXin
 CopyrightInfo.luaResVersionCode = 3
 
 ]]
-
-Global = {}

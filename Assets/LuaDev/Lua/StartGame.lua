@@ -1,8 +1,4 @@
 require "Define.Requires"
-require "Define.Enum"
-require "Define.Define"
-require "Define.Modules"
-require "CSharpBridge"
 
 local StartGame = {}
 

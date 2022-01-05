@@ -1,7 +1,4 @@
---[[
-
-require "GlobalFuns"
-require "Network.HttpRequest"
-require "unity_enum"
-
-]]
+require "Define.Enum"
+require "Define.Global"
+require "Define.Modules"
+require "CSharpBridge"
