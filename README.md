@@ -152,7 +152,7 @@ end
 
 7.  正式生成UI，三种方式：
     
-- 直接new()： 比如：Main.lua里创建预加载界面的方法
+- 直接New()： 比如：Main.lua里创建预加载界面的方法
 ```
     local PreloadUI = require "Modules.ResPreload.ResPreload"
     PreloadUI:New()
@@ -161,7 +161,7 @@ end
     PreloadUI:New(parent)
 ```
 - 分模块开发，在各自模块里管理对应UI集合，通过发送命令展示：（高度解耦，数据隔离，大项目推荐）  
-    第1步：创建模块类（如Demo中的LoginMgr）,并在ctor()添加好该模块各个UI类  
+    第1步：创建模块类（如Demo中的LoginMgr）,并在Ctor()添加好该模块各个UI类  
     第2步：Enum文件里创建一个模块ID，并注册到ModuleRegister  
     第3步：发送一个命令，即可展示UI  
     注：模块管理器与UI之间的相互访问，可参考Login.lua和LoginMgr.lua  
@@ -173,7 +173,7 @@ end
 
     function LobbyMainMgr:Ctor()
         self.super.Ctor(self)
-        self:AddUI(1, require "Modules.Lobby.LobbyMain.LobbyMain")
+        self:AddUI("LobbyMain", require "Modules.Lobby.LobbyMain.LobbyMain")
     end
 
     return LobbyMainMgr
@@ -181,7 +181,7 @@ end
 
    触发打开
 ```
-    CommandManager.Execute(CommandID.OpenUI, "模块类名", "UIID"，父级(可选))  
+    CommandManager.Execute(CommandID.OpenUI, "LobbyMainMgr", "LobbyMain"，父级(可选))  
 
     --发送命令适合跨模块使用，不想用命令也可以调用方法实现打开UI(适合模块内使用,或需要得到UI对象进行进一步赋值时使用)
 
@@ -219,7 +219,7 @@ end
 - 以上为点击放开时触发，若需按下时就触发，可将OnClick方法换成OnDown方法
 
 9.  创建时指定父级的三种方法：  
-- 第1种：new传入
+- 第1种：New传入
 ```
     local PreloadUI = require "Modules.ResPreload.ResPreload"
     PreloadUI:New(parent)
