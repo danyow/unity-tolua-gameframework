@@ -15,12 +15,14 @@
 - 更多功能不断完善中......
 
 
-#### 快速使用(请下载工程配合查阅对照，本文档针对工程LuaDev目录进行讲解)
+#### 快速使用 (请下载工程配合查阅对照，本文档针对工程LuaDev目录进行讲解)
 
 - 两种模式：
 
 1.  开发模式：LuaConfig.cs里将UseAssetBundleLua和UseAssetBundleRes设置为false，读取LuaDev目录下实时编写的代码。 
 2.  发布模式：LuaConfig.cs里将UseAssetBundleLua和UseAssetBundleRes设置为true，加载AB包里的代码。菜单ToLuaUIFramework->Build XXX AssetBundle。 
+
+- 本框架推荐C#只用来简单的加载Lua资源和启动Main.lua,游戏逻辑全部在Lua里开发。
 
 - C#的开始：  
 
