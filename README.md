@@ -1,34 +1,32 @@
 # Unity-ToLua-GameFramework 
 
-（示例工程适合Unity 2019.1.9f1,其他版本可能出现语法兼容问题而报错，请自行根据版本变换语法）
+（框架文件夹ToLua-GameFramework，拖入到你的工程里即可。但是熟悉本框架之前建议整个Demo工程全部下载，业务层开发都在LuaDev里）
 
 #### 介绍
 
 - 基于toLua扩展的Unity热跟新实用框架，继承MonoBehaviour常用的生命周期，方便管理组件逻辑。
 
-- 组件内定制AssetBundle回收方案，内存管理你说了算。
+- 使用UI栈自动管理层级，支持消息机制唤起UI，高度解耦，代码简单高效。
 
-- 使用UI栈自动管理层级，消息机制唤起UI，高度解耦，代码简单高效。
+- 集成DOTween并做了一些少量扩展。
 
-- 集成DOTween并扩展transform.DOAlpha方法，方便整个界面多节点一次性透明动画。
-
-- Game目录下常用功能界面已形成，接着往下开发即可，开箱即用，方便快捷。
+- LuaDev目录下常用功能界面已形成，接着往下开发即可，开箱即用，方便快捷。
 
 - 更多功能不断完善中......
 
 
-#### 快速使用(请下载工程配合查阅对照，本文档针对工程Game目录进行讲解)
+#### 快速使用(请下载工程配合查阅对照，本文档针对工程LuaDev目录进行讲解)
 
 - 两种模式：
 
-1.  开发模式：Config.cs里将UseAssetBundle设置为false，读取LuaDev目录下实时编写的代码。 
-2.  发布模式：Config.cs里将UseAssetBundle设置为true，加载AB包里的代码。菜单ToLuaUIFramework->Build XXX AssetBundle。 
+1.  开发模式：LuaConfig.cs里将UseAssetBundleLua和UseAssetBundleRes设置为false，读取LuaDev目录下实时编写的代码。 
+2.  发布模式：LuaConfig.cs里将UseAssetBundleLua和UseAssetBundleRes设置为true，加载AB包里的代码。菜单ToLuaUIFramework->Build XXX AssetBundle。 
 
 - C#的开始：  
 
-1.  修改Config.cs中的LuaDevPath定义您的开发目录。  
+1.  修改LuaConfig.cs中的LuaDevPath定义您的开发目录。  
 
-2.  开发目录内创建Lua目录和Prefabs目录，强烈建议两个文件夹名称不要修改。UI图集、模型、音效等素材可放在开发目录外。以保证开发目录干净整洁  
+2.  开发目录内创建Lua目录和Prefabs目录，建议两个文件夹名称不要修改。UI图集、模型、音效等素材可放在开发目录外。以保证开发目录干净整洁  
 
     注册好各种事件，然后直接调用 Main.Instance.StartFramework(); 即可
 ```
@@ -36,6 +34,7 @@
         {
             text.text = "正在更新资源";
             slider.value = 0;
+            MessageCenter.Remove(MsgEnum.ABLoadingBegin);
         });
         MessageCenter.Add(MsgEnum.ABLoadingError, (BaseMsg msg) =>
         {
@@ -50,12 +49,14 @@
         MessageCenter.Add(MsgEnum.ABLoadingFinish, (BaseMsg msg) =>
         {
             Debug.Log("更新完成");
+            MessageCenter.Remove(MsgEnum.ABLoadingFinish);
         });
         MessageCenter.Add(MsgEnum.RunLuaMain, (BaseMsg msg) =>
         {
             Debug.Log("开始执行Lua的Main脚本");
             Destroy(text.gameObject);
             Destroy(slider.gameObject);
+            MessageCenter.Remove(MsgEnum.RunLuaMain);
         });
 
         //启动框架
@@ -69,22 +70,22 @@ Prefabs内放好预设体。建议Lua目录内创建结构一样的子目录结�
 Login.lua继承BaseUI:  
 ```
     local BaseUI = require "Core.BaseUI"  
-    local Login = class("Login", BaseUI)  
+    local Login = Class("Login", BaseUI)  
     return Login
 ```
 Ball.lua继承LuaBehaviour:  
 ```
     local LuaBehaviour = require "Core.LuaBehaviour"  
-    local Ball = class("Ball", LuaBehaviour)  
+    local Ball = Class("Ball", LuaBehaviour)  
     return Ball  
 ```
   
 4.  必须重写的方法prefabPath()(指定所绑定的预设体的路径)：  
 ```
    local BaseUI = require "Core.BaseUI"  
-   local Login = class("Login", BaseUI)  
+   local Login = Class("Login", BaseUI)  
   
-   function Login:prefabPath()  
+   function Login:PrefabPath()  
       return "Prefabs/Battle/Actors/Ball" 
    end  
   
@@ -95,7 +96,7 @@ Ball.lua继承LuaBehaviour:
    子UI延迟创建时设置了不参与UI栈管理层级，但包含特效需要刷新层级关系的，首次生成时调用UIManager.RefreshSortObjects(self.transform)方法刷新一次即可  
    参考：脚本DailyReward.lua中的onMenuSelect(index)方法
 ```
-function DailyReward_Content_1:isUIStack()
+function DailyReward_Content_1:IsUIStack()
     return false
 end
 ```
@@ -103,14 +104,14 @@ end
 6.  实现经典熟悉的生命周期函数，以及按钮绑定方法、DOTween使用  
 ```
    local BaseUI = require "Core.BaseUI"  
-   local Login = class("Login", BaseUI)  
+   local Login = Class("Login", BaseUI)  
   
-   function Login:prefabPath()  
+   function Login:PrefabPath()  
       "Prefabs/Battle/Actors/Ball"
    end  
   
-   function Login:onAwake()
-      self.super.onAwake(self)
+   function Login:Awake()
+      self.super.Awake(self)
 
       --按钮的绑定
       self.btnClose = self.transform:Find("BtnClose")  
@@ -118,23 +119,13 @@ end
           Destroy(self.gameObect)
       end)  
 
-      self.btnClose:OnPointerDown(function()  
-          Log("按下了关闭按钮")
-      end) 
+   end
 
-      --按钮事件支持传递一个参数，放在首位
-      self.btnOpenSecondUI = self.transform:Find("BtnOpenSecondUI")  
-      self.btnOpenSecondUI:OnClick(传递的参数, function(传递的参数)  
-          CommandManager.execute(CommandID.OpenUI, ModuleID.您定义的ModuleID)  
-      end) 
-
+   function Login:OnEnable() 
+       self.super.OnEnable(self)
    end  
 
-   function Login:onEnable() 
-       self.super.onEnable(self)
-   end  
-
-   function Login:onStart()  
+   function Login:Start()  
       --DOTween使用（本框架扩展了DOTween的整界面同时透明动画的方法，支持重载以忽略某些参数，详见DOTweenExtend.cs）     
       --self.transform:DOAlpha(初始透明度，目标透明度，动画时长，缓动方式，是否包含所有子节点)  
       self.transform:DOAlpha(0, 1, 1.5, Ease.OutExpo, true):OnComplete(function()
@@ -142,59 +133,30 @@ end
       end)  
    end  
 
-   function Login:onDisable()  
+   function Login:Update()  
+       --这里每帧执行一次
+   end
+
+   function Login:OnDisable()  
        self.super.onDisable(self)
    end  
 
-   function Login:onDestroy()  
+   function Login:OnDestroy()  
        self.super.onDestroy(self)
    end  
   
    return Login
 ```
 
-7.  Update方法的实现。出于性能考虑，Update方法需要手动注册和注销： 
-```
-   local BaseUI = require "Core.BaseUI"  
-   local Login= class("Login", BaseUI)  
-  
-   function Login:onAwake()  
-       self.super.onAwake(self)
-
-      --定义回调
-      self.updateHandler = UpdateBeat:CreateListener(self.update, self)
-   end  
-
-   function Login:onEnable()  
-       self.super.onEnable(self)
-
-       --开始Update
-       UpdateBeat:AddListener(self.updateHandler)
-   end  
-
-   function Login:onDisable()  
-       self.super.onDisable(self)
-
-       --停止Update
-       UpdateBeat:RemoveListener(self.updateHandler)
-   end  
-
-   function Login:update()  
-       --这里每帧执行一次
-   end  
-  
-   return Login
-```
-
-8.  正式生成UI，三种情况：
+7.  正式生成UI，三种情况：
     
 - 直接new()： 比如：Main.lua里创建预加载界面的方法
 ```
     local PreloadUI = require "Modules.ResPreload.ResPreload"
-    PreloadUI:new()
+    PreloadUI:New()
     或
     local parent = GameObject.Find("MainCanvas").transform
-    PreloadUI:new(parent)
+    PreloadUI:New(parent)
 ```
 - 分模块开发，在各自模块里管理对应UI集合，通过发送命令展示：（高度解耦，数据隔离，大项目推荐）  
     第1步：创建模块类（如Demo中的LoginMgr）,并在ctor()添加好该模块各个UI类  
@@ -205,11 +167,11 @@ end
     模块类基础内容：
 ```
     local BaseMgr = require "Core.BaseMgr"
-    local LobbyMainMgr = class("LobbyMainMgr", BaseMgr)
+    local LobbyMainMgr = Class("LobbyMainMgr", BaseMgr)
 
-    function LobbyMainMgr:ctor()
-        self.super.ctor(self)
-        self:addUI(1, require "Modules.Lobby.LobbyMain.LobbyMain")
+    function LobbyMainMgr:Ctor()
+        self.super.Ctor(self)
+        self:AddUI(1, require "Modules.Lobby.LobbyMain.LobbyMain")
     end
 
     return LobbyMainMgr
@@ -217,11 +179,11 @@ end
 
    触发打开
 ```
-    CommandManager.execute(CommandID.OpenUI, ModuleID.您定义的ModuleID, 模块管理类里的UI索引(可选)，父级(可选))  
+    CommandManager.Execute(CommandID.OpenUI, "模块类名", "UIID"，父级(可选))  
 
     --发送命令适合跨模块使用，不想用命令也可以调用方法实现打开UI(适合模块内使用,或需要得到UI对象进行进一步赋值时使用)
 
-    local alert = Module.Get(ModuleId.Common):openUI(1)
+    local alert = Modules.Common:OpenUI("Alert")
     alert:setContent("Hello Lua")
 ```
 - 以上是对象有脚本绑定的打开方法，如果简单一个无绑定的对象，用以下方法即可：
@@ -229,7 +191,7 @@ end
     local go = ResManager.SpawnPrefab(预设体在Resources目录下的路径，父级(可选))
 ```
 
-9.  按钮事件的绑定（两种写法）
+8.  按钮事件的绑定（两种写法）
 - 第1种写法：绑定内部函数，无需传self，循环参数i可直接引用,不会被循环覆盖
 ```
     for i = 1,10 do
@@ -240,33 +202,33 @@ end
         end)
     end
 ```
-- 第2种写法，绑定外部函数，需要传self，循环参数i需要当参数透传
+- 第2种写法，绑定外部函数，需要传self，循环参数i需要当参数透传,放在第三位（self之后）
 ```
-    function MyClass:onAwake()
+    function MyClass:Awake()
         for i = 1,10 do
             local btn = self.transform:Find("Btn_"..i)
-            btn:OnClick(i, self.onBtnClick, self)
+            btn:OnClick(self.OnBtnClick, self, i)
         end
     end
-    function MyClass:onBtnClick(index)
+    function MyClass:OnBtnClick(index)
         Log(index)
     end
 ```
 - 以上为点击放开时触发，若需按下时就触发，可将OnClick方法换成OnDown方法
 
-10.  创建时指定父级的三种方法：  
+9.  创建时指定父级的三种方法：  
 - 第1种：new传入
 ```
     local PreloadUI = require "Modules.ResPreload.ResPreload"
-    PreloadUI:new(parent)
+    PreloadUI:New(parent)
 ```
 - 第2种：发送命令时当参数携带
 ```
-    CommandManager.execute(CommandID.OpenUI, ModuleID.您定义的ModuleID, 模块管理类里的UI索引(可选)，父级(可选))
+    CommandManager.execute(CommandID.OpenUI, "模块类名", 模块管理类里的UI索引(可选)，父级(可选))
 ```
 - 第3种：修改模块管理器的基类（BaseMgr.lua）公共方法，当以上两种都不传时，将默认以此为父级
 ```
-    function BaseMgr:defaultParent()
+    function BaseMgr:DefaultParent()
         --TODO:请根据项目实际情况修改
         local parent = GameObject.Find("MainCanvas").transform
         return parent
@@ -287,13 +249,13 @@ end
 2.  特殊情况：
 - 情况1：某些UI需要常驻被覆盖也不隐藏的，只需重写以下方法并返回true即可
 ```
-    function FirstUI:keepActive()  
+    function FirstUI:KeepActive()  
        return true
     end  
 ```
 - 情况2：当新打开的UI属于悬浮弹窗，则前一个UI要保持显示不能隐藏的，只需在悬浮窗UI里重写以下方法并返回true即可
 ```
-    function FirstUI:isFloat()  
+    function FirstUI:IsFloat()  
        return true
     end  
 ```
@@ -336,14 +298,14 @@ end
 
 3. 如果Lua类重写该方法，在创建预设体之后将会立即清除内存里的AssetBundle资源  
 ```
-    function LuaBehaviour:destroyABAfterSpawn()
+    function LuaBehaviour:DestroyABAfterSpawn()
         return true
     end
 ```
 
 4. 如果Lua类重写该方法，在所有被创建出来的预设体被删除之后将会立即清除内存里的AssetBundle资源  
 ```
-    function LuaBehaviour:destroyABAfterAllSpawnDestroy()
+    function LuaBehaviour:DestroyABAfterAllSpawnDestroy()
         return true
     end
 ```
