@@ -70,7 +70,7 @@ namespace ToLuaGameFramework
             lua.Start();
             StartMain();
             StartLooper();
-            MessageCenter.Dispatch(MsgEnum.RunLua);
+            MessageCenter.Dispatch(MsgEnum.RunLuaMain);
         }
 
         /// <summary>

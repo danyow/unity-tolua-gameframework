@@ -75,7 +75,7 @@ namespace ToLuaGameFramework
         }
 
         /// <summary>
-        /// 判断某个AssetBundle是否已经下载(abName: prefab_ui_shop.zip)
+        /// 判断某个AssetBundle是否已经下载(abName支持格式: Prefabs/Activities/DailyReward 或 prefabs_activities_dailyreward)
         /// </summary>
         /// <returns></returns>
         public bool IsABLoaded(string abName)

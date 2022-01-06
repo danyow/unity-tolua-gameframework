@@ -30,7 +30,7 @@ namespace ToLuaGameFramework
         private static Dictionary<MsgEnum, List<Action<BaseMsg>>> eventsBuffer = new Dictionary<MsgEnum, List<Action<BaseMsg>>>();
 
         /// <summary>
-        /// 注册事件监听
+        /// 注册消息监听
         /// </summary>
         public static void Add(MsgEnum msgEnum, Action<BaseMsg> callback)
         {
@@ -47,7 +47,7 @@ namespace ToLuaGameFramework
 
 
         /// <summary>
-        /// 注销事件监听
+        /// 注销消息监听
         /// </summary>
         public static void Remove(MsgEnum msgEnum, Action<BaseMsg> callback)
         {
@@ -62,7 +62,7 @@ namespace ToLuaGameFramework
         }
 
         /// <summary>
-        /// 清空所有事件
+        /// 清空所有消息
         /// </summary>
         public static void Remove(MsgEnum msgEnum)
         {
@@ -73,21 +73,21 @@ namespace ToLuaGameFramework
         }
 
         /// <summary>
-        /// 清空所有事件
+        /// 清空所有消息
         /// </summary>
         public static void Clear()
         {
-            Debug.Log(">>>>>>>>>>清空所有事件");
+            Debug.Log(">>>>>>>>>>清空所有消息");
             eventsBuffer.Clear();
         }
 
 
         /// <summary>
-        /// 触发事件
+        /// 触发消息
         /// </summary>
         public static void Dispatch(MsgEnum msgEnum, params object[] args)
         {
-            Debug.Log("触发事件: " + msgEnum);
+            Debug.Log("触发消息: " + msgEnum);
             if (eventsBuffer.ContainsKey(msgEnum))
             {
                 List<Action<BaseMsg>> callbacks = eventsBuffer[msgEnum];
@@ -102,11 +102,11 @@ namespace ToLuaGameFramework
         }
 
         /// <summary>
-        /// 触发事件
+        /// 触发消息
         /// </summary>
         public static void Dispatch(MsgEnum msgEnum, BaseMsg msg)
         {
-            Debug.Log("触发事件: " + msgEnum);
+            Debug.Log("触发消息: " + msgEnum);
             if (eventsBuffer.ContainsKey(msgEnum))
             {
                 List<Action<BaseMsg>> callbacks = eventsBuffer[msgEnum];

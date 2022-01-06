@@ -36,7 +36,6 @@
         {
             text.text = "正在更新资源";
             slider.value = 0;
-            MessageCenter.Remove(MsgEnum.ABLoadingBegin);
         });
         MessageCenter.Add(MsgEnum.ABLoadingError, (BaseMsg msg) =>
         {
@@ -51,13 +50,16 @@
         MessageCenter.Add(MsgEnum.ABLoadingFinish, (BaseMsg msg) =>
         {
             Debug.Log("更新完成");
-            MessageCenter.Remove(MsgEnum.ABLoadingFinish);
         });
         MessageCenter.Add(MsgEnum.RunLuaMain, (BaseMsg msg) =>
         {
             Debug.Log("开始执行Lua的Main脚本");
             Destroy(text.gameObject);
             Destroy(slider.gameObject);
+            MessageCenter.Remove(MsgEnum.ABLoadingBegin);
+            MessageCenter.Remove(MsgEnum.ABLoadingError);
+            MessageCenter.Remove(MsgEnum.ABLoadingProgress);
+            MessageCenter.Remove(MsgEnum.ABLoadingFinish);
             MessageCenter.Remove(MsgEnum.RunLuaMain);
         });
 

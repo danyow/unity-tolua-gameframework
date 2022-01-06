@@ -16,7 +16,7 @@ namespace ToLuaGameFramework
         /// <summary>
         /// 资源是否使用AssetBundle
         /// </summary>
-        public readonly static bool UseAssetBundleRes = !Application.isEditor || false;
+        public readonly static bool UseAssetBundleRes = !Application.isEditor || true;
 
         /// <summary>
         /// 开发专用目录（Lua脚本和预制体，声音所在目录）
@@ -26,9 +26,9 @@ namespace ToLuaGameFramework
         /// <summary>
         /// 导出AB包的路径，导出后资源从该目录上传到远程服务器，并本地清除，切勿留着导入包内，建议定义在工程目录外，如"E:/ExportAssetBundles"
         /// </summary>
-        public readonly static string OutputPath_Android = "C:/Users/Administrator/AppData/LocalLow/GanMaoWangLuo/lua_res";
-        public readonly static string OutputPath_IOS = "C:/Users/Administrator/AppData/LocalLow/GanMaoWangLuo/lua_res_ios";
-        public readonly static string OutputPath_PC = "C:/Users/Administrator/AppData/LocalLow/GanMaoWangLuo/lua_res_pc";
+        public readonly static string OutputPath_Android = "C:/Users/Administrator/AppData/LocalLow/lua_res_android";
+        public readonly static string OutputPath_IOS = "C:/Users/Administrator/AppData/LocalLow/lua_res_ios";
+        public readonly static string OutputPath_PC = "C:/Users/Administrator/AppData/LocalLow/lua_res_pc";
 
         /// <summary>
         /// 远程服务器上AB资源网址(如：http://xxx.xxx.xxx.xxx:8081/res)
@@ -54,9 +54,14 @@ namespace ToLuaGameFramework
         /// </summary>
         public static Dictionary<string, string> ExportRes_For_Startup = new Dictionary<string, string>()
         {
-            { "通用", LuaDevPath + "/Prefabs/UI/Common"},
-            { "登录", LuaDevPath + "/Prefabs/UI/Login"},
-            { "音效", LuaDevPath + "/Sounds"}
+            { "通用", LuaDevPath + "/Prefabs/Common"},
+            { "角色", LuaDevPath + "/Prefabs/Actors"},
+            { "战场", LuaDevPath + "/Prefabs/Battle"},
+            { "大厅", LuaDevPath + "/Prefabs/Lobby/LobbyMain"},
+            { "玩家信息", LuaDevPath + "/Prefabs/Lobby/Player"},
+            { "房间选择", LuaDevPath + "/Prefabs/Lobby/Room"},
+            { "商店", LuaDevPath + "/Prefabs/Lobby/Shop"},
+            { "登录", LuaDevPath + "/Prefabs/Login"}
         };
 
         /// <summary>
@@ -64,10 +69,7 @@ namespace ToLuaGameFramework
         /// </summary>
         public static Dictionary<string, string> ExportRes_For_Delay = new Dictionary<string, string>()
         {
-            { "残局斗牌", LuaDevPath + "/Prefabs/UI/Game30300801"},
-            { "绑定手机", LuaDevPath + "/Prefabs/UI/Phone"},
-            { "仓库", LuaDevPath + "/Prefabs/UI/Safebox"},
-            { "招募", LuaDevPath + "/Prefabs/UI/ZhaoMu"},
+            { "每日奖励", LuaDevPath + "/Prefabs/Activities/DailyReward"}
         };
 
     }
