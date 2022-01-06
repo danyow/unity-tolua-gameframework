@@ -64,9 +64,11 @@
         });
 
         //启动框架
-        //执行该命令，会自动检测下载 LuaConfig.cs里的ExportRes_For_Startup字典里的资源，完成后执行Main.lua
-        //而LuaConfig.cs里的ExportRes_For_Delay字典里的资源不会下载，开发者可在Lua代码内内触发使用时再选择性下载，方法见下文第10点。
         LuaMain.Instance.StartFramework();
+
+        //执行该命令，会自动检测下载 LuaConfig.cs里的ExportRes_For_Startup字典里的资源，完成后执行Main.lua
+        //而LuaConfig.cs里的ExportRes_For_Delay字典里的资源不会下载，开发者可在Lua代码内部使用前下载，方法见下文第10点。
+        
 ```
 
 - 开始全游戏Lua代码：
@@ -249,7 +251,7 @@ end
     end
 ```
 
-10.  触发进入模块时检查资源并下载完成后才进入：  
+10.  延迟下载资源的后续下载方法：  
 - 资源配置：配在LuaConfig.cs的ExportRes_For_Delay字典里，启动框架时会忽略这里的资源不会下载
 - Lua代码里判断下载后进入
 ```
