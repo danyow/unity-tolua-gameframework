@@ -130,7 +130,7 @@ namespace ToLuaGameFramework
                     string abName = ABName(abNames[i]);
                     if (!newestFiles.ContainsKey(abName))
                     {
-                        Debug.LogError(abName + "在服务器上不存在");
+                        Debug.LogError("服务器找不到" + abName);
                     }
                 }
             }

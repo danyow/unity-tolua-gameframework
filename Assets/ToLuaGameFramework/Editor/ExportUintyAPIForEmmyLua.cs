@@ -32,7 +32,7 @@ namespace ToLuaGameFramework
         }
         static string content, enumContent;
 
-        [MenuItem("Lua/Export Uinty API For EmmyLua")]
+        [MenuItem("ToLuaGameFramework/Export Uinty API For EmmyLua")]
         private static void ExportUnityAPI()
         {
             ToLuaMenu.BindType[] typeList = CustomSettings.customTypeList;
