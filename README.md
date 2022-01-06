@@ -64,6 +64,8 @@
         });
 
         //启动框架
+        //执行该命令，会自动检测下载 LuaConfig.cs里的ExportRes_For_Startup字典里的资源，完成后执行Main.lua
+        //而LuaConfig.cs里的ExportRes_For_Delay字典里的资源不会下载，开发者可在Lua代码内内触发使用时再选择性下载，方法见下文第10点。
         LuaMain.Instance.StartFramework();
 ```
 
@@ -245,6 +247,29 @@ end
         local parent = GameObject.Find("MainCanvas").transform
         return parent
     end
+```
+
+10.  触发进入模块时检查资源并下载完成后才进入：  
+- 资源配置：配在LuaConfig.cs的ExportRes_For_Delay字典里，启动框架时会忽略这里的资源不会下载
+- Lua代码里判断下载后进入
+```
+    local btnDailyReward = self.transform:Find("BtnDailyReward")
+    btnDailyReward:OnClick(
+        function()
+            if ResManager.instance:IsABLoaded("Prefabs/Activities/DailyReward") and
+               ResManager.instance:IsABLoaded("Prefabs/Activities/DailyTask") then
+                Modules.DailyReward:OpenUI("DailyReward")
+            else
+                local abs = {"Prefabs/Activities/DailyReward", "Prefabs/Activities/DailyTask"}
+                ResManager.instance:UpdateABsByNames(abs, function(name, progress, allCompleted)
+                    Log(progress, name .. "progress")
+                    if allCompleted then
+                        Modules.DailyReward:OpenUI("DailyReward")
+                    end
+                end)
+            end
+        end
+    )
 ```
 
 #### 关于UI栈  
