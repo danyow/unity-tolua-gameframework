@@ -67,7 +67,7 @@
         LuaMain.Instance.StartFramework();
 
         //执行该命令，会自动检测下载 LuaConfig.cs里的ExportRes_For_Startup字典里的资源，完成后执行Main.lua
-        //而LuaConfig.cs里的ExportRes_For_Delay字典里的资源不会下载，开发者可在Lua代码内部使用前下载，方法见下文第10点。
+        //而LuaConfig.cs里的ExportRes_For_Delay字典里的资源不会下载，开发者可在Lua代码内部使用前下载，方法见下文第11点。
         
 ```
 
@@ -164,7 +164,22 @@ end
    return Login
 ```
 
-7.  正式生成UI，三种方式：
+
+7.  对象已创建，后续给对象绑定Lua组件或移除组件：
+    
+```
+    local coinsTrans = self.transform:Find("CoinsBar")
+
+    --绑定
+    local luaCom = AddLuaComponent(coinsTrans, require("Common.CoinsBar"))
+
+    --移除（第二参数支持传入实例化后的类也支持传入未实例化的Require对象）
+    RemoveLuaComponent(coinsTrans, luaCom)
+    或
+    RemoveLuaComponent(coinsTrans, require("Common.CoinsBar"))
+```
+
+8.  正式生成UI，三种方式：
     
 - 直接New()： 比如：StartGame.lua里创建预加载界面的方法
 ```
@@ -207,7 +222,7 @@ end
     local go = ResManager.SpawnPrefab(预设体在Resources目录下的路径，父级(可选))
 ```
 
-8.  按钮事件的绑定（两种写法）
+9.  按钮事件的绑定（两种写法）
 - 第1种写法：绑定内部函数，无需传self，循环参数i可直接引用,不会被循环覆盖
 ```
     for i = 1,10 do
@@ -232,7 +247,7 @@ end
 ```
 - 以上为点击放开时触发，若需按下时就触发，可将OnClick方法换成OnDown方法
 
-9.  创建时指定父级的三种方法：  
+10.  创建时指定父级的三种方法：  
 - 第1种：New传入
 ```
     local PreloadUI = require "Modules.ResPreload.ResPreload"
@@ -251,7 +266,7 @@ end
     end
 ```
 
-10.  延迟下载资源的后续下载方法：  
+11.  延迟下载资源的后续下载方法：  
 - 资源配置：配在LuaConfig.cs的ExportRes_For_Delay字典里，启动框架时会忽略这里的资源不会下载
 - Lua代码里判断下载后进入
 ```
