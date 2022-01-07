@@ -166,7 +166,7 @@ end
 
 7.  正式生成UI，三种方式：
     
-- 直接New()： 比如：Main.lua里创建预加载界面的方法
+- 直接New()： 比如：StartGame.lua里创建预加载界面的方法
 ```
     local PreloadUI = require "Modules.ResPreload.ResPreload"
     PreloadUI:New()
