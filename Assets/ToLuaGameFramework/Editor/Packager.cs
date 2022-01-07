@@ -91,7 +91,7 @@ namespace ToLuaGameFramework
             ClearUnuseFiles(outputPath);
 
             BuildFileIndex(outputPath);
-            Directory.Delete(tempDir, true);
+            AssetDatabase.DeleteAsset(tempDir.Replace(Application.dataPath, "Assets"));
             AssetDatabase.Refresh();
 
             UnityEngine.Debug.Log("AssetBundle已导出到" + outputPath);

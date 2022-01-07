@@ -174,6 +174,7 @@ public static class CustomSettings
         _GT(typeof(UnityEngine.UI.LayoutRebuilder)),
 
         //ToLuaGameFramework
+        _GT(typeof(LuaConfig)),
         _GT(typeof(PlayerPrefs)),
         _GT(typeof(MessageCenter)),
         _GT(typeof(LuaManager)),

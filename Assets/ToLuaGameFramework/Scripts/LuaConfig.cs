@@ -11,12 +11,12 @@ namespace ToLuaGameFramework
         /// <summary>
         /// Lua脚本是否使用AssetBundle,开发时使用本地LuaDev/Lua目录，写完代码直接启动测试
         /// </summary>
-        public readonly static bool IsLuaUseBundle = !Application.isEditor || true;
+        public readonly static bool UseLuaBundle = !Application.isEditor || false;
 
         /// <summary>
         /// 资源是否使用AssetBundle
         /// </summary>
-        public readonly static bool IsResUseBundle = !Application.isEditor || true;
+        public readonly static bool UseResBundle = !Application.isEditor || false;
 
         /// <summary>
         /// 开发专用目录（Lua脚本和预制体，声音所在目录）
@@ -50,6 +50,7 @@ namespace ToLuaGameFramework
         /// </summary>
         public static Dictionary<string, string> ExportRes_For_Startup = new Dictionary<string, string>()
         {
+            { "预加载", "Prefabs/Preload"},
             { "通用", "Prefabs/Common"},
             { "角色", "Prefabs/Actors"},
             { "战斗", "Prefabs/Battle"},

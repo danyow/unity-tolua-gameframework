@@ -10,7 +10,6 @@ public class ToLuaGameFramework_MessageCenterWrap
 		L.RegFunction("Add", Add);
 		L.RegFunction("Remove", Remove);
 		L.RegFunction("Clear", Clear);
-		L.RegFunction("ClearAll", ClearAll);
 		L.RegFunction("Dispatch", Dispatch);
 		L.RegFunction("New", _CreateToLuaGameFramework_MessageCenter);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -63,11 +62,25 @@ public class ToLuaGameFramework_MessageCenterWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
-			ToLuaGameFramework.MsgEnum arg0 = (ToLuaGameFramework.MsgEnum)ToLua.CheckObject(L, 1, typeof(ToLuaGameFramework.MsgEnum));
-			System.Action<ToLuaGameFramework.BaseMsg> arg1 = (System.Action<ToLuaGameFramework.BaseMsg>)ToLua.CheckDelegate<System.Action<ToLuaGameFramework.BaseMsg>>(L, 2);
-			ToLuaGameFramework.MessageCenter.Remove(arg0, arg1);
-			return 0;
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				ToLuaGameFramework.MsgEnum arg0 = (ToLuaGameFramework.MsgEnum)ToLua.CheckObject(L, 1, typeof(ToLuaGameFramework.MsgEnum));
+				ToLuaGameFramework.MessageCenter.Remove(arg0);
+				return 0;
+			}
+			else if (count == 2)
+			{
+				ToLuaGameFramework.MsgEnum arg0 = (ToLuaGameFramework.MsgEnum)ToLua.CheckObject(L, 1, typeof(ToLuaGameFramework.MsgEnum));
+				System.Action<ToLuaGameFramework.BaseMsg> arg1 = (System.Action<ToLuaGameFramework.BaseMsg>)ToLua.CheckDelegate<System.Action<ToLuaGameFramework.BaseMsg>>(L, 2);
+				ToLuaGameFramework.MessageCenter.Remove(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: ToLuaGameFramework.MessageCenter.Remove");
+			}
 		}
 		catch (Exception e)
 		{
@@ -77,22 +90,6 @@ public class ToLuaGameFramework_MessageCenterWrap
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int Clear(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			ToLuaGameFramework.MsgEnum arg0 = (ToLuaGameFramework.MsgEnum)ToLua.CheckObject(L, 1, typeof(ToLuaGameFramework.MsgEnum));
-			ToLuaGameFramework.MessageCenter.Remove(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ClearAll(IntPtr L)
 	{
 		try
 		{

@@ -63,7 +63,7 @@ namespace ToLuaGameFramework
         /// <returns></returns>
         public void StartUpdateABOnStartup()
         {
-            if (LuaConfig.IsLuaUseBundle || LuaConfig.IsResUseBundle)
+            if (LuaConfig.UseLuaBundle || LuaConfig.UseResBundle)
             {
                 Debug.Log("开始下载资源");
                 StartCoroutine(CheckAndDownloadAB(null, null));
@@ -154,14 +154,14 @@ namespace ToLuaGameFramework
                 {
                     canLoad = item.Value.isForStartup;
                 }
-                if (!LuaConfig.IsLuaUseBundle)
+                if (!LuaConfig.UseLuaBundle)
                 {
                     if (item.Key.Equals("lua.zip"))
                     {
                         canLoad = false;
                     }
                 }
-                if (!LuaConfig.IsResUseBundle)
+                if (!LuaConfig.UseResBundle)
                 {
                     if (!item.Key.Equals("lua.zip"))
                     {
@@ -250,7 +250,7 @@ namespace ToLuaGameFramework
         /// </summary>
         public static void PreloadLocalAssetBundles(string[] abPaths, LuaFunction onProgress)
         {
-            if (!LuaConfig.IsResUseBundle)
+            if (!LuaConfig.UseResBundle)
             {
                 onProgress?.Call(1);
                 return;
@@ -306,7 +306,7 @@ namespace ToLuaGameFramework
                 Debug.LogError("prefabPath为空");
                 return null;
             }
-            if (LuaConfig.IsResUseBundle)
+            if (LuaConfig.UseResBundle)
             {
                 string abName = null;
                 string prefabName = null;
@@ -349,7 +349,7 @@ namespace ToLuaGameFramework
                 Debug.LogError("prefabPath为空");
                 return;
             }
-            if (LuaConfig.IsResUseBundle)
+            if (LuaConfig.UseResBundle)
             {
                 string abName = null;
                 string prefabName = null;
@@ -424,7 +424,7 @@ namespace ToLuaGameFramework
         /// </summary>
         public static T LoadAssetSyn<T>(string assetPath, bool unloadABAfterSpawn = false) where T : UnityEngine.Object
         {
-            if (LuaConfig.IsResUseBundle)
+            if (LuaConfig.UseResBundle)
             {
                 string abName = null;
                 string assetName = null;
@@ -449,7 +449,7 @@ namespace ToLuaGameFramework
         /// </summary>
         public static void LoadAssetAsyn<T>(string assetPath, Action<T> callback, bool unloadABAfterSpawn = false) where T : UnityEngine.Object
         {
-            if (LuaConfig.IsResUseBundle)
+            if (LuaConfig.UseResBundle)
             {
                 string abName = null;
                 string assetName = null;

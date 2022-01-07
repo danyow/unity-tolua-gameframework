@@ -14,7 +14,7 @@ namespace ToLuaGameFramework
         void Awake()
         {
             instance = this;
-            LuaFileUtils.Instance.beZip = LuaConfig.IsLuaUseBundle;
+            LuaFileUtils.Instance.beZip = LuaConfig.UseLuaBundle;
             lua = new LuaState();
             OpenLibs();
             OpenCJson();
@@ -59,7 +59,7 @@ namespace ToLuaGameFramework
         /// </summary>
         public void StartLua()
         {
-            if (LuaConfig.IsLuaUseBundle)
+            if (LuaConfig.UseLuaBundle)
             {
                 InitLuaBundle();
             }

@@ -21,9 +21,12 @@ function ResPreload:Start()
         function(progress)
             self.slider.value = progress
             if progress == 1 then
-                Destroy(self.gameObject)
-                --最后一个参数不传，默认是1
-                CommandManager.Execute(CommandID.OpenUI, "LoginMgr", "Login")
+                coroutine.start(function()
+                    coroutine.wait(0.2)
+                    Destroy(self.gameObject)
+                    --最后一个参数不传，默认是1
+                    CommandManager.Execute(CommandID.OpenUI, "LoginMgr", "Login")
+                end)
             end
         end
     )

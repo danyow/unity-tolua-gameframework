@@ -6111,6 +6111,62 @@ function LayoutRebuilder.Equals(objA, objB) end
 ---@param objB Object
 function LayoutRebuilder.ReferenceEquals(objA, objB) end
 
+---@class LuaConfig : MonoBehaviour @ ---------------------------------------------------------------
+local LuaConfig = {
+}
+LuaConfig.UseLuaBundle = nil
+LuaConfig.UseResBundle = nil
+LuaConfig.LuaDevPath = nil
+LuaConfig.OutputPath_Android = nil
+LuaConfig.OutputPath_IOS = nil
+LuaConfig.OutputPath_PC = nil
+LuaConfig.RemoteUrl = nil
+LuaConfig.ExportLuaPaths = nil
+LuaConfig.ExportRes_For_Startup = nil
+LuaConfig.ExportRes_For_Delay = nil
+---@return Object
+---@param original Object
+---@param position Vector3
+---@param rotation Quaternion
+---@param parent Transform
+function LuaConfig.Instantiate(original, position, rotation, parent) end
+---@param obj Object
+---@param t Single
+function LuaConfig.Destroy(obj, t) end
+---@param obj Object
+---@param allowDestroyingAssets boolean
+function LuaConfig.DestroyImmediate(obj, allowDestroyingAssets) end
+---@return Object[]
+---@param type Type
+---@param includeInactive boolean
+function LuaConfig.FindObjectsOfType(type, includeInactive) end
+---@param target Object
+function LuaConfig.DontDestroyOnLoad(target) end
+---@param obj Object
+---@param t Single
+function LuaConfig.DestroyObject(obj, t) end
+---@return Object[]
+---@param type Type
+function LuaConfig.FindSceneObjectsOfType(type) end
+---@return Object[]
+---@param type Type
+function LuaConfig.FindObjectsOfTypeIncludingAssets(type) end
+---@return Object
+---@param type Type
+---@param includeInactive boolean
+function LuaConfig.FindObjectOfType(type, includeInactive) end
+---@return Object[]
+---@param type Type
+function LuaConfig.FindObjectsOfTypeAll(type) end
+---@return boolean
+---@param objA Object
+---@param objB Object
+function LuaConfig.Equals(objA, objB) end
+---@return boolean
+---@param objA Object
+---@param objB Object
+function LuaConfig.ReferenceEquals(objA, objB) end
+
 ---@class PlayerPrefs : Object @ ---------------------------------------------------------------
 local PlayerPrefs = {
 }
@@ -6160,9 +6216,7 @@ function MessageCenter.Add(msgEnum, callback) end
 ---@param msgEnum MsgEnum
 ---@param callback Action
 function MessageCenter.Remove(msgEnum, callback) end
----@param msgEnum MsgEnum
-function MessageCenter.Clear(msgEnum) end
-function MessageCenter.ClearAll() end
+function MessageCenter.Clear() end
 ---@param msgEnum MsgEnum
 ---@param args Object[]
 function MessageCenter.Dispatch(msgEnum, args) end
@@ -6254,9 +6308,9 @@ function ResManager:UnloadAllAssetBundles(unloadAllLoadedObjects) end
 ---@param unloadABAfterAllSpawnDestroy boolean
 function ResManager:OnSpawnDestroy(bundleName, unloadABAfterAllSpawnDestroy) end
 function ResManager:ClearMemory() end
----@param assetBundlePaths String[]
+---@param abPaths String[]
 ---@param onProgress LuaFunction
-function ResManager.PreloadLocalAssetBundles(assetBundlePaths, onProgress) end
+function ResManager.PreloadLocalAssetBundles(abPaths, onProgress) end
 ---@return GameObject
 ---@param prefabPath string
 ---@param parent Transform

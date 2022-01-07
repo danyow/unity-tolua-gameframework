@@ -158,6 +158,7 @@ public static class LuaBinder
 		L.EndModule();
 		L.EndModule();
 		L.BeginModule("ToLuaGameFramework");
+		ToLuaGameFramework_LuaConfigWrap.Register(L);
 		ToLuaGameFramework_MessageCenterWrap.Register(L);
 		ToLuaGameFramework_LuaManagerWrap.Register(L);
 		ToLuaGameFramework_ResManagerWrap.Register(L);
