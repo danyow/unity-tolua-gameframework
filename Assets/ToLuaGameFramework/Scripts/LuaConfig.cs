@@ -11,24 +11,24 @@ namespace ToLuaGameFramework
         /// <summary>
         /// Lua脚本是否使用AssetBundle,开发时使用本地LuaDev/Lua目录，写完代码直接启动测试
         /// </summary>
-        public readonly static bool UseAssetBundleLua = !Application.isEditor || false;
+        public readonly static bool IsLuaUseBundle = !Application.isEditor || true;
 
         /// <summary>
         /// 资源是否使用AssetBundle
         /// </summary>
-        public readonly static bool UseAssetBundleRes = !Application.isEditor || false;
+        public readonly static bool IsResUseBundle = !Application.isEditor || true;
 
         /// <summary>
         /// 开发专用目录（Lua脚本和预制体，声音所在目录）
         /// </summary>
-        public readonly static string LuaDevPath = Application.dataPath + "/LuaDev";
+        public readonly static string LuaDevPath = "LuaDev";
 
         /// <summary>
         /// 导出AB包的路径，导出后资源从该目录上传到远程服务器，并本地清除，切勿留着导入包内，建议定义在工程目录外，如"E:/ExportAssetBundles"
         /// </summary>
-        public readonly static string OutputPath_Android = "C:/Users/Administrator/AppData/LocalLow/lua_res_android";
-        public readonly static string OutputPath_IOS = "C:/Users/Administrator/AppData/LocalLow/lua_res_ios";
-        public readonly static string OutputPath_PC = "C:/Users/Administrator/AppData/LocalLow/lua_res_pc";
+        public readonly static string OutputPath_Android = "C:/MyFileAudit/lua_res_android";
+        public readonly static string OutputPath_IOS = "C:/MyFileAudit/lua_res_ios";
+        public readonly static string OutputPath_PC = "C:/MyFileAudit/lua_res_pc";
 
         /// <summary>
         /// 远程服务器上AB资源网址(如：http://xxx.xxx.xxx.xxx:8081/res)
@@ -42,10 +42,6 @@ namespace ToLuaGameFramework
         /// </summary>
         public static string[] ExportLuaPaths =
         {
-            //Framework
-            LuaConst.luaDir,
-            LuaConst.toluaDir,
-            //LuaDev
             LuaDevPath + "/Lua"
         };
 
@@ -54,14 +50,7 @@ namespace ToLuaGameFramework
         /// </summary>
         public static Dictionary<string, string> ExportRes_For_Startup = new Dictionary<string, string>()
         {
-            { "通用", LuaDevPath + "/Prefabs/Common"},
-            { "角色", LuaDevPath + "/Prefabs/Actors"},
-            { "战场", LuaDevPath + "/Prefabs/Battle"},
-            { "大厅", LuaDevPath + "/Prefabs/Lobby/LobbyMain"},
-            { "玩家信息", LuaDevPath + "/Prefabs/Lobby/Player"},
-            { "房间选择", LuaDevPath + "/Prefabs/Lobby/Room"},
-            { "商店", LuaDevPath + "/Prefabs/Lobby/Shop"},
-            { "登录", LuaDevPath + "/Prefabs/Login"}
+            { "通用", "Prefabs"}
         };
 
         /// <summary>
@@ -69,7 +58,7 @@ namespace ToLuaGameFramework
         /// </summary>
         public static Dictionary<string, string> ExportRes_For_Delay = new Dictionary<string, string>()
         {
-            { "每日奖励", LuaDevPath + "/Prefabs/Activities/DailyReward"}
+            { "每日奖励", "Prefabs/Activities/DailyReward"}
         };
 
     }

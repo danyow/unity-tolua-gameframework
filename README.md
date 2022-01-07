@@ -19,8 +19,8 @@
 
 - 两种模式：
 
-1.  开发模式：LuaConfig.cs里将UseAssetBundleLua和UseAssetBundleRes设置为false，读取LuaDev目录下实时编写的代码。 
-2.  发布模式：LuaConfig.cs里将UseAssetBundleLua和UseAssetBundleRes设置为true，加载AB包里的代码。菜单ToLuaUIFramework->Build XXX AssetBundle。 
+1.  开发模式：LuaConfig.cs里将IsLuaUseBundle和IsLuaUseBundle设置为false，读取LuaDev目录下实时编写的代码。 
+2.  发布模式：LuaConfig.cs里将IsLuaUseBundle和IsLuaUseBundle设置为true，加载AB包里的代码。菜单ToLuaUIFramework->Build XXX AssetBundle。 
 
 - 本框架推荐C#只用来简单的加载Lua资源和启动Lua框架,游戏逻辑全部在Lua里开发。
 

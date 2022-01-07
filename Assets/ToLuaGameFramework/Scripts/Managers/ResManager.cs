@@ -20,11 +20,11 @@ namespace ToLuaGameFramework
 
     public class AssetBundleInfo
     {
-        public AssetBundle assetBundle;
+        public AssetBundle ab;
         public int referencedCount;
-        public AssetBundleInfo(AssetBundle assetBundle)
+        public AssetBundleInfo(AssetBundle ab)
         {
-            this.assetBundle = assetBundle;
+            this.ab = ab;
             referencedCount = 0;
         }
     }
@@ -63,7 +63,7 @@ namespace ToLuaGameFramework
         /// <returns></returns>
         public void StartUpdateABOnStartup()
         {
-            if (LuaConfig.UseAssetBundleLua || LuaConfig.UseAssetBundleRes)
+            if (LuaConfig.IsLuaUseBundle || LuaConfig.IsResUseBundle)
             {
                 Debug.Log("开始下载资源");
                 StartCoroutine(CheckAndDownloadAB(null, null));
@@ -154,14 +154,14 @@ namespace ToLuaGameFramework
                 {
                     canLoad = item.Value.isForStartup;
                 }
-                if (!LuaConfig.UseAssetBundleLua)
+                if (!LuaConfig.IsLuaUseBundle)
                 {
                     if (item.Key.Equals("lua.zip"))
                     {
                         canLoad = false;
                     }
                 }
-                if (!LuaConfig.UseAssetBundleRes)
+                if (!LuaConfig.IsResUseBundle)
                 {
                     if (!item.Key.Equals("lua.zip"))
                     {
@@ -248,36 +248,23 @@ namespace ToLuaGameFramework
         /// <summary>
         /// Lua调用,预加载AssetBundle列表，传入目录路径
         /// </summary>
-        public static void PreloadLocalAssetBundles(string[] assetBundlePaths, LuaFunction onProgress)
+        public static void PreloadLocalAssetBundles(string[] abPaths, LuaFunction onProgress)
         {
-            if (!LuaConfig.UseAssetBundleRes)
+            if (!LuaConfig.IsResUseBundle)
             {
-                if (onProgress != null)
-                {
-                    onProgress.Call(1);
-                }
+                onProgress?.Call(1);
                 return;
             }
             preloadAssetBundleNames.Clear();
-            for (int i = 0; i < assetBundlePaths.Length; i++)
+            for (int i = 0; i < abPaths.Length; i++)
             {
-                string path = assetBundlePaths[i].Replace("\\", "/");
-                if (path.Contains("Resources/Prefabs"))
-                {
-                    path = path.Substring(path.IndexOf("/Prefabs") + 1);
-                }
-                string namePrefix = null;
-                if (path.Contains("/"))
-                {
-                    namePrefix = path.Replace("/", "_").ToLower();
-                }
-                else
-                {
-                    namePrefix = path.ToLower();
-                }
+                string path = abPaths[i];
+                string abName = null;
+                string prefabName = null;
+                ParseAssetPath(path, out abName, out prefabName);
                 foreach (var item in localFiles.Keys)
                 {
-                    if (item.EndsWith(LuaConst.ExtName) && item.StartsWith(namePrefix))
+                    if (item.EndsWith(LuaConst.ExtName) && item.StartsWith(abName))
                     {
                         string name = item.Substring(0, item.Length - LuaConst.ExtName.Length);
                         if (!preloadAssetBundleNames.Contains(name))
@@ -298,8 +285,8 @@ namespace ToLuaGameFramework
         {
             foreach (var item in loadedAssetBundles.Values)
             {
-                AssetBundle assetBundle = item.assetBundle;
-                assetBundle.Unload(unloadAllLoadedObjects);
+                AssetBundle ab = item.ab;
+                ab.Unload(unloadAllLoadedObjects);
             }
             loadedAssetBundles.Clear();
             ClearMemory();
@@ -319,40 +306,26 @@ namespace ToLuaGameFramework
                 Debug.LogError("prefabPath为空");
                 return null;
             }
-            if (LuaConfig.UseAssetBundleRes)
+            if (LuaConfig.IsResUseBundle)
             {
-                string assetBundleName = null;
+                string abName = null;
                 string prefabName = null;
-                ParseAssetPath(prefabPath, ref assetBundleName, ref prefabName);
-                GameObject prefab = LoadAssetFromAssetBundleSyn<GameObject>(assetBundleName, prefabName, unloadABAfterSpawn);
+                ParseAssetPath(prefabPath, out abName, out prefabName);
+                GameObject prefab = LoadAssetFromAssetBundleSyn<GameObject>(abName, prefabName, unloadABAfterSpawn);
                 GameObject go = Instantiate(prefab);
                 if (parent) go.transform.SetParent(parent, false);
                 LuaBehaviour luaBehaviour = go.AddComponent<LuaBehaviour>();
-                luaBehaviour.assetBundleName = assetBundleName;
+                luaBehaviour.assetBundleName = abName;
                 luaBehaviour.prefabPath = prefabPath;
                 luaBehaviour.unloadABAfterAllSpawnDestroy = unloadABAfterAllSpawnDestroy;
                 return luaBehaviour.gameObject;
             }
             else
             {
-                GameObject prefab = null;
-                string resourcesTag = "/Resources";
-                if (LuaConfig.LuaDevPath.Contains(resourcesTag))
-                {
-                    string prefabFullPath = LuaConfig.LuaDevPath + "/" + prefabPath;
-                    prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf(resourcesTag) + resourcesTag.Length + 1);
-                    prefab = Resources.Load<GameObject>(prefabFullPath);
-                }
-                else
-                {
 #if UNITY_EDITOR
-                    string prefabFullPath = LuaConfig.LuaDevPath + "/" + prefabPath + ".prefab";
-                    prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf("Assets/"));
-                    prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(prefabFullPath);
-#else
-                    Debug.LogError("导出前须配置Config.UseAssetBundle=true或将Lua开发目录移动到Resources目录内");
-#endif
-                }
+                string prefabFullPath = Application.dataPath + "/" + LuaConfig.LuaDevPath + "/" + prefabPath + ".prefab";
+                prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf("Assets/"));
+                GameObject prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(prefabFullPath);
                 GameObject go = Instantiate(prefab);
                 if (parent) go.transform.SetParent(parent, false);
                 LuaBehaviour luaBehaviour = go.AddComponent<LuaBehaviour>();
@@ -360,6 +333,9 @@ namespace ToLuaGameFramework
                 luaBehaviour.prefabPath = prefabPath;
                 luaBehaviour.unloadABAfterAllSpawnDestroy = unloadABAfterAllSpawnDestroy;
                 return luaBehaviour.gameObject;
+#else
+                return null;
+#endif
             }
         }
 
@@ -373,17 +349,17 @@ namespace ToLuaGameFramework
                 Debug.LogError("prefabPath为空");
                 return;
             }
-            if (LuaConfig.UseAssetBundleRes)
+            if (LuaConfig.IsResUseBundle)
             {
-                string assetBundleName = null;
+                string abName = null;
                 string prefabName = null;
-                ParseAssetPath(prefabPath, ref assetBundleName, ref prefabName);
-                instance.StartCoroutine(LoadAssetFromAssetBundleAsyn(assetBundleName, prefabName, (GameObject prefab) =>
+                ParseAssetPath(prefabPath, out abName, out prefabName);
+                instance.StartCoroutine(LoadAssetFromAssetBundleAsyn(abName, prefabName, (GameObject prefab) =>
                 {
                     GameObject go = Instantiate(prefab);
                     if (parent) go.transform.SetParent(parent, false);
                     LuaBehaviour luaBehaviour = go.AddComponent<LuaBehaviour>();
-                    luaBehaviour.assetBundleName = assetBundleName;
+                    luaBehaviour.assetBundleName = abName;
                     luaBehaviour.prefabPath = prefabPath;
                     luaBehaviour.unloadABAfterAllSpawnDestroy = unloadABAfterAllSpawnDestroy;
                     if (!string.IsNullOrEmpty(callback + ""))
@@ -401,24 +377,10 @@ namespace ToLuaGameFramework
             }
             else
             {
-                GameObject prefab = null;
-                string resourcesTag = "/Resources";
-                if (LuaConfig.LuaDevPath.Contains(resourcesTag))
-                {
-                    string prefabFullPath = LuaConfig.LuaDevPath + "/" + prefabPath;
-                    prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf(resourcesTag) + resourcesTag.Length + 1);
-                    prefab = Resources.Load<GameObject>(prefabFullPath);
-                }
-                else
-                {
 #if UNITY_EDITOR
-                    string prefabFullPath = LuaConfig.LuaDevPath + "/" + prefabPath + ".prefab";
-                    prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf("Assets/"));
-                    prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(prefabFullPath);
-#else
-                    Debug.LogError("导出前须配置Config.UseAssetBundle=true或将Lua开发目录移动到Resources目录内");
-#endif
-                }
+                string prefabFullPath = Application.dataPath + "/" + LuaConfig.LuaDevPath + "/" + prefabPath + ".prefab";
+                prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf("Assets/"));
+                GameObject prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(prefabFullPath);
                 GameObject go = Instantiate(prefab);
                 if (parent) go.transform.SetParent(parent, false);
                 LuaBehaviour luaBehaviour = go.AddComponent<LuaBehaviour>();
@@ -436,6 +398,7 @@ namespace ToLuaGameFramework
                         callback.Call(luaBehaviour.gameObject, false);
                     }
                 }
+#endif
             }
         }
 
@@ -446,11 +409,11 @@ namespace ToLuaGameFramework
         {
             if (loadedAssetBundles.ContainsKey(bundleName))
             {
-                AssetBundleInfo assetBundleInfo = loadedAssetBundles[bundleName];
-                assetBundleInfo.referencedCount--;
-                if (assetBundleInfo.referencedCount <= 0 && unloadABAfterAllSpawnDestroy)
+                AssetBundleInfo abInfo = loadedAssetBundles[bundleName];
+                abInfo.referencedCount--;
+                if (abInfo.referencedCount <= 0 && unloadABAfterAllSpawnDestroy)
                 {
-                    assetBundleInfo.assetBundle.Unload(true);
+                    abInfo.ab.Unload(true);
                     loadedAssetBundles.Remove(bundleName);
                 }
             }
@@ -461,34 +424,23 @@ namespace ToLuaGameFramework
         /// </summary>
         public static T LoadAssetSyn<T>(string assetPath, bool unloadABAfterSpawn = false) where T : UnityEngine.Object
         {
-            if (LuaConfig.UseAssetBundleRes)
+            if (LuaConfig.IsResUseBundle)
             {
-                string assetBundleName = null;
+                string abName = null;
                 string assetName = null;
-                ParseAssetPath(assetPath, ref assetBundleName, ref assetName);
-                return LoadAssetFromAssetBundleSyn<T>(assetBundleName, assetName, unloadABAfterSpawn);
+                ParseAssetPath(assetPath, out abName, out assetName);
+                return LoadAssetFromAssetBundleSyn<T>(abName, assetName, unloadABAfterSpawn);
             }
             else
             {
-                T asset = null;
-                string resourcesTag = "/Resources";
-                if (LuaConfig.LuaDevPath.Contains(resourcesTag))
-                {
-                    string prefabFullPath = LuaConfig.LuaDevPath + "/" + assetPath;
-                    prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf(resourcesTag) + resourcesTag.Length + 1);
-                    asset = Resources.Load<T>(prefabFullPath);
-                }
-                else
-                {
 #if UNITY_EDITOR
-                    string prefabFullPath = AddSuffix(LuaConfig.LuaDevPath + "/" + assetPath);
-                    prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf("Assets/"));
-                    asset = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(prefabFullPath);
-#else
-                    Debug.LogError("导出前须配置Config.UseAssetBundle=true或将Lua开发目录移动到Resources目录内");
-#endif
-                }
+                string prefabFullPath = AddSuffix(Application.dataPath + "/" + LuaConfig.LuaDevPath + "/" + assetPath);
+                prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf("Assets/"));
+                T asset = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(prefabFullPath);
                 return asset;
+#else
+                return default(T);
+#endif
             }
         }
 
@@ -497,34 +449,21 @@ namespace ToLuaGameFramework
         /// </summary>
         public static void LoadAssetAsyn<T>(string assetPath, Action<T> callback, bool unloadABAfterSpawn = false) where T : UnityEngine.Object
         {
-            if (LuaConfig.UseAssetBundleRes)
+            if (LuaConfig.IsResUseBundle)
             {
-                string assetBundleName = null;
+                string abName = null;
                 string assetName = null;
-                ParseAssetPath(assetPath, ref assetBundleName, ref assetName);
-                instance.StartCoroutine(LoadAssetFromAssetBundleAsyn(assetBundleName, assetName, callback, unloadABAfterSpawn));
+                ParseAssetPath(assetPath, out abName, out assetName);
+                instance.StartCoroutine(LoadAssetFromAssetBundleAsyn(abName, assetName, callback, unloadABAfterSpawn));
             }
             else
             {
-                T asset = null;
-                string resourcesTag = "/Resources";
-                if (LuaConfig.LuaDevPath.Contains(resourcesTag))
-                {
-                    string prefabFullPath = LuaConfig.LuaDevPath + "/" + assetPath;
-                    prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf(resourcesTag) + resourcesTag.Length + 1);
-                    asset = Resources.Load<T>(prefabFullPath);
-                }
-                else
-                {
 #if UNITY_EDITOR
-                    string prefabFullPath = AddSuffix(LuaConfig.LuaDevPath + "/" + assetPath);
-                    prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf("Assets/"));
-                    asset = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(prefabFullPath);
-#else
-                    Debug.LogError("导出前须配置Config.UseAssetBundle=true或将Lua开发目录移动到Resources目录内");
+                string prefabFullPath = AddSuffix(Application.dataPath + "/" + LuaConfig.LuaDevPath + "/" + assetPath);
+                prefabFullPath = prefabFullPath.Substring(prefabFullPath.IndexOf("Assets/"));
+                T asset = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(prefabFullPath);
+                callback?.Invoke(asset);
 #endif
-                }
-                if (callback != null) callback(asset);
             }
         }
 
@@ -565,36 +504,36 @@ namespace ToLuaGameFramework
         /// <summary>
         /// 从AssetBundle里同步获取资源
         /// </summary>
-        static T LoadAssetFromAssetBundleSyn<T>(string assetBundleName, string assetName, bool unloadABAfterSpawn = false) where T : UnityEngine.Object
+        static T LoadAssetFromAssetBundleSyn<T>(string abName, string assetName, bool unloadABAfterSpawn = false) where T : UnityEngine.Object
         {
             T prefab = null;
-            AssetBundleInfo assetBundleInfo = null;
-            loadedAssetBundles.TryGetValue(assetBundleName, out assetBundleInfo);
-            if (assetBundleInfo == null)
+            AssetBundleInfo abInfo = null;
+            loadedAssetBundles.TryGetValue(abName, out abInfo);
+            if (abInfo == null)
             {
-                string localUrl = LuaConst.localABPath + "/" + assetBundleName + LuaConst.ExtName;
-                AssetBundle assetBundle = AssetBundle.LoadFromFile(localUrl);
+                string localUrl = LuaConst.localABPath + "/" + abName + LuaConst.ExtName;
+                AssetBundle ab = AssetBundle.LoadFromFile(localUrl);
                 if (unloadABAfterSpawn)
                 {
-                    prefab = assetBundle.LoadAsset<T>(assetName);
-                    assetBundle.Unload(false);
+                    prefab = ab.LoadAsset<T>(assetName);
+                    ab.Unload(false);
                 }
                 else
                 {
-                    assetBundleInfo = new AssetBundleInfo(assetBundle);
-                    prefab = assetBundleInfo.assetBundle.LoadAsset<T>(assetName);
-                    assetBundleInfo.referencedCount++;
-                    loadedAssetBundles.Add(assetBundleName, assetBundleInfo);
+                    abInfo = new AssetBundleInfo(ab);
+                    prefab = abInfo.ab.LoadAsset<T>(assetName);
+                    abInfo.referencedCount++;
+                    loadedAssetBundles.Add(abName, abInfo);
                 }
             }
             else
             {
-                prefab = assetBundleInfo.assetBundle.LoadAsset<T>(assetName);
-                assetBundleInfo.referencedCount++;
+                prefab = abInfo.ab.LoadAsset<T>(assetName);
+                abInfo.referencedCount++;
                 if (unloadABAfterSpawn)
                 {
-                    assetBundleInfo.assetBundle.Unload(false);
-                    loadedAssetBundles.Remove(assetBundleName);
+                    abInfo.ab.Unload(false);
+                    loadedAssetBundles.Remove(abName);
                 }
             }
             return prefab;
@@ -603,63 +542,72 @@ namespace ToLuaGameFramework
         /// <summary>
         /// 从AssetBundle里异步获取资源
         /// </summary>
-        static IEnumerator LoadAssetFromAssetBundleAsyn<T>(string assetBundleName, string assetName, Action<T> callback, bool unloadABAfterSpawn = false) where T : UnityEngine.Object
+        static IEnumerator LoadAssetFromAssetBundleAsyn<T>(string abName, string assetName, Action<T> callback, bool unloadABAfterSpawn = false) where T : UnityEngine.Object
         {
-            AssetBundleInfo assetBundleInfo = null;
-            loadedAssetBundles.TryGetValue(assetBundleName, out assetBundleInfo);
-            if (assetBundleInfo == null)
+            AssetBundleInfo abInfo = null;
+            loadedAssetBundles.TryGetValue(abName, out abInfo);
+            if (abInfo == null)
             {
-                string localUrl = LuaConst.localABPath + "/" + assetBundleName + LuaConst.ExtName;
+                string localUrl = LuaConst.localABPath + "/" + abName + LuaConst.ExtName;
                 UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(localUrl);
                 yield return request.SendWebRequest();
                 if (request.error != null)
                 {
                     Debug.LogError(" [ " + localUrl + " ] " + request.error);
                 }
-                AssetBundle assetBundle = (request.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
+                AssetBundle ab = (request.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
                 if (unloadABAfterSpawn)
                 {
-                    T prefab = assetBundle.LoadAsset<T>(assetName);
-                    if (callback != null) callback(prefab);
-                    assetBundle.Unload(false);
+                    T prefab = ab.LoadAsset<T>(assetName);
+                    callback?.Invoke(prefab);
+                    ab.Unload(false);
                 }
                 else
                 {
-                    assetBundleInfo = new AssetBundleInfo(assetBundle);
-                    T prefab = assetBundleInfo.assetBundle.LoadAsset<T>(assetName);
+                    abInfo = new AssetBundleInfo(ab);
+                    T prefab = abInfo.ab.LoadAsset<T>(assetName);
                     if (callback != null)
                     {
                         callback(prefab);
-                        assetBundleInfo.referencedCount++;
+                        abInfo.referencedCount++;
                     }
-                    loadedAssetBundles.Add(assetBundleName, assetBundleInfo);
+                    loadedAssetBundles.Add(abName, abInfo);
                 }
             }
             else
             {
-                T prefab = assetBundleInfo.assetBundle.LoadAsset<T>(assetName);
+                T prefab = abInfo.ab.LoadAsset<T>(assetName);
                 if (callback != null)
                 {
                     callback(prefab);
-                    assetBundleInfo.referencedCount++;
+                    abInfo.referencedCount++;
                 }
                 if (unloadABAfterSpawn)
                 {
-                    assetBundleInfo.assetBundle.Unload(false);
-                    loadedAssetBundles.Remove(assetBundleName);
+                    abInfo.ab.Unload(false);
+                    loadedAssetBundles.Remove(abName);
                 }
             }
         }
 
-        static void ParseAssetPath(string assetPath, ref string assetBundleName, ref string assetName)
+        static void ParseAssetPath(string assetPath, out string abName, out string assetName)
         {
-            assetBundleName = assetPath.ToLower();
+            abName = assetPath.ToLower();
             assetName = assetPath;
             if (assetPath.Contains("/"))
             {
-                assetBundleName = assetPath.Substring(0, assetPath.LastIndexOf("/"));
-                assetBundleName = assetBundleName.Replace("/", "_").ToLower();
                 assetName = assetPath.Substring(assetPath.LastIndexOf("/") + 1);
+                abName = assetPath.Substring(0, assetPath.LastIndexOf("/")).ToLower();
+                if (abName.Contains("/"))
+                {
+                    abName = abName.Replace("/", "_");
+                    string localUrl = LuaConst.localABPath + "/" + abName + LuaConst.ExtName;
+                    while (!File.Exists(localUrl) && abName.Contains("_"))
+                    {
+                        abName = abName.Substring(0, abName.LastIndexOf("_"));
+                        localUrl = LuaConst.localABPath + "/" + abName + LuaConst.ExtName;
+                    }
+                }
             }
         }
 
@@ -667,24 +615,24 @@ namespace ToLuaGameFramework
         {
             while (preloadAssetBundleNames.Count > 0)
             {
-                string assetBundleName = preloadAssetBundleNames[0];
+                string abName = preloadAssetBundleNames[0];
                 preloadAssetBundleNames.RemoveAt(0);
-                AssetBundleInfo assetBundleInfo = null;
-                loadedAssetBundles.TryGetValue(assetBundleName, out assetBundleInfo);
-                if (assetBundleInfo == null)
+                AssetBundleInfo abInfo = null;
+                loadedAssetBundles.TryGetValue(abName, out abInfo);
+                if (abInfo == null)
                 {
-                    string localUrl = LuaConst.localABPath + "/" + assetBundleName + LuaConst.ExtName;
+                    string localUrl = LuaConst.localABPath + "/" + abName + LuaConst.ExtName;
                     UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(localUrl);
                     yield return request.SendWebRequest();
                     if (request.error != null)
                     {
                         Debug.LogError(" [ " + localUrl + " ] " + request.error);
                     }
-                    AssetBundle assetBundle = (request.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
-                    assetBundleInfo = new AssetBundleInfo(assetBundle);
-                    loadedAssetBundles.Add(assetBundleName, assetBundleInfo);
+                    AssetBundle ab = (request.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
+                    abInfo = new AssetBundleInfo(ab);
+                    loadedAssetBundles.Add(abName, abInfo);
                 }
-                if (onProgress != null) onProgress.Call((totalPreloadAssetBundles - preloadAssetBundleNames.Count) / (float)totalPreloadAssetBundles);
+                onProgress?.Call((totalPreloadAssetBundles - preloadAssetBundleNames.Count) / (float)totalPreloadAssetBundles);
             }
         }
 

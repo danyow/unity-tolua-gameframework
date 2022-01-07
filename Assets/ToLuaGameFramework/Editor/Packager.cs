@@ -83,12 +83,12 @@ namespace ToLuaGameFramework
             string tempDir = Application.dataPath + "/temp";
 
             HandleLuaBundle(tempDir);
-            HandleResBundle(LuaConfig.ExportRes_For_Startup);
+            HandleResBundle(LuaConfig.ExportRes_For_Startup, LuaConfig.ExportRes_For_Delay);
             HandleResBundle(LuaConfig.ExportRes_For_Delay);
 
             AssetDatabase.Refresh();
             BuildPipeline.BuildAssetBundles(outputPath, maps.ToArray(), BuildAssetBundleOptions.None, target);
-            ClearUselessFiles(outputPath);
+            ClearUnuseFiles(outputPath);
 
             BuildFileIndex(outputPath);
             Directory.Delete(tempDir, true);
@@ -105,12 +105,16 @@ namespace ToLuaGameFramework
         {
             if (!Directory.Exists(tempDir)) Directory.CreateDirectory(tempDir);
 
-            string[] srcDirs = LuaConfig.ExportLuaPaths;
-            for (int i = 0; i < srcDirs.Length; i++)
+            List<string> srcDirs = new List<string>(LuaConfig.ExportLuaPaths);
+            srcDirs.Add(LuaConst.luaDir);
+            srcDirs.Add(LuaConst.toluaDir);
+            //LuaDev
+            for (int i = 0; i < srcDirs.Count; i++)
             {
                 if (LuaConst.LuaByteMode)
                 {
                     string sourceDir = srcDirs[i];
+                    if (!sourceDir.StartsWith(Application.dataPath)) sourceDir = Application.dataPath + "/" + sourceDir;
                     string[] files = Directory.GetFiles(sourceDir, "*.lua", SearchOption.AllDirectories);
                     int len = sourceDir.Length;
 
@@ -129,7 +133,9 @@ namespace ToLuaGameFramework
                 }
                 else
                 {
-                    ToLuaMenu.CopyLuaBytesFiles(srcDirs[i], tempDir);
+                    string sourceDir = srcDirs[i];
+                    if (!sourceDir.StartsWith(Application.dataPath)) sourceDir = Application.dataPath + "/" + sourceDir;
+                    ToLuaMenu.CopyLuaBytesFiles(sourceDir, tempDir);
                 }
             }
             string[] filePaths = Directory.GetFiles(tempDir, "*.bytes", SearchOption.AllDirectories);
@@ -148,18 +154,31 @@ namespace ToLuaGameFramework
         /// <summary>
         /// 处理Res的AssetBundle
         /// </summary>
-        static void HandleResBundle(Dictionary<string, string> resDic)
+        static void HandleResBundle(Dictionary<string, string> resDic, Dictionary<string, string> excludeList = null)
         {
-            foreach (var path in resDic)
+            foreach (var path in resDic.Values)
             {
-                string resPath = path.Value.Replace(Application.dataPath, "Assets");
+                string resPath = "Assets/" + LuaConfig.LuaDevPath + "/" + path;
                 List<string> resPaths = new List<string>();
-                string[] files = Directory.GetFiles(resPath);
+                string[] files = Directory.GetFiles(resPath, "*", SearchOption.AllDirectories);
                 for (int i = 0; i < files.Length; i++)
                 {
                     string file = files[i].Replace("\\", "/");
                     if (!file.EndsWith(".meta"))
                     {
+                        bool isExclude = false;
+                        if (excludeList != null)
+                        {
+                            foreach (var item in excludeList)
+                            {
+                                if (file.Replace("Assets/" + LuaConfig.LuaDevPath + "/", "").StartsWith(item.Value))
+                                {
+                                    isExclude = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (isExclude) continue;
                         resPaths.Add(file);
                     }
                 }
@@ -175,9 +194,12 @@ namespace ToLuaGameFramework
         {
             if (resPath.StartsWith("Assets"))
             {
-                resPath = Application.dataPath.Replace("Assets", "") + resPath;
+                resPath = resPath.Replace("Assets/" + LuaConfig.LuaDevPath + "/", "");
             }
-            resPath = resPath.Replace(LuaConfig.LuaDevPath + "/", "");
+            else
+            {
+                resPath = resPath.Replace(Application.dataPath + "/" + LuaConfig.LuaDevPath + "/", "");
+            }
             resPath = resPath.Replace("\\", "_").Replace("/", "_");
             return resPath;
         }
@@ -185,7 +207,7 @@ namespace ToLuaGameFramework
         /// <summary>
         /// 清除.manifest,.meta,.DS_Store等无用文件
         /// </summary>
-        static void ClearUselessFiles(string outputPath)
+        static void ClearUnuseFiles(string outputPath)
         {
             List<string> paths = new List<string>();
             paths.AddRange(Directory.GetFiles(outputPath, "*.manifest", SearchOption.AllDirectories));
@@ -226,10 +248,10 @@ namespace ToLuaGameFramework
                 string md5 = LUtils.MD5file(filePath);
                 sw.WriteLine("0|动态|" + fileName + "|" + md5);
             }
-            //启动必须下载的资源
+            //自动下载的资源
             foreach (var path in LuaConfig.ExportRes_For_Startup)
             {
-                fileName = path.Value.Replace(LuaConfig.LuaDevPath + "/", "") + LuaConst.ExtName;
+                fileName = path.Value + LuaConst.ExtName;
                 fileName = fileName.Replace("\\", "_").Replace("/", "_").ToLower();
                 filePath = outputPath + "/" + fileName;
                 if (File.Exists(filePath))
@@ -238,10 +260,10 @@ namespace ToLuaGameFramework
                     sw.WriteLine("0|" + path.Key + "|" + fileName + "|" + md5);
                 }
             }
-            //打开模块前才独立下载的资源
+            //延迟下载的资源
             foreach (var path in LuaConfig.ExportRes_For_Delay)
             {
-                fileName = path.Value.Replace(LuaConfig.LuaDevPath + "/", "") + LuaConst.ExtName;
+                fileName = path.Value + LuaConst.ExtName;
                 fileName = fileName.Replace("\\", "_").Replace("/", "_").ToLower();
                 filePath = outputPath + "/" + fileName;
                 if (File.Exists(filePath))
