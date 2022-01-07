@@ -76,20 +76,20 @@ function AddLuaComponent(transform, luaCalss)
 end
 
 --例：
--- local com = AddLuaComponent(gameObject, luaCalss)
--- RemoveLuaComponent(self.gameObject, com)
+-- local com = AddLuaComponent(transform, luaCalss)
+-- RemoveLuaComponent(self.transform, com)
 -- 或
--- RemoveLuaComponent(self.gameObject, require "Modules.Common.WealthListener")
-function RemoveLuaComponent(gameObject, luaCalss)
-    if IsNil(gameObject) then
-        LogError("gameObject 为 Null")
+-- RemoveLuaComponent(self.transform, require "Modules.Common.WealthListener")
+function RemoveLuaComponent(transform, luaCalss)
+    if IsNil(transform) then
+        LogError("transform 为 Null")
         return 
     end
     if not luaCalss then
         LogError("luaCalss 为 nil")
         return 
     end
-    local csharpBehaviour = gameObject:GetComponent("LuaBehaviour")
+    local csharpBehaviour = transform:GetComponent("LuaBehaviour")
     if not IsNil(csharpBehaviour) then
         csharpBehaviour:RemoveLuaClass(luaCalss)
     end
