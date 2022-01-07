@@ -50,7 +50,11 @@ namespace ToLuaGameFramework
         /// </summary>
         public static Dictionary<string, string> ExportRes_For_Startup = new Dictionary<string, string>()
         {
-            { "通用", "Prefabs"}
+            { "通用", "Prefabs/Common"},
+            { "角色", "Prefabs/Actors"},
+            { "战斗", "Prefabs/Battle"},
+            { "大厅", "Prefabs/Lobby"},
+            { "登录", "Prefabs/Login"}
         };
 
         /// <summary>

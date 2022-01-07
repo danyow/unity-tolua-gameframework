@@ -80,7 +80,7 @@ namespace ToLuaGameFramework
 
             maps.Clear();
 
-            string tempDir = Application.dataPath + "/temp";
+            string tempDir = Application.dataPath + "/temp1";
 
             HandleLuaBundle(tempDir);
             HandleResBundle(LuaConfig.ExportRes_For_Startup, LuaConfig.ExportRes_For_Delay);
