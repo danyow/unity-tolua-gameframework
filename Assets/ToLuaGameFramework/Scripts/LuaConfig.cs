@@ -16,7 +16,7 @@ namespace ToLuaGameFramework
         /// <summary>
         /// 资源是否使用AssetBundle
         /// </summary>
-        public readonly static bool UseAssetBundleRes = !Application.isEditor || true;
+        public readonly static bool UseAssetBundleRes = !Application.isEditor || false;
 
         /// <summary>
         /// 开发专用目录（Lua脚本和预制体，声音所在目录）
