@@ -25,7 +25,7 @@ function PlayerInfo:Awake()
     btnAlert:OnClick(
         function()
             local alert = Modules.Common:OpenUI("Alert")
-            alert:SetContent("自动添加Canvas以盖住特效")
+            alert:SetContent("框架已自动添加Canvas以盖住特效")
         end
     )
 end

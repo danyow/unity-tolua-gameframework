@@ -16,7 +16,7 @@ function DailyReward_Content_1:Awake()
     btnAlert:OnClick(
         function()
             local alert = Modules.Common:OpenUI("Alert")
-            alert:SetContent("动态添加Canvas以盖住特效")
+            alert:SetContent("框架已动态添加Canvas以盖住特效")
         end
     )
 end

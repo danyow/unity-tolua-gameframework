@@ -67,7 +67,7 @@ function LobbyMain:Awake()
     btnAlert:OnClick(
         function()
             local alert = Modules.Common:OpenUI("Alert")
-            alert:SetContent("底层无特效，无需动态添加Canvas")
+            alert:SetContent("底层无特效，框架不会动态添加Canvas")
         end
     )
 end

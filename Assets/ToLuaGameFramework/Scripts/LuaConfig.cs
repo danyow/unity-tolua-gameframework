@@ -11,12 +11,12 @@ namespace ToLuaGameFramework
         /// <summary>
         /// Lua脚本是否使用AssetBundle,开发时使用本地LuaDev/Lua目录，写完代码直接启动测试
         /// </summary>
-        public readonly static bool UseLuaBundle = !Application.isEditor || false;
+        public readonly static bool UseLuaBundle = !Application.isEditor || true;
 
         /// <summary>
         /// 资源是否使用AssetBundle
         /// </summary>
-        public readonly static bool UseResBundle = !Application.isEditor || false;
+        public readonly static bool UseResBundle = !Application.isEditor || true;
 
         /// <summary>
         /// 开发专用目录（Lua脚本和预制体，声音所在目录）
