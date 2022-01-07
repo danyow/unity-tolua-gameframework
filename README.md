@@ -171,12 +171,12 @@ end
     local coinsTrans = self.transform:Find("CoinsBar")
 
     --绑定
-    local luaCom = AddLuaComponent(coinsTrans, require("Common.CoinsBar"))
+    local luaCom = AddLuaComponent(coinsTrans, require("Common.CoinsBarCtrl"))
 
     --移除（第二参数支持传入实例化后的类也支持传入未实例化的Require对象）
     RemoveLuaComponent(coinsTrans, luaCom)
     或
-    RemoveLuaComponent(coinsTrans, require("Common.CoinsBar"))
+    RemoveLuaComponent(coinsTrans, require("Common.CoinsBarCtrl"))
 ```
 
 8.  正式生成UI，三种方式：
