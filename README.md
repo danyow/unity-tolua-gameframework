@@ -30,7 +30,7 @@
 
 2.  开发目录内创建Lua目录和Prefabs目录，建议两个文件夹名称不要修改。UI图集、模型、音效等素材可放在开发目录外。以保证开发目录干净整洁  
 
-    注册好各种事件，然后直接调用 Main.Instance.StartFramework(); 即可
+    注册好各种事件，然后直接调用 LuaMain.Instance.StartFramework() 即可
 ```
         MessageCenter.Add(MsgEnum.ABLoadingBegin, (BaseMsg msg) =>
         {
