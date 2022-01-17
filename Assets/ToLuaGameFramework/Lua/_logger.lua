@@ -1,6 +1,8 @@
---wqb
+--creatr by wuqibo
 --2020.11.26
---封装打印方法，添加打印Lua日志堆栈，表数据和协议数据自动转json
+--以json数据的形式打印对象，支持绝大多数数据类型
+
+G_IS_OPEN_LOG = true
 
 local function _pairsEx(tbl)
     local meta = getmetatable(tbl)
@@ -44,25 +46,9 @@ local function _isLuaClass(data)
     return false
 end
 
-local function _isNil(uobj)
-    if uobj then
-        return false
-    end
-    if type(uobj) == "userdata" then
-        if not uobj.Equals or uobj:Equals(nil) then
-            return true
-        end
-    end
-    return false
-end
-
-function DataToJson(data, depth)
-    if _isNil(data) then
+local function _dataToJson(data)
+    if data == nil then
         return "nil"
-    end
-    depth = depth + 1
-    if depth > 8 then
-        return tostring(data)
     end
     if _isLuaClass(data) then
         if data.__cname then
@@ -79,17 +65,26 @@ function DataToJson(data, depth)
             if type(key) == "table" then
                 key = "Key type is table"
             end
-            str = str .. '"' .. key .. '"' .. ":" .. DataToJson(value, depth)
+            str = str .. '"' .. key .. '"' .. ":" .. _dataToJson(value)
         end
         return str .. "}"
     elseif type(data) == "number" then
         return tostring(data)
     else
-        return '"' .. tostring(data) .. '"'
+        if data ~= nil and type(data) == "userdata" and (data.Equals and data:Equals(nil)) then
+            return '"nil"'
+        else
+            local valueStr = tostring(data)
+            if string.sub(valueStr, 1, 1) == "[" then
+                return valueStr
+            else
+                return '"' .. valueStr .. '"'
+            end
+        end
     end
 end
 
-local function _log(data, method, tag)
+local function _log(method, ...)
     local func = Debugger.Log
     if method == 2 then
         func = Debugger.LogWarning
@@ -97,23 +92,39 @@ local function _log(data, method, tag)
     if method == 3 then
         func = Debugger.LogError
     end
-    local depth = 1
-    local str = DataToJson(data, depth)
-    if tag then
-        func("LUA=> [" .. tag .. "]=> " .. str .. "\n" .. debug.traceback())
+    local content = ""
+    local datas = {...}
+    for key, data in pairs(datas) do
+        content = content .. " " .. _dataToJson(data)
+    end
+    if G_IS_EDITOR or method == 3 then
+        content = content .. "\n" .. debug.traceback()
+    end
+    if method == 3 then
+        func("[Error]" .. content)
     else
-        func("LUA=> " .. str .. "\n" .. debug.traceback())
+        func("[Info]" .. content)
     end
 end
 
-function Log(data, tag)
-    _log(data, 1, tag)
+function Log(...)
+    if not G_IS_OPEN_LOG then
+        return
+    end
+    _log(1, ...)
 end
 
-function LogWarning(data, tag)
-    _log(data, 2, tag)
+function LogWarning(...)
+    if not G_IS_OPEN_LOG then
+        return
+    end
+    _log(2, ...)
 end
 
-function LogError(data, tag)
-    _log(data, 3, tag)
+function LogError(...)
+    if G_IS_EDITOR then
+        _log(3, ...)
+    else
+        _log(1, ...)
+    end
 end
