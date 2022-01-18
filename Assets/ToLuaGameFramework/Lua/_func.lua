@@ -194,3 +194,11 @@ end
 function EnumToInt(enum)
     return LUtils.EnumToInt(enum)
 end
+
+--返回两个值之间的随机数
+local seed = os.time()
+function Random(min, max)
+	seed = seed + 1
+	math.randomseed(tostring(seed))
+	return math.random(min, max)
+end
