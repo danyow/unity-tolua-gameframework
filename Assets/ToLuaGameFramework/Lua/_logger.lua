@@ -46,6 +46,21 @@ local function _isLuaClass(data)
     return false
 end
 
+local function _isArr(data)
+    if type(data) == "table" then
+        local count = 0
+        for key, value in pairs(data) do
+            if value then
+                count = count + 1
+            end
+        end
+        if #data == count then
+            return true
+        end
+    end
+    return false
+end
+
 local function _dataToJson(data)
     if data == nil then
         return "nil"
@@ -57,17 +72,28 @@ local function _dataToJson(data)
         return tostring(data)
     end
     if type(data) == "table" or _isMetatable(data) then
-        local str = "{"
-        for key, value in _pairsEx(data) do
-            if str ~= "{" then
-                str = str .. ","
+        if _isArr(data) then
+            local str = "["
+            for key, value in _pairsEx(data) do
+                if str ~= "[" then
+                    str = str .. ","
+                end
+                str = str .. _dataToJson(value)
             end
-            if type(key) == "table" then
-                key = "Key type is table"
+            return str .. "]"
+        else
+            local str = "{"
+            for key, value in _pairsEx(data) do
+                if str ~= "{" then
+                    str = str .. ","
+                end
+                if type(key) == "table" then
+                    key = "Key type is table"
+                end
+                str = str .. '"' .. key .. '"' .. ":" .. _dataToJson(value)
             end
-            str = str .. '"' .. key .. '"' .. ":" .. _dataToJson(value)
+            return str .. "}"
         end
-        return str .. "}"
     elseif type(data) == "number" then
         return tostring(data)
     else
@@ -84,13 +110,13 @@ local function _dataToJson(data)
     end
 end
 
-local function _log(method, ...)
-    local func = Debugger.Log
+local function _log(prefix, method, ...)
+    local func = Debuger.Log
     if method == 2 then
-        func = Debugger.LogWarning
+        func = Debuger.LogWarning
     end
     if method == 3 then
-        func = Debugger.LogError
+        func = Debuger.LogError
     end
     local content = ""
     local datas = {...}
@@ -101,30 +127,56 @@ local function _log(method, ...)
         content = content .. "\n" .. debug.traceback()
     end
     if method == 3 then
-        func("[Error]" .. content)
+        func(prefix .. "[Error]" .. content)
     else
-        func("[Info]" .. content)
+        func(prefix .. "[Info]" .. content)
     end
 end
 
-function Log(...)
+--公用（自带专用前缀用于过滤）===================================
+function L(...)
     if not G_IS_OPEN_LOG then
         return
     end
-    _log(1, ...)
+    _log("", 1, ...)
 end
 
-function LogWarning(...)
+function LWarning(...)
     if not G_IS_OPEN_LOG then
         return
     end
-    _log(2, ...)
+    _log("", 2, ...)
 end
 
-function LogError(...)
+function LError(...)
     if G_IS_EDITOR then
-        _log(3, ...)
+        _log("", 3, ...)
     else
-        _log(1, ...)
+        _log("", 1, ...)
     end
 end
+--=============================================================================
+
+--我（wuqibo）的专用（自带专用前缀用于过滤）===================================
+function B(...)
+    if not G_IS_OPEN_LOG then
+        return
+    end
+    _log("B", 1, ...)
+end
+
+function BWarning(...)
+    if not G_IS_OPEN_LOG then
+        return
+    end
+    _log("B", 2, ...)
+end
+
+function BError(...)
+    if G_IS_EDITOR then
+        _log("B", 3, ...)
+    else
+        _log("B", 1, ...)
+    end
+end
+--=============================================================================
