@@ -19,7 +19,7 @@ end
 local function _isMetatable(data)
     local meta = getmetatable(data)
     if meta then
-        for key, value in pairs(meta) do
+        for key, value in _pairsEx(meta) do
             if key == "__pairs" then
                 return true
             end
@@ -30,12 +30,12 @@ end
 
 local function _isLuaClass(data)
     if type(data) == "table" then
-        for key, value in pairs(data) do
+        for key, value in _pairsEx(data) do
             if type(value) == "function" then
                 return true
             end
             if type(value) == "table" then
-                for k, v in pairs(value) do
+                for k, v in _pairsEx(value) do
                     if type(v) == "function" then
                         return true
                     end
@@ -47,14 +47,18 @@ local function _isLuaClass(data)
 end
 
 local function _isArr(data)
-    if type(data) == "table" then
+    if data and type(data) == "table" then
         local count = 0
-        for key, value in pairs(data) do
+        local allKeyIsNumber = true
+        for key, value in _pairsEx(data) do
+            if type(key) ~= "number" then
+                allKeyIsNumber = false
+            end
             if value then
                 count = count + 1
             end
         end
-        if #data == count then
+        if allKeyIsNumber and count == #data then
             return true
         end
     end
@@ -113,16 +117,16 @@ local function _dataToJson(data)
 end
 
 local function _log(prefix, method, ...)
-    local func = Debuger.Log
+    local func = DSCore.Utility.Log
     if method == 2 then
-        func = Debuger.LogWarning
+        func = DSCore.Utility.LogWarning
     end
     if method == 3 then
-        func = Debuger.LogError
+        func = DSCore.Utility.LogError
     end
     local content = ""
     local params = {...}
-    for key, data in pairs(params) do
+    for key, data in _pairsEx(params) do
         content = content .. " " .. _dataToJson(data)
     end
     if G_IS_EDITOR or method == 3 then
