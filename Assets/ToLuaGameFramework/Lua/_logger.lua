@@ -68,8 +68,10 @@ local function _dataToJson(data)
     if _isLuaClass(data) then
         if data.__cname then
             return "class(" .. data.__cname .. ")"
+        elseif data.__type_name then
+            return "class(" .. data.__type_name .. ")"
         end
-        return tostring(data)
+        return "class(?)"
     end
     if type(data) == "table" or _isMetatable(data) then
         if _isArr(data) then
