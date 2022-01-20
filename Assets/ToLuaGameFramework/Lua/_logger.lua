@@ -119,8 +119,8 @@ local function _log(prefix, method, ...)
         func = Debuger.LogError
     end
     local content = ""
-    local datas = {...}
-    for key, data in pairs(datas) do
+    local params = {...}
+    for key, data in pairs(params) do
         content = content .. " " .. _dataToJson(data)
     end
     if G_IS_EDITOR or method == 3 then
