@@ -65,7 +65,7 @@ local function _isArr(data)
     return false
 end
 
-local function _dataToJson(data)
+local function _tableToJson(data)
     if data == nil then
         return "nil"
     end
@@ -79,7 +79,7 @@ local function _dataToJson(data)
                 if str ~= "[" then
                     str = str .. ","
                 end
-                str = str .. _dataToJson(value)
+                str = str .. _tableToJson(value)
             end
             return str .. "]"
         else
@@ -91,7 +91,7 @@ local function _dataToJson(data)
                 if type(key) == "table" then
                     key = "Key type is table"
                 end
-                str = str .. '"' .. key .. '"' .. ":" .. _dataToJson(value)
+                str = str .. '"' .. key .. '"' .. ":" .. _tableToJson(value)
             end
             return str .. "}"
         end
@@ -122,7 +122,7 @@ local function _log(prefix, method, ...)
     local content = ""
     local params = {...}
     for key, data in _pairsEx(params) do
-        content = content .. " " .. _dataToJson(data)
+        content = content .. " " .. _tableToJson(data)
     end
     if G_IS_EDITOR or method == 3 then
         content = content .. "\n" .. debug.traceback()
@@ -132,6 +132,10 @@ local function _log(prefix, method, ...)
     else
         func(prefix .. "[Info]" .. content)
     end
+end
+
+function TableToJson(table)
+    return _tableToJson(table)
 end
 
 --公用（自带专用前缀用于过滤）===================================
