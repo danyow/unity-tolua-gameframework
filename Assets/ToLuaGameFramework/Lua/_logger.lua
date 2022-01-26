@@ -70,7 +70,7 @@ local function _tableToJson(data)
         return "nil"
     end
     if _isLuaClass(data) then
-        return "class("..tostring(data)..")"
+        return "("..tostring(data)..")"
     end
     if type(data) == "table" or _isMetatable(data) then
         if _isArr(data) then
